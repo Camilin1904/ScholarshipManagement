@@ -15,12 +15,14 @@
                     <a href = "/">Home</a>
                 </li>
                 <li>
-                    <a href = "/tasks">Tasks</a>
+                    <a href = "/scholarships">Scholarships</a>
                 </li>
                 {% if user.is_authenticated %}
                 <li>
                     <a href = "/logout">Logout</a>
                 </li>
+                <li>
+                    <a href = "/scholarships/create/">Create Scholarship</a>
                 {% else %}
                 <li>
                     <a href = "/signup">SignUp</a>
