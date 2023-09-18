@@ -20,10 +20,11 @@ from ScholarshipModule import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name = 'home'),
-    path('signup/', views.signUp, name = 'signup'),
-    path('scholarships/', views.scholarships, name = 'scholarships'),
-    path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
-    path('logout/', views.signout, name = 'logout'),
-    path('login/', views.signin, name = 'login')
+    path('', views.home, name='home'),
+    path('signup/', views.signUp, name='signup'),
+    path('scholarships/', views.scholarships, name='scholarships'),
+    path('scholarships/create/', views.createScholarships,
+         name='createScholarships'),
+    path('logout/', views.signout, name='logout'),
+    path('login/', views.signin, name='login')
 ]
