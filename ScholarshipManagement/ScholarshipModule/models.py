@@ -17,4 +17,4 @@ class Announcements(models.Model):
     id = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
     studentId=models.IntegerField(blank=False)
-    sholarshipId=models.IntegerField(blank=False)
+    scholarshipId=models.IntegerField(blank=False)

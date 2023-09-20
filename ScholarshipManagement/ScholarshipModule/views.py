@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .forms import CreateScholarshipForm
+from .forms import CreateScholarshipForm, CreateAnnouncementForm
 from .models import Scholarships
 
 # Create your views here.
@@ -87,3 +87,21 @@ def signin(request):
         else:
             login(request, user)
             return redirect('tasks')
+        
+        
+def createAnnouncement(request):
+
+    if request.method == 'GET':
+        return render(request, 'createAnnouncement.html', {
+            'form': CreateAnnouncementForm
+        })
+    else:
+        try:
+            form = CreateAnnouncementForm(request.POST)
+            form.save()
+            return redirect('home')
+        except:
+            return render(request, 'createAnnouncement.html', {
+                'form': CreateAnnouncementForm,
+                'error': 'Please provide valid data'
+            })

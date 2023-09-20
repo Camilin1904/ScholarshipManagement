@@ -26,5 +26,6 @@ urlpatterns = [
     path('scholarships/create/', views.createScholarships,
          name='createScholarships'),
     path('logout/', views.signout, name='logout'),
-    path('login/', views.signin, name='login')
+    path('login/', views.signin, name='login'),
+    path('announcement/create/', views.createAnnouncement, name='createAnnouncement')
 ]
