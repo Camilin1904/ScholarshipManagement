@@ -1,0 +1,93 @@
+*{
+    margin: 0px;
+    top: 0px;
+    box-sizing: border-box;
+    font-family: Noto music;
+}
+
+body{
+    background-color: #F4F6FA;
+}
+
+.header{
+    background-color: #0464AC;
+    height: 15%;
+    width: 100%;
+    position: fixed;
+    color: #FFFFFF;
+    -webkit-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    align-items: center;
+    justify-content: center;
+
+}
+
+#icesi{
+    vertical-align: middle;
+    max-width: 15%;
+    margin-top: 1.5%;
+    margin-right: 8%;
+    float: right;
+}
+  
+.text {
+    margin-left: 8%;
+    float: left;
+    margin-top: 1%;
+    font-size: 20px;
+}
+
+.content{
+    margin-top: 11%;
+    margin-left: 10%;
+    padding: 1%;
+    height: 75%;
+    width: 80%;
+    background-color: #FFFFFF;
+    position: fixed;
+    -webkit-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    /*Orientación del texto*/
+    text-align: center;
+}
+
+.welcome{
+    margin-top: 5%;
+    height: 1.5cm;
+    width: 50%;
+    color: #F3F3F3;
+    background-color: #0464AC;
+    /*Orientación del texto*/
+    vertical-align: middle;
+    text-align: center;
+}
+
+.input{
+    width: 30%;
+    border: 3px solid #DFDFDF;
+    border-radius: 4px;
+}
+
+.button{
+    margin-top: 4%;
+    height: 1cm;
+    width: 20%;
+    color: #084A7B;
+    background-color: #F3F3F3;
+    /*Orientación del texto*/
+    vertical-align: middle;
+    text-align: center;
+    transition-duration: 0.4s;
+}
+
+.button:hover{
+    color: #F3F3F3;
+    background-color: #0464AC;
+}
+
+.error{
+    color: #ff0000;
+    font-weight: bold;
+}

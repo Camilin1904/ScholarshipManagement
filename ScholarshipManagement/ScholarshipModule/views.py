@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .forms import CreateScholarshipForm
-from .models import Scholarships
+from .forms import *
+from .models import *
 
 # Create your views here.
 
@@ -13,32 +12,32 @@ from .models import Scholarships
 def signUp(request):
 
     if request.method == 'GET':
-        return render(request, 'signup.html', {
-            'form': UserCreationForm
+        return render(request, './HTML/Signin.html', {
+            'form': CreateNewUser
         })
     else:
+
         if request.POST['password1'] == request.POST['password2']:
             # Register user :)
+            
             try:
-                user = User.objects.create_user(username=request.POST['username'],
+                user = User.objects.create(id=request.POST['id'],
                                                 password=request.POST['password1'])
                 user.save()
-                login(request, user)
-                return redirect('tasks')
+                return redirect('home')
             except IntegrityError:
-                return render(request, 'signup.html', {
-                    'form': UserCreationForm,
-                    'error': 'Username already exists'
+                return render(request, './HTML/Signin.html', {
+                    'form': CreateNewUser,
+                    'error': 'El usuario ya existe en la base de datos'
                 })
-
-        return render(request, 'signup.html', {
-            'form': UserCreationForm,
-            'error': 'The passwords do not match'
+        
+        return render(request, './HTML/Signin.html', {
+            'form': CreateNewUser,
+            'error': 'Lo sentimos pero las contraseñas no coinciden'
         })
 
-
 def home(request):
-    return render(request, 'home.html')
+    return render(request, './HTML/HomePage.html')
 
 
 def scholarships(request):
@@ -72,18 +71,21 @@ def signout(request):
 def signin(request):
 
     if request.method == 'GET':
-        return render(request, 'login.html', {
-            'form': AuthenticationForm
+        return render(request, './HTML/LoginPage.html', {
+            'form': Login
         })
     else:
-        user = authenticate(
-            request, username=request.POST['username'], password=request.POST['password'])
+        user = User.objects.get(id=request.POST['id'])
 
         if user == None:
-            return render(request, 'login.html', {
-                'form': AuthenticationForm,
-                'error': 'Username or password is incorrect'
+            return render(request, './HTML/LoginPage.html', {
+                'form': Login,
+                'error': 'El usuario no existe'
+            })
+        elif request.POST['password1']!=user.password:
+            return render(request, './HTML/LoginPage.html', {
+                'form': Login,
+                'error': 'La contraseña es incorrecta'
             })
         else:
-            login(request, user)
-            return redirect('tasks')
+            return redirect('home')
