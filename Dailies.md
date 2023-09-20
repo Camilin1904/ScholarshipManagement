@@ -21,3 +21,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar    | I set up the project environment and created the branch on which I will work on user story 4   | I will start the development of user story 4 by creating a base view in HTML for the creation of announcements and an initial table model for the data that will be stored in the database   | No |
+| Camilo Carmona Valencia | I set up one of the branches I will be using | I will start development in US1 by setting up the data base table for scholarships | No |
