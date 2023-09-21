@@ -36,3 +36,10 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Camilo Carmona Valencia | I created the table for donors in the data base | I will link scholarships with donors and develop the new creation process | No |
 | Brayan Steven Ortega | I created the table for applicants and start the base view in HTML for the creation/adition of a applicant | I will continue creating the base view and i will link it with the home page  | No |
 | Juan Sebastián Libreros | I did some research to create the base view in HTML of the change of satet of the applicants. I couldn't do much because I got sick and due to tomorrow's exam | I will start creatin a template for the base view of the applicants management| No |
+
+
+## 21/09/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar |  I made the "announcement creation" view visible on the page and included the link in the base view  | I will extend the information requested in the form displayed in the "announcement creation" view | No |
