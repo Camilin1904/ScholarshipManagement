@@ -32,3 +32,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar    | I created the base template of the "announcement creation" view and the base form that will be used in this view   | I will include the "announcement creation" view in the page and link it in the header | No |
+| Andrés Camilo Romero | I set up the HTML, CSS and python code for login and signin functionalities | I will look if cookies are needed for the logout and mantaining a state in the app or if I need some sort of new table in the data base, probably I will ask Domi about this next monday because of exams| No
