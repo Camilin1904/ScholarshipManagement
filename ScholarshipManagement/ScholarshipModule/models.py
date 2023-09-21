@@ -12,3 +12,8 @@ class Scholarships(models.Model):
     coverage = models.FloatField(blank=False)
     type = models.IntegerField(blank=False)
     requirements = models.TextField(blank=True)
+
+class Donors(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    ID = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
