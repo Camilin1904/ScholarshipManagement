@@ -35,7 +35,7 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Andrés Camilo Romero | I set up the HTML, CSS and python code for login and signin functionalities | I will look if cookies are needed for the logout and mantaining a state in the app or if I need some sort of new table in the data base, probably I will ask Domi about this next monday because of exams| No |
 | Camilo Carmona Valencia | I created the table for donors in the data base | I will link scholarships with donors and develop the new creation process | No |
 | Brayan Steven Ortega | I created the table for applicants and start the base view in HTML for the creation/adition of a applicant | I will continue creating the base view and i will link it with the home page  | No |
-| Juan Sebastián Libreros | I did some research to create the base view in HTML of the change of satet of the applicants. I couldn't do much because I got sick and due to tomorrow's exam | I will start creatin a template for the base view of the applicants management| No |
+| Juan Sebastián Libreros | I did some research to create the base view in HTML of the change of satet of the applicants. I couldn't do much because I got sick and due to tomorrow's exam | I will start creating a template for the base view of the applicants management| No |
 
 
 ## 21/09/2023
@@ -45,3 +45,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Juan Camilo Salazar |  I made the "announcement creation" view visible on the page and included the link in the base view  | I will extend the information requested in the form displayed in the "announcement creation" view | No |
 | Camilo Carmona Valencia | I was unable to link the tables because of my academic situation | I will link the tables | Partial exams |
 | Andrés Camilo Romero | I discover that probably it would be better if I use the integrated parts of django since it contains methods to authenticate the users and group them based on the permissions they have | I will keep on searching on how to use them with my own user class or if it's needed to inherit them from the user class that django offers | Python documentation is kind of confusing compare to java so I will try and search in other sites about it. And also exams |
+| Juan Sebastián Libreros | unfortunately my disease got worse and I wasn't able to work properly, even though I solved a git problem and understood more about how the python django framework works for making the modify function of my User Story. Also I pushed my branch into the repository | I will do my best to create the and advance on my duty of making the function of modify state | I'm sick, but it's a minor issue|
