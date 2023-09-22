@@ -44,3 +44,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 |----------|----------|----------|----------|
 | Juan Camilo Salazar |  I made the "announcement creation" view visible on the page and included the link in the base view  | I will extend the information requested in the form displayed in the "announcement creation" view | No |
 | Camilo Carmona Valencia | I was unable to link the tables because of my academic situation | I will link the tables | Partial exams |
+| Andrés Camilo Romero | I discover that probably it would be better if I use the integrated parts of django since it contains methods to authenticate the users and group them based on the permissions they have | I will keep on searching on how to use them with my own user class or if it's needed to inherit them from the user class that django offers | Python documentation is kind of confusing compare to java so I will try and search in other sites about it. And also exams |
