@@ -43,3 +43,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar |  I made the "announcement creation" view visible on the page and included the link in the base view  | I will extend the information requested in the form displayed in the "announcement creation" view | No |
+| Camilo Carmona Valencia | I was unable to link the tables because of my academic situation | I will link the tables | Partial exams |
