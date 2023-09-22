@@ -18,3 +18,11 @@ class Announcements(models.Model):
         primary_key=True, auto_created=True, serialize=True, unique=True)
     studentId=models.IntegerField(blank=False)
     scholarshipId=models.IntegerField(blank=False)
+
+    
+
+class AnnouncementType(models.Model):
+    id = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
+    ScholarshipAnnouncementId = models.ForeignKey(Announcements, related_name="AnnouncementId", blank=False, null=False, on_delete=models.CASCADE)
+    type = models.TextField(blank=False)
