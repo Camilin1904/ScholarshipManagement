@@ -47,3 +47,10 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Andrés Camilo Romero | I discover that probably it would be better if I use the integrated parts of django since it contains methods to authenticate the users and group them based on the permissions they have | I will keep on searching on how to use them with my own user class or if it's needed to inherit them from the user class that django offers | Python documentation is kind of confusing compare to java so I will try and search in other sites about it. And also exams |
 | Juan Sebastián Libreros | unfortunately my disease got worse and I wasn't able to work properly, even though I solved a git problem and understood more about how the python django framework works for making the modify function of my User Story. Also I pushed my branch into the repository | I will do my best to create the and advance on my duty of making the function of modify state | I'm sick, but it's a minor issue|
 | Brayan Steven Ortega | I was unable to continue creating the base view | I will link the base view of the creation/addition of an applicant with the home page | Partial exams |
+
+
+## 22/09/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I created a new table for the database linked to the announcement table and investigated about the Django databases | I will continue to investigate about the databases in Django | I have to learn more about Django databases before I continue with "US4" |
