@@ -55,3 +55,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I created a new table for the database linked to the announcement table and investigated about the Django databases | I will continue to investigate about the databases in Django | I have to learn more about Django databases before I continue with "US4" |
 | Andrés Camilo Romero Ruiz | I found a two hour video that explains how to use django authentication and user management | I'm looking to see the video so I can improve the login functionality and make the logout | My laptop charger is dying and a new one comes on monday so let's hope the best |
+| Camilo Carmona Valencia | I added the relationship between table Scholarship and table donors, errors unfixed | I will delete the values previously present on the table scholarships to make migrations and test the link | No |
