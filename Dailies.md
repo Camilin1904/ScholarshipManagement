@@ -54,3 +54,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I created a new table for the database linked to the announcement table and investigated about the Django databases | I will continue to investigate about the databases in Django | I have to learn more about Django databases before I continue with "US4" |
+| Andrés Camilo Romero Ruiz | I found a two hour video that explains how to use django authentication and user management | I'm looking to see the video so I can improve the login functionality and make the logout | My laptop charger is dying and a new one comes on monday so let's hope the best |
