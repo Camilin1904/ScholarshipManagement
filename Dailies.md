@@ -57,3 +57,9 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Andrés Camilo Romero Ruiz | I found a two hour video that explains how to use django authentication and user management | I'm looking to see the video so I can improve the login functionality and make the logout | My laptop charger is dying and a new one comes on monday so let's hope the best |
 | Camilo Carmona Valencia | I added the relationship between table Scholarship and table donors, errors unfixed | I will delete the values previously present on the table scholarships to make migrations and test the link | No |
 | Brayan Steven Ortega | I fixed some variables for the table of the database and link the base view of creation/addition of an applicant with the base page | I will investigate about HTML and how improve the implementation and the relation between the code with the HTML | I need to learn more about HTML |
+| Juan Sebastián Libreros | I created the module for the applicant management function, also fixed my venv and started to link the main app with my module | I will link the app and start with a simple function to test the functionality before a base view | No, I got better |
+
+## 23/09/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
