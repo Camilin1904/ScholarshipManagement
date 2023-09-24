@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.base_user import AbstractBaseUser
+from django.contrib.auth.models import UserManager
 
 # Create your models here.
 
@@ -14,14 +16,11 @@ class Scholarships(models.Model):
     type = models.IntegerField(blank=False)
     requirements = models.TextField(blank=True)
 
-class User(models.Model):
-    id = models.CharField(max_length=30, primary_key=True, null=False, unique=True)
-    password = models.CharField(max_length=20, null=False)
-    name = models.CharField(max_length=20)
-    last_Name = models.CharField(max_length=20)
-    email = models.CharField(max_length=40)
-    phone = models.CharField(max_length=40)
-
+#Inheritance from an abstract class
+class User(AbstractBaseUser):
+    #It truly is the email, but I'll save it as username for now
+    username = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=30)
     class Role(models.IntegerChoices):
         ADMIN = 0, _('Administrador')
         FINANCIAL = 1, _('Asistente de apoyo financiero')
@@ -29,3 +28,9 @@ class User(models.Model):
         NONE = 3, _('Ningun rol')
 
     role = models.IntegerField(default=Role.NONE, choices=Role.choices)
+    #Django needs me to tell him the new name of the user name fiel for the class
+    USERNAME_FIELD = 'username'
+    #To avoid errors
+    REQUIRED_FIELDS = []
+    #It is a Django class that acts as a bridge between database queries and Django models
+    objects = UserManager()
