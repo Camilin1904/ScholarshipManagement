@@ -7,6 +7,8 @@ from django.contrib.auth.models import UserManager
 
 
 class Scholarships(models.Model):
+
+
     name = models.CharField(max_length=100, blank=False)
     ID = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
@@ -16,8 +18,11 @@ class Scholarships(models.Model):
     type = models.IntegerField(blank=False)
     requirements = models.TextField(blank=True)
 
+
 #Inheritance from an abstract class
 class User(AbstractBaseUser):
+
+    
     #It truly is the email, but I'll save it as username for now
     username = models.CharField(max_length=50, unique=True)
     name = models.CharField(max_length=30)
