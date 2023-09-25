@@ -34,8 +34,9 @@ def signUp(request):
         request, './HTML/Signin.html', {'form': form})
 
 def signOut(request):
-
-    return
+    
+    logout(request)
+    return redirect('/')
 
 def signIn(request):
 
