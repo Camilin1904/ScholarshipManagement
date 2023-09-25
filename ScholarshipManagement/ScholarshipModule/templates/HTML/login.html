@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="{% static 'CSS/login.css' %}">
+        <title>
+            Login
+        </title>
+    </head>
+
+        <div class="header">
+            <div class="text">
+                <h1>Bienvenido a ICESI</h1>
+            </div>
+            <img src="{% static './Icons/icesi.png' %}" id="icesi" >
+        </div>
+
+    <body>
+
+        <div class="content">
+            <button class="welcome">
+                <h1>INICIO DE SESIÓN</h1>
+            </button>
+            <br>
+            <br>
+            <br>
+            <form method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+                {% endfor %}
+                </p>
+                <button id="login" class="button">
+                    <h3>
+                        Ingresar
+                    </h3>
+                </button>
+            </form>
+
+            <button id="signin" class="button" onclick="history.back()">
+                <h3>
+                    Registrarse
+                </h3>
+            </button>
+            <br>
+            <br>
+            <div class="error">
+                {{error}}
+            </div>
+        </div>
+       
+    </body>
+</html>
