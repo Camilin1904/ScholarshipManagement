@@ -71,7 +71,7 @@ body{
 }
 
 .button{
-    margin-top: 4%;
+    margin-top: 3%;
     height: 1cm;
     width: 20%;
     color: #084A7B;
@@ -85,4 +85,9 @@ body{
 .button:hover{
     color: #F3F3F3;
     background-color: #0464AC;
+}
+
+.error{
+    color: #ff0000;
+    font-weight: bold;
 }
