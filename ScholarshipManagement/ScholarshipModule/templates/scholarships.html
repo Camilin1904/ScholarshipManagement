@@ -4,6 +4,10 @@
 <h1>Scholarships</h1>
 
 <ul>
+    {% if user.is_authenticated %}
+    <a href="/scholarships/create/"><button> Create Program </button></a>
+    {% endif %}
+    
     {% for Scholarship in scholarships %}
         <li>
             <h2>Name: {{Scholarship.name}}</h2>

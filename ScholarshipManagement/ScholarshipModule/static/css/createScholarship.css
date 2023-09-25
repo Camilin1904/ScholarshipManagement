@@ -1,0 +1,12 @@
+@import url('base.css');
+
+
+#head::before{
+    content: "Create Scholarship";
+    float: center;
+}
+
+#create{
+    margin-top: 5%;
+    float: center;
+}

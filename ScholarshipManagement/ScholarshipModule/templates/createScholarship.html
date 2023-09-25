@@ -1,9 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
+
+    <head>
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
+    </head>
     <h1>Create Scholarship</h1>
     {{error}}
-    <form action="/scholarships/create/" method = "POST">
+    <form id= "create" action="/scholarships/create/" method = "POST">
         {% csrf_token %}
 
         {{form.as_p}}
