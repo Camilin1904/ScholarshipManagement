@@ -8,13 +8,18 @@
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
         <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
     </head>
-    <h1>Create Scholarship</h1>
-    {{error}}
-    <form id= "create" action="/scholarships/create/" method = "POST">
-        {% csrf_token %}
-
-        {{form.as_p}}
-
-        <button>Save</button>
-    </form>
-{% endblock content %}
+    <div class = "content">
+        {{error}}
+        <form id= "create" action="/scholarships/create/" method = "POST">
+            {% csrf_token %}
+            {% for field in form %}
+            <div id="id_{{forloop.counter}}">
+                <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <button id = "save">Save</button>
+        </form>
+    </div>
+{% endblock content %} 

@@ -20,8 +20,9 @@ def signUp(request):
         if request.POST['password1'] == request.POST['password2']:
             # Register user :)
             try:
-                user = User.objects.create_user(username=request.POST['username'],
-                                                password=request.POST['password1'])
+                user = User.objects.create_user(
+                    username=request.POST['username'],
+                    password=request.POST['password1'])
                 user.save()
                 login(request, user)
                 return redirect('scholarships')
@@ -43,7 +44,8 @@ def home(request):
 
 def scholarships(request):
     scholarships = Scholarships.objects.all()
-    return render(request, 'scholarships.html', {'scholarships': scholarships})
+    return render(request, 'scholarships.html', 
+                  {'scholarships': scholarships})
 
 
 def createScholarships(request):
@@ -54,7 +56,8 @@ def createScholarships(request):
         })
     else:
         try:
-            form = CreateScholarshipForm(request.POST)
+            form = CreateScholarshipForm(
+                    request.POST)
             form.save()
             return redirect('scholarships')
         except:
@@ -77,7 +80,8 @@ def signin(request):
         })
     else:
         user = authenticate(
-            request, username=request.POST['username'], password=request.POST['password'])
+            request, username=request.POST['username'], 
+            password=request.POST['password'])
 
         if user == None:
             return render(request, 'login.html', {
