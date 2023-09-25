@@ -43,3 +43,4 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = []
     #It is a Django class that acts as a bridge between database queries and Django models
     objects = UserManager()
+
