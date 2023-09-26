@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -16,13 +17,49 @@ class Scholarships(models.Model):
 class Announcements(models.Model):
     id = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
-    studentId=models.IntegerField(blank=False)
-    scholarshipId=models.IntegerField(blank=False)
 
-    
+    class Type(models.IntegerChoices):
+        OPEN =0, _('Abierta')
+        CLOSED=1, _('Cerreada')
+        MIXED=2, _('Mixta')
 
-class AnnouncementType(models.Model):
+    type = models.IntegerField(default=Type.CLOSED, choices=Type.choices)
+
+
+class Students(models.Model):
     id = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
-    ScholarshipAnnouncementId = models.ForeignKey(Announcements, related_name="AnnouncementId", blank=False, null=False, on_delete=models.CASCADE)
-    type = models.TextField(blank=False)
+
+
+class ScholarshipAnnouncements(models.Model):
+    id = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
+    scholarshipId= models.ForeignKey(Scholarships, related_name="ScholarshipId1", blank=False, null=False, on_delete=models.CASCADE)
+    announcementId= models.ForeignKey(Announcements, related_name="AnnouncementId1", blank=False, null=False, on_delete=models.CASCADE)
+
+class AnnouncementsStudents(models.Model):
+    id = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
+    studentId= models.ForeignKey(Students, related_name="StudentId2", blank=False, null=False, on_delete=models.CASCADE)
+    announcementId= models.ForeignKey(Announcements, related_name="AnnouncementId2", blank=False, null=False, on_delete=models.CASCADE)
+
+class AnnouncementEvent(models.Model):
+    id = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
+    AnnouncementId = models.ForeignKey(Announcements, related_name="AnnouncementId3", blank=False, null=False, on_delete=models.CASCADE)
+    startingDate = models.DateField(blank=False)
+    endDate = models.DateField(blank=False)
+
+    class EventType(models.IntegerChoices):
+        INSCRIPTIONS =0, _('Inscripciones')
+        SELECTIONS=1, _('Seleccion')
+        INTERVIEWS=2, _('Entrevistas')
+        PUBLICATION=3, _('Publicacion')
+
+    type = models.IntegerField(default=EventType.INSCRIPTIONS, choices=EventType.choices)
+    
+ 
+
+
+
+   
