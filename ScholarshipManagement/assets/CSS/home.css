@@ -38,14 +38,38 @@ body{
     font-size: 20px;
 }
 
+#menu {
+    /*
+    Al ser una lista el none evita que aparezca un símbolo al comienzo del elemento, como podría ser un *
+    */
+    list-style-type: none;
+    margin-top: 8%;
+    padding: 0;
+    width: fit-content;
+    background-color: #FFFFFF;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+    box-shadow: 10px, 10px, black;
+    -webkit-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+}
+  
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
 .content{
     margin-top: 11%;
-    margin-left: 10%;
+    margin-left: 12%;
     padding: 1%;
     height: 75%;
     width: 80%;
     background-color: #FFFFFF;
-    position: fixed;
     -webkit-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
@@ -53,8 +77,8 @@ body{
     text-align: center;
 }
 
-.welcome{
-    margin-top: 5%;
+#welcome{
+    margin-top: 1%;
     height: 1.5cm;
     width: 50%;
     color: #F3F3F3;
@@ -64,16 +88,10 @@ body{
     text-align: center;
 }
 
-.input{
-    width: 30%;
-    border: 3px solid #DFDFDF;
-    border-radius: 4px;
-}
-
-.button{
-    margin-top: 4%;
-    height: 1cm;
-    width: 20%;
+.buttons{
+    margin-top: 2.5%;
+    height: 2cm;
+    width: 60%;
     color: #084A7B;
     background-color: #F3F3F3;
     /*Orientación del texto*/
@@ -82,7 +100,7 @@ body{
     transition-duration: 0.4s;
 }
 
-.button:hover{
+.buttons:hover{
     color: #F3F3F3;
     background-color: #0464AC;
 }

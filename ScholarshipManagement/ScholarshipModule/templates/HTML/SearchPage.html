@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="{% static 'CSS/search.css' %}">
+        <title>
+            Home
+        </title>
+    </head>
+
+        <div class="header">
+            <div class="text">
+                <h1>Página Principal</h1>
+            </div>
+            <img src="{% static './Icons/icesi.png' %}" id="icesi" >
+        </div>
+
+    <body>
+
+        <ul id="menu">
+            <li id="options"><a class="active" href="#home">
+                <img src="{% static './Icons/home50x50.png' %}">
+            </a></li>
+            <li id="options"><a href="#news">
+                <img src="{% static './Icons/search50x50.png' %}">
+            </a></li>
+            <li id="options"><a href="#contact">
+                <img src="{% static './Icons/share50x50.png' %}">
+            </a></li>
+            <li id="options"><a href="#about">
+                <img src="{% static './Icons/exit50x50.png' %}">
+            </a></li>
+        </ul>
+
+        <div id="filter">
+            <h2>Filtros</h2>
+            <form method="POST">
+                {{form}}
+                <button class="button">
+                    <h3>
+                        Aplicar
+                    </h3>
+                </button>
+            </form>
+        </div>
+        
+        <div class="content">
+            <p>
+            </p>
+ 
+        </div>
+
+    </body>
+</html>

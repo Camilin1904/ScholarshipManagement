@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="{% static 'CSS/home.css' %}">
+        <title>
+            Home
+        </title>
+    </head>
+
+        <div class="header">
+            <div class="text">
+                <h1>Página Principal</h1>
+            </div>
+            <img src="{% static './Icons/icesi.png' %}" id="icesi" >
+        </div>
+
+    <body>
+
+        <ul id="menu">
+            <li id="options"><a class="active" href="#home">
+                <img src="{% static './Icons/home50x50.png' %}">
+            </a></li>
+            <li id="options"><a href="#news">
+                <img src="{% static './Icons/search50x50.png' %}">
+            </a></li>
+            <li id="options"><a href="#contact">
+                <img src="{% static './Icons/share50x50.png' %}">
+            </a></li>
+            <li id="options"><a href="/logout">
+                <img src="{% static './Icons/exit50x50.png' %}">
+            </a></li>
+        </ul>
+        
+        <div class="content">
+
+            <div>
+
+                <button id="welcome" class="buttons">
+                    <h2>
+                        Bienvenido {{user.name}}
+                    </h2>
+                </button>
+
+                <button id="scholarship" class="buttons">
+                    <h2>
+                        GESTIÓN DE BECAS
+                    </h2>
+                    <p>
+                        Registre, edite y consulte programas de becas
+                    </p>
+                </button>
+
+
+                <button id="announcement" class="buttons">
+                    <a href="/announcement" style="color: inherit;text-decoration: none">
+                        <h2>
+                            GESTIÓN DE CONVOCATORIAS
+                        </h2>
+                        <p>
+                            Registre, edite, consulte y elimine cronogramas
+                        </p>
+                    </a>
+                </button>
+
+                <button id="roles" class="buttons">
+                    <h2>
+                        GESTIÓN DE ROLES
+                    </h2>
+                    <p>
+                        Asigne y actualice roles a los usuarios existentes en Banner
+                    </p>
+                </button>
+
+                <button id="report" class="buttons">
+                    <h2>
+                        GESTIÓN DE INFORMES
+                    </h2>
+                    <p>
+                        Genere y envie reportes
+                    </p>
+                </button>
+
+            </div> 
+
+        </div>
+
+        
+
+    </body>
+</html>
