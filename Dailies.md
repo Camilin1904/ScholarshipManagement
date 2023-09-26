@@ -59,7 +59,8 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Brayan Steven Ortega | I fixed some variables for the table of the database and link the base view of creation/addition of an applicant with the base page | I will investigate about HTML and how improve the implementation and the relation between the code with the HTML | I need to learn more about HTML |
 | Juan Sebastián Libreros | I created the module for the applicant management function, also fixed my venv and started to link the main app with my module | I will link the app and start with a simple function to test the functionality before a base view | No, I got better |
 
-## 23/09/2023
+## 25/09/2023
 
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
+|Juan Sebastián Libreros | I created the model of an applicant on my app and tried to connect the main home with my module but I failed. However the team decided move the project to the ScholarshipModule class so I did just minor changes to facilitate the change of on app to another. | I will learn about Bootstrap because all the team decided to migrate to this library and also move my project to the main one | I need to do a synchronous work with my partner in charge of stories 11 and 12 because I depend on his database .| 
