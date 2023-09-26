@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path,include
 from ScholarshipModule import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.signUp, name = 'signup'),
@@ -25,5 +26,6 @@ urlpatterns = [
     path('scholarships/', views.scholarships, name='scholarships'),
     path('scholarships/create/', views.createScholarships, name='createScholarships'),
     path('logout/', views.signOut, name='signOut'),
-    path('login/', views.signIn, name = 'signIn')
+    path('login/', views.signIn, name = 'signIn'),
+    
 ]
