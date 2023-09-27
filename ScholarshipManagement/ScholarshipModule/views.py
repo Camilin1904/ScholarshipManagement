@@ -100,3 +100,7 @@ def createScholarships(request):
                 'form': CreateScholarshipForm,
                 'error': 'Please provide valid data'
             })
+        
+def searchApplicant(request):
+
+    return render(request,'./HTML/searchApplicant.html')

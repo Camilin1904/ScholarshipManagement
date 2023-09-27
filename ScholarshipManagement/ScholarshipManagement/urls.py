@@ -27,5 +27,6 @@ urlpatterns = [
     path('scholarships/create/', views.createScholarships, name='createScholarships'),
     path('logout/', views.signOut, name='signOut'),
     path('login/', views.signIn, name = 'signIn'),
+    path('applicant/management', views.searchApplicant,name='search')
     
 ]
