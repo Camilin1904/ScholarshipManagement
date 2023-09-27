@@ -8,10 +8,33 @@
 <form action='/announcement/create/', method = 'POST'>
 
     {% csrf_token %} 
-    {{form.as_p}}
+    
+    {{form1.as_p}}
+
+    {{form2.as_p}}
+    
+    <h2>Inscripciones</h2>
+
+    {{form3.as_p}}
+
+    <h2>Selección</h2>
+
+    {{form4.as_p}}
+
+    <h2>Entrevistas</h2>
+
+    {{form5.as_p}}
+
+    <h2>Publicación de beneficiarios</h2>
+
+    {{form6.as_p}}
+
 
     <button>
         Save
     </button>
 </form>
+
+
+
 {% endblock  %}

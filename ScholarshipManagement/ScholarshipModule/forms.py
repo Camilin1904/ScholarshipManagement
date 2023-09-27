@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Scholarships, Announcements, ScholarshipAnnouncements
+from .models import Scholarships, Announcements, ScholarshipAnnouncements, AnnouncementEvent
 from django import forms
 
 
@@ -11,18 +11,23 @@ class CreateScholarshipForm(ModelForm):
         
 class CreateAnnouncementForm(ModelForm):
 
-    scholarshipID = forms.CharField(
-        label='Código del programa de beca', max_length=50, widget=forms.TextInput(attrs={"class":"input"}))
-    
-    inscriptionStart = forms.DateField(
-        label='Inicio de inscripciones', max_length=50, widget=forms.DateInput(attrs={"class":"input"}))    
-
     class Meta:
         model = Announcements
-        fields = ['Type']
+        fields = ['type']
+
+class CreateScholarshipAnnouncementForm(ModelForm):
 
     class Meta:
         model = ScholarshipAnnouncements
         fields = ['scholarshipId']
 
+
+class CreateAnnouncementEventForm(ModelForm):
+
+    startingDate = forms.DateField(widget = forms.SelectDateWidget)
+    endDate = forms.DateField(widget = forms.SelectDateWidget)
+
+    class Meta:
+        model = AnnouncementEvent
+        fields = ['startingDate','endDate']
         
