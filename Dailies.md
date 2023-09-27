@@ -68,3 +68,9 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Andrés Camilo Romero Ruiz| I finished US15 and US16, more details about this can be seen in the last commit of US15 branch | I will make both pull request for merge with the dev branch, I'll start looking at a bootstrap migration on the views that I already work with to decide about it | I will have to see another tutorial, but now for bootstrap, I'm thinking that I might not have time until weekend |
 | Juan Camilo Salazar | I watched a couple of videos about databases in Django, so now I can continue with US4|I will finish the necessary tables for US4 and add a unit test case for the announcement creation | No |
 | Brayan Steven Ortega | I created multiple applicants in the databases and also i created the basic pages in html to complete the US11, finally i had to fix some variables for the table of the database again to create the applicant without problems | I will upgrade interface of the create applicant screen and the applicant home page | No |
+
+## 26/09/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+|Juan Camilo Salazar | I created four new tables for US4 and a single test to verify that an announcement is created correctly| I will finish the functionalities of the announcement creation page | No| 
