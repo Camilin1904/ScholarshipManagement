@@ -74,3 +74,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 |Juan Camilo Salazar | I created four new tables for US4 and a single test to verify that an announcement is created correctly| I will finish the functionalities of the announcement creation page | No| 
+|Juan Sebastián Libreros | I integrated my module on the main module, also created a pseudo searcher to test queries to finally create my function | I will test the queries to create the function of my module and also integrate Bootstrap on my module if possible | No |
