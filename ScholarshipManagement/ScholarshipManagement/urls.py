@@ -24,8 +24,8 @@ urlpatterns = [
     path('', views.signUp, name = 'signup'),
     path('home/', views.home, name = 'home'),
     path('scholarships/', views.scholarships, name='scholarships'),
-    path('', include('CreateApplicant.urls'), name='Applicants'),
-    path('scholarships/create/', views.createScholarships, name='createScholarships'),
+    path('applicants/create/', views.createApplicants, name='Applicants'),
+    path('applicants/homePage/', views.homeApplicant, name='ApplicantsHomePage'),
     path('logout/', views.signOut, name='signOut'),
     path('login/', views.signIn, name = 'signIn')
 ]

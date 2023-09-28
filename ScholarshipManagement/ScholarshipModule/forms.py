@@ -61,3 +61,55 @@ class Login(AuthenticationForm):
             "username",
             "password"
         ]
+
+class CreateApplicantForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CreateApplicantForm, self).__init__(*args,**kwargs)
+        self.fields['name'].widget.attrs['size'] = 50
+        self.fields['lastName'].widget.attrs['size'] = 50
+        self.fields['studentCode'].widget.attrs['size'] = 50
+        self.fields['faculty'].widget.attrs['size'] = 50
+        self.fields['major'].widget.attrs['size'] = 50
+        self.fields['semester'].widget.attrs['size'] = 50
+        self.fields['email'].widget.attrs['size'] = 50
+        self.fields['phone'].widget.attrs['size'] = 50
+        self.fields['announcement'].widget.attrs['size'] = 50
+    
+    name = forms.CharField(
+        label = "Nombre", max_length = 100, required = True,
+        widget=forms.TextInput())
+    lastName = forms.CharField(
+        label = "Apellido", 
+        widget=forms.TextInput())
+    studentCode = forms.CharField(
+        label = "Código del estudiante", required=True, 
+        widget=forms.TextInput())
+    faculty = forms.CharField(
+        label = "Facultad", required=True, 
+        widget=forms.TextInput())
+    major = forms.CharField(
+        label = "Carrera", required=True, 
+        widget=forms.TextInput())
+    semester = forms.IntegerField(
+        label = "Semestre", required=True,
+        widget=forms.NumberInput())
+    email = forms.EmailField(
+        label= "Correo electrónico", required=True,
+        widget=forms.EmailInput())
+    semester = forms.IntegerField(
+        label = "Semestre", required=False,
+        widget=forms.NumberInput())
+    status = forms.ChoiceField(
+        label="Estado del Estudiante", required=False,
+        choices=StatusApplicant.choices)
+    announcement = forms.ModelChoiceField(
+        label = "ID de la convocatoria", required=False,
+        widget=forms.TextInput(attrs={'cols':'10'}),queryset=Announcement.objects)
+
+    
+
+
+    class Meta:
+        model = Applicant
+        fields = ['name', 'lastName', 'studentCode',
+                  'faculty', 'major', 'semester','email', 'phone','status', 'announcement'] 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="{% static 'CSS/createApplicant.css' %}">
+        <title>
+            Creación de aplicante
+        </title>
+    </head>
+
+    <div class="header">
+        <div class="text">
+            <h1>Añadir Aplicante</h1>
+        </div>
+        <img src="{% static './Icons/icesi.png' %}" id="icesi" >
+    </div>
+    <body>
+
+        {{error}}
+        <form action='/applicants/create/' method = "POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div id="id_{{forloop.counter}}">
+                    <p>
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                </div>
+                {% endfor %}
+            
+            <button>Save</button>
+        </form>
+    </body>
+</html>
