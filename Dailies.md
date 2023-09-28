@@ -88,3 +88,9 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 |Brayan Steven Ortega | I finished the home page for the financial staff view to access all its features and I started the interface view of addition/creation of an applicant and also fixed some errors on the datebase adding the status of the applicant | i will finish the interface view of addition/creation of an applicant using the design given by Andres | No |
 | Andrés Camilo Romero Ruiz| I worked on bootstrap to see its capabilities and make some home pages to learn how to redirect the user based on the role | After analyzing the situation we have decided as a group to continue working on CSS since it offers more freedom than bootstrap when designing pages, so I am going to look to improve and redesign pages | No |
 | Camilo Carmona Valencia | I have begun work on US2 | I will find a way to make the filter query more elegant | My inability to remember of dailies |
+
+## 28/09/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Andrés Camilo Romero Ruiz | I improved the CSS for login and singup pages in the CSS branch | Today I shall finish the CSS for those pages and make the home pages for each role, implement a method that based on the user's role redirects him to the respective home page and make the pull request so I can start my last user story| No |
