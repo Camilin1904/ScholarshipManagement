@@ -18,9 +18,8 @@ class Scholarships(models.Model):
     type = models.IntegerField(blank=False)
     requirements = models.TextField(blank=True)
 
-class Applicant:
-    studentCode = models.CharField(
-        primary_key=True,max_length=11,unique=True)
+class Applicant(models.Model):
+    studentCode = models.CharField(max_length=11,unique=True,blank=False)
     ID = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
     name = models.CharField(max_length=20,blank=False)

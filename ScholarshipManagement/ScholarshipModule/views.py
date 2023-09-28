@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
+from django.http import HttpResponse
 
 # Create your views here.
 
@@ -102,5 +103,10 @@ def createScholarships(request):
             })
         
 def searchApplicant(request):
-
-    return render(request,'./HTML/searchApplicant.html')
+    nameSearch = request.GET.get('name')
+    if nameSearch == None:
+        applicant = Applicant.objects.all();
+    else:
+        applicant = Applicant.objects.filter(name=nameSearch)
+           
+    return render(request,'./HTML/searchApplicant.html',{'applicant':applicant})

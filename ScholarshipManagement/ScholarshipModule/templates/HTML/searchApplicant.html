@@ -9,14 +9,30 @@
     </title>
 </head>
 <body>
-    <form method='POST'>
+    <form method='GET'>
+        {% csrf_token %}
         <label for="fname">Nombre:</label>
-        <input type="text" id="fname" name="fname"><br><br>
+        <input type="text" id="name" name="name"><br><br>
         <button id="search" class="button">
             <h5>
                 Buscar
             </h5>
         </button>
     </form>
+
+    {% for Applicant in applicant %}
+        <h1>Aplicante</h1>
+            <ul>
+                <li>
+                    <h2>Codigo: {{Applicant.studentCode}}</h2>
+                    <p>Nombre : {{Applicant.name}}</p>
+                    <p>Apellido : {{Applicant.lastName}}</p>
+                    <p>Escuela : {{Applicant.school}}</p>
+                </li>
+            </ul>
+
+            <button>Ver más</button>
+    {%endfor%}
+            
 </body>
 </html>
