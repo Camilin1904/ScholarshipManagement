@@ -13,6 +13,14 @@
         <input id="name" name="name" value="{{search_results}}"></input>
         <button>Search</button>
     </form> 
+    <form id="filter" action="/scholarships/" method="GET">
+        {% csrf_token %}
+        <input id="id" name="id"></input>
+        <input id="donor_id" name="donor_id"></input>
+        <input id="min_cov" name="min_cov"></input>
+        <input id="max_cov" name="max_cov"></input>
+        <input id="type" name="type"></input>
+        <button>Apply filters</button>
     
     {% for Scholarship in scholarships %}
         <li>

@@ -79,11 +79,11 @@ def home(request):
 
 
 def scholarships(request):
-    reqId = request.POST.get('name')    
-    if reqId == None:
+    reqName = request.POST.get('name')    
+    if reqName == None:
         scholarships = Scholarships.objects.all()
     else:
-        scholarships = Scholarships.objects.filter(name=reqId)
+        scholarships = Scholarships.objects.filter(name=reqName)
     return render(request, './HTML/scholarships.html', {'scholarships': scholarships})
 
 
