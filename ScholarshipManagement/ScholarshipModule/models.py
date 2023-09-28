@@ -51,3 +51,31 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = []
     #It is a Django class that acts as a bridge between database queries and Django models
     objects = UserManager()
+
+
+class Announcement(models.Model):
+        name = models.CharField(max_length=20, blank=False)
+        ID = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
+
+class StatusApplicant(models.IntegerChoices):
+        INREVIEW = 0, _('En revisión')
+        BENEFICIARY = 1, _('Beneficiario')
+        REFUSED = 2, _('No aceptado')
+
+class Applicant(models.Model):
+    name = models.CharField(max_length=20, blank=False)
+    lastName = models.CharField(max_length=20, blank=False)
+    ID = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
+    studentCode = models.CharField(max_length=20, blank=False,unique=True)
+    faculty = models.CharField(max_length=20, blank=False)
+    major = models.CharField(max_length=20, blank=False)
+    semester = models.IntegerField(blank=True, null= True)
+    email= models.EmailField(max_length=40, blank=True, unique=True)
+    phone = models.IntegerField(blank=True, null=True)
+
+    status = models.IntegerField(default=StatusApplicant.INREVIEW, choices=StatusApplicant.choices)
+    announcement= models.ForeignKey(Announcement, 
+                related_name="id_announcement", blank=False, null=True, 
+                on_delete= models.CASCADE)

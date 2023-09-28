@@ -6,15 +6,15 @@
        
         <meta charset="UTF-8">
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
-        <link rel="stylesheet" href="{% static 'CSS/home.css' %}">
+        <link rel="stylesheet" href="{% static 'CSS/homeApplicant.css' %}">
         <title>
-            Home
+            Home Applicant
         </title>
     </head>
 
         <div class="header">
             <div class="text">
-                <h1>Página Principal</h1>
+                <h1>Página Principal aplicantes</h1>
             </div>
             <img src="{% static './Icons/icesi.png' %}" id="icesi" >
         </div>
@@ -46,43 +46,37 @@
                     </h2>
                 </button>
                 
-                <button id="scholarship" class="buttons">
+                <button id="applicant" class="buttons">
+                    
                     <h2>
-                        GESTIÓN DE BECAS
+                        GESTIÓN DE APLICANTES
                     </h2>
                     <p>
-                        Registre, edite y consulte programas de becas
+                        Edite y consulte a los aplicantes y añadalos dentro de las convocatorias
                     </p>
                 </button>
 
 
-                <button id="announcement" class="buttons">
-                    <a href="/announcement" style="color: inherit;text-decoration: none">
+                <button id="createApplicant" class="buttons">
+                    <a href="/applicants/create/" style="color: inherit;text-decoration: none">
                         <h2>
-                            GESTIÓN DE CONVOCATORIAS
+                            REGISTRO DE APLICANTES
                         </h2>
                         <p>
-                            Registre, edite, consulte y elimine cronogramas
+                            Registre a los nuevos aplicantes
                         </p>
                     </a>
                 </button>
 
-                <button id="roles" class="buttons">
-                    <h2>
-                        GESTIÓN DE ROLES
-                    </h2>
-                    <p>
-                        Asigne y actualice roles a los usuarios existentes en Banner
-                    </p>
-                </button>
-
-                <button id="report" class="buttons">
-                    <h2>
-                        GESTIÓN DE INFORMES
-                    </h2>
-                    <p>
-                        Genere y envie reportes
-                    </p>
+                <button id="homee" class="buttons">
+                    <a href="/home/" style="color: inherit;text-decoration: none">
+                        <h2>
+                            HOME
+                        </h2>
+                        <p>
+                            Devolverse
+                        </p>
+                    </a>
                 </button>
 
             </div> 

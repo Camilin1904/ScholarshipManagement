@@ -1,0 +1,44 @@
+*{
+    margin: 0px;
+    top: 0px;
+    box-sizing: border-box;
+    font-family: Noto music;
+}
+
+.header{
+    background-color: #0464AC;
+    height: 15%;
+    width: 100%;
+    position: fixed;
+    color: #FFFFFF;
+    -webkit-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    align-items: center;
+    justify-content: center;
+
+}
+
+#icesi{
+    vertical-align: middle;
+    max-width: 15%;
+    margin-top: 1.5%;
+    margin-right: 8%;
+    float: right;
+}
+
+.text {
+    margin-left: 8%;
+    float: left;
+    margin-top: 1%;
+    font-size: 20px;
+}
+
+    
+body{
+    background-color: #F4F6FA;
+}
+
+#id_1{
+    margin-top: 8%;
+}

@@ -110,3 +110,24 @@ def searchApplicant(request):
         applicant = Applicant.objects.filter(name=nameSearch)
            
     return render(request,'./HTML/searchApplicant.html',{'applicant':applicant})
+
+def homeApplicant(request):
+    return render(request, 'homeApplicant.html')
+
+
+def createApplicants(request):
+
+    if request.method == 'GET':
+        return render(request, 'createApplicant.html', {
+            'form': CreateApplicantForm
+        })
+    else:
+        try:
+            form = CreateApplicantForm(request.POST)
+            form.save()
+            return redirect('/applicants/homePage/')
+        except:
+            return render(request, 'homeApplicant.html', {
+                'form': CreateApplicantForm,
+                'error': 'Please provide valid data'
+            })
