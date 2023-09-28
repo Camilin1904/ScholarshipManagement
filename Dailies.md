@@ -78,3 +78,9 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Camilo Carmona Valencia | I made the ui consistent with what was planned, while also modifying the form for scholarships so that it is more convenient | I will begin to work on US2, as for the ui, I will begin my migration at a latter date | No |
 | Andrés Camilo Romero Ruiz| I started the bootstrap migration on the views that I already work with and learning about it | I must continue the migration and help Brayan with a home page that he needs | No |
 | Brayan Steven Ortega | I did merge with dev and Andrés help me to start the creation of the user interface view of the home page for the financial staff | I will continue doing the user interface for the home page for the financial staff and also working in the page of applicant creation | No |
+
+## 27/09/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+|Juan Camilo Salazar | I added all the fields needed in the "announcement creation" page | I will solve an error in the "announcement creation" page so all elements can be saved correctly | No| 
