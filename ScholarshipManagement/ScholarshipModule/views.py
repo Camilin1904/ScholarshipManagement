@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from .forms import CreateScholarshipForm, CreateAnnouncementForm, CreateAnnouncementEventForm, CreateScholarshipAnnouncementForm
-from .models import Scholarships
+from .models import Scholarships, Announcements
 
 # Create your views here.
 
@@ -93,103 +93,51 @@ def createAnnouncement(request):
 
     if request.method == 'GET':
         return render(request, 'createAnnouncement.html', {
-            'form1': CreateAnnouncementForm (prefix="form1"),
-            'form2': CreateScholarshipAnnouncementForm (prefix="form2"),
-            'form3': CreateAnnouncementEventForm (prefix="form3"),
-            'form4': CreateAnnouncementEventForm (prefix="form4"),
-            'form5': CreateAnnouncementEventForm (prefix="form5"),
-            'form6': CreateAnnouncementEventForm (prefix="form6")
+            'announcementForm': CreateAnnouncementForm (prefix="announcementForm"),
+            'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (prefix="scholarshipAnnouncementForm"),
+            'announcementEventFormInscription': CreateAnnouncementEventForm (prefix="announcementEventFormInscription"),
+            'announcementEventFormSelection': CreateAnnouncementEventForm (prefix="announcementEventFormSelection"),
+            'announcementEventFormInterview': CreateAnnouncementEventForm (prefix="announcementEventFormInterview"),
+            'announcementEventFormPublication': CreateAnnouncementEventForm (prefix="announcementEventFormPublication")
         })
     else:
-        """
 
-        form1 = CreateAnnouncementForm(request.POST,prefix="form1")
-        form2 = CreateScholarshipAnnouncementForm(request.POST,prefix="form2")
 
-        form3 = CreateAnnouncementEventForm(request.POST,prefix="form3")
-        form4 = CreateAnnouncementEventForm(request.POST,prefix="form4")
-        form5 = CreateAnnouncementEventForm(request.POST,prefix="form5")
-        form6 = CreateAnnouncementEventForm(request.POST,prefix="form6")
 
+        announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
+        scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
+
+        announcementForm.save()
+
+        announcementFormObj= Announcements.objects.latest('id')
+
+        scholarshipAnnouncementFormInstance = scholarshipAnnouncementForm.save(commit=False)
+        scholarshipAnnouncementFormInstance.announcementId=announcementFormObj
+        scholarshipAnnouncementFormInstance.save()
+
+        events=["announcementEventFormInscription","announcementEventFormSelection","announcementEventFormInterview","announcementEventFormPublication"]
+        eventNum=0
+
+        for event in events:
+
+            announcementEventForm=CreateAnnouncementEventForm(request.POST,prefix=event)
+            announcementEventFormInstance = announcementEventForm.save(commit=False)
+            announcementEventFormInstance.announcementId=announcementFormObj
+            announcementEventFormInstance.type=eventNum
+            announcementEventFormInstance.save()
+
+            eventNum+=1
+
+        return redirect('home')
         
-        form1Objt=form1.save()
-
-
-        announcementId= form1Objt.id
-
-        form2.initial['announcementId'] = announcementId
-
-        form3.initial['AnnouncementId'] = announcementId
-        form3.initial['EventType'] = announcementId
-
-        form4.initial['AnnouncementId'] = announcementId
-        form4.initial['EventType'] = announcementId
-        
-        form5.initial['AnnouncementId'] = announcementId
-        form5.initial['EventType'] = announcementId
-
-        form6.initial['AnnouncementId'] = announcementId
-        form6.initial['EventType'] = announcementId
-
-        
-        form2.save()
-        form3.save()
-        form4.save()
-        form5.save()
-        form6.save()
 
         """
         
         try:
-            """
-
-
-            form1 = CreateAnnouncementForm(request.POST,prefix="form1")
-            form2 = CreateScholarshipAnnouncementForm(request.POST,prefix="form2")
-
-            form3 = CreateAnnouncementEventForm(request.POST,prefix="form3")
-            form4 = CreateAnnouncementEventForm(request.POST,prefix="form4")
-            form5 = CreateAnnouncementEventForm(request.POST,prefix="form5")
-            form6 = CreateAnnouncementEventForm(request.POST,prefix="form6")
-
-            
-            form1Objt=form1.save()
-
-            announcementId= form1Objt.id
-
-            
-            
-            form2['announcementId']=announcementId
-
-            form3['AnnouncementId']=announcementId
-            form3['EventType']= 0
-
-            form4['AnnouncementId']=announcementId
-            form4['EventType']= 1
-
-            form5['AnnouncementId']=announcementId
-            form5['EventType']= 2
-
-            form6['AnnouncementId']=announcementId
-            form6['EventType']= 3
-
-            
-            form2.save()
-            form3.save()
-            form4.save()
-            form5.save()
-            form6.save()
-
-            
-
-            """
-
-            return redirect('home')
-        
+ 
         
         except:
 
-            """
             return render(request, 'createAnnouncement.html', {
             'form1': CreateAnnouncementForm (prefix="form1"),
             'form2': CreateScholarshipAnnouncementForm (prefix="form2"),

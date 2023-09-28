@@ -17,6 +17,10 @@ class CreateAnnouncementForm(ModelForm):
 
 class CreateScholarshipAnnouncementForm(ModelForm):
 
+
+    scholarshipId = forms.ModelChoiceField(label = "ID de la beca", required=True,widget=forms.TextInput(attrs={'cols':'10'}),queryset=Scholarships.objects)
+
+
     class Meta:
         model = ScholarshipAnnouncements
         fields = ['scholarshipId']

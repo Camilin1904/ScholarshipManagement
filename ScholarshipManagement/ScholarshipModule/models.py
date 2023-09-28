@@ -20,7 +20,7 @@ class Announcements(models.Model):
 
     class Type(models.IntegerChoices):
         OPEN =0, _('Abierta')
-        CLOSED=1, _('Cerreada')
+        CLOSED=1, _('Cerrada')
         MIXED=2, _('Mixta')
 
     type = models.IntegerField(default=Type.CLOSED, choices=Type.choices)
@@ -34,19 +34,19 @@ class Students(models.Model):
 class ScholarshipAnnouncements(models.Model):
     id = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
-    scholarshipId= models.ForeignKey(Scholarships, related_name="ScholarshipId1", blank=False, null=False, on_delete=models.CASCADE)
-    announcementId= models.ForeignKey(Announcements, related_name="AnnouncementId1", blank=False, null=False, on_delete=models.CASCADE)
+    scholarshipId= models.ForeignKey(Scholarships, related_name="ScholarshipId1", blank=True, null=True, on_delete=models.CASCADE)
+    announcementId= models.ForeignKey(Announcements, related_name="AnnouncementId1",blank=True, null=True, on_delete=models.CASCADE)
 
 class AnnouncementsStudents(models.Model):
     id = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
-    studentId= models.ForeignKey(Students, related_name="StudentId2", blank=False, null=False, on_delete=models.CASCADE)
-    announcementId= models.ForeignKey(Announcements, related_name="AnnouncementId2", blank=False, null=False, on_delete=models.CASCADE)
+    studentId= models.ForeignKey(Students, related_name="StudentId2", blank=True,on_delete=models.CASCADE)
+    announcementId= models.ForeignKey(Announcements, related_name="AnnouncementId2",  blank=True,null=True,on_delete=models.CASCADE)
 
 class AnnouncementEvent(models.Model):
     id = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
-    AnnouncementId = models.ForeignKey(Announcements, related_name="AnnouncementId3", blank=False, null=False, on_delete=models.CASCADE)
+    announcementId = models.ForeignKey(Announcements, related_name="AnnouncementId3",blank=True,null=True, on_delete=models.CASCADE)
     startingDate = models.DateField(blank=False)
     endDate = models.DateField(blank=False)
 
@@ -56,7 +56,7 @@ class AnnouncementEvent(models.Model):
         INTERVIEWS=2, _('Entrevistas')
         PUBLICATION=3, _('Publicacion')
 
-    type = models.IntegerField(default=EventType.INSCRIPTIONS, choices=EventType.choices)
+    type = models.IntegerField(default=EventType.INSCRIPTIONS, choices=EventType.choices, blank=True,null=True)
     
  
 
