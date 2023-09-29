@@ -24,14 +24,19 @@
         <h1>Aplicante</h1>
             <ul>
                 <li>
-                    <h2>Codigo: {{Applicant.studentCode}}</h2>
+                    <h2 id="code_{{forloop.counter}}">
+                        Codigo: {{Applicant.studentCode}}
+                    </h2>
                     <p>Nombre : {{Applicant.name}}</p>
                     <p>Apellido : {{Applicant.lastName}}</p>
                     <p>Escuela : {{Applicant.school}}</p>
                 </li>
             </ul>
-
-            <button>Ver más</button>
+            <form method="POST">
+                {% csrf_token %}
+                <button>Ver más</button>
+            </form>
+            
     {%endfor%}
             
 </body>
