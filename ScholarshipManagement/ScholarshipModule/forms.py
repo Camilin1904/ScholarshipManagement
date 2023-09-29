@@ -51,7 +51,7 @@ class CreateNewUser(UserCreationForm):
 
 
     username = forms.CharField(
-        label='Correo', max_length=50, widget=forms.TextInput(attrs={"class":"input"}))
+        label='Email', max_length=50, widget=forms.TextInput(attrs={"class":"input"}))
     name = forms.CharField(
         label='Nombre', max_length=20, widget=forms.TextInput(attrs={"class":"input"}))
     password1 = forms.CharField(
@@ -76,7 +76,7 @@ class Login(AuthenticationForm):
 
 
     username = forms.CharField(
-        label='Correo', max_length=30, widget=forms.TextInput(attrs={"class":"input"}))
+        label='Email', max_length=30, widget=forms.TextInput(attrs={"class":"input"}))
     password = forms.CharField(
         label='Contraseña', widget=forms.PasswordInput(attrs={"class":"input"}))
     
