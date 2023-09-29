@@ -49,14 +49,7 @@ class AnnouncementEvent(models.Model):
     announcementId = models.ForeignKey(Announcements, related_name="AnnouncementId3",blank=True,null=True, on_delete=models.CASCADE)
     startingDate = models.DateField(blank=False)
     endDate = models.DateField(blank=False)
-
-    class EventType(models.IntegerChoices):
-        INSCRIPTIONS =0, _('Inscripciones')
-        SELECTIONS=1, _('Seleccion')
-        INTERVIEWS=2, _('Entrevistas')
-        PUBLICATION=3, _('Publicacion')
-
-    type = models.IntegerField(default=EventType.INSCRIPTIONS, choices=EventType.choices, blank=True,null=True)
+    type = models.TextField(blank=True,null=True)
     
  
 

@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
-from .forms import CreateScholarshipForm, CreateAnnouncementForm, CreateAnnouncementEventForm, CreateScholarshipAnnouncementForm
+from .forms import CreateScholarshipForm, CreateAnnouncementForm, CreateAnnouncementEventForm, CreateScholarshipAnnouncementForm, CreateAnnouncementAdditionalEventForm
 from .models import Scholarships, Announcements
 
 # Create your views here.
@@ -91,44 +91,128 @@ def signin(request):
         
 def createAnnouncement(request):
 
-    if request.method == 'GET':
-        return render(request, 'createAnnouncement.html', {
+    additionalEvents=0
+    datalist=[]
+
+    context= {
             'announcementForm': CreateAnnouncementForm (prefix="announcementForm"),
             'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (prefix="scholarshipAnnouncementForm"),
             'announcementEventFormInscription': CreateAnnouncementEventForm (prefix="announcementEventFormInscription"),
             'announcementEventFormSelection': CreateAnnouncementEventForm (prefix="announcementEventFormSelection"),
             'announcementEventFormInterview': CreateAnnouncementEventForm (prefix="announcementEventFormInterview"),
-            'announcementEventFormPublication': CreateAnnouncementEventForm (prefix="announcementEventFormPublication")
-        })
+            'announcementEventFormPublication': CreateAnnouncementEventForm (prefix="announcementEventFormPublication"),
+
+            "data" : datalist,
+
+            'additionalEvents':additionalEvents
+            
+        }
+
+    if request.method == 'GET':
+        return render(request, 'createAnnouncement.html', context)
+    
     else:
 
+        if 'saveBttn' in request.POST:
+
+            announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
+            scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
+
+            announcementForm.save()
+
+            announcementFormObj= Announcements.objects.latest('id')
+
+            scholarshipAnnouncementFormInstance = scholarshipAnnouncementForm.save(commit=False)
+            scholarshipAnnouncementFormInstance.announcementId=announcementFormObj
+            scholarshipAnnouncementFormInstance.save()
+
+            events=["announcementEventFormInscription","announcementEventFormSelection","announcementEventFormInterview","announcementEventFormPublication"]
+            eventNum=0
+
+            eventType=["Inscription","Selection","Interview","Publication"]
+
+            for event in events:
+
+                announcementEventForm=CreateAnnouncementEventForm(request.POST,prefix=event)
+                announcementEventFormInstance = announcementEventForm.save(commit=False)
+                announcementEventFormInstance.announcementId=announcementFormObj
+                announcementEventFormInstance.type=eventType[eventNum]
+                announcementEventFormInstance.save()
+
+                eventNum+=1
+
+            additionalEvents= int(request.POST['title']) +1
+
+            if(additionalEvents!=0):
+
+                for x in range (additionalEvents-1):
+
+                    announcementAdditionalEventForm=CreateAnnouncementAdditionalEventForm(request.POST,prefix="announcementAdditionalEventForm"+ str(x))
+                    announcementAdditionalEventFormInstance = announcementAdditionalEventForm.save(commit=False)
+                    announcementAdditionalEventFormInstance.announcementId=announcementFormObj
+                    announcementAdditionalEventFormInstance.save()
+ 
+
+            return redirect('home')
+        
+        if 'newEventBttn' in request.POST:
+
+            additionalEvents= int(request.POST['title']) +1
+
+            if (additionalEvents!=1):
+
+                for x in range (additionalEvents-1):
+
+                    datalist.append(CreateAnnouncementAdditionalEventForm ( request.POST, prefix="announcementAdditionalEventForm"+ str(x)))
+
+                    context["announcementAdditionalEventForm"+ str(x)] = datalist[x]
+                    
+            datalist.append(CreateAnnouncementAdditionalEventForm ( prefix="announcementAdditionalEventForm"+ str(additionalEvents-1)))
+            context["announcementAdditionalEventForm"+ str(additionalEvents)]=datalist[additionalEvents-1]
 
 
-        announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
-        scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
+            context= {
+            'announcementForm': CreateAnnouncementForm (request.POST, prefix="announcementForm"),
+            'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (request.POST, prefix="scholarshipAnnouncementForm"),
+            'announcementEventFormInscription': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInscription"),
+            'announcementEventFormSelection': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormSelection"),
+            'announcementEventFormInterview': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInterview"),
+            'announcementEventFormPublication': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormPublication"),
+            "data" : datalist,
+            'additionalEvents':additionalEvents,
+            }
 
-        announcementForm.save()
+            return render(request, 'createAnnouncement.html', context)
+        
+        if 'deleteEventBttn' in request.POST:
 
-        announcementFormObj= Announcements.objects.latest('id')
+            additionalEvents= int(request.POST['title']) -1
 
-        scholarshipAnnouncementFormInstance = scholarshipAnnouncementForm.save(commit=False)
-        scholarshipAnnouncementFormInstance.announcementId=announcementFormObj
-        scholarshipAnnouncementFormInstance.save()
+            print(additionalEvents)
 
-        events=["announcementEventFormInscription","announcementEventFormSelection","announcementEventFormInterview","announcementEventFormPublication"]
-        eventNum=0
+            for x in range (additionalEvents):
 
-        for event in events:
+                datalist.append(CreateAnnouncementAdditionalEventForm ( request.POST, prefix="announcementAdditionalEventForm"+ str(x)))
 
-            announcementEventForm=CreateAnnouncementEventForm(request.POST,prefix=event)
-            announcementEventFormInstance = announcementEventForm.save(commit=False)
-            announcementEventFormInstance.announcementId=announcementFormObj
-            announcementEventFormInstance.type=eventNum
-            announcementEventFormInstance.save()
+                context["announcementAdditionalEventForm"+ str(x)] = datalist[x]
 
-            eventNum+=1
 
-        return redirect('home')
+            context= {
+            'announcementForm': CreateAnnouncementForm (request.POST, prefix="announcementForm"),
+            'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (request.POST, prefix="scholarshipAnnouncementForm"),
+            'announcementEventFormInscription': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInscription"),
+            'announcementEventFormSelection': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormSelection"),
+            'announcementEventFormInterview': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInterview"),
+            'announcementEventFormPublication': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormPublication"),
+            "data" : datalist,
+
+            'additionalEvents':additionalEvents,
+            }
+
+            return render(request, 'createAnnouncement.html', context)
+            
+            
+            
         
 
         """

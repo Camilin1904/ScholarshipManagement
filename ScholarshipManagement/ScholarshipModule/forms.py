@@ -34,4 +34,15 @@ class CreateAnnouncementEventForm(ModelForm):
     class Meta:
         model = AnnouncementEvent
         fields = ['startingDate','endDate']
+
+
+
+class CreateAnnouncementAdditionalEventForm(ModelForm):
+
+    startingDate = forms.DateField(widget = forms.SelectDateWidget)
+    endDate = forms.DateField(widget = forms.SelectDateWidget)
+
+    class Meta:
+        model = AnnouncementEvent
+        fields = ['type','startingDate','endDate']
         

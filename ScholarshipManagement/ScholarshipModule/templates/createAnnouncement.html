@@ -8,7 +8,13 @@
 <form action='/announcement/create/', method = 'POST'>
 
     {% csrf_token %} 
+
+
+    <input type="hidden" name="title" value="{{ additionalEvents }}">
+
+    <input type="hidden" class= list name="title2" value="{{ data }}">
     
+
     {{announcementForm.as_p}}
 
     {{scholarshipAnnouncementForm.as_p}}
@@ -29,10 +35,45 @@
 
     {{announcementEventFormPublication.as_p}}
 
+    {% if additionalEvents != 0 %}
 
-    <button>
-        Save
+    {% for i in data %}
+	
+	    {{i.as_p}}
+
+    {% endfor %}
+
+    {% endif %}
+
+    <input type="hidden" class= list name="title3" value="{{ data }}">
+
+
+    <button name="newEventBttn" class="button">
+        <h3>
+            Add event
+        </h3>
     </button>
+
+    {% if additionalEvents != 0 %}
+
+        <button name="deleteEventBttn" class="button">
+            <h3>
+                Delete event
+            </h3>
+        </button>
+
+    {% endif %}
+    
+    <br>
+    <br>
+
+    <button name="saveBttn" class="button">
+        <h3>
+            Save
+        </h3>
+    </button>
+
+
 </form>
 
 
