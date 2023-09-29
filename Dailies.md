@@ -94,3 +94,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Andrés Camilo Romero Ruiz | I improved the CSS for login and singup pages in the CSS branch | Today I shall finish the CSS for those pages and make the home pages for each role, implement a method that based on the user's role redirects him to the respective home page and make the pull request so I can start my last user story| No |
+|Juan Camilo Salazar| I did solve the error that interfered with the announcement save in the database and started working on the "new announcement" functionality | I will finish the "new announcement" functionality so the design of a page is the only thing left to complete US4| No |
