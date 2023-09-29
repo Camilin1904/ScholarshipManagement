@@ -9,12 +9,12 @@ class CreateScholarshipForm(ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(CreateScholarshipForm, self).__init__(*args,**kwargs)
-        self.fields['donor'].widget.attrs['size'] = 50
-        self.fields['name'].widget.attrs['size'] = 50
-        self.fields['ID'].widget.attrs['size'] = 50
+        self.fields['donor'].widget.attrs['size'] = 51
+        self.fields['name'].widget.attrs['size'] = 51
+        self.fields['ID'].widget.attrs['size'] = 51
         self.fields['description'].widget.attrs['size'] = 50
-        self.fields['coverage'].widget.attrs['size'] = 50
-        self.fields['type'].widget.attrs['size'] = 50
+        self.fields['coverage'].widget.attrs['size'] = 51
+        self.fields['type'].widget.attrs['size'] = 3
 
     donor = forms.ModelChoiceField(
         label = "ID del donante", required=True,
@@ -23,16 +23,17 @@ class CreateScholarshipForm(ModelForm):
         label = "Nombre", max_length = 100, required = True,
         widget=forms.TextInput())
     description = forms.CharField(
-        label = "Descripción", widget=forms.Textarea(attrs={"cols":"104", 'rows':'5'}))
+        label = "Descripción", widget=forms.Textarea(attrs={"cols":"105", 'rows':'5'}))
     coverage = forms.CharField(
         label = "Covertura economica", required=True, 
         widget=forms.TextInput())
     type = forms.CharField(
         label = "Tipo", required=True, 
-        widget=forms.TextInput())
+        widget=forms.RadioSelect(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
     requirements = forms.CharField(
         label = "Requerimientos", required=True, 
         widget=forms.Textarea(attrs={'rows':'5'}))
+    ID = forms.IntegerField(label = 'ID', required=True, widget=forms.TextInput())
     
 
     class Meta:

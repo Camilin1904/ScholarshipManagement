@@ -23,7 +23,7 @@ class Scholarships(models.Model):
         EXCHANGE = 0, _('Intercambio')
         RESCUE = 1, _('Rescate')
         LIVELIHOOD = 2, _('Sustento')
-    type = models.IntegerField(blank=False)
+    type = models.TextField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
 
 
