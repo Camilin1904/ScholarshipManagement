@@ -105,3 +105,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Camilo Carmona Valencia | I Finished polishing the input method for the type of scholarship | As all that is left in US1 is ui, I will begin to work on the logic of US2 | No|
 | Juan Camilo Salazar| I finished all of US4 functionalities so page design it's the only thing left | I will start the design of the "announcement creation" page using CSS | I have to learn about CSS|
 | Andrés Camilo Romero Ruiz |  I finished the CSS improve and make the pull request so my team has templates to work with | I'm not going to work today, feel like it's enough, but on the weekend I hope to start and finish the last US that I have assigned | No |
+| Brayan Steven Ortega |  I founded a new funcionality to implement in the creation of an Applicant and I continue improving the CSS | I will finish the CSS first and then implement the new functionality | No |
