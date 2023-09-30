@@ -5,53 +5,53 @@
     <head>
         <meta charset="UTF-8">
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
-        <link rel="stylesheet" href="{% static 'CSS/login.css' %}">
+        <link rel="stylesheet" href="{% static 'CSS/loginSignin.css' %}">
         <title>
             Login
         </title>
     </head>
 
-        <div class="header">
-            <div class="text">
-                <h1>Bienvenido a ICESI</h1>
-            </div>
-            <img src="{% static './Icons/icesi.png' %}" id="icesi" >
-        </div>
-
     <body>
 
         <div class="content">
-            <button class="welcome">
-                <h1>INICIO DE SESIÓN</h1>
-            </button>
-            <br>
-            <br>
-            <br>
-            <form method="POST">
-                {% csrf_token %}
-                {% for field in form %}
-                <p>
-                {{ field.label_tag }}<br>
-                {{ field }}
-                {% endfor %}
-                </p>
-                <button id="login" class="button">
-                    <h3>
+            <div class="left">
+
+                <img src="{% static './Icons/icesi.png' %}">
+                <div style="margin-top: 10%;"></div>
+                <div style="font-size: large;">
+                    Todavía no tienes una cuenta en el sistema?
+                    <br>
+                    <div style="margin-top: 10%;"></div>
+                    <div style="align-items: center;">
+                        <a href="/" style="color: inherit;text-decoration: none">
+                            <button class="buttonWhite">
+                                Registrate
+                            </button>
+                        </a>
+                    </div>
+                </div>
+    
+            </div>
+    
+            <div class="middle">
+                <h1>Iniciar Sesión</h1>
+                
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <p>
+                    {{ field.label_tag }}
+                    <br>
+                    {{ field }}
+                    <br>
+                    <br>
+                    {% endfor %}
+                    </p>
+                    
+                    <button id="signin" class="buttonBlue">
                         Ingresar
-                    </h3>
-                </button>
-            </form>
-
-
-            <button id="signin" class="button" onclick="history.back()">
-                <h3>
-                    Registrarse
-                </h3>
-            </button>
-            <br>
-            <br>
-            <div class="error">
-                {{error}}
+                    </button>
+                </form>
             </div>
         </div>
        
