@@ -19,7 +19,11 @@ class Scholarships(models.Model):
     description = models.TextField(blank=True)
     donor = models.ForeignKey(Donors, on_delete= models.CASCADE)
     coverage = models.FloatField(blank=False)
-    type = models.IntegerField(blank=False)
+    class ScholarshipType(models.IntegerChoices):
+        EXCHANGE = 0, _('Intercambio')
+        RESCUE = 1, _('Rescate')
+        LIVELIHOOD = 2, _('Sustento')
+    type = models.TextField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
 
 

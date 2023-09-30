@@ -22,7 +22,6 @@
             <div class="menu">
                 <ul>
                     <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
-                    <li><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
                     <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
                 </ul>              
             </div>    
@@ -33,8 +32,10 @@
                 <h1>
                     Bienvenido {{user.name}}
                 </h1>
-                {% block content %}
-                {% endblock %}
+                <br>
+                <div style="font-size: large;">
+                    Lo sentimos pero no tienes un rol asignado en la plataforma
+                </div>
             </div>
         </div>
 
