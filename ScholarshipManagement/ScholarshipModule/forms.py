@@ -65,15 +65,15 @@ class Login(AuthenticationForm):
 class CreateApplicantForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super(CreateApplicantForm, self).__init__(*args,**kwargs)
-        self.fields['name'].widget.attrs['size'] = 50
-        self.fields['lastName'].widget.attrs['size'] = 50
-        self.fields['studentCode'].widget.attrs['size'] = 50
-        self.fields['faculty'].widget.attrs['size'] = 50
-        self.fields['major'].widget.attrs['size'] = 50
-        self.fields['semester'].widget.attrs['size'] = 50
-        self.fields['email'].widget.attrs['size'] = 50
-        self.fields['phone'].widget.attrs['size'] = 50
-        self.fields['announcement'].widget.attrs['size'] = 50
+        self.fields['name'].widget.attrs['size'] = 25
+        self.fields['lastName'].widget.attrs['size'] = 25
+        self.fields['studentCode'].widget.attrs['size'] = 25
+        self.fields['faculty'].widget.attrs['size'] = 25
+        self.fields['major'].widget.attrs['size'] = 25
+        self.fields['semester'].widget.attrs['size'] = 25
+        self.fields['email'].widget.attrs['size'] = 25
+        self.fields['phone'].widget.attrs['size'] = 25
+        self.fields['announcement'].widget.attrs['size'] = 25
     
     name = forms.CharField(
         label = "Nombre", max_length = 100, required = True,
