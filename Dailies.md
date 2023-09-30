@@ -98,3 +98,8 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 |Brayan Steven Ortega | I researched about CSS and HTML to continue advancing on the Applicant creation page | I will continua improving the CSS of the Applicant creation page to end the US11 | No |
 | Camilo Carmona Valencia | I made no further advancements on US2, rather, I made a little change to US1, as I added an enumeration for the scholarship type, though I did not link it | I will finish what I started yesterday and link the two, making the changes I see fit, as for US2, I hope to be able to begin to properly work on it | No |
 |Juan Sebastián Libreros | I added the applicant screen to visualize the information easier to test the change of function. Also integrated the US11 to my branch to test it and integrated with my user story | I will do and test the changer of status function also investigate on how to pass information from one screen to another in HTML | No | 
+
+## 29/09/2023
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I Finished polishing the input method for the type of scholarship | As all that is left in US1 is ui, I will begin to work on the logic of US2 | No
