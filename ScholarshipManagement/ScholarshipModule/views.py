@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
 
+def isValid(query): return query is not None and query != ''
+
 # Create your views here.
 
 
@@ -86,11 +88,37 @@ def home(request):
 
 
 def scholarships(request):
-    reqName = request.POST.get('name')    
-    if reqName == None:
-        scholarships = Scholarships.objects.all()
-    else:
-        scholarships = Scholarships.objects.filter(name=reqName)
+    reqID = request.GET.get('id')
+    reqName = request.GET.get('name')
+    reqDonor = request.GET.get('donor_id')
+    minCov = request.GET.get('min_cov')
+    maxCov = request.GET.get('max_cov')
+    scholarships = Scholarships.objects.all()
+    if isValid(reqID):
+        try:
+            scholarships = scholarships.filter(ID=reqID)
+        except:
+            scholarships = None
+    if isValid(reqName):
+        try:
+            scholarships = scholarships.filter(name=reqName)
+        except:
+            scholarships = None
+    if isValid(reqDonor):
+        try:
+            scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
+        except:
+            scholarships = None
+    if isValid(minCov):
+        try:
+            scholarships = scholarships.filter(coverage__gte=minCov)
+        except:
+            scholarships = None    
+    if isValid(maxCov):
+        try:
+            scholarships = scholarships.filter(coverage__lte=maxCov)
+        except:
+            scholarships = None
     return render(request, './HTML/scholarships.html', {'scholarships': scholarships})
 
 

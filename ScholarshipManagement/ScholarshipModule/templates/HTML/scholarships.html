@@ -8,14 +8,14 @@
     <a href="/scholarships/create/"><button> Create Program </button></a>
     {% endif %}
     <br><br>
-    <form id="search" action="/scholarships/" method="POST">
+    <form id="search" action="." method="GET">
         {% csrf_token %}
-        <input id="name" name="name" value="{{search_results}}"></input>
+        <input id="id" name="id" value="{{search_results}}"></input>
         <button>Search</button>
     </form> 
-    <form id="filter" action="/scholarships/" method="GET">
+    <form id="filter" action="." method="GET">
         {% csrf_token %}
-        <input id="id" name="id"></input>
+        <input id="name" name="name"></input>
         <input id="donor_id" name="donor_id"></input>
         <input id="min_cov" name="min_cov"></input>
         <input id="max_cov" name="max_cov"></input>
