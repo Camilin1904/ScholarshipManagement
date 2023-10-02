@@ -5,10 +5,14 @@
 {% endblock %}
 
 {% block content %}
+<h1 id= "deletable">
+    Bienvenido {{user.name}}
+</h1>
 
 <div class="buttons">
-    <a href = "/scholarships" class="button">
-        <button class="button">
+    
+    <button class="button">
+        <a href = "/scholarships" class="button" style="color:inherit;text-decoration:none">
             <div style="font-size: x-large ;">
                 GESTIÓN DE BECAS
             </div>
@@ -18,8 +22,9 @@
             <div style="font-size: xxx-large;">
                 <i class="bi bi-award"></i>
             </div>
-        </button>
-    </a>
+        </a>
+    </button>
+
     
     <button class="button">
         <div style="font-size: x-large ;">
