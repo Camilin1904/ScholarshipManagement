@@ -22,8 +22,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.signUp, name = 'signup'),
     path('home/', views.home, name = 'home'),
-    path('scholarships/', views.scholarships, name='scholarships'),
-    path('scholarships/create/', views.createScholarships, name='createScholarships'),
-    path('logout/', views.signOut, name='signOut'),
-    path('login/', views.signIn, name = 'signIn')
+    path('scholarships/', views.scholarships, name = 'scholarships'),
+    path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
+    path('logout/', views.signOut, name = 'signOut'),
+    path('login/', views.signIn, name = 'signIn'),
+    path('roles/', views.searchUserForRole, name = 'searchUser'),
+    path('roles/', views.searchUserForRole, name = 'roleAssign')
 ]
