@@ -11,6 +11,7 @@ class CreateScholarshipForm(ModelForm):
         
 class CreateAnnouncementForm(ModelForm):
 
+
     class Meta:
         model = Announcements
         fields = ['type']
@@ -18,8 +19,7 @@ class CreateAnnouncementForm(ModelForm):
 class CreateScholarshipAnnouncementForm(ModelForm):
 
 
-    scholarshipId = forms.ModelChoiceField(label = "ID de la beca", required=True,widget=forms.TextInput(attrs={'cols':'10'}),queryset=Scholarships.objects)
-
+    scholarshipId = forms.ModelChoiceField(label = "ID de la beca", required=True,widget=forms.TextInput(attrs={'cols':'10', "class": "form-control", "placeholder":"Id Beca"}),queryset=Scholarships.objects)
 
     class Meta:
         model = ScholarshipAnnouncements
@@ -28,8 +28,8 @@ class CreateScholarshipAnnouncementForm(ModelForm):
 
 class CreateAnnouncementEventForm(ModelForm):
 
-    startingDate = forms.DateField(widget = forms.SelectDateWidget)
-    endDate = forms.DateField(widget = forms.SelectDateWidget)
+    startingDate = forms.DateField(widget = forms.SelectDateWidget(attrs={"class": "form-control"}))
+    endDate = forms.DateField(widget = forms.SelectDateWidget(attrs={"class": "form-control"}))
 
     class Meta:
         model = AnnouncementEvent
@@ -39,8 +39,10 @@ class CreateAnnouncementEventForm(ModelForm):
 
 class CreateAnnouncementAdditionalEventForm(ModelForm):
 
-    startingDate = forms.DateField(widget = forms.SelectDateWidget)
-    endDate = forms.DateField(widget = forms.SelectDateWidget)
+    type = forms.CharField(label='eventType', max_length=50, required=False, widget=forms.TextInput(attrs={"class": "additionalItem1"}))
+
+    startingDate = forms.DateField(widget = forms.SelectDateWidget(attrs={"class": "additionalItem2"}))
+    endDate = forms.DateField(widget = forms.SelectDateWidget(attrs={"class": "additionalItem3"}))  
 
     class Meta:
         model = AnnouncementEvent

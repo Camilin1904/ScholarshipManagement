@@ -1,80 +1,164 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+
+{% load static %}
 
 {% block content %}
-<h1>Announcement register</h1>
 
 {{error}}
 
-<form action='/announcement/create/', method = 'POST'>
+<head>
 
-    {% csrf_token %} 
-
-
-    <input type="hidden" name="title" value="{{ additionalEvents }}">
-
-    <input type="hidden" class= list name="title2" value="{{ data }}">
-    
-
-    {{announcementForm.as_p}}
-
-    {{scholarshipAnnouncementForm.as_p}}
-    
-    <h2>Inscripciones</h2>
-
-    {{announcementEventFormInscription.as_p}}
-
-    <h2>Selección</h2>
-
-    {{announcementEventFormSelection.as_p}}
-
-    <h2>Entrevistas</h2>
-
-    {{announcementEventFormInterview.as_p}}
-
-    <h2>Publicación de beneficiarios</h2>
-
-    {{announcementEventFormPublication.as_p}}
-
-    {% if additionalEvents != 0 %}
-
-    {% for i in data %}
-	
-	    {{i.as_p}}
-
-    {% endfor %}
-
-    {% endif %}
-
-    <input type="hidden" class= list name="title3" value="{{ data }}">
+    <meta charset="UTF-8">
+    <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static 'CSS/createAnnouncement.css' %}">
+    {% block links %}
+    {% endblock %}
+    <title>
+        Creación Aplicante
+    </title>
 
 
-    <button name="newEventBttn" class="button">
-        <h3>
-            Add event
-        </h3>
-    </button>
+</head>
 
-    {% if additionalEvents != 0 %}
+<body>
 
-        <button name="deleteEventBttn" class="button">
-            <h3>
-                Delete event
-            </h3>
-        </button>
+    <header>
+        <img src="{% static './Icons/icesi.png' %}" class="icesi">
+        <div class="menu">
+            <ul>
+                    <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+            </ul>              
+        </div>  
+      
+    </header>
 
-    {% endif %}
-    
-    <br>
-    <br>
+    <div class="container">
 
-    <button name="saveBttn" class="button">
-        <h3>
-            Save
-        </h3>
-    </button>
+        <form action='/announcement/create/', method = 'POST'>
+
+            {% csrf_token %} 
+
+            <input type="hidden" name="title" value="{{ additionalEvents }}">
+
+            <input type="hidden" class= list name="title2" value="{{ data }}">
+
+            
+
+                <div class="content1">
+
+                    {% for field in announcementForm %}
+                            <div id="id_announcementForm_{{forloop.counter}}" class="items">
+                        
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                            </div>
+                    {% endfor %}
+
+                    {% for field in scholarshipAnnouncementForm %}
+                            <div id="id_scholarshipAnnouncementForm_{{forloop.counter}}" class="items">
+                        
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                            </div>
+                    {% endfor %}
+            
+                    
+                    <h2 id="inscrip">Inscripciones</h2>
+
+                    {% for field in announcementEventFormInscription %}
+                            <div id="id_announcementEventFormInscription_{{forloop.counter}}" class="items">
+                        
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                            </div>
+                    {% endfor %}
 
 
-</form>
+                    <h2 id="selec">Selección</h2>
+
+                    {% for field in announcementEventFormSelection %}
+                            <div id="id_announcementEventFormSelection_{{forloop.counter}}" class="items">
+                        
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                            </div>
+                    {% endfor %}
+
+
+                    <h2 id="entrev">Entrevistas</h2>
+
+                    {% for field in announcementEventFormInterview %}
+                            <div id="id_announcementEventFormInterview_{{forloop.counter}}" class="items">
+                        
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                            </div>
+                    {% endfor %}
+
+
+                    <h2 id="benef">Publicación de beneficiarios</h2>
+
+                    {% for field in announcementEventFormPublication %}
+                            <div id="id_announcementEventFormPublication_{{forloop.counter}}" class="items">
+                        
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                            </div>
+                    {% endfor %}
+ 
+
+
+                    {% if additionalEvents != 0 %}
+
+                    {% for i in data %}
+                            
+                        <h2 class="newTitle">Nueva fecha </h2>
+                    
+                        {{i.as_p}}
+
+                    {% endfor %}
+
+                    {% endif %}
+
+                    <input type="hidden" class= list name="title3" value="{{ data }}">
+
+
+ 
+                    <button id= "addBttn" name="newEventBttn" class="button">
+                        <h3>
+                            Add event
+                        </h3>
+                    </button>
+
+                    {% if additionalEvents != 0 %}
+
+                        <button id= "deleteBttn" name="deleteEventBttn" class="button">
+                            <h3>
+                                Delete event
+                            </h3>
+                        </button>
+
+                    {% endif %}
+                    
+                    <br>
+                    <br>
+            
+
+                    <button id= "saveBttn" name="saveBttn" class="button">
+                        <h3>
+                            Save
+                        </h3>
+                    </button>
+
+                </div>
+
+        </form>
+    </div>
+        
+</body>
 
 
 

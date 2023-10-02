@@ -211,9 +211,6 @@ def createAnnouncement(request):
 
             return render(request, 'createAnnouncement.html', context)
             
-            
-            
-        
 
         """
         
