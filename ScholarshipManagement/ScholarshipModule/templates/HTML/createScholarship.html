@@ -1,5 +1,11 @@
-{% extends "base.html" %}
+{% extends "HTML/home.html" %}
 {% load static %}
+
+{% block links %}
+    <title>
+        Crear programa de becas
+    </title>
+{% endblock links %}
 
 {% block content %}
 
@@ -7,10 +13,11 @@
         <meta charset="UTF-8">
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
         <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
+        <title>Crear programa de beca</title>
     </head>
     <div class = "content">
         {{error}}
-        <form id= "create" action="/scholarships/create/" method = "POST">
+        <form id= "create" action="/scholarships/create/" method = "POST" style="">
             {% csrf_token %}
             {% for field in form %}
             <div id="id_{{forloop.counter}}">
