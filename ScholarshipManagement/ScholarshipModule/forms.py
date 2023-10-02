@@ -7,33 +7,33 @@ from django.contrib.auth.forms import AuthenticationForm
 
 class CreateScholarshipForm(ModelForm):
     
-    def __init__(self, *args, **kwargs):
-        super(CreateScholarshipForm, self).__init__(*args,**kwargs)
-        self.fields['donor'].widget.attrs['size'] = 51
-        self.fields['name'].widget.attrs['size'] = 51
-        self.fields['ID'].widget.attrs['size'] = 51
-        self.fields['description'].widget.attrs['size'] = 50
-        self.fields['coverage'].widget.attrs['size'] = 51
-        self.fields['type'].widget.attrs['size'] = 3
+    #def __init__(self, *args, **kwargs):
+        #super(CreateScholarshipForm, self).__init__(*args,**kwargs)
+        #self.fields['donor'].widget.attrs['size'] = 51
+        #self.fields['name'].widget.attrs['size'] = 51
+        #self.fields['ID'].widget.attrs['size'] = 51
+        #self.fields['description'].widget.attrs['size'] = 50
+        #self.fields['coverage'].widget.attrs['size'] = 51
+        #self.fields['type'].widget.attrs['size'] = 3
 
     donor = forms.ModelChoiceField(
         label = "ID del donante", required=True,
-        widget=forms.TextInput(attrs={'cols':'10'}),queryset=Donors.objects)
+        widget=forms.TextInput(attrs={"class":"id_donor"}),queryset=Donors.objects)
     name = forms.CharField(
         label = "Nombre", max_length = 100, required = True,
-        widget=forms.TextInput())
+        widget=forms.TextInput(attrs={"class":"id_name"}))
     description = forms.CharField(
-        label = "Descripción", widget=forms.Textarea(attrs={"cols":"105", 'rows':'5'}))
+        label = "Descripción", widget=forms.Textarea(attrs={"class":"id_description",'rows':'3'}))
     coverage = forms.CharField(
         label = "Covertura economica", required=True, 
-        widget=forms.TextInput())
+        widget=forms.TextInput(attrs={"class":"id_coverage"}))
     type = forms.CharField(
         label = "Tipo", required=True, 
         widget=forms.RadioSelect(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
     requirements = forms.CharField(
-        label = "Requerimientos", required=True, 
-        widget=forms.Textarea(attrs={'rows':'5'}))
-    ID = forms.IntegerField(label = 'ID', required=True, widget=forms.TextInput())
+        label = "Requerimientos",
+        widget=forms.Textarea(attrs={"class":"id_requirements",'rows':'3'}))
+    ID = forms.IntegerField(label = 'ID', required=True, widget=forms.TextInput(attrs={"class":"id_ID"}))
     
 
     class Meta:
