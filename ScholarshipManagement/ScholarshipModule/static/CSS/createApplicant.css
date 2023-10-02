@@ -5,120 +5,141 @@
     font-family: Noto music;
 }
 
-.header{
-    background-color: #0464AC;
-    height: 15%;
+html, body {
+    display: flex;
+    flex-flow: column;
     width: 100%;
-    color: #FFFFFF;
-    -webkit-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 30px -20px rgba(0,0,0,0.75);
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color:#88A0A8;
     align-items: center;
     justify-content: center;
-
 }
 
-#icesi{
-    vertical-align: middle;
-    max-width: 15%;
-    margin-top: 1.5%;
-    margin-right: 8%;
-    float: right;
-}
-
-.text {
-    margin-left: 8%;
-    float: left;
-    margin-top: 1%;
-    font-size: 20px;
-}
-
-    
-body{
-    background-color: #F4F6FA;
-    display: inline flex;
-    flex-flow: row-reverse wrap;
-    justify-content: space-between;
-    border: solid black;
+header{
     width: 100%;
-    
+    height: 20%;
+    display: flex;
+    background-color: #455761;
+    align-items: center;
+    float: left;
+    position: absolute;
 }
 
+.icesi{
+    display: flex;
+    width: 30%;
+    padding: 6%;
+}
 
+.menu{
+    display: flex;
+    width:  100%;
+    height: 3cm;
+    background-color: #455761;
+    color: white;
+    align-items: center;
+    font-size: large;
+    justify-content: end;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+  
+li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+  
+li:last-child {
+    border-right: none;
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
 
 #content{
-    border: solid black;
-    margin:  auto;
+    margin-top: 26%;
+    height: 102%;
     width: 80%;
-
-    margin-top: 3%;
-
-
+    background-color: #dbd3c9;
+    border-radius: 15px;
+    
 }
 
 .container{
-    border: solid black;
-    margin-top: 1%;
-    margin-bottom: 2%;
-    width: 100%;
-    height: 80% ;
+
+
     grid-auto-rows: 100px;
     display: grid;
-    grid-template-columns: auto auto 10%;
+    grid-template-columns: auto auto;
     justify-content: center;
     justify-content: space-around;
-    background-color: yellow;
     border-radius: 5%;
-
+    margin-inline: 10%;
+    
 
 }
 
-#id_1{
-    grid-column: 1;
+
+
+#registerApplicant{
+    grid-column: 1/3;
+    margin-top: 1%;
 }
 
-#id_2{
-    grid-column: 2;
+
+.inputForm{
+    background-color: #e9e1d8;
+    border: none;
+    height: 45%;
+    border-radius: 10px;
+    border:  solid #88a0a8;
+    width: 100%;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
+
 }
 
-#id_3{
-    grid-column: 1;
+.inputForm option {
+    color: rgb(134, 125, 125); 
 }
 
-#id_4{
-    grid-column: 2;
-}
-#id_5{
-    grid-column: 1;
+
+::placeholder {
+    color: rgb(134, 125, 125);
+
 }
 
-#id_6{
-    grid-column: 2;
+
+.button:hover{
+    background-color: #455761;
+    color: #DBD3C9;
 }
 
-#id_7{
-    grid-column: 1;
-}
-
-#id_8{
-    grid-column: 2;
-}
-
-#id_9{
-    grid-column: 1;
-}
-
-#id_10{
-    grid-column: 2;
-}
-
-#save{
+.button{
     width: 35%;
     height: 40%;
     align-items: center;
-    grid-column: 1;
-    
+    grid-column: 1; 
+    border: none;
+    background-color: #e9e1d8;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
+    border:0.5px solid #7d878b;
+    color: #455761;
+    transition-duration: 0.4s;
 }
+
+
 
 
 

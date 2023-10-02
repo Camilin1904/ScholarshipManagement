@@ -108,8 +108,6 @@ def createScholarships(request):
                 'error': 'Please provide valid data'
             })
         
-def homeApplicant(request):
-    return render(request, 'homeApplicant.html')
 
 
 def createApplicants(request):
@@ -122,9 +120,23 @@ def createApplicants(request):
         try:
             form = CreateApplicantForm(request.POST)
             form.save()
-            return redirect('/applicants/homePage/')
+
+            postStudentCode=request.POST['studentCode']
+            AnnouncementPost=request.POST['announcement']
+            student = Applicant.objects.get(studentCode = postStudentCode)
+            annuncement=Announcement.objects.get(ID=AnnouncementPost)
+
+            print(student.ID,AnnouncementPost)
+
+            formNew= AnnouncementAndApplicantForm()
+            hola=formNew.save(commit=False)
+            hola.announcement=annuncement
+            hola.applicantID=student
+            hola.save()
+            return redirect('/home/')
         except:
-            return render(request, 'homeApplicant.html', {
+            return render(request, 'home.html', {
                 'form': CreateApplicantForm,
                 'error': 'Please provide valid data'
             })
+        

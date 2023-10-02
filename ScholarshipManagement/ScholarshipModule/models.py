@@ -64,6 +64,12 @@ class Applicant(models.Model):
     phone = models.IntegerField(blank=True, null=True)
 
     status = models.IntegerField(default=StatusApplicant.INREVIEW, choices=StatusApplicant.choices)
+
+class AnnouncementAndApplicant(models.Model):
     announcement= models.ForeignKey(Announcement, 
-                related_name="id_announcement", blank=False, null=True, 
-                on_delete= models.CASCADE)
+        related_name="id_announcement", blank=False, null=True, 
+        on_delete= models.CASCADE)
+    applicantID= models.ForeignKey(Applicant, 
+        related_name="id_applicant", blank=False, null=True, 
+        on_delete= models.CASCADE)
+    
