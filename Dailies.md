@@ -107,3 +107,8 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Andrés Camilo Romero Ruiz |  I finished the CSS improve and make the pull request so my team has templates to work with | I'm not going to work today, feel like it's enough, but on the weekend I hope to start and finish the last US that I have assigned | No |
 | Brayan Steven Ortega |  I founded a new funcionality to implement in the creation of an Applicant and I continue improving the CSS | I will finish the CSS first and then implement the new functionality | No |
 | Juan Sebastián Libreros | I found a little problem on my US and I got to do a new functonality expanding the previous one and its editing the whole applicant | I will create the function of edit an applicant also, learn the proper way to do it and focus on HTML and CSS | I need to learn how to edit a table on django |
+
+## 02/10/2023
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I investigated about CSS and how to properly place the items on the page | I will organize and style the announcement creation page with CSS | No|
