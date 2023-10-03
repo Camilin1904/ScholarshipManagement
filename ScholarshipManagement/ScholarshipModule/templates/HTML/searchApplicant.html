@@ -1,43 +1,72 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
-    <title>
-        Busqueda de Aplicantes
-    </title>
-</head>
-<body>
-    <form method='GET'>
-        {% csrf_token %}
-        <label for="fname">Nombre:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <button id="search" class="button">
-            <h5>
-                Buscar
-            </h5>
-        </button>
-    </form>
 
-    {% for Applicant in applicant %}
-        <h1>Aplicante</h1>
-            <ul>
-                <li>
-                    <h2 id="code_{{forloop.counter}}">
-                        Codigo: {{Applicant.studentCode}}
-                    </h2>
-                    <p>Nombre : {{Applicant.name}}</p>
-                    <p>Apellido : {{Applicant.lastName}}</p>
-                    <p>Escuela : {{Applicant.school}}</p>
-                </li>
-            </ul>
-            <form method="POST">
-                {% csrf_token %}
-                <button>Ver más</button>
-            </form>
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/searchApplicant.css' %}">
+        {% block links %}
+        {% endblock %}
+        <title>
+            Home
+        </title>
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+        
+        <div class = "container">
+            <div class="content">
+                <form method='GET'>
+                    {% csrf_token %}
+                    <label for="fname">Nombre:</label>
+                    <input type="text" id="name" name="name"><br><br>
+                    <button id="search" class="button">
+                            
+                        Buscar
+                        
+                    </button>
+                </form>
+
+                <h1>
+                    Aplicante
+                </h1>
+
+                {% for Applicant in applicant %}
+                    
+                        <ul>
+                            <li>
+                                <p>{{Applicant.studentCode}}</p> 
+                                <p>Nombre : {{Applicant.name}}</p>
+                                <p>Apellido : {{Applicant.lastName}}</p>
+                                <p>Telefono : {{Applicant.phone}}</p>
+                            </li>
+                        </ul>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button>Ver más</button>
+                        </form>
+                        
+                {%endfor%}
             
-    {%endfor%}
-            
-</body>
+                
+            </div>
+           
+        </div>
+    </body>
+        
 </html>
+
