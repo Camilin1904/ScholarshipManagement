@@ -88,38 +88,133 @@ def home(request):
 
 
 def scholarships(request):
-    reqID = request.GET.get('id')
-    reqName = request.GET.get('name')
-    reqDonor = request.GET.get('donor_id')
-    minCov = request.GET.get('min_cov')
-    maxCov = request.GET.get('max_cov')
+    if request.method == 'GET':
+        try:
+            del request.session['name']
+        except:
+            print(0)
+        try:
+            del request.session['donor_id']
+        except:
+            print(0)
+        try:
+            del request.session['min_cov'] 
+        except:
+            print(0)
+        try:
+            del request.session['max_cov']
+        except:
+            print(0)
+            
+    reqID = request.POST.get('id')
+    reqName = request.POST.get('name')
+    reqDonor = request.POST.get('donor_id')
+    minCov = request.POST.get('min_cov')
+    maxCov = request.POST.get('max_cov')
+    hasType0 = request.POST.get('type0')
+    hasType1 = request.POST.get('type1')
+    hasType2 = request.POST.get('type2')
+    print("-",hasType0)
     scholarships = Scholarships.objects.all()
+    if(not isValid(reqID) and not isValid(reqName) and not isValid(reqDonor)
+       and not isValid(minCov) and not isValid(maxCov)):
+        try:
+            del request.session['id']
+        except:
+            print(0)
+        
     if isValid(reqID):
         try:
+            request.session['id'] = reqID
             scholarships = scholarships.filter(ID=reqID)
         except:
             scholarships = None
+    else:
+        try:
+            reqID = request.session.get('id','')
+            request.session['id'] = reqID
+            scholarships = scholarships.filter(ID=reqID)
+        except:
+            scholarships = Scholarships.objects.all()
     if isValid(reqName):
         try:
-            scholarships = scholarships.filter(name=reqName)
+            request.session['name'] = reqName
+            scholarships = scholarships.filter(name=reqName)    
         except:
             scholarships = None
+    else:
+        try:
+            del request.session['name']
+        except:
+            print(0)
     if isValid(reqDonor):
         try:
+            request.session['donor_id'] = reqDonor
             scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
         except:
             scholarships = None
+    else:
+        try:
+            del request.session['donor_id']
+        except:
+            print(0)
     if isValid(minCov):
         try:
+            request.session['min_cov'] = minCov
             scholarships = scholarships.filter(coverage__gte=minCov)
         except:
-            scholarships = None    
+            scholarships = None
+    else:
+        try:
+            del request.session['min_cov'] 
+        except:
+            print(0)
     if isValid(maxCov):
         try:
+            request.session['max_cov'] = maxCov
             scholarships = scholarships.filter(coverage__lte=maxCov)
         except:
             scholarships = None
-    return render(request, './HTML/scholarships.html', {'scholarships': scholarships})
+    else:
+        try:
+            del request.session['max_cov']
+        except:
+            print(0)
+    if hasType0 == 'on':
+        try:
+            scht0 = scholarships.objects.filter(type = '0')
+        except:
+            scht0 = scholarships
+    else:
+        scht0 = scholarships
+    if hasType1 == 'on':
+        try:
+            scht1 = scholarships.objects.filter(type = '1')
+        except:
+            scht1 = scholarships
+    else:
+        scht1 = scholarships
+    if hasType2 == 'on':
+        try:
+            scht2 = scholarships.objects.filter(type = '2')
+        except:
+            scht2 = scholarships
+    else:
+        scht2 = scholarships
+    try:
+        scholarships.intersection(scht0,scht1,scht2)
+    except:
+        print(0)
+    reqID = request.session.get('id','')
+    reqName = request.session.get('name','')
+    reqDonor = request.session.get('donor_id','')
+    minCov = request.session.get('min_cov','')
+    maxCov = request.session.get('max_cov','')
+    return render(request, './HTML/scholarships.html', {'scholarships': scholarships, 
+                                                        'id':reqID, 'name':reqName,
+                                                        'donor_id':reqDonor, 
+                                                        'min_cov':minCov,
+                                                        'max_cov':maxCov})
 
 
 def createScholarships(request):
@@ -131,6 +226,7 @@ def createScholarships(request):
     else:
         try:
             form = CreateScholarshipForm(request.POST)
+            print(form.data)
             form.save()
             return redirect('scholarships')
         except:
