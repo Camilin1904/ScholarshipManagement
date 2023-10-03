@@ -29,26 +29,33 @@
 
         <div id="content">
             
-            
-                <form action='/applicants/create/' method = "POST">
-                <div class="container">
+        
+            <form action='/applicants/create/' method = "POST">
+            <div class="container">
 
-                    <h2 id="registerApplicant">Registro del aplicante</h2>
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div id="id_{{forloop.counter}}" class="items">
-                     
-                            {{ field.label_tag }}<br>
-                            {{ field }}
-                        </div>
-                        {% endfor %}
-                        <button id="save" class="button">Guardar</button>
-                    <br>
-                
-                </form>
-                {{error}}
+                <h2 id="registerApplicant">Registro del aplicante</h2>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div id="id_{{forloop.counter}}" class="items">
+                    
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <button id="save" class="button">Guardar</button>
+                <br>
+            
+            </form>
             </div>
             
+            {% if error == ""%}
+                    
+            {% else %}
+                <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>Advertencia</strong> {{error}}
+                </div>
+            {% endif%}    
                
         </div>  
     </body>

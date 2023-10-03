@@ -127,7 +127,7 @@ def createApplicants(request):
 
             AnnouncementPost = 0
             form = CreateApplicantForm(request.POST)
-            error = 'Digite información correctamente'
+            error = ""
             postStudentCode = request.POST['studentCode']
             AnnouncementPost = request.POST['announcement']
             postEmail = request.POST['email']
@@ -141,19 +141,21 @@ def createApplicants(request):
                 verifyStudentCode= Applicant.objects.get(studentCode = postStudentCode)
             except:
                 verifyStudentCode=1;
-
-            if verifyStudentCode != 1:
-                error = 'El código de estudiante ya existe'    
-            elif verifyEmail !=1:
-                error = 'El email de estudiante ya existe'
       
 
             try:
                 
+                
+                if verifyStudentCode != 1:
+                    error = 'El código de estudiante ya existe'    
+                elif verifyEmail !=1:
+                    error = 'El email de estudiante ya existe'
+                else:
+                    error = 'Digite información correctamente'
                 form.save()
 
                 if AnnouncementPost == "":
-                    error="perro"
+                    error=""
                 else: 
                     student = Applicant.objects.get(studentCode = postStudentCode)
                     annuncement=Announcement.objects.get(ID=AnnouncementPost)
@@ -161,10 +163,10 @@ def createApplicants(request):
                     print(student.ID,AnnouncementPost)
 
                     formNew= AnnouncementAndApplicantForm()
-                    hola=formNew.save(commit=False)
-                    hola.announcement=annuncement
-                    hola.applicantID=student
-                    hola.save()
+                    relation=formNew.save(commit=False)
+                    relation.announcement=annuncement
+                    relation.applicantID=student
+                    relation.save()
                     
                 return redirect('/home/')
                 
@@ -180,10 +182,6 @@ def createApplicants(request):
                 'error': error
             })
         
-        return render(request, 'home.html', {
-                'form': CreateApplicantForm,
-                'error': error
-            })
         
 def searchUserForRole(request):
     user = request.user
