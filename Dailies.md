@@ -112,3 +112,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I investigated about CSS and how to properly place the items on the page | I will organize and style the announcement creation page with CSS | No|
+| Andrés Camilo Romero Ruiz | I started and almost finished user story 10 on assigning user roles, all the front is done and I still have a part of the backend pending, its progress can be seen in the US10 branch | Today, with what I have seen during class, I hope to finish the user story and make a pull request. In this way, I will have finished all the user stories that concern me functionally. I will remain attentive to what my classmates need. | No |
