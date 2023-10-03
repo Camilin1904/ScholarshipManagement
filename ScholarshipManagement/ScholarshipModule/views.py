@@ -114,6 +114,75 @@ def createScholarships(request):
                 'error': 'Please provide valid data'
             })
         
+
+
+def createApplicants(request):
+
+    if request.method == 'GET':
+        return render(request, 'createApplicant.html', {
+            'form': CreateApplicantForm
+        })
+    else:
+        try:
+
+            AnnouncementPost = 0
+            form = CreateApplicantForm(request.POST)
+            error = ""
+            postStudentCode = request.POST['studentCode']
+            AnnouncementPost = request.POST['announcement']
+            postEmail = request.POST['email']
+
+            try:
+                verifyEmail= Applicant.objects.get(email = postEmail)
+            except: 
+                verifyEmail=1;
+
+            try:
+                verifyStudentCode= Applicant.objects.get(studentCode = postStudentCode)
+            except:
+                verifyStudentCode=1;
+      
+
+            try:
+                
+                
+                if verifyStudentCode != 1:
+                    error = 'El código de estudiante ya existe'    
+                elif verifyEmail !=1:
+                    error = 'El email de estudiante ya existe'
+                else:
+                    error = 'Digite información correctamente'
+                form.save()
+
+                if AnnouncementPost == "":
+                    error=""
+                else: 
+                    student = Applicant.objects.get(studentCode = postStudentCode)
+                    annuncement=Announcement.objects.get(ID=AnnouncementPost)
+
+                    print(student.ID,AnnouncementPost)
+
+                    formNew= AnnouncementAndApplicantForm()
+                    relation=formNew.save(commit=False)
+                    relation.announcement=annuncement
+                    relation.applicantID=student
+                    relation.save()
+                    
+                return redirect('/home/')
+                
+
+            except:
+                print(error)
+                return render(
+                request, 'createApplicant.html', {'form': form, 'error': error})
+
+        except:
+            return render(request, 'home.html', {
+                'form': CreateApplicantForm,
+                'error': error
+            })
+        
+        
 def searchUserForRole(request):
     user = request.user
     error = ""
