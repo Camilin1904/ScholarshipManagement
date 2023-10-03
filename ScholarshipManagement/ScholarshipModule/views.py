@@ -15,7 +15,7 @@ def signUp(request):
     if request.method == 'POST':
         # Save the form answers
         form = CreateNewUser(request.POST)
-        error = ""
+        error = ''
         for field in form:
             # Errors as text
             error = field.errors.as_text
@@ -31,7 +31,7 @@ def signUp(request):
     else:
         form = CreateNewUser
     return render(
-        request, './HTML/Signin.html', {'form': form})
+        request, './HTML/Signin.html', {'form': form, 'error':''})
 
 def signOut(request):
     
@@ -66,10 +66,11 @@ def signIn(request):
             # If the username is not found
             error = 'El usuario no existe'
 
-    return render(request, './HTML/login.html', {
+    return render(
+        request, './HTML/login.html', {
             'form': Login,
             'error': error
-    })
+        })
 
 # The tag will demand the user to login
 @login_required(login_url="/login")
@@ -88,22 +89,67 @@ def home(request):
 def scholarships(request):
     
     scholarships = Scholarships.objects.all()
-    return render(request, 'scholarships.html', {'scholarships': scholarships})
+    return render(
+        request, 'scholarships.html', {
+            'scholarships': scholarships
+        })
 
 
 def createScholarships(request):
 
     if request.method == 'GET':
-        return render(request, 'createScholarship.html', {
-            'form': CreateScholarshipForm
-        })
+        return render(
+            request, 'createScholarship.html', {
+                'form': CreateScholarshipForm
+            })
     else:
         try:
             form = CreateScholarshipForm(request.POST)
             form.save()
             return redirect('scholarships')
         except:
-            return render(request, 'createScholarship.html', {
+            return render(
+                request, 'createScholarship.html', {
                 'form': CreateScholarshipForm,
                 'error': 'Please provide valid data'
             })
+        
+def searchUserForRole(request):
+    user = request.user
+    error = ""
+    if request.method == 'POST':
+        try:
+            username = request.POST['username']
+            toChange = User.objects.get(id=username)
+            try:
+                # If the user is not found it creates an exception
+                return render(
+                    request, './HTML/roleAssign.html', {
+                        'form': roleAssign,
+                        'toChange' : toChange
+                    })
+            except:
+                # If the username is not found
+                error = 'El usuario no existe'
+        except:
+            #username field does not exist so we are in roleAssign
+            rol = request.POST['role']
+            email = request.POST['email']
+            toChange = User.objects.filter(username=email).update(role=rol)
+            print("se supone que hubo cambios")
+            redirect(home)
+
+
+    else:
+        if user.role == 0:
+            return render(
+                request, './HTML/searchUser.html', {
+                    'form': searchUser
+                })
+        else:
+            return redirect('/home')
+    return render(
+        request, './HTML/searchUser.html', {
+            'form': searchUser,
+            'error': error
+        })

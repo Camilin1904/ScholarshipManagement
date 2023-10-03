@@ -1,8 +1,10 @@
 from django.forms import ModelForm
+from django.forms import Form
 from django import forms
 from .models import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.db.models import Q
 
 
 class CreateScholarshipForm(ModelForm):
@@ -61,3 +63,19 @@ class Login(AuthenticationForm):
             "username",
             "password"
         ]
+
+class searchUser(Form):
+
+    username = forms.ModelChoiceField(
+        label="Email", queryset= User.objects.filter(~Q(role=0)), initial= 3, widget=forms.Select(attrs={"class":"input"}))
+    
+class roleAssign(Form):
+
+    CHOICES= (
+        (1, 'Asistente de apoyo Financiero'),
+        (2, 'Asistente de Filantropía'),
+        (3, 'Sin rol')
+    )
+
+    role = forms.ChoiceField(
+        label="Nuevo rol", choices= CHOICES, initial= 3, widget=forms.Select(attrs={"class":"input"}))
