@@ -107,8 +107,6 @@ class CreateApplicantForm(ModelForm):
         label = "ID de la convocatoria", required=False,
         widget=forms.TextInput(attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'} ),queryset=Announcement.objects)
 
-    
-
 
     class Meta:
         model = Applicant

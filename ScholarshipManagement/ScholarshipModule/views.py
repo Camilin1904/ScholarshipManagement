@@ -118,25 +118,64 @@ def createApplicants(request):
         })
     else:
         try:
+
+            AnnouncementPost = 0
             form = CreateApplicantForm(request.POST)
-            form.save()
+            error = 'Digite información correctamente'
+            postStudentCode = request.POST['studentCode']
+            AnnouncementPost = request.POST['announcement']
+            postEmail = request.POST['email']
 
-            postStudentCode=request.POST['studentCode']
-            AnnouncementPost=request.POST['announcement']
-            student = Applicant.objects.get(studentCode = postStudentCode)
-            annuncement=Announcement.objects.get(ID=AnnouncementPost)
+            try:
+                verifyEmail= Applicant.objects.get(email = postEmail)
+            except: 
+                verifyEmail=1;
 
-            print(student.ID,AnnouncementPost)
+            try:
+                verifyStudentCode= Applicant.objects.get(studentCode = postStudentCode)
+            except:
+                verifyStudentCode=1;
 
-            formNew= AnnouncementAndApplicantForm()
-            hola=formNew.save(commit=False)
-            hola.announcement=annuncement
-            hola.applicantID=student
-            hola.save()
-            return redirect('/home/')
+            if verifyStudentCode != 1:
+                error = 'El código de estudiante ya existe'    
+            elif verifyEmail !=1:
+                error = 'El email de estudiante ya existe'
+      
+
+            try:
+                
+                form.save()
+
+                if AnnouncementPost == "":
+                    error="perro"
+                else: 
+                    student = Applicant.objects.get(studentCode = postStudentCode)
+                    annuncement=Announcement.objects.get(ID=AnnouncementPost)
+
+                    print(student.ID,AnnouncementPost)
+
+                    formNew= AnnouncementAndApplicantForm()
+                    hola=formNew.save(commit=False)
+                    hola.announcement=annuncement
+                    hola.applicantID=student
+                    hola.save()
+                    
+                return redirect('/home/')
+                
+
+            except:
+                print(error)
+                return render(
+                request, 'createApplicant.html', {'form': form, 'error': error})
+
         except:
             return render(request, 'home.html', {
                 'form': CreateApplicantForm,
-                'error': 'Please provide valid data'
+                'error': error
+            })
+        
+        return render(request, 'home.html', {
+                'form': CreateApplicantForm,
+                'error': error
             })
         
