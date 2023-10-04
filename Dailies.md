@@ -116,3 +116,8 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Camilo Carmona Valencia | I Finalized the update of the ui of US1, while also finalizing the ui for US2 | I will further improve US2 | No |
 |Juan Sebastián Libreros | I created the css for an early search applicant screen. Also investigated about how the queryset function on django. Finally I solved some doubts about my user story | I will learn how sessions work to create a proper edition of applicant | No |
 |Brayan Steven Ortega | I ended the css for the US11 and I fixed some errors in a table in the database to finally made the pull request to dev with all the functionalities of US11 | I will start working on the US12 | No |
+
+## 03/10/2023
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I finished the front-end part of US4 | I will add alerts to the announcement creation page so US4 is done | No|
