@@ -105,15 +105,27 @@ def scholarships(request):
             del request.session['max_cov']
         except:
             print(0)
+        try:
+            del request.session['type0']
+        except:
+            print(0)
+        try:
+            del request.session['type1']
+        except:
+            print(0)
+        try:
+            del request.session['type2']
+        except:
+            print(0)
             
     reqID = request.POST.get('id')
     reqName = request.POST.get('name')
     reqDonor = request.POST.get('donor_id')
     minCov = request.POST.get('min_cov')
     maxCov = request.POST.get('max_cov')
-    hasType0 = request.POST.get('type0')
-    hasType1 = request.POST.get('type1')
-    hasType2 = request.POST.get('type2')
+    hasType0 = request.POST.get('type0')=='on'
+    hasType1 = request.POST.get('type1')=='on'
+    hasType2 = request.POST.get('type2')=='on'
     print("-",hasType0)
     scholarships = Scholarships.objects.all()
     if(not isValid(reqID) and not isValid(reqName) and not isValid(reqDonor)
@@ -180,27 +192,42 @@ def scholarships(request):
             del request.session['max_cov']
         except:
             print(0)
-    if hasType0 == 'on':
+    if hasType0:
         try:
+            request.session['type0'] = hasType0
             scht0 = scholarships.objects.filter(type = '0')
         except:
             scht0 = scholarships
     else:
         scht0 = scholarships
-    if hasType1 == 'on':
         try:
+            del request.session['type0']
+        except:
+            print(0)
+    if hasType1:
+        try:
+            request.session['type1'] = hasType1
             scht1 = scholarships.objects.filter(type = '1')
         except:
             scht1 = scholarships
     else:
         scht1 = scholarships
-    if hasType2 == 'on':
         try:
+            del request.session['type1']
+        except:
+            print(0)
+    if hasType2:
+        try:
+            request.session['type2'] = hasType2
             scht2 = scholarships.objects.filter(type = '2')
         except:
             scht2 = scholarships
     else:
         scht2 = scholarships
+        try:
+            del request.session['type2']
+        except:
+            print(0)
     try:
         scholarships.intersection(scht0,scht1,scht2)
     except:
@@ -210,11 +237,17 @@ def scholarships(request):
     reqDonor = request.session.get('donor_id','')
     minCov = request.session.get('min_cov','')
     maxCov = request.session.get('max_cov','')
+    hasType0 = request.session.get('type0', False)
+    hasType1 = request.session.get('type1', False)
+    hasType2 = request.session.get('type2', False)
     return render(request, './HTML/scholarships.html', {'scholarships': scholarships, 
                                                         'id':reqID, 'name':reqName,
                                                         'donor_id':reqDonor, 
                                                         'min_cov':minCov,
-                                                        'max_cov':maxCov})
+                                                        'max_cov':maxCov, 
+                                                        'type0':hasType0,
+                                                        'type1':hasType1,
+                                                        'type2':hasType2})
 
 
 def createScholarships(request):

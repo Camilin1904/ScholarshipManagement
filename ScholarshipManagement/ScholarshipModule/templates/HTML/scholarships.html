@@ -21,9 +21,9 @@
             <p>Hasta:</p>
             <input id="max_cov" name="max_cov" value={{max_cov}}></input><br>
             Tipo:<br>
-            <input name="type0" name="type" type="checkbox">Intercambio</input><br>
-            <input name="type1" name="type" type="checkbox">Rescate</input><br>
-            <input name="type2" name="type" type="checkbox">Sustento</input><br>
+            <input name="type0" name="type" type="checkbox" {% if type0 %} checked {% endif %}>Intercambio</input><br>
+            <input name="type1" name="type" type="checkbox" {% if type1 %} checked {% endif %}>Rescate</input><br>
+            <input name="type2" name="type" type="checkbox" {% if type2 %} checked {% endif %}>Sustento</input><br>
             <button id="apply">Apply filters</button>
             <br>
         </form>
