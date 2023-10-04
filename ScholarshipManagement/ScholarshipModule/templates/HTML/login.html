@@ -14,9 +14,12 @@
     <body>
 
         <div class="content">
-            <div class="left">
+            <div class="left" style="
+            text-align: center;
+            justify-content: center;
+            align-items: center;">
 
-                <img src="{% static './Icons/icesi.png' %}">
+                <img src="{% static './Icons/icesi.png' %}" class="icesi">
                 <div style="margin-top: 10%;"></div>
                 <div style="font-size: large;">
                     Todavía no tienes una cuenta en el sistema?
@@ -34,9 +37,15 @@
             </div>
     
             <div class="middle">
-                <h1>Iniciar Sesión</h1>
                 
-                <form method="POST">
+                <h1>Iniciar Sesión</h1>
+                <br>
+                <form method="POST" style="
+                width: 61.8029%;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;">
                     {% csrf_token %}
                     {% for field in form %}
                     <p>
@@ -52,6 +61,15 @@
                         Ingresar
                     </button>
                 </form>
+
+                {% if error == ""%}
+                    
+                {% else %}
+                    <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Advertencia</strong> {{error}}
+                    </div>
+                {% endif%}
             </div>
         </div>
        

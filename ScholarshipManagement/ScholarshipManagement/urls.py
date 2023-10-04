@@ -25,10 +25,10 @@ urlpatterns = [
     path('home/', views.home, name = 'home'),
     path('scholarships/', views.scholarships, name='scholarships'),
     path('applicants/create/', views.createApplicants, name='Applicants'),
-    path('applicants/homePage/', views.homeApplicant, name='ApplicantsHomePage'),
-    path('logout/', views.signOut, name='signOut'),
+    path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
+    path('logout/', views.signOut, name = 'signOut'),
     path('login/', views.signIn, name = 'signIn'),
-    path('applicant/management', views.searchApplicant,name='search')
-    
+    path('roles/', views.searchUserForRole, name = 'searchUser'),
+    path('roles/', views.searchUserForRole, name = 'roleAssign')
 ]
 
