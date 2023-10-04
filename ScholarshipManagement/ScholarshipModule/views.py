@@ -121,11 +121,15 @@ def searchApplicant(request):
         applicant = Applicant.objects.all();
     else:
         applicant = Applicant.objects.filter(name=nameSearch)
+    
+    applicantCode = request.session.get('studentCode',-1)
+
+    if applicantCode != -1:
+        applicant2 = Applicant.objects.get(studentCode=applicantCode)
+        return render('createApplicant.html')
            
     return render(request,'./HTML/searchApplicant.html',{'applicant':applicant})
 
-def homeApplicant(request):
-    return render(request, 'homeApplicant.html')
 
 
 def createApplicants(request):

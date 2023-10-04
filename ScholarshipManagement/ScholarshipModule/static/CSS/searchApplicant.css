@@ -23,6 +23,7 @@ header{
     display: flex;
     background-color: #455761;
     align-items: center;
+    float: left;
     position: absolute;
 }
 
@@ -81,15 +82,26 @@ p{
     background-color: #DBD3C9;
     border-radius: 15px;
     margin-top: 10%;
+    grid-row: 50% 50%;
+    
 }
 
 .content{
     align-items: left;
     justify-content: center;
+    justify-content: space-around;
     color: #455761;
     overflow: hidden;
     display: grid;
     grid-template-columns: auto auto;
+    grid-column: 2;
+    margin-inline:30%;
 }
+
+.applicantName{
+    grid-column: 1/3;
+}
+
+
 
 

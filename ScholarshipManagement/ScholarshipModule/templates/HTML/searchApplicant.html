@@ -30,7 +30,7 @@
         
         <div class = "container">
             <div class="content">
-                <form method='GET'>
+                <form method='GET' id="applicantName">
                     {% csrf_token %}
                     <label for="fname">Nombre:</label>
                     <input type="text" id="name" name="name"><br><br>
@@ -40,27 +40,31 @@
                         
                     </button>
                 </form>
-
-                <h1>
-                    Aplicante
-                </h1>
-
-                {% for Applicant in applicant %}
-                    
-                        <ul>
-                            <li>
-                                <p>{{Applicant.studentCode}}</p> 
-                                <p>Nombre : {{Applicant.name}}</p>
-                                <p>Apellido : {{Applicant.lastName}}</p>
-                                <p>Telefono : {{Applicant.phone}}</p>
-                            </li>
-                        </ul>
-                        <form method="POST">
-                            {% csrf_token %}
-                            <button>Ver más</button>
-                        </form>
+                <div class ="applicant">
+                    <h1>
+                        Aplicante
+                    </h1>
+    
+                    {% for Applicant in applicant %}
                         
-                {%endfor%}
+                            <ul>
+                                <li>
+                                    <p id="studentCode">{{Applicant.studentCode}}</p> 
+                                    <p>Nombre : {{Applicant.name}}</p>
+                                    <p>Apellido : {{Applicant.lastName}}</p>
+                                    <p>Telefono : {{Applicant.phone}}</p>
+                                </li>
+                            </ul>
+                            <form method="POST">
+                                {% csrf_token %}
+                                <button id="search" class="button">
+                                    Ver más
+                                </button>
+                            </form>
+                            
+                    {%endfor%}
+                </div>
+                
             
                 
             </div>
