@@ -2,7 +2,6 @@
 
 {% load static %}
 
-{% block content %}
 
 {{error}}
 
@@ -14,6 +13,7 @@
     <link rel="stylesheet" href="{% static 'CSS/createAnnouncement.css' %}">
     {% block links %}
     {% endblock %}
+
     <title>
         Creación Aplicante
     </title>
@@ -39,127 +39,158 @@
 
         <form action='/announcement/create/', method = 'POST'>
 
-            {% csrf_token %} 
+            <div class="content1">
 
-            <input type="hidden" name="title" value="{{ additionalEvents }}">
+                {% csrf_token %} 
 
-            <input type="hidden" class= list name="title2" value="{{ data }}">
+                <h2 id="announcementCreation">Registro de convocatoria</h2>
 
-            
+                <input type="hidden" name="title" value="{{ additionalEvents }}">
 
-                <div class="content1">
+                <input type="hidden" class= list name="title2" value="{{ data }}">
 
-                    {% for field in announcementForm %}
-                            <div id="id_announcementForm_{{forloop.counter}}" class="items">
-                        
-                                {{ field.label_tag }}<br>
-                                {{ field }}
-                            </div>
-                    {% endfor %}
 
-                    {% for field in scholarshipAnnouncementForm %}
-                            <div id="id_scholarshipAnnouncementForm_{{forloop.counter}}" class="items">
-                        
-                                {{ field.label_tag }}<br>
-                                {{ field }}
-                            </div>
-                    {% endfor %}
-            
+                {% for field in announcementForm %}
+                        <div id="id_announcementForm_{{forloop.counter}}" class="items">
                     
-                    <h2 id="inscrip">Inscripciones</h2>
+                            {{ field.label_tag }}<br>
 
-                    {% for field in announcementEventFormInscription %}
-                            <div id="id_announcementEventFormInscription_{{forloop.counter}}" class="items">
-                        
-                                {{ field.label_tag }}<br>
+                            <div class="field">
                                 {{ field }}
                             </div>
-                    {% endfor %}
-
-
-                    <h2 id="selec">Selección</h2>
-
-                    {% for field in announcementEventFormSelection %}
-                            <div id="id_announcementEventFormSelection_{{forloop.counter}}" class="items">
-                        
-                                {{ field.label_tag }}<br>
-                                {{ field }}
-                            </div>
-                    {% endfor %}
-
-
-                    <h2 id="entrev">Entrevistas</h2>
-
-                    {% for field in announcementEventFormInterview %}
-                            <div id="id_announcementEventFormInterview_{{forloop.counter}}" class="items">
-                        
-                                {{ field.label_tag }}<br>
-                                {{ field }}
-                            </div>
-                    {% endfor %}
-
-
-                    <h2 id="benef">Publicación de beneficiarios</h2>
-
-                    {% for field in announcementEventFormPublication %}
-                            <div id="id_announcementEventFormPublication_{{forloop.counter}}" class="items">
-                        
-                                {{ field.label_tag }}<br>
-                                {{ field }}
-                            </div>
-                    {% endfor %}
- 
-
-
-                    {% if additionalEvents != 0 %}
-
-                    {% for i in data %}
                             
-                        <h2 class="newTitle">Nueva fecha </h2>
+                            
+                        </div>
+                {% endfor %}
+
+                {% for field in scholarshipAnnouncementForm %}
+                        <div id="id_scholarshipAnnouncementForm_{{forloop.counter}}" class="items">
                     
-                        {{i.as_p}}
+                            {{ field.label_tag }}<br>
+
+                            <div class="field">
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+        
+                
+                <h3 id="inscrip">Plazo de inscripciones</h2>
+
+                {% for field in announcementEventFormInscription %}
+                        <div id="id_announcementEventFormInscription_{{forloop.counter}}" class="items">
+                    
+                            {{ field.label_tag }}<br>
+                            <div class="field">
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+
+
+
+                <h3 id="entrev">Entrevistas con los candidatos</h3>
+
+                {% for field in announcementEventFormInterview %}
+                        <div id="id_announcementEventFormInterview_{{forloop.counter}}" class="items">
+                    
+                            {{ field.label_tag }}<br>
+                            <div class="field">
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+
+
+                <h3 id="selec">Selección de beneficiarios</h3>
+
+                {% for field in announcementEventFormSelection %}
+                        <div id="id_announcementEventFormSelection_{{forloop.counter}}" class="items">
+                    
+                            {{ field.label_tag }}<br>
+                            <div class="field">
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+
+
+                <h3 id="benef">Publicación de beneficiarios</h3>
+
+                {% for field in announcementEventFormPublication %}
+                        <div id="id_announcementEventFormPublication_{{forloop.counter}}" class="items">
+                    
+                            {{ field.label_tag }}<br>
+                            <div class="field">
+                                {{ field }}
+                            </div>
+                        </div>
+                {% endfor %}
+
+
+
+                {% if additionalEvents != 0 %}
+
+                {% for i in data %}
+                        
+                    <h3 class="newTitle">Nueva fecha </h3>
+                
+                    {% for field in i %}
+
+                        <div class = "additionalItem{{forloop.counter}}">
+                            {{ field.label_tag }}<br>
+                            <div>
+                                {{ field }}
+                            </div>
+                        </div>
 
                     {% endfor %}
 
-                    {% endif %}
+                {% endfor %}
 
-                    <input type="hidden" class= list name="title3" value="{{ data }}">
+                {% endif %}
+
+                <input type="hidden" class= list name="title3" value="{{ data }}">
 
 
- 
-                    <button id= "addBttn" name="newEventBttn" class="button">
+
+                <button id= "addBttn" name="newEventBttn" class="button">
+                    <h3>
+                        Añadir fechas
+                    </h3>
+                </button>
+
+                {% if additionalEvents != 0 %}
+
+                    <button id= "deleteBttn" name="deleteEventBttn" class="button">
                         <h3>
-                            Add event
+                            Borrar fechas
                         </h3>
                     </button>
 
-                    {% if additionalEvents != 0 %}
+                {% endif %}
+                
+                <br>
+                <br>
+        
 
-                        <button id= "deleteBttn" name="deleteEventBttn" class="button">
-                            <h3>
-                                Delete event
-                            </h3>
-                        </button>
-
-                    {% endif %}
+                <button id= "saveBttn" name="saveBttn" class="button">
+                    <h3>
+                        Guardar convocatoria
+                    </h3>
+                </button>
                     
-                    <br>
-                    <br>
-            
+                {% if error != ""%} 
+                    <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Advertencia</strong> {{error}}
+                    </div>
+                {% endif%}
 
-                    <button id= "saveBttn" name="saveBttn" class="button">
-                        <h3>
-                            Save
-                        </h3>
-                    </button>
-
-                </div>
+            </div>
 
         </form>
     </div>
         
 </body>
 
-
-
-{% endblock  %}

@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 from .models import Scholarships, Announcements, ScholarshipAnnouncements, AnnouncementEvent
 from django import forms
+from django.forms.widgets import NumberInput
 
 
 class CreateScholarshipForm(ModelForm):
@@ -11,6 +12,9 @@ class CreateScholarshipForm(ModelForm):
         
 class CreateAnnouncementForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(CreateAnnouncementForm, self).__init__(*args, **kwargs)
+        self.fields['type'].label = "Tipo de convocatoria"
 
     class Meta:
         model = Announcements
@@ -19,7 +23,7 @@ class CreateAnnouncementForm(ModelForm):
 class CreateScholarshipAnnouncementForm(ModelForm):
 
 
-    scholarshipId = forms.ModelChoiceField(label = "ID de la beca", required=True,widget=forms.TextInput(attrs={'cols':'10', "class": "form-control", "placeholder":"Id Beca"}),queryset=Scholarships.objects)
+    scholarshipId = forms.ModelChoiceField(label = "ID de la beca", required=True,widget=forms.TextInput(attrs={'cols':'10', "class": "form-control", "placeholder":"123"}),queryset=Scholarships.objects)
 
     class Meta:
         model = ScholarshipAnnouncements
@@ -28,8 +32,13 @@ class CreateScholarshipAnnouncementForm(ModelForm):
 
 class CreateAnnouncementEventForm(ModelForm):
 
-    startingDate = forms.DateField(widget = forms.SelectDateWidget(attrs={"class": "form-control"}))
-    endDate = forms.DateField(widget = forms.SelectDateWidget(attrs={"class": "form-control"}))
+    def __init__(self, *args, **kwargs):
+        super(CreateAnnouncementEventForm, self).__init__(*args, **kwargs)
+        self.fields['startingDate'].label = "Fecha de inicio"
+        self.fields['endDate'].label = "Fecha de finalización"
+
+    startingDate = forms.DateField(widget=NumberInput(attrs={'type': 'date', "class": "dateInput"}),required=False)
+    endDate = forms.DateField(widget=NumberInput(attrs={'type': 'date', "class": "dateInput"}),required=False)
 
     class Meta:
         model = AnnouncementEvent
@@ -39,10 +48,15 @@ class CreateAnnouncementEventForm(ModelForm):
 
 class CreateAnnouncementAdditionalEventForm(ModelForm):
 
-    type = forms.CharField(label='eventType', max_length=50, required=False, widget=forms.TextInput(attrs={"class": "additionalItem1"}))
+    def __init__(self, *args, **kwargs):
+        super(CreateAnnouncementAdditionalEventForm, self).__init__(*args, **kwargs)
+        self.fields['startingDate'].label = "Fecha de inicio"
+        self.fields['endDate'].label = "Fecha de finalización"
 
-    startingDate = forms.DateField(widget = forms.SelectDateWidget(attrs={"class": "additionalItem2"}))
-    endDate = forms.DateField(widget = forms.SelectDateWidget(attrs={"class": "additionalItem3"}))  
+    type = forms.CharField(label='Tipo de convocatoria', max_length=50, required=False, widget=forms.TextInput(attrs={"class": "additionalItem1"}))
+
+    startingDate = forms.DateField(widget=NumberInput(attrs={'type': 'date', "class": "additionalDate"}),required=False)
+    endDate = forms.DateField(widget=NumberInput(attrs={'type': 'date', "class": "additionalDate"}),required=False)
 
     class Meta:
         model = AnnouncementEvent
