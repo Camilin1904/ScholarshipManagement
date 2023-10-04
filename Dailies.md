@@ -122,3 +122,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I finished the front-end part of US4 | I will add alerts to the announcement creation page so US4 is done | No|
 | Andrés Camilo Romero Ruiz | I finish user story 10 about role assigns and made the pull request so my stories are done | I shall review Brayan's pull request to dev | No |
+| Camilo Carmona Valencia | I made the type filters stay when applied | I will work on test for both of my user stories | No |
