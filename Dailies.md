@@ -134,3 +134,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Camilo Carmona Valencia  | I was preoccupied with other duties | I wil test US1 and make my PR | I...also left my laptop's charger at university, so I'm also screw |
 | Juan Camilo Salazar | I finished US4  | I will reformat my code to comply with the codeStyle and I will make the pull request | No, I didn't leave my laptop's charger at the university |
 | Juan Sebastián Libreros | I fixed an error on search method. I couldn't do to much due to my academic situation| I will investigate on how sessions work because I am blocked with that function | I need some help with the sessions theme | 
+| Brayan Steven Ortega | I founded the form to make the necessary queries to complete the US12 | I will help Salazar to resolve the merge with dev so he can make his PR | No, I checked that my charger was in my backpack | 
