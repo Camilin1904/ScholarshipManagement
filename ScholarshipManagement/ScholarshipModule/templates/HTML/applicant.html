@@ -9,14 +9,15 @@
     <h1>
         Aplicante
     </h1>
+    <p>StudentCode :{{studentCodeSt}}</p>
     {% for Applicant in applicant %}
     <li>
-        <h2>
-            Codigo: {{Applicant.studentCode}}
-        </h2>
+        
+        <p>Codigo: {{Applicant.studentCode}}</p>
         <p>Nombre : {{Applicant.name}}</p>
         <p>Apellido : {{Applicant.lastName}}</p>
         <p>Escuela : {{Applicant.school}}</p>
+        
     </li>
     {%endfor%}
 </body>

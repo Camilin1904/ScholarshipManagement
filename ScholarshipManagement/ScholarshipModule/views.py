@@ -1,3 +1,4 @@
+from random import random
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.auth import login
@@ -116,20 +117,35 @@ def createScholarships(request):
             })
         
 def searchApplicant(request):
-    nameSearch = request.GET.get('name')
-    if nameSearch == None:
-        applicant = Applicant.objects.all();
-    else:
-        applicant = Applicant.objects.filter(name=nameSearch)
     
-    applicantCode = request.session.get('studentCode',-1)
+    applicant = None
+    
+    if request.method == 'GET':
+         
+        nameSearch = request.GET.get('name')
 
-    if applicantCode != -1:
-        applicant2 = Applicant.objects.get(studentCode=applicantCode)
-        return render('createApplicant.html')
+        if nameSearch == None:
+            applicant = Applicant.objects.all();
+        else:
+            applicant = Applicant.objects.filter(name=nameSearch)
+
+        return render(request,'./HTML/searchApplicant.html',{'applicant':applicant}) 
+    else:
+        try:
+            del request.session['name']
+        except:
+            print(0)
+       
+        request.session['name'] = request.POST
+        studentCodeSt = request.session.get('name')
+        applicant = Applicant.objects.filter(name = studentCodeSt)
+
            
-    return render(request,'./HTML/searchApplicant.html',{'applicant':applicant})
-
+        return render(request,'./HTML/applicant.html',{'applicant':applicant,
+                                                       'studentCodeSt':studentCodeSt})
+    
+        
+    
 
 
 def createApplicants(request):
