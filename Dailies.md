@@ -125,3 +125,9 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Camilo Carmona Valencia | I made the type filters stay when applied | I will work on test for both of my user stories | No |
 | Brayan Steven Ortega | I started researching the queries and filtering necessary to start the US12 | I will continue researching the information necessary to start the US12  | No |
 | Juan Sebastián Libreros | I finally got the necessary to create the edit function of my User Story. I added an functional version of a search function | I will make the edit screen work and prepare the necessary to start my next user story | No |
+
+## 04/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Andrés Camilo Romero Ruiz | I reviewed Brayan's pull request to dev | Nothing | I left my laptop charger at the University and i have homework for tomorrow so i'm screwed |
