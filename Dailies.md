@@ -132,3 +132,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 |----------|----------|----------|----------|
 | Andrés Camilo Romero Ruiz | I reviewed Brayan's pull request to dev | Nothing | I left my laptop charger at the University and i have homework for tomorrow so i'm screwed |
 | Camilo Carmona Valencia  | I was preoccupied with other duties | I wil test US1 and make my PR | I...also left my laptop's charger at university, so I'm also screw |
+| Juan Camilo Salazar | I finished US4  | I will reformat my code to comply with the codeStyle and I will make the pull request | No, I didn't leave my laptop's charger at the university |
