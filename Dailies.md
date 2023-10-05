@@ -131,3 +131,4 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Andrés Camilo Romero Ruiz | I reviewed Brayan's pull request to dev | Nothing | I left my laptop charger at the University and i have homework for tomorrow so i'm screwed |
+| Camilo Carmona Valencia  | I was preoccupied with other duties | I wil test US1 and make my PR | I...also left my laptop's charger at university, so I'm also screw |
