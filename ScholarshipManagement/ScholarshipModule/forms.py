@@ -94,12 +94,7 @@ class CreateAnnouncementAdditionalEventForm(ModelForm):
 
 
         model = AnnouncementEvent
-        fields = ['type','startingDate','endDate']        
-        fields = [
-            'name', 'ID', 'description',
-            'donor','coverage', 'type',
-            'requirements'
-        ]
+        fields = ['type','startingDate','endDate']
 
 
 class CreateNewUser(UserCreationForm):

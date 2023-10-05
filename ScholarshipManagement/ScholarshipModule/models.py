@@ -5,18 +5,6 @@ from django.contrib.auth.models import UserManager
 
 # Create your models here.
 
-class Scholarships(models.Model):
-
-
-    name = models.CharField(max_length=100, blank=False)
-    ID = models.IntegerField(
-        primary_key=True, auto_created=True, serialize=True, unique=True)
-    description = models.TextField(blank=True)
-    donor = models.CharField(max_length=100, blank=False)
-    coverage = models.FloatField(blank=False)
-    type = models.IntegerField(blank=False)
-    requirements = models.TextField(blank=True)
-
 
 class Announcements(models.Model):
 
@@ -41,6 +29,18 @@ class Students(models.Model):
 
     id = models.IntegerField(
         primary_key = True, auto_created = True, serialize = True, unique = True)
+    
+class Scholarships(models.Model):
+
+
+    name = models.CharField(max_length=100, blank=False)
+    ID = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
+    description = models.TextField(blank=True)
+    donor = models.CharField(max_length=100, blank=False)
+    coverage = models.FloatField(blank=False)
+    type = models.IntegerField(blank=False)
+    requirements = models.TextField(blank=True)
 
 
 class ScholarshipAnnouncements(models.Model):
@@ -65,6 +65,8 @@ class AnnouncementEvent(models.Model):
     startingDate = models.DateField(blank = False)
     endDate = models.DateField(blank = False)
     type = models.TextField(blank = True, null = True)
+
+
    
 #Inheritance from an abstract class
 class User(AbstractBaseUser):

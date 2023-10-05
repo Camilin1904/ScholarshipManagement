@@ -159,7 +159,7 @@ def createApplicants(request):
                     error=""
                 else: 
                     student = Applicant.objects.get(studentCode = postStudentCode)
-                    annuncement=Announcements.objects.get(ID=AnnouncementPost)
+                    annuncement=Announcements.objects.get(id=AnnouncementPost)
 
                     print(student.ID,AnnouncementPost)
 
