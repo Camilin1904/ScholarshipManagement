@@ -192,6 +192,10 @@ class CreateApplicantForm(ModelForm):
                   'faculty', 'major', 'semester','email', 'phone','status', 'announcement'] 
         
 
+class FilterApplicantForm(forms.Form):
+    class Meta:
+        fields = ['ID', 'name', 'lastName','IDAnnouncement']
+
 class AnnouncementAndApplicantForm(forms.ModelForm):
     class Meta:
         model = AnnouncementAndApplicant

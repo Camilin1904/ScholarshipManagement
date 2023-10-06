@@ -121,7 +121,8 @@ def createApplicants(request):
 
     if request.method == 'GET':
         return render(request, 'createApplicant.html', {
-            'form': CreateApplicantForm
+            'form': CreateApplicantForm,
+            'error': ""
         })
     else:
         try:
@@ -183,6 +184,25 @@ def createApplicants(request):
                 'error': error
             })
         
+def filterApplicants(request):
+
+    if request.method == 'GET':
+        return render(
+            request, 'filterApplicants.html', {
+                'form': FilterApplicantForm,
+                'error': ""
+            })
+    else:
+        try:
+            form = FilterApplicantForm(request.POST)
+            
+            return redirect('FilterApplicants')
+        except:
+            return render(
+                request, 'filterApplicants.html', {
+                'form': FilterApplicantForm,
+                'error': 'Please provide valid data'
+            })       
         
 def searchUserForRole(request):
     user = request.user
