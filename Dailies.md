@@ -135,3 +135,10 @@ All of this work will be uploaded in the daily files as a zip, since they're out
 | Juan Camilo Salazar | I finished US4  | I will reformat my code to comply with the codeStyle and I will make the pull request | No, I didn't leave my laptop's charger at the university |
 | Juan Sebastián Libreros | I fixed an error on search method. I couldn't do to much due to my academic situation| I will investigate on how sessions work because I am blocked with that function | I need some help with the sessions theme | 
 | Brayan Steven Ortega | I founded the form to make the necessary queries to complete the US12 | I will help Salazar to resolve the merge with dev so he can make his PR | No, I checked that my charger was in my backpack | 
+
+## 05/10/2023
+
+Hello, the whole team decided that today we aren't able to make our daily. This is because of mutiple reasons but the most important was an exam that drain all of our time and energy. We hope you understand our situation.
+Good morning, good evening and good night.
+
+![](https://cdn.discordapp.com/attachments/696493127246151731/1159689294236090509/Gatito.webp?ex=6531efd1&is=651f7ad1&hm=30a0a27d77da7da87005ed6f3428a9e139428eaecf265ef15e5ecbf897c22eac&)
