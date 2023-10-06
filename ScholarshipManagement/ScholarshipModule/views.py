@@ -412,3 +412,6 @@ def createAnnouncement(request):
             return render(
                 request, 'createAnnouncement.html', context) 
             
+def searchStudent(request):
+    return render(
+            request, './HTML/searchStudent.html')
