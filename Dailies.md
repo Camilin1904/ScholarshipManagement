@@ -151,3 +151,9 @@ Good morning, good evening and good night.
 | Andrés Camilo Romero Ruiz | Nothing | Today I hope to help Brayan with the CSS of US-12 and Sebastian with a question about sending data between screens to allow editing of an object that has been selected from a list | No |
 | Juan Sebastián Libreros | I couldn't work yesterday | I will recieve the help of Andrés Camilo to fix the sessions problem I got |No|
 | Brayan Steven Ortega | Nothing | I will create the US12 branch and start to make the page of filter an applicant with the necessary input |No|
+
+## 07/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I successfully merged branch US1 with new developments on dev so that i may be able to do my PR | I will continue work on US2 do that I may also make a pull request from that | Forgetting to do my daily does not help me, other than that no. |
