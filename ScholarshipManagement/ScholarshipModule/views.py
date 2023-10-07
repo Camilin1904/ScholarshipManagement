@@ -136,9 +136,10 @@ def searchApplicant(request):
         except:
             print(0)
        
-        request.session['name'] = request.POST
+        print(request.POST)
+        request.session['name'] = request.POST["search"]
         studentCodeSt = request.session.get('name')
-        applicant = Applicant.objects.filter(name = studentCodeSt)
+        applicant = Applicant.objects.filter(studentCode = studentCodeSt)
 
            
         return render(request,'./HTML/applicant.html',{'applicant':applicant,

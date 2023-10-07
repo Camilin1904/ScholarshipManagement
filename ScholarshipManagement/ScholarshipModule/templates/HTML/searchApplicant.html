@@ -57,7 +57,7 @@
                             </ul>
                             <form method="POST">
                                 {% csrf_token %}
-                                <button id="search" class="button">
+                                <button name="search" class="button" value={{Applicant.studentCode}}>
                                     Ver más
                                 </button>
                             </form>
