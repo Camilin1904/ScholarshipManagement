@@ -149,3 +149,4 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I couldn't work yesterday| I will create a new branch and start working on a new user story (US5) |No|
 | Andrés Camilo Romero Ruiz | Nothing | Today I hope to help Brayan with the CSS of US-12 and Sebastian with a question about sending data between screens to allow editing of an object that has been selected from a list | No |
+| Juan Sebastián Libreros | I couldn't work yesterday | I will recieve the help of Andrés Camilo to fix the sessions problem I got |No|
