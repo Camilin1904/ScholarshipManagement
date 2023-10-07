@@ -10,7 +10,6 @@ class Donors(models.Model):
     ID = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
 
-
 class Announcements(models.Model):
 
 
@@ -51,6 +50,7 @@ class Scholarships(models.Model):
     type = models.TextField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
 
+
 class ScholarshipAnnouncements(models.Model):
 
 
@@ -62,6 +62,20 @@ class ScholarshipAnnouncements(models.Model):
         Announcements, related_name = "AnnouncementId1", blank = True, null = True, on_delete = models.CASCADE)
 
 
+
+class AnnouncementEvent(models.Model):
+
+
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    announcementId = models.ForeignKey(
+        Announcements, related_name = "AnnouncementId3", blank = True, null = True, on_delete=models.CASCADE)
+    startingDate = models.DateField(blank = False)
+    endDate = models.DateField(blank = False)
+    type = models.TextField(blank = True, null = True)
+
+
+   
 #Inheritance from an abstract class
 class User(AbstractBaseUser):
 
