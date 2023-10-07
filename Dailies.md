@@ -142,3 +142,9 @@ Hello, the whole team decided that today we aren't able to make our daily. This 
 Good morning, good evening and good night.
 
 ![](https://cdn.discordapp.com/attachments/696493127246151731/1159689294236090509/Gatito.webp?ex=6531efd1&is=651f7ad1&hm=30a0a27d77da7da87005ed6f3428a9e139428eaecf265ef15e5ecbf897c22eac&)
+
+## 06/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I couldn't work yesterday| I will create a new branch and start working on a new user story (US5) |No|
