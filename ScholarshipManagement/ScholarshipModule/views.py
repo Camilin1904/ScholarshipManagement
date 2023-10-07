@@ -90,27 +90,23 @@ def home(request):
 def scholarships(request):
     
     scholarships = Scholarships.objects.all()
-    return render(
-        request, 'scholarships.html', {
-            'scholarships': scholarships
-        })
+    return render(request, './HTML/scholarships.html', 
+                  {'./HTML/scholarships': scholarships})
 
 
 def createScholarships(request):
 
     if request.method == 'GET':
-        return render(
-            request, 'createScholarship.html', {
-                'form': CreateScholarshipForm
-            })
+        return render(request, './HTML/createScholarship.html', {
+            'form': CreateScholarshipForm
+        })
     else:
         try:
             form = CreateScholarshipForm(request.POST)
             form.save()
             return redirect('scholarships')
         except:
-            return render(
-                request, 'createScholarship.html', {
+            return render(request, './HTML/createScholarship.html', {
                 'form': CreateScholarshipForm,
                 'error': 'Please provide valid data'
             })
