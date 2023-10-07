@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+{% load static %}
+{{error}}
+
+<head>
+
+    <meta charset = "UTF-8">
+
+    <link href = 'https://fonts.googleapis.com/css?family=Noto Music' rel = 'stylesheet'>
+
+    <link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <link rel = "stylesheet" href = "{% static 'CSS/createAnnouncement.css' %}">
+
+    {% block links %}
+    {% endblock %}
+
+    <title>
+
+        Creación Aplicante
+
+    </title>
+
+</head>
+
+<body>
+
+    <header>
+
+        <img src = "{% static './Icons/icesi.png' %}" class = "icesi">
+
+        <div class = "menu">
+
+            <ul>
+
+                    <li><a href = "/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href = ""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li><a href = "/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+
+            </ul>       
+
+        </div>  
+    
+    </header>
+
+    <div class = "container">
+
+        <form action = '/announcement/create/', method = 'POST'>
+
+            <div class = "content1">
+
+                {% csrf_token %} 
+
+                <h2 id = "announcementCreation">Registro de convocatoria</h2>
+
+                <input type = "hidden" name = "title" value = "{{ additionalEvents }}">
+
+                <input type = "hidden" class = list name = "title2" value = "{{ data }}">
+
+                {% for field in announcementForm %}
+
+                    <div id = "id_announcementForm_{{forloop.counter}}" class = "items">
+                
+                        {{ field.label_tag }}<br>
+
+                        <div class="field">
+
+                            {{ field }}
+
+                        </div>
+                        
+                    </div>
+
+                {% endfor %}
+
+                {% for field in scholarshipAnnouncementForm %}
+
+                    <div id = "id_scholarshipAnnouncementForm_{{forloop.counter}}" class = "items">
+                
+                        {{ field.label_tag }}<br>
+
+                        <div class = "field">
+
+                            {{ field }}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+        
+                <h3 id = "inscrip">Plazo de inscripciones</h2>
+
+                {% for field in announcementEventFormInscription %}
+
+                    <div id = "id_announcementEventFormInscription_{{forloop.counter}}" class = "items">
+                
+                        {{ field.label_tag }}<br>
+
+                        <div class = "field">
+
+                            {{ field }}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+                <h3 id = "entrev">Entrevistas con los candidatos</h3>
+
+                {% for field in announcementEventFormInterview %}
+
+                    <div id = "id_announcementEventFormInterview_{{forloop.counter}}" class = "items">
+                
+                        {{ field.label_tag }}<br>
+
+                        <div class = "field">
+
+                            {{ field }}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+                <h3 id = "selec">Selección de beneficiarios</h3>
+
+                {% for field in announcementEventFormSelection %}
+
+                    <div id = "id_announcementEventFormSelection_{{forloop.counter}}" class = "items">
+                
+                        {{ field.label_tag }}<br>
+
+                        <div class = "field">
+
+                            {{ field }}
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+                <h3 id = "benef">Publicación de beneficiarios</h3>
+
+                {% for field in announcementEventFormPublication %}
+
+                    <div id = "id_announcementEventFormPublication_{{forloop.counter}}" class = "items">
+                
+                        {{ field.label_tag }}<br>
+
+                        <div class = "field">
+
+                            {{ field }}
+
+                        </div>
+                        
+                    </div>
+
+                {% endfor %}
+
+                {% if additionalEvents != 0 %}
+
+                    {% for i in data %}
+                            
+                        <h3 class = "newTitle">Nueva fecha </h3>
+                    
+                        {% for field in i %}
+
+                            <div class = "additionalItem{{forloop.counter}}">
+
+                                {{ field.label_tag }}<br>
+
+                                <div>
+
+                                    {{ field }}
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% endfor %}
+
+                {% endif %}
+
+                <input type = "hidden" class = list name = "title3" value = "{{ data }}">
+
+                <button id = "addBttn" name = "newEventBttn" class = "button">
+
+                    <h3>
+
+                        Añadir fechas
+
+                    </h3>
+
+                </button>
+
+                {% if additionalEvents != 0 %}
+
+                    <button id = "deleteBttn" name = "deleteEventBttn" class = "button">
+
+                        <h3>
+
+                            Borrar fechas
+
+                        </h3>
+
+                    </button>
+
+                {% endif %}
+                
+                <br>
+                <br>
+        
+                <button id = "saveBttn" name = "saveBttn" class = "button">
+
+                    <h3>
+
+                        Guardar convocatoria
+
+                    </h3>
+
+                </button>
+                    
+                {% if error != ""%} 
+                    <div class = "alert" style = "font-size: 85%; margin-top: 5%;">
+
+                        <span class = "closebtn" onclick = "this.parentElement.style.display = 'none';">&times;</span> 
+
+                        <strong>Advertencia</strong> {{error}}
+
+                    </div>
+
+                {% endif%}
+
+            </div>
+
+        </form>
+
+    </div>
+        
+</body>
+

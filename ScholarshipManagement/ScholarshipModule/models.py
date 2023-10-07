@@ -10,6 +10,31 @@ class Donors(models.Model):
     ID = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
 
+
+class Announcements(models.Model):
+
+
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    
+
+    class Type(models.IntegerChoices):
+
+
+        OPEN = 0, _('Abierta')
+        CLOSED= 1, _('Cerrada')
+        MIXED= 2, _('Mixta')
+
+
+    type = models.IntegerField(default = Type.CLOSED, choices = Type.choices)
+
+
+class Students(models.Model):
+
+
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    
 class Scholarships(models.Model):
 
 
@@ -25,6 +50,16 @@ class Scholarships(models.Model):
         LIVELIHOOD = 2, _('Sustento')
     type = models.TextField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
+
+class ScholarshipAnnouncements(models.Model):
+
+
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    scholarshipId = models.ForeignKey(
+        Scholarships, related_name = "ScholarshipId1", blank = True, null = True, on_delete = models.CASCADE)
+    announcementId = models.ForeignKey(
+        Announcements, related_name = "AnnouncementId1", blank = True, null = True, on_delete = models.CASCADE)
 
 
 #Inheritance from an abstract class
@@ -48,3 +83,34 @@ class User(AbstractBaseUser):
     #It is a Django class that acts as a bridge between database queries and Django models
     objects = UserManager()
 
+
+class StatusApplicant(models.IntegerChoices):
+        INREVIEW = 0, _('En revisión')
+        BENEFICIARY = 1, _('Beneficiario')
+        REFUSED = 2, _('No aceptado')
+
+class Applicant(models.Model):
+    name = models.CharField(max_length=20, blank=False)
+    lastName = models.CharField(max_length=20, blank=False)
+    ID = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
+    studentCode = models.CharField(max_length=20, blank=False,unique=True)
+    faculty = models.CharField(max_length=20, blank=False)
+    major = models.CharField(max_length=20, blank=False)
+    semester = models.IntegerField(blank=True, null= True)
+    email= models.EmailField(max_length=40, blank=True, unique=True)
+    phone = models.IntegerField(blank=True, null=True)
+
+    status = models.IntegerField(default=StatusApplicant.INREVIEW, choices=StatusApplicant.choices)
+    
+
+class AnnouncementAndApplicant(models.Model):
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    announcement= models.ForeignKey(Announcements, 
+        related_name="id_announcement", blank=False, null=True, 
+        on_delete= models.CASCADE)
+    applicantID= models.ForeignKey(Applicant, 
+        related_name="id_applicant", blank=False, null=True, 
+        on_delete= models.CASCADE)
+    
