@@ -5,7 +5,35 @@ from django.contrib.auth.models import UserManager
 
 # Create your models here.
 
+class Donors(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    ID = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
 
+class Announcements(models.Model):
+
+
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    
+
+    class Type(models.IntegerChoices):
+
+
+        OPEN = 0, _('Abierta')
+        CLOSED= 1, _('Cerrada')
+        MIXED= 2, _('Mixta')
+
+
+    type = models.IntegerField(default = Type.CLOSED, choices = Type.choices)
+
+
+class Students(models.Model):
+
+
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    
 class Scholarships(models.Model):
 
 
@@ -13,12 +41,41 @@ class Scholarships(models.Model):
     ID = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
     description = models.TextField(blank=True)
-    donor = models.CharField(max_length=100, blank=False)
+    donor = models.ForeignKey(Donors, on_delete= models.CASCADE)
     coverage = models.FloatField(blank=False)
-    type = models.IntegerField(blank=False)
-    requirements = models.TextField(blank=True)  
+    class ScholarshipType(models.IntegerChoices):
+        EXCHANGE = 0, _('Intercambio')
+        RESCUE = 1, _('Rescate')
+        LIVELIHOOD = 2, _('Sustento')
+    type = models.TextField(choices=ScholarshipType.choices)
+    requirements = models.TextField(blank=True)
 
 
+class ScholarshipAnnouncements(models.Model):
+
+
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    scholarshipId = models.ForeignKey(
+        Scholarships, related_name = "ScholarshipId1", blank = True, null = True, on_delete = models.CASCADE)
+    announcementId = models.ForeignKey(
+        Announcements, related_name = "AnnouncementId1", blank = True, null = True, on_delete = models.CASCADE)
+
+
+
+class AnnouncementEvent(models.Model):
+
+
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    announcementId = models.ForeignKey(
+        Announcements, related_name = "AnnouncementId3", blank = True, null = True, on_delete=models.CASCADE)
+    startingDate = models.DateField(blank = False)
+    endDate = models.DateField(blank = False)
+    type = models.TextField(blank = True, null = True)
+
+
+   
 #Inheritance from an abstract class
 class User(AbstractBaseUser):
 
@@ -41,11 +98,6 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
 
-class Announcement(models.Model):
-        name = models.CharField(max_length=20, blank=False)
-        ID = models.IntegerField(
-        primary_key=True, auto_created=True, serialize=True, unique=True)
-
 class StatusApplicant(models.IntegerChoices):
         INREVIEW = 0, _('En revisión')
         BENEFICIARY = 1, _('Beneficiario')
@@ -64,9 +116,12 @@ class Applicant(models.Model):
     phone = models.IntegerField(blank=True, null=True)
 
     status = models.IntegerField(default=StatusApplicant.INREVIEW, choices=StatusApplicant.choices)
+    
 
 class AnnouncementAndApplicant(models.Model):
-    announcement= models.ForeignKey(Announcement, 
+    id = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, unique = True)
+    announcement= models.ForeignKey(Announcements, 
         related_name="id_announcement", blank=False, null=True, 
         on_delete= models.CASCADE)
     applicantID= models.ForeignKey(Applicant, 
