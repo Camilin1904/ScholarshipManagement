@@ -134,13 +134,53 @@ def searchApplicant(request):
        
         print(request.POST)
         request.session['name'] = request.POST["search"]
-        studentCodeSt = request.session.get('name')
-        applicant = Applicant.objects.filter(studentCode = studentCodeSt)
 
-           
-        return render(request,'./HTML/applicant.html',{'applicant':applicant,
-                                                       'studentCodeSt':studentCodeSt})
+        return redirect('/applicants/edit')
     
+
+def editApplicant(request):
+
+    studentCodeSt = request.session.get('name')
+    applicant = Applicant.objects.filter(studentCode = studentCodeSt)
+    
+    if request.method == 'GET':
+       
+        name = applicant.first().name
+        lastName = applicant.first().lastName
+        faculty = applicant.first().faculty
+        major = applicant.first().major
+        semester = applicant.first().semester
+        email = applicant.first().email
+        phone = applicant.first().phone
+        status = applicant.first().status
+
+        form = CreateApplicantForm(initial={'name': name,
+                                            'lastName': lastName,
+                                            'studentCode': studentCodeSt,
+                                            'faculty':faculty,
+                                            'major': major,
+                                            'semester': semester,
+                                            'email': email,
+                                            'phone':phone,
+                                            'status':status})
+        
+        return render(request,'./HTML/editApplicant.html',{'form':form})
+    else:
+        Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
+                                                                   lastName=request.POST['lastName'],
+                                                                   faculty=request.POST['faculty'],
+                                                                   major=request.POST['major'],
+                                                                   semester=request.POST['semester'],
+                                                                   email=request.POST['email'],
+                                                                   phone=request.POST['phone'],
+                                                                   status=request.POST['status'])
+        try:
+            del request.session['name']
+        except:
+            print(0)
+
+        return redirect('/applicants/search')
+
         
     
 
