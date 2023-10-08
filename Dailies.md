@@ -157,3 +157,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Camilo Carmona Valencia | I successfully merged branch US1 with new developments on dev so that i may be able to do my PR | I will continue work on US2 do that I may also make a pull request from that | Forgetting to do my daily does not help me, other than that no. |
+| Juan Sebastián Libreros | I fixed the problems i got with sessions thanks to Andres Camilo's help | I will finish my edit function and then start with my secons user story. I got to coordinate to create the search applicant part with Brayan. I'm close to do my PR | No |
