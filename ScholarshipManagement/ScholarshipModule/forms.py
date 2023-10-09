@@ -30,7 +30,7 @@ class CreateScholarshipForm(ModelForm):
     coverage = forms.CharField(
         label = "Covertura economica", required=True, 
         widget=forms.TextInput(attrs={"class":"id_coverage"}))
-    type = forms.CharField(
+    type = forms.IntegerField(
         label = "Tipo", required=True, 
         widget=forms.RadioSelect(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
     requirements = forms.CharField(
