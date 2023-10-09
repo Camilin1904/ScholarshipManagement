@@ -27,16 +27,79 @@
         </header>
 
         <div class="container">
-            <div class="filter">
-                <h2>
-                    Filtros
-                </h2>
-            </div>
+
+
+                <div class="filter">
+                    <h2>Filtros</h2>
+                    <form class="formClass" method="post">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div id="id_{{forloop.counter}}" class="items">
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+
+                        <button id="Filtrar" class="button">Filtrar</button>
+                    </form>
+                    
+                </div>
+            
+
             <div class="content">
-                <h1>
+            
+                <h1 id="foundStudents">
                     Estudiantes encontrados
                 </h1>
+
+                {% if error == ""%}
+                    
+                {% else %}
+                    <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Advertencia</strong> {{error}}
+                    </div>
+                {% endif%} 
+                
+                <div class="applicant">
+                    <nav class="scroll_bar">
+                        
+                        {% for Applicant in applicants %}
+                        
+                        
+                            <ul>            
+                                <li>
+                                    <p id="studentCode">{{Applicant.studentCode}}</p> 
+                                    <p>Nombre : {{Applicant.name}}</p>
+                                    <p>Apellido : {{Applicant.lastName}}</p>
+                                    <p>Telefono : {{Applicant.phone}}</p>
+                                </li>
+                                
+                            </ul>
+                            
+                            <div>
+                                <button name="search" class="button">
+                                    Ver más
+                                </button>
+                            </div>
+                            
+                        {%endfor%}
+                    
+                    </nav>
+                </div>
+
+
+                
             </div>
+
+            {% if error == "" %}
+                        
+            {% else %}
+                <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>Advertencia</strong> {{error}}
+                </div>
+            {% endif %} 
         </div>
 
     </body>    

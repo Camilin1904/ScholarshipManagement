@@ -193,8 +193,20 @@ class CreateApplicantForm(ModelForm):
         
 
 class FilterApplicantForm(forms.Form):
-    class Meta:
-        fields = ['ID', 'name', 'lastName','IDAnnouncement']
+    ID = forms.CharField(
+        label="ID", required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Codigo estudiante', 'class': 'inputForm'}))
+    name = forms.CharField(
+        label = "Nombre", max_length = 100, required = False,
+        widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'inputForm'}) )
+    lastName = forms.CharField(
+        label = "Apellido", required = False,
+        widget=forms.TextInput(attrs={'placeholder': 'Apellido', 'class': 'inputForm'}))
+    announcement = forms.ModelChoiceField(
+        label = "ID de la convocatoria", required=False,
+        widget=forms.TextInput(attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'} )
+        ,queryset=Announcements.objects)
+
 
 class AnnouncementAndApplicantForm(forms.ModelForm):
     class Meta:

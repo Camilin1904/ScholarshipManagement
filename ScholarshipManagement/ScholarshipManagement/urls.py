@@ -32,6 +32,6 @@ urlpatterns = [
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
     path('roles/', views.searchUserForRole, name = 'roleAssign'),
-    path('searchStudent/', views.searchStudent, name = 'searchStudent')
+    path('searchStudent/', views.filterApplicants, name = 'searchStudent')
 ]
 
