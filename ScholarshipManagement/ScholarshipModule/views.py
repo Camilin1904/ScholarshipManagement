@@ -143,8 +143,11 @@ def editApplicant(request):
 
     studentCodeSt = request.session.get('studentCode')
     applicant = Applicant.objects.filter(studentCode = studentCodeSt)
+    idSt = applicant.first().ID
+    
     
     if request.method == 'GET':
+        announcement=None
        
         name = applicant.first().name
         lastName = applicant.first().lastName
@@ -154,6 +157,11 @@ def editApplicant(request):
         email = applicant.first().email
         phone = applicant.first().phone
         status = applicant.first().status
+        try:
+            announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement
+        except:
+            announcement = None    
+        
 
         form = CreateApplicantForm(initial={'name': name,
                                             'lastName': lastName,
@@ -163,10 +171,16 @@ def editApplicant(request):
                                             'semester': semester,
                                             'email': email,
                                             'phone':phone,
-                                            'status':status})
+                                            'status':status,
+                                            'announcement':announcement})
         
         return render(request,'./HTML/editApplicant.html',{'form':form})
     else:
+        applicant = Applicant.objects.get(studentCode = studentCodeSt)
+        try:
+            announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement
+        except:
+            announcement = None   
         Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
                                                                    lastName=request.POST['lastName'],
                                                                    faculty=request.POST['faculty'],
@@ -175,16 +189,25 @@ def editApplicant(request):
                                                                    email=request.POST['email'],
                                                                    phone=request.POST['phone'],
                                                                    status=request.POST['status'])
+        if announcement is not None:
+            AnnouncementAndApplicant.objects.filter(applicantID=idSt).update(
+                announcement=request.POST['announcement'])
+        else:
+            idAnnouncement = request.POST['announcement']
+            announcementGet = Announcements.objects.get(id=idAnnouncement)
+            formNew= AnnouncementAndApplicantForm()
+            relation=formNew.save(commit=False)
+            relation.announcement=announcementGet
+            relation.applicantID=applicant
+            relation.save()
+            
+            
         try:
             del request.session['name']
         except:
             print(0)
 
         return redirect('/searchStudent')
-
-        
-    
-
 
 def createApplicants(request):
 
@@ -265,14 +288,14 @@ def filterApplicants(request):
                 'applicants': applicants
             })
     else:
-        if 'search' in request.POST:
+        if 'edit' in request.POST:
             try:
                 del request.session['studentCode']
             except:
                 print(0)
        
             print(request.POST)
-            request.session['studentCode'] = request.POST["search"]
+            request.session['studentCode'] = request.POST["edit"]
 
             return redirect('/applicants/edit')
         else:
