@@ -189,7 +189,8 @@ def createApplicants(request):
 
     if request.method == 'GET':
         return render(request, 'createApplicant.html', {
-            'form': CreateApplicantForm
+            'form': CreateApplicantForm,
+            'error': ""
         })
     else:
         try:
@@ -251,6 +252,82 @@ def createApplicants(request):
                 'error': error
             })
         
+def filterApplicants(request):
+    applicants= None
+    applicants = Applicant.objects.all()
+    if request.method == 'GET':
+        
+        return render(
+            request, './HTML/searchStudent.html', {
+                'form': FilterApplicantForm,
+                'error': "",
+                'applicants': applicants
+            })
+    else:
+        try:
+            
+            error = ""
+            form = FilterApplicantForm(request.POST)
+            
+            StudentCodeVerify = False
+            AnnouncementVerify = False
+            nameVerify = False
+            lastNameVerify = False
+
+            StudentCodePost = request.POST['ID']
+            AnnouncementPost = request.POST['announcement']
+            namePost = request.POST['name']
+            lastNamePost = request.POST['lastName']
+
+        
+            if namePost !="" and namePost is not None:
+                try: 
+                    applicants = applicants.filter(name = namePost)
+                except:
+                    nameVerify = True
+
+            if StudentCodePost !="" and StudentCodePost is not None:
+                try:
+                    applicants = applicants.filter(studentCode = StudentCodePost)
+                except:
+                    StudentCodeVerify = True
+                    
+            if lastNamePost !="" and lastNamePost is not None:
+                try:
+                    applicants = applicants.filter(lastName = lastNamePost)
+                except:
+                    lastNameVerify = True
+
+            if AnnouncementPost !="" and AnnouncementPost is not None:
+                try:
+                    applicantFromAnnouncement = AnnouncementAndApplicant.objects.filter(announcement_id = AnnouncementPost).values_list('applicantID_id', flat=True)
+                    applicants = [applicants.get(ID=id_applicant) for id_applicant in applicantFromAnnouncement]
+                except:
+                    AnnouncementVerify = True
+                    
+            if nameVerify == True:
+                error = "Nombre no encontrado"
+            elif AnnouncementVerify == True:
+                error = "Convocatora no encontrada"
+            elif lastNameVerify == True:
+                error = "Apellido no encontrado"
+            elif StudentCodeVerify == True:
+                error = "ID no encontrado"
+
+            return render(
+                request, './HTML/searchStudent.html', {
+                    'form': form,
+                    'error': error,
+                    'applicants': applicants
+                })
+        
+        except:
+            
+            return render(
+                request, './HTML/searchStudent.html', {
+                'form': form,
+                'error': error
+            })       
         
 def searchUserForRole(request):
     user = request.user
@@ -480,3 +557,6 @@ def createAnnouncement(request):
             return render(
                 request, 'createAnnouncement.html', context) 
             
+def searchStudent(request):
+    return render(
+            request, './HTML/searchStudent.html')
