@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/roles.css' %}">
+        <title>
+            Roles
+        </title>
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li class="menuObj"><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li class="menuObj"><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li class="menuObj"><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+
+        <div class="container">
+            <div class="content">
+                <div class="partition">
+                    <h1>
+                        Asignación de Roles
+                    </h1>
+                    <br>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <p>
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        <br>
+                        <br>
+                        {% endfor %}
+                        </p>
+                        <br>
+                        <button id="signin" class="buttonBlue">
+                            Buscar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body>    
+
+</html>
