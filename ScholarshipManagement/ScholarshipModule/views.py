@@ -104,6 +104,7 @@ def createScholarships(request):
     else:
         try:
             form = CreateScholarshipForm(request.POST)
+            print(form)
             form.save()
             return redirect('scholarships')
         except:
@@ -203,12 +204,12 @@ def createApplicants(request):
             try:
                 verifyEmail= Applicant.objects.get(email = postEmail)
             except: 
-                verifyEmail=1;
+                verifyEmail=1
 
             try:
                 verifyStudentCode= Applicant.objects.get(studentCode = postStudentCode)
             except:
-                verifyStudentCode=1;
+                verifyStudentCode=1
       
 
             try:
