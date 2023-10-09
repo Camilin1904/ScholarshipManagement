@@ -133,12 +133,12 @@ def createApplicants(request):
             try:
                 verifyEmail= Applicant.objects.get(email = postEmail)
             except: 
-                verifyEmail=1;
+                verifyEmail=1
 
             try:
                 verifyStudentCode= Applicant.objects.get(studentCode = postStudentCode)
             except:
-                verifyStudentCode=1;
+                verifyStudentCode=1
       
 
             try:
