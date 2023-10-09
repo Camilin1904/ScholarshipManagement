@@ -160,3 +160,9 @@ Good morning, good evening and good night.
 | Juan Sebastián Libreros | I fixed the problems i got with sessions thanks to Andres Camilo's help | I will finish my edit function and then start with my secons user story. I got to coordinate to create the search applicant part with Brayan. I'm close to do my PR | No |
 | Andrés Camilo Romero Ruiz | I did the CSS that brayan asked my to do and fixed with Sebastian the problem | I will work on notifications for the role assign function and look for ways improves on my user stories | No |
 | Brayan Steven Ortega | I did the US12 branch and started to create the page in HTML with the CSS that Andrés made | I will work on querys to filter the search of a student and I will show on the page the list of students in the database | No |
+
+## 08/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I was unable to proceed any further as I am a Class assistant (monitor) and was grading | I will finish US2 | No |
