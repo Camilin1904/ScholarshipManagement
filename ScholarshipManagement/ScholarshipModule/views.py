@@ -112,32 +112,6 @@ def createScholarships(request):
                 'error': 'Please provide valid data'
             })
     
-def searchApplicant(request):
-    
-    applicant = None
-    
-    if request.method == 'GET':
-         
-        nameSearch = request.GET.get('name')
-
-        if nameSearch == None:
-            applicant = Applicant.objects.all();
-        else:
-            applicant = Applicant.objects.filter(name=nameSearch)
-
-        return render(request,'./HTML/searchApplicant.html',{'applicant':applicant}) 
-    else:
-        try:
-            del request.session['name']
-        except:
-            print(0)
-       
-        print(request.POST)
-        request.session['name'] = request.POST["search"]
-
-        return redirect('/applicants/edit')
-
-    
 
 def editApplicant(request):
 
