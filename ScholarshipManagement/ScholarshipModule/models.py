@@ -28,11 +28,6 @@ class Announcements(models.Model):
     type = models.IntegerField(default = Type.CLOSED, choices = Type.choices)
 
 
-class Students(models.Model):
-
-
-    id = models.IntegerField(
-        primary_key = True, auto_created = True, serialize = True, unique = True)
     
 class Scholarships(models.Model):
 
