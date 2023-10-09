@@ -166,3 +166,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Camilo Carmona Valencia | I was unable to proceed any further as I am a Class assistant (monitor) and was grading | I will finish US2 | No |
+| Juan Camilo Salazar| I set up the new branch and files needed for US5| I will make the new form (that includes the search filters) and the table that will display the search results | No |
