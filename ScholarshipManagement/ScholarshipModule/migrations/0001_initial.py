@@ -36,15 +36,10 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Scholarships',
+            name='Donors',
             fields=[
                 ('ID', models.IntegerField(auto_created=True, primary_key=True, serialize=False, unique=True)),
                 ('name', models.CharField(max_length=100)),
-                ('description', models.TextField(blank=True)),
-                ('donor', models.CharField(max_length=100)),
-                ('coverage', models.FloatField()),
-                ('type', models.IntegerField()),
-                ('requirements', models.TextField(blank=True)),
             ],
         ),
         migrations.CreateModel(
@@ -68,6 +63,18 @@ class Migration(migrations.Migration):
             },
             managers=[
                 ('objects', django.contrib.auth.models.UserManager()),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Scholarships',
+            fields=[
+                ('ID', models.IntegerField(auto_created=True, primary_key=True, serialize=False, unique=True)),
+                ('name', models.CharField(max_length=100)),
+                ('description', models.TextField(blank=True)),
+                ('coverage', models.FloatField()),
+                ('type', models.TextField(choices=[(0, 'Intercambio'), (1, 'Rescate'), (2, 'Sustento')])),
+                ('requirements', models.TextField(blank=True)),
+                ('donor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ScholarshipModule.donors')),
             ],
         ),
         migrations.CreateModel(

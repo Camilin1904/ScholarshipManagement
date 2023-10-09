@@ -5,6 +5,10 @@ from django.contrib.auth.models import UserManager
 
 # Create your models here.
 
+class Donors(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+    ID = models.IntegerField(
+        primary_key=True, auto_created=True, serialize=True, unique=True)
 
 class Announcements(models.Model):
 
@@ -37,9 +41,13 @@ class Scholarships(models.Model):
     ID = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, unique=True)
     description = models.TextField(blank=True)
-    donor = models.CharField(max_length=100, blank=False)
+    donor = models.ForeignKey(Donors, on_delete= models.CASCADE)
     coverage = models.FloatField(blank=False)
-    type = models.IntegerField(blank=False)
+    class ScholarshipType(models.IntegerChoices):
+        EXCHANGE = 0, _('Intercambio')
+        RESCUE = 1, _('Rescate')
+        LIVELIHOOD = 2, _('Sustento')
+    type = models.TextField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
 
 
