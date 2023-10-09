@@ -103,6 +103,7 @@ def createScholarships(request):
     else:
         try:
             form = CreateScholarshipForm(request.POST)
+            print(form)
             form.save()
             return redirect('scholarships')
         except:
