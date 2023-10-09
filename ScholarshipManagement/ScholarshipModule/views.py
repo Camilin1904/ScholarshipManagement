@@ -407,4 +407,69 @@ def createAnnouncement(request):
 
             return render(
                 request, 'createAnnouncement.html', context) 
-            
+        
+
+def searchAnnouncement(request):
+
+    class announcementTable:
+        def __init__(self, scholarshipName, announcementId, type):
+            self.scholarshipName= scholarshipName
+            self.announcementId = announcementId
+            self.type = type
+
+    error = ""
+
+    announcements= Announcements.objects.all()
+
+    scholarshipList=[]
+    scholarshipNames=[]
+    announcementList=[]
+    count=0
+
+    types=["Abierta", "Cerrada", "Mixta"]
+
+    for i in announcements:
+     
+     typeNum=i.type
+
+     typeStr=types[typeNum]
+
+     
+     
+
+
+     scholarshipList.append(ScholarshipAnnouncements.objects.filter(announcementId = i.id).values('scholarshipId').get()['scholarshipId'])
+     print(scholarshipList[count])
+     scholarshipNames.append(Scholarships.objects.filter(ID= scholarshipList[count]).values('name').get()['name'])
+
+
+     
+     announcementList.append(announcementTable(scholarshipNames[count], i.id, typeNum))
+     count+=1
+
+
+
+
+    context = {
+        'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
+        'announcements':announcementList,
+    }
+
+    if request.method == 'GET':
+
+        return render(
+            request, 'searchAnnouncement.html', context)
+
+    else:
+
+
+        """
+    
+        try:
+
+
+
+        except:
+        """
+
+        
