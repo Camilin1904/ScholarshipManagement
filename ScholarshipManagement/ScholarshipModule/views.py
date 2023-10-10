@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
+from itertools import chain
 
 # Create your views here.
 
@@ -411,44 +412,62 @@ def createAnnouncement(request):
 
 def searchAnnouncement(request):
 
-    class announcementTable:
-        def __init__(self, scholarshipName, announcementId, type):
-            self.scholarshipName= scholarshipName
-            self.announcementId = announcementId
-            self.type = type
+    def getAnnouncemnetContext(announcements):
+
+        class announcementTable:
+            def __init__(self, scholarshipName, announcementId, type):
+                self.scholarshipName= scholarshipName
+                self.announcementId = announcementId
+                self.type = type
+
+        scholarshipList=[]
+        scholarshipNames=[]
+        announcementList=[]
+        count=0
+
+        types=["Abierta", "Cerrada", "Mixta"]
+
+        for i in announcements:
+        
+            typeNum=i.type
+
+            typeStr=types[typeNum]
+
+            scholarshipList.append(ScholarshipAnnouncements.objects.filter(announcementId = i.id).values('scholarshipId').get()['scholarshipId'])
+            scholarshipNames.append(Scholarships.objects.filter(ID= scholarshipList[count]).values('name').get()['name'])
+            announcementList.append(announcementTable(scholarshipNames[count], i.id, typeStr))
+            count+=1
+
+        print(announcementList)
+
+        return announcementList
+    
+    def joinQuery(querySets):
+
+        q=Announcements.objects.none()
+
+        for i in querySets:
+
+            print("enter......")
+
+            print(i)
+
+            q= chain(q,i)
+
+        return q
+
+        
+
 
     error = ""
 
     announcements= Announcements.objects.all()
 
-    scholarshipList=[]
-    scholarshipNames=[]
-    announcementList=[]
-    count=0
+    print(announcements)
+    
+    announcementList = getAnnouncemnetContext(announcements)
 
-    types=["Abierta", "Cerrada", "Mixta"]
-
-    for i in announcements:
-     
-     typeNum=i.type
-
-     typeStr=types[typeNum]
-
-     
-     
-
-
-     scholarshipList.append(ScholarshipAnnouncements.objects.filter(announcementId = i.id).values('scholarshipId').get()['scholarshipId'])
-     print(scholarshipList[count])
-     scholarshipNames.append(Scholarships.objects.filter(ID= scholarshipList[count]).values('name').get()['name'])
-
-
-     
-     announcementList.append(announcementTable(scholarshipNames[count], i.id, typeNum))
-     count+=1
-
-
-
+    print(announcementList)
 
     context = {
         'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
@@ -462,6 +481,82 @@ def searchAnnouncement(request):
 
     else:
 
+        if 'searchBttn' in request.POST:
+
+            announcementSearchForm = CreateAnnouncementAdditionalEventForm (
+                    request.POST, prefix="announcementSearchForm")
+            
+            scholarshipName= request.POST["announcementSearchForm-scholarshipName"]
+            announcementId= request.POST["announcementSearchForm-announcementId"]
+            annoucenementStatus= request.POST["announcementSearchForm-announcementStatus"]
+            startingDate= request.POST["announcementSearchForm-startingInscriptionDate"]
+            endDate= request.POST["announcementSearchForm-endInscriptionDate"]
+
+
+            scholarshipList=[]
+            scholarshipNames=[]
+            announcementsId=[]
+            announcementsPreList=[]
+            
+
+            if (scholarshipName != ""):
+                print ("a",scholarshipName)
+
+
+                #= Scholarships.objects.get(name=scholarshipName).values('ID').get()['ID']
+
+                scholarshipList = Scholarships.objects.filter(name = scholarshipName).values_list('ID', flat=True)
+
+                print(scholarshipList)
+
+                count=0
+
+                hub=[]
+
+                for i in scholarshipList:
+
+                    hub=ScholarshipAnnouncements.objects.filter(scholarshipId= i).values_list('announcementId', flat=True)
+
+                    print(hub)
+
+                    for m in hub:
+
+                        if (Announcements.objects.filter(id=m).exists()):
+
+                            announcementsPreList.append(Announcements.objects.filter(id=m))
+                            count+=1
+
+                print(announcementsPreList,"...................")
+
+                joinedQuery= joinQuery(announcementsPreList)
+
+                print(joinedQuery)
+
+                announcementList= getAnnouncemnetContext(joinedQuery)
+
+
+
+
+
+            if (announcementId != ""):
+                print ("b",announcementId)
+
+            if (annoucenementStatus != "3"):
+                print ("c",annoucenementStatus)
+
+            if (startingDate != ""):
+                print ("d",startingDate)
+
+            if (endDate != ""):
+                print ("e",endDate)
+
+        context = {
+        'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
+        'announcements':announcementList,
+        }
+
+        return render(
+            request, 'searchAnnouncement.html', context)
 
         """
     
@@ -472,4 +567,5 @@ def searchAnnouncement(request):
         except:
         """
 
-        
+
+

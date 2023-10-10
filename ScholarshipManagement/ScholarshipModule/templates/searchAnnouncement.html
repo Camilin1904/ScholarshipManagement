@@ -30,9 +30,12 @@
 
         <div class="container">
 
-            <form action = '/announcement/', method = 'POST'></form>
-            
                 <div class="filter">
+
+                    <form action = '/announcement/', method = 'POST'>
+
+                        {% csrf_token %} 
+                        
                     <h2>
                         Filtros
                     </h2>
@@ -73,25 +76,35 @@
 
                     </button>
 
+                </form>
+
                     
                 </div>
                 <div class="content">
                     <h1>
-                        Estudiantes encontrados
+                        Convocatorias
                     </h1>
 
+                    <button id = "newScholarshipBttn" name = "newScholarshipBttn" class = "button">
+
+                        <h2>
+                            Nueva convocatoria
+                        </h2>
+
+                    </button>
+
                     <table class = "table">
+                        <thead class="tablehead">
                         <tr>
                             <th>Nombre de la beca</th>
                             <th>Id de la convocatoria</th>
                             <th>Tipo</th>
-                            <th>
+                            <th class = "bttnBox">
                             </th>
-                            <th>
+                            <th class = "bttnBox">
                             </th>
-
-                        
                         </tr>
+                        </thead>
 
                         {% for i in announcements%}
 
@@ -141,10 +154,10 @@
                       </table>
                 </div>
 
-            </form>
+            
         </div>
 
-        
+
 
     </body>    
 

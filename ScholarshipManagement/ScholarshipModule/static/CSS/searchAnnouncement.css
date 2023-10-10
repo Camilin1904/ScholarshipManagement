@@ -136,3 +136,35 @@ button:last-child {
     background-color: #455761;
     color: #DBD3C9;
 }
+
+thead{
+    background-color: #333;
+    color: white;
+}
+
+th, td {
+	padding: 8px;
+}
+
+th {
+  width: 22%;
+}
+
+.bttnBox {
+    width: 17%;
+  }
+
+table {
+	border-collapse: collapse;
+	text-align: center;
+	vertical-align: middle;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #DBD3C9;
+
+  }
+  
+tbody tr:nth-child(even) {
+    background-color: #eee;
+}
