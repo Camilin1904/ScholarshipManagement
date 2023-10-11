@@ -174,3 +174,9 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I made the announcement search page and displayed all the registered announcements in the table | I will improve the table and start making queries for the search filter | No |
 | Andrés Camilo Romero Ruiz | I worked on the notifications branch | I will ask domi about tests for the project and US in backend and frontend | No |
+
+## 10/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Brayan Steven Ortega | I helped Libreros with some final functionalities and I accepted the pull request from Libreros with dev | I will do nothing because I'm getting late to home and I have a quiz tomorrow| No |
