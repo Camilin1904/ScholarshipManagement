@@ -21,7 +21,8 @@
     overflow: auto;
     display: flex;
     grid-template-columns: 1fr,1fr,1fr,1fr,1fr,1fr;
-    float: right;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -42,13 +43,30 @@
 #search{
     grid-column: 3/6;
 }
+.table {
+    overflow-y: scroll;
+    height: 80%;
+    overscroll-behavior-y: none;
+}
 
+.table {
+    width: 100%;
+    
+    -layout: fixed;
+}
+
+.table th {
+text-align: left;
+top: 0;
+position: sticky;
+}
 
 
 table {
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
+    
 }
 
 thead th:nth-child(1) {

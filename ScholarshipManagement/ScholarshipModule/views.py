@@ -128,7 +128,8 @@ def scholarships(request):
     hasType0 = request.POST.get('type0')=='on'
     hasType1 = request.POST.get('type1')=='on'
     hasType2 = request.POST.get('type2')=='on'
-    print("-",hasType0)
+    flag = hasType0 or hasType1 or hasType2
+    print("-",flag)
     scholarships = Scholarships.objects.all()
     if(not isValid(reqID) and not isValid(reqName) and not isValid(reqDonor)
        and not isValid(minCov) and not isValid(maxCov)):
@@ -197,11 +198,12 @@ def scholarships(request):
     if hasType0:
         try:
             request.session['type0'] = hasType0
-            scht0 = scholarships.objects.filter(type = '0')
+            scht0 = scholarships.filter(type = 0)
+            print(scht0)
         except:
-            scht0 = scholarships
+            scht0 = Scholarships.objects.none()
     else:
-        scht0 = scholarships
+        scht0 = Scholarships.objects.none()
         try:
             del request.session['type0']
         except:
@@ -209,11 +211,11 @@ def scholarships(request):
     if hasType1:
         try:
             request.session['type1'] = hasType1
-            scht1 = scholarships.objects.filter(type = '1')
+            scht1 = scholarships.filter(type = 1)
         except:
-            scht1 = scholarships
+            scht1 = Scholarships.objects.none()
     else:
-        scht1 = scholarships
+        scht1 = Scholarships.objects.none()
         try:
             del request.session['type1']
         except:
@@ -221,19 +223,21 @@ def scholarships(request):
     if hasType2:
         try:
             request.session['type2'] = hasType2
-            scht2 = scholarships.objects.filter(type = '2')
+            scht2 = scholarships.filter(type = 2)
         except:
-            scht2 = scholarships
+            scht2 = Scholarships.objects.none()
     else:
-        scht2 = scholarships
+        scht2 = Scholarships.objects.none()
         try:
             del request.session['type2']
         except:
             print(0)
-    try:
-        scholarships.intersection(scht0,scht1,scht2)
-    except:
-        print(0)
+    if(flag):
+        try:
+            scholarships = scht0.union(scht1,scht2)
+            print('pito')
+        except:
+            print(0)
     reqID = request.session.get('id','')
     reqName = request.session.get('name','')
     reqDonor = request.session.get('donor_id','')
@@ -261,7 +265,6 @@ def createScholarships(request):
     else:
         try:
             form = CreateScholarshipForm(request.POST)
-            
             form.save()
             return redirect('scholarships')
         except:
