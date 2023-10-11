@@ -180,3 +180,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Brayan Steven Ortega | I helped Libreros with some final functionalities and I accepted the pull request from Libreros with dev | I will do nothing because I'm getting late to home and I have a quiz tomorrow| No |
+| Andrés Camilo Romero Ruiz | I found the next video about testing https://www.youtube.com/watch?v=P_hXyudB8zc | I will do nothing because I'm getting late to home and I have a quiz tomorrow | No |
