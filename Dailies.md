@@ -182,3 +182,4 @@ Good morning, good evening and good night.
 | Brayan Steven Ortega | I helped Libreros with some final functionalities and I accepted the pull request from Libreros with dev | I will do nothing because I'm getting late to home and I have a quiz tomorrow| No |
 | Andrés Camilo Romero Ruiz | I found the next video about testing https://www.youtube.com/watch?v=P_hXyudB8zc | I will do nothing because I'm getting late to home and I have a quiz tomorrow | No |
 | Camilo Carmona Valencia | I have successfully made my filters work as intended, while also fixing how the table of scholarships is viewed in the scholarship screen | I will polish a couple of thing before doing my Pull Request | No |
+| Juan Sebastián Libreros García | I made my pull request to dev | I won't be able to work today because of academic stuff and some mechanical problems with my car | No |
