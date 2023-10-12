@@ -190,3 +190,4 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | Could't work yesterday | I will finish all the announcement search filters so US5 is fully functional | No |
 | Andrés Camilo Romero Ruiz | Didn't work yesterday | I will pull and merge the notification that I work with days ago branch with dev and make the pull request | No |
+| Camilo Carmona Valencia | I was not able to continue as I have an important assignment tomorrow | I will make my PR in the next few days | No |
