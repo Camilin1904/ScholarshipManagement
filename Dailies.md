@@ -189,3 +189,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | Could't work yesterday | I will finish all the announcement search filters so US5 is fully functional | No |
+| Andrés Camilo Romero Ruiz | Didn't work yesterday | I will pull and merge the notification that I work with days ago branch with dev and make the pull request | No |
