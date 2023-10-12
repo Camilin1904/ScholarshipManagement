@@ -24,40 +24,37 @@ header{
     display: flex;
     background-color: #455761;
     align-items: center;
-    object-fit: fill;
+    
+   
 }
 
 .icesi{
     display: flex;
     width: 30%;
     padding: 6%;
-    object-fit: fill;
 }
 
 .menu{
     display: flex;
     width:  100%;
-    height: 10%;
+    height: 3cm;
     background-color: #455761;
     color: white;
     align-items: center;
     font-size: large;
     justify-content: end;
-    object-fit: fill;
 }
 
 ul {
     list-style-type: none;
     margin: 0;
-    padding: 0;
+    padding: 3%;
     overflow: hidden;
-    object-fit: fill;
 }
   
 li {
     float: left;
     border-right:1px solid #bbb;
-    object-fit: fill;
 }
   
 li:last-child {
@@ -82,14 +79,14 @@ li a:hover {
     width: 100%;
     height: 80%;
     display: flex;
-    align-items: center;
     justify-content: center;
-    object-fit: fill;
 }
 
-.content{
-    width: 80%;
-    height: 90%;
+.filter{
+    margin-top: 3%;
+    margin-right: 7%;
+    width: 20%;
+    height: 80%;
     background-color: #DBD3C9;
     border-radius: 15px;
     display: flex;
@@ -97,8 +94,67 @@ li a:hover {
     align-items: center;
     justify-content: center;
     color: #455761;
-    overflow: hidden;
-    object-fit: fill;
+
+}
+
+.content{
+    margin-top: 3%;
+    width: 60%;
+    height: 95%;
+    overflow: auto;
+    background-color: #DBD3C9;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    color: #455761;
+
+}
+
+.applicant{
+    justify-content: center;
+    width: 90%;
+    height: 80%;
+    align-items: center;
+}
+
+.scroll_bar{
+    width: 100%;
+    overflow: auto;
+    max-height: 100%;
+    padding-right: 2%;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 75% 25%;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputForm{
+    background-color: #e9e1d8;
+    border: none;
+    height: 45%;
+    border-radius: 10px;
+    border:  solid #88a0a8;
+    width: 100%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0.2, 0.2);
+
+
+}
+
+.items{
+    padding: 2%;
+}
+
+
+#studentInList{
+    background-color: #e9e1d8;
+}
+.formClass{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttons{
@@ -106,22 +162,28 @@ li a:hover {
     display: flex;
     width: 100%;
     height: 80%;
-    object-fit: fill;
 }
 
 .button{
-    width: 50%;
-    background-color: transparent;
+    width: 45%;
+    height: 10%;
+    align-items: center;
+    grid-column: 1; 
     border: none;
-    border-right:0.5px solid black;
+    background-color: #e9e1d8;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
+    border:0.5px solid #7d878b;
     color: #455761;
     transition-duration: 0.4s;
-    object-fit: fill;
+    
 }
 
-button:last-child {
-    border-right: none;
+#Filtrar.button{
+    margin-top: 10%;
+    align-items: center;
+    justify-content: center;
 }
+
 
 .button:hover{
     background-color: #455761;

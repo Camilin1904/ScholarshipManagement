@@ -30,7 +30,7 @@ class CreateScholarshipForm(ModelForm):
     coverage = forms.CharField(
         label = "Covertura economica", required=True, 
         widget=forms.TextInput(attrs={"class":"id_coverage"}))
-    type = forms.CharField(
+    type = forms.IntegerField(
         label = "Tipo", required=True, 
         widget=forms.RadioSelect(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
     requirements = forms.CharField(
@@ -219,6 +219,22 @@ class CreateApplicantForm(ModelForm):
         fields = ['name', 'lastName', 'studentCode',
                   'faculty', 'major', 'semester','email', 'phone','status', 'announcement'] 
         
+
+class FilterApplicantForm(forms.Form):
+    ID = forms.CharField(
+        label="ID", required=False,
+        widget=forms.TextInput(attrs={'placeholder': 'Codigo estudiante', 'class': 'inputForm'}))
+    name = forms.CharField(
+        label = "Nombre", max_length = 100, required = False,
+        widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'inputForm'}) )
+    lastName = forms.CharField(
+        label = "Apellido", required = False,
+        widget=forms.TextInput(attrs={'placeholder': 'Apellido', 'class': 'inputForm'}))
+    announcement = forms.ModelChoiceField(
+        label = "ID de la convocatoria", required=False,
+        widget=forms.TextInput(attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'} )
+        ,queryset=Announcements.objects)
+
 
 class AnnouncementAndApplicantForm(forms.ModelForm):
     class Meta:

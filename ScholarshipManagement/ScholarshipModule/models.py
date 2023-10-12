@@ -28,11 +28,6 @@ class Announcements(models.Model):
     type = models.IntegerField(default = Type.CLOSED, choices = Type.choices)
 
 
-class Students(models.Model):
-
-
-    id = models.IntegerField(
-        primary_key = True, auto_created = True, serialize = True, unique = True)
     
 class Scholarships(models.Model):
 
@@ -47,7 +42,7 @@ class Scholarships(models.Model):
         EXCHANGE = 0, _('Intercambio')
         RESCUE = 1, _('Rescate')
         LIVELIHOOD = 2, _('Sustento')
-    type = models.TextField(choices=ScholarshipType.choices)
+    type = models.IntegerField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
 
 
