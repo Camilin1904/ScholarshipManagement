@@ -201,3 +201,4 @@ Good morning, good evening and good night.
 | Camilo Carmona Valencia | I had an important assignment, therefore I was unable to finish US2 | I will finish US2 | No |
 | Juan Camilo Salazar | I created four new search filters for the announcements| I will make the final search filter and start styling the announcement search page with CSS | No |
 | Andrés Camilo Romero Ruiz | I made the pull request for the notification branch | I have to make some refactors in the notification branch since some parts of the code are useless| No |
+| Brayan Steven Ortega | I researched about tests that I might need to test the US11 and US12 branches | I have to make some reformats in the US11 ans US12 branches to comply with the coding style | No |
