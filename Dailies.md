@@ -198,4 +198,5 @@ Good morning, good evening and good night.
 
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
-| Camilo Carmona Valencia | I had an important assignment, therefore I was unable to finish US2 | I will finish US2 | No |i
+| Camilo Carmona Valencia | I had an important assignment, therefore I was unable to finish US2 | I will finish US2 | No |
+| Juan Camilo Salazar | I created four new search filters for the announcements| I will make the final search filter and start styling the announcement search page with CSS | No |
