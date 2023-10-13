@@ -412,22 +412,28 @@ def createAnnouncement(request):
 
 def searchAnnouncement(request):
 
+    today = str(date.today())
+
     def getAnnouncemnetContext(announcements):
 
         class announcementTable:
-            def __init__(self, scholarshipName, announcementId, type):
+            def __init__(self, scholarshipName, announcementId, type,status):
                 self.scholarshipName= scholarshipName
                 self.announcementId = announcementId
                 self.type = type
+                self.status = status
 
         scholarshipList=[]
         scholarshipNames=[]
         announcementList=[]
         count=0
+        today = str(date.today())
 
         types=["Abierta", "Cerrada", "Mixta"]
 
         for i in announcements:
+
+            status="Activa"
         
             typeNum=i.type
 
@@ -435,10 +441,15 @@ def searchAnnouncement(request):
 
             scholarshipList.append(ScholarshipAnnouncements.objects.filter(announcementId = i.id).values('scholarshipId').get()['scholarshipId'])
             scholarshipNames.append(Scholarships.objects.filter(ID= scholarshipList[count]).values('name').get()['name'])
-            announcementList.append(announcementTable(scholarshipNames[count], i.id, typeStr))
-            count+=1
 
-        print(announcementList)
+            startingInstcriptionDate=AnnouncementEvent.objects.filter(type="Inscription").filter(announcementId= i.id).values_list('startingDate', flat=True)
+            endPublicationDate=AnnouncementEvent.objects.filter(type="Publication").filter(announcementId= i.id).values_list('endDate', flat=True)
+
+            if today < str(startingInstcriptionDate[0]) or today > str(endPublicationDate[0]):
+                status="Inactiva"
+
+            announcementList.append(announcementTable(scholarshipNames[count], i.id, typeStr,status))
+            count+=1
 
         return announcementList
     
@@ -459,12 +470,8 @@ def searchAnnouncement(request):
     error = ""
 
     announcements= Announcements.objects.all()
-
-    print(announcements)
     
     announcementList = getAnnouncemnetContext(announcements)
-
-    print(announcementList)
 
     context = {
         'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
@@ -485,6 +492,7 @@ def searchAnnouncement(request):
             
             scholarshipName= request.POST["announcementSearchForm-scholarshipName"]
             announcementId= request.POST["announcementSearchForm-announcementId"]
+            annoucementType= request.POST["announcementSearchForm-announcementType"]
             annoucementStatus= request.POST["announcementSearchForm-announcementStatus"]
             startingDateStr= request.POST["announcementSearchForm-startingInscriptionDate"]
             endDateStr= request.POST["announcementSearchForm-endInscriptionDate"]
@@ -500,21 +508,15 @@ def searchAnnouncement(request):
             flag=False
 
 
-            if(scholarshipName != "" or announcementId != "" or annoucementStatus != "3" or startingDateStr != "" or endDateStr != ""):
+            if(scholarshipName != "" or announcementId != "" or annoucementType != "3" or annoucementStatus!="2" or startingDateStr != "" or endDateStr != ""):
 
                 announcementList=Announcements.objects.none()
             
                 if (scholarshipName != ""):
 
-                    
-                    print ("a",scholarshipName)
-
-
                     #= Scholarships.objects.get(name=scholarshipName).values('ID').get()['ID']
 
                     scholarshipList = Scholarships.objects.filter(name = scholarshipName).values_list('ID', flat=True)
-
-                    print(scholarshipList)
 
                     count=0
 
@@ -533,19 +535,11 @@ def searchAnnouncement(request):
                                 announcementsPreList.append(Announcements.objects.filter(id=m))
                                 count+=1
 
-                    print(announcementsPreList,"...................")
-
                     joinedQuery= joinQuery(announcementsPreList)
-
-                    print(joinedQuery)
-
-                    print(announcementList,"................")
     
                     if flag:
-                        print(announcementList,"........sssss........")
                         announcementList= announcementList.intersection(joinedQuery)
                     else:
-                        print(announcementList,"........llll........")
                         announcementList=joinedQuery
 
                     flag=True
@@ -553,40 +547,77 @@ def searchAnnouncement(request):
 
                 if (announcementId != ""):
 
-                    print ("b",announcementId)
-
                     announcementsPreList= Announcements.objects.filter(id=announcementId)
 
                     if flag:
-                        print(announcementList,"........sssss2........")
                         announcementList= announcementList.intersection(announcementsPreList)
                     else:
-                        print(announcementList,"........llll2........")
                         announcementList=announcementsPreList
 
                     flag=True
 
-                if (annoucementStatus != "3"):
-                    print ("c",annoucementStatus)
+                if (annoucementType != "3"):
 
-                    announcementsPreList= Announcements.objects.filter(type=annoucementStatus)
+                    announcementsPreList= Announcements.objects.filter(type=annoucementType)
 
                     if flag:
-                        print(announcementList,"........sssss3........")
                         announcementList= announcementList.intersection(announcementsPreList)
                     else:
-                        print(announcementList,"........llll3........")
                         announcementList=announcementsPreList
 
                     flag=True
+
+                if (annoucementStatus != "2"):
+
+                    print(annoucementStatus)
+
+                    if (annoucementStatus == "0"):
+
+                        announcementsFirstPreList= AnnouncementEvent.objects.filter(type="Inscription").filter(startingDate__lte = today).values_list('announcementId', flat=True)
+                        announcementsSecondPreList= AnnouncementEvent.objects.filter(type="Publication").filter(endDate__gte = today).values_list('announcementId', flat=True)
+
+                        announcementsIdPreList= announcementsFirstPreList.intersection(announcementsSecondPreList)
+
+                        for i in announcementsIdPreList:
+
+                            if (Announcements.objects.filter(id=i).exists()):
+                                announcementsPreList.append(Announcements.objects.filter(id=i))
+
+                        joinedQuery= joinQuery(announcementsPreList)
+
+                        print(announcementsPreList,"111111111")
+
+                    else:
+                        announcementsFirstPreList= AnnouncementEvent.objects.filter(type="Inscription").filter(startingDate__gte = today).values_list('announcementId', flat=True)
+                        announcementsSecondPreList= AnnouncementEvent.objects.filter(type="Publication").filter(endDate__lte = today).values_list('announcementId', flat=True)
+
+                        announcementsIdPreList= announcementsFirstPreList | announcementsSecondPreList
+
+                        for i in announcementsIdPreList:
+
+                            if (Announcements.objects.filter(id=i).exists()):
+                                announcementsPreList.append(Announcements.objects.filter(id=i))
+
+                        joinedQuery= joinQuery(announcementsPreList)
+
+                        print(announcementsPreList,"2222222")
+
+                    if flag:
+                        print(announcementList,"........sssss6........")
+                        announcementList= announcementList.intersection(joinedQuery)
+                    else:
+                        print(announcementList,"........llll6........")
+                        announcementList=joinedQuery
+
+                    flag=True
+
+                    
 
                 if (startingDateStr != ""):
 
                     print ("d",startingDateStr)
 
                     startDateList= AnnouncementEvent.objects.filter(type="Inscription").filter(startingDate__gte = startingDateStr).values_list('announcementId', flat=True)
-
-                    print(startDateList)
 
                     hub=Announcements.objects.none()
                     announcementsPreList=[]
@@ -596,13 +627,9 @@ def searchAnnouncement(request):
                         if (Announcements.objects.filter(id=i).exists()):
                             announcementsPreList.append(Announcements.objects.filter(id=i))
 
-                    print(announcementsPreList,"...................")
-
                     joinedQuery= joinQuery(announcementsPreList)
 
                     print(joinedQuery)
-
-                    print(announcementList,"................")
     
                     if flag:
                         print(announcementList,"........sssss4........")
@@ -628,7 +655,6 @@ def searchAnnouncement(request):
                         if (Announcements.objects.filter(id=i).exists()):
                             announcementsPreList.append(Announcements.objects.filter(id=i))
 
-                    print(announcementsPreList,"...................")
 
                     joinedQuery= joinQuery(announcementsPreList)
 
@@ -637,10 +663,8 @@ def searchAnnouncement(request):
                     print(announcementList,"................")
     
                     if flag:
-                        print(announcementList,"........sssss4........")
                         announcementList= announcementList.intersection(joinedQuery)
                     else:
-                        print(announcementList,"........llll4........")
                         announcementList=joinedQuery
 
                     flag=True

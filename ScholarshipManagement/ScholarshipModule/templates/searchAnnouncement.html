@@ -81,7 +81,7 @@
                     
                 </div>
                 <div class="content">
-                    <h1>
+                    <h1 id="convocatoriaTxt">
                         Convocatorias
                     </h1>
 
@@ -99,6 +99,7 @@
                             <th>Nombre de la beca</th>
                             <th>Id de la convocatoria</th>
                             <th>Tipo</th>
+                            <th>Estado</th>
                             <th class = "bttnBox">
                             </th>
                             <th class = "bttnBox">
@@ -124,7 +125,11 @@
                             </td>
 
                             <td>
-                                <button id = "editBttn" name = "editBttn" class = "button">
+                                {{i.status}}
+                            </td>
+
+                            <td>
+                                <button id = "editBttn" name = "editBttn" class = "buttonAction">
 
                                     <h3>
                                         Editar
@@ -136,7 +141,7 @@
 
                             <td>
 
-                                <button id = "editBttn" name = "editBttn" class = "button">
+                                <button id = "DeleteBttn" name = "DeleteBttn" class = "buttonAction">
 
                                     <h3>
                                         Eliminar

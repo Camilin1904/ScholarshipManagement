@@ -247,23 +247,30 @@ class CreateSearchAnnouncementForm(forms.Form): #Note that it is not inheriting 
         super(CreateSearchAnnouncementForm, self).__init__(*args, **kwargs)
         self.fields['scholarshipName'].label = "Nombre la beca"
         self.fields['announcementId'].label = "ID de la convocatoria"
+        self.fields['announcementType'].label = "Tipo de convocatoria"
         self.fields['announcementStatus'].label = "Estado de la convocatoria"
         self.fields['startingInscriptionDate'].label = "Fecha inicial"
         self.fields['endInscriptionDate'].label = "Fecha final"
 
 
-    STATUS_CHOICES =( 
+    TYPE_CHOICES =( 
     ("3", ""),
     ("0", "Abierta"), 
     ("1", "Cerrada"), 
     ("2", "Mixta"), 
+    )
 
+    STATUS_CHOICES =( 
+    ("2", ""),
+    ("0", "Activa"), 
+    ("1", "Inactiva"), 
     )
 
     scholarshipName= forms.CharField( max_length=100, widget = forms.TextInput(
-            attrs = { "class": "searchform", "placeholder": "..."}),required=False) 
+            attrs = { "class": "searchform"}),required=False) 
     announcementId = forms.CharField( max_length=100, widget = forms.TextInput(
             attrs = { "class": "searchform", "placeholder": "123"}),required=False)
+    announcementType = forms.ChoiceField(choices = TYPE_CHOICES,required=False)
     announcementStatus = forms.ChoiceField(choices = STATUS_CHOICES,required=False)
     startingInscriptionDate = forms.DateField(widget = NumberInput(
         attrs={'type': 'date', "class": "searchform"}), required = False)

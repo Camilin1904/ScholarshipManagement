@@ -86,7 +86,7 @@ li a:hover {
     margin-bottom: 3%;
     margin-right: 7%;
     width: 20%;
-    height: 80%;
+    height: 85%;
     background-color: #DBD3C9;
     border-radius: 15px;
     display: flex;
@@ -104,8 +104,10 @@ li a:hover {
     height: 90%;
     background-color: #DBD3C9;
     border-radius: 15px;
-    display: flex;
-    flex-flow: column;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 20% 80%;
+    gap: 5px;
     align-items: center;
     justify-content: center;
     color: #455761;
@@ -128,6 +130,27 @@ li a:hover {
     transition-duration: 0.4s;
 }
 
+.buttonAction{
+    width: 60%;
+    height: 50%;
+    align-items: center;
+    grid-column: 1; 
+    border: none;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0.2, 0.2);
+    border:0.5px solid #000000;
+    color: white;
+    transition-duration: 0.4s;
+    align-self: center;
+}
+
+#editBttn{
+    background-color: #455761;
+}
+
+#DeleteBttn{
+    background-color: #831704;
+}
+
 button:last-child {
     border-right: none;
 }
@@ -135,6 +158,10 @@ button:last-child {
 .button:hover{
     background-color: #455761;
     color: #DBD3C9;
+}
+
+.buttonAction:hover{
+    color: #82888c;
 }
 
 thead{
@@ -147,14 +174,18 @@ th, td {
 }
 
 th {
-  width: 22%;
+  width: 10%;
 }
 
 .bttnBox {
-    width: 17%;
-  }
+    width: 10%;
+}
 
 table {
+    align-self: flex-start;
+    grid-column: 1/3;
+    margin-left: 1%;
+    margin-right: 1%;
 	border-collapse: collapse;
 	text-align: center;
 	vertical-align: middle;
@@ -167,4 +198,19 @@ tbody tr:nth-child(odd) {
   
 tbody tr:nth-child(even) {
     background-color: #eee;
+}
+
+#convocatoriaTxt{
+    grid-column: 1;
+    margin-left: 5%;
+    align-self: flex-start;
+    margin-top: 3%;
+}
+
+#newScholarshipBttn{
+    grid-column: 2;
+    justify-self: end;
+    align-self: flex-end;
+    margin-right: 7%;
+    margin-bottom: 5%;
 }
