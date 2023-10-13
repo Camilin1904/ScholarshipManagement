@@ -183,6 +183,14 @@ def editApplicant(request):
             print(0)
 
         return redirect('/searchStudent')
+    
+def viewApplicant(request):
+    studentCodeSt = request.session.get('studentCode')
+    applicant = Applicant.objects.filter(studentCode = studentCodeSt)
+
+    if request.method == 'GET':
+        ...
+    
 
 def createApplicants(request):
 
