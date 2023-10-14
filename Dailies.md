@@ -208,3 +208,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I added a new search filter, so US5 is now fully functional, and began styling the page with CSS  | I continued styling the page with CSS and linked it to the home page and to the announcement creation page| No |
+| Juan Sebastián Libreros | I wasn't able to work because an important assignment | I will connect filter screen with the view of applicant. Almost done with the US17 | Besides forgetting to make my daily, no |
