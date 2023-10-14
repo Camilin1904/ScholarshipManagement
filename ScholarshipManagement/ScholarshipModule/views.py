@@ -189,7 +189,7 @@ def viewApplicant(request):
     applicant = Applicant.objects.filter(studentCode = studentCodeSt)
 
     if request.method == 'GET':
-        ...
+        return render(request,'./HTML/viewApplicant.html')
     
 
 def createApplicants(request):
@@ -271,7 +271,16 @@ def filterApplicants(request):
                 'applicants': applicants
             })
     else:
-        if 'edit' in request.POST:
+        if 'search' in request.POST:
+            try:
+                del request.session['studentCode']
+            except:
+                print(0)
+            
+            request.session['studentCode'] = request.POST["search"]
+
+            return redirect('/view/Student')
+        elif 'edit' in request.POST:
             try:
                 del request.session['studentCode']
             except:
