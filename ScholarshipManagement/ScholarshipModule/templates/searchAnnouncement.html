@@ -43,6 +43,15 @@
                     {% for field in announcementSearchForm %}
 
                     <div id = "id_announcementSearchForm_{{forloop.counter}}" class = "formField">
+
+                        {% if forloop.counter == 5 %}
+
+                            <div class = "InscriptionTxt">
+
+                                Plazo de inscripción
+
+                            </div>
+                        {% endif %}
                 
                         {{ field.label_tag }}<br>
 
@@ -56,7 +65,7 @@
 
                     {% endfor %}
 
-                    <button id = "searchBttn" name = "searchBttn" class = "button">
+                    <button id = "searchBttn" name = "searchBttn" class = "buttonFilter">
 
                         <h3>
 
@@ -66,7 +75,7 @@
 
                     </butto>
 
-                    <button id = "cleanBttn" name = "cleanBttn" class = "button">
+                    <button id = "cleanBttn" name = "cleanBttn" class = "buttonFilter">
 
                         <h3>
 
@@ -85,11 +94,13 @@
                         Convocatorias
                     </h1>
 
-                    <button id = "newScholarshipBttn" name = "newScholarshipBttn" class = "button">
-
-                        <h2>
-                            Nueva convocatoria
-                        </h2>
+                    <button id = "newScholarshipBttn" name = "newScholarshipBttn" class = "addButton" >
+                        
+                        <a href="/announcement/create/" style="color: inherit;text-decoration: none" >
+                            <h2>
+                                Nueva convocatoria
+                            </h2>
+                        </a>
 
                     </button>
 
@@ -147,7 +158,7 @@
                                         Eliminar
                                     </h3>
         
-                                </button>
+                                </button>   
 
                             </td>
 

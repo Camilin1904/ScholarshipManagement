@@ -85,22 +85,21 @@ li a:hover {
     margin-top: 3%;
     margin-bottom: 3%;
     margin-right: 7%;
-    width: 20%;
-    height: 85%;
+    width: 18%;
+    height: 90%;
     background-color: #DBD3C9;
     border-radius: 15px;
     display: flex;
     flex-flow: column;
-    align-items: center;
-    justify-content: center;
     color: #455761;
     overflow: hidden;
+    padding-left: 2%;
 }
 
 .content{
     margin-top: 3%;
     margin-bottom: 3%;
-    width: 60%;
+    width: 65%;
     height: 90%;
     background-color: #DBD3C9;
     border-radius: 15px;
@@ -114,33 +113,26 @@ li a:hover {
     overflow: hidden;
 }
 
-.buttons{
-    margin-top: 3%;
-    display: flex;
-    width: 100%;
-    height: 80%;
+.field{
+    margin-bottom: 2%;
 }
 
-.button{
-    width: 50%;
+.buttonFilter{
+    margin-top: 4%;
+    width: 35%;
     background-color: transparent;
-    border: none;
-    border-right:0.5px solid black;
     color: #455761;
     transition-duration: 0.4s;
 }
 
 .buttonAction{
-    width: 60%;
+    width: 100%;
     height: 50%;
     align-items: center;
-    grid-column: 1; 
-    border: none;
     box-shadow: 2px 5px 5px rgba(0, 0, 0.2, 0.2);
     border:0.5px solid #000000;
     color: white;
     transition-duration: 0.4s;
-    align-self: center;
 }
 
 #editBttn{
@@ -151,11 +143,7 @@ li a:hover {
     background-color: #831704;
 }
 
-button:last-child {
-    border-right: none;
-}
-
-.button:hover{
+.buttonFilter:hover{
     background-color: #455761;
     color: #DBD3C9;
 }
@@ -163,6 +151,12 @@ button:last-child {
 .buttonAction:hover{
     color: #82888c;
 }
+
+#searchBttn{
+    margin-right: 3%;
+    margin-left: 7%;
+}
+
 
 thead{
     background-color: #333;
@@ -174,7 +168,7 @@ th, td {
 }
 
 th {
-  width: 10%;
+  width: 20%;
 }
 
 .bttnBox {
@@ -189,6 +183,7 @@ table {
 	border-collapse: collapse;
 	text-align: center;
 	vertical-align: middle;
+    overflow: scroll;
 }
 
 tbody tr:nth-child(odd) {
@@ -213,4 +208,16 @@ tbody tr:nth-child(even) {
     align-self: flex-end;
     margin-right: 7%;
     margin-bottom: 5%;
+    width: 45%;
+    height: 40%;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0.2, 0.2);
+    border:0.5px solid #000000;
+    transition-duration: 0.4s;
+    background-color: transparent;
+    color: #455761;
+}
+
+#newScholarshipBttn:hover{
+    background-color: #455761;
+    color: #DBD3C9;
 }

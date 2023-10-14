@@ -269,7 +269,7 @@ class CreateSearchAnnouncementForm(forms.Form): #Note that it is not inheriting 
     scholarshipName= forms.CharField( max_length=100, widget = forms.TextInput(
             attrs = { "class": "searchform"}),required=False) 
     announcementId = forms.CharField( max_length=100, widget = forms.TextInput(
-            attrs = { "class": "searchform", "placeholder": "123"}),required=False)
+            attrs = { "class": "searchform"}),required=False)
     announcementType = forms.ChoiceField(choices = TYPE_CHOICES,required=False)
     announcementStatus = forms.ChoiceField(choices = STATUS_CHOICES,required=False)
     startingInscriptionDate = forms.DateField(widget = NumberInput(
