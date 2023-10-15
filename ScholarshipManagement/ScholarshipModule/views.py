@@ -194,7 +194,7 @@ def viewApplicant(request):
     idSt = applicant.first().ID
 
     try:
-        announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement.id
+        announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement.id
     except:
         announcement = None
 
