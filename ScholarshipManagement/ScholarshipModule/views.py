@@ -92,169 +92,69 @@ def home(request):
 
 def scholarships(request):
     if request.method == 'GET':
-        try:
-            del request.session['name']
-        except:
-            print(0)
-        try:
-            del request.session['donor_id']
-        except:
-            print(0)
-        try:
-            del request.session['min_cov'] 
-        except:
-            print(0)
-        try:
-            del request.session['max_cov']
-        except:
-            print(0)
-        try:
-            del request.session['type0']
-        except:
-            print(0)
-        try:
-            del request.session['type1']
-        except:
-            print(0)
-        try:
-            del request.session['type2']
-        except:
-            print(0)
+        return render(request, './HTML/scholarships.html', {
+            'scholarships' : Scholarships.objects.all(),
+            'form': FilterScholarshipForm
+            })
+    else:
+        form = FilterScholarshipForm(request.POST)
+        reqID = request.POST.get('id')
+        reqName = request.POST.get('name')
+        reqDonor = request.POST.get('donor')
+        minCov = request.POST.get('minCoverage')
+        maxCov = request.POST.get('maxCoverage')
+        type = request.POST.getlist('type')
+        scholarships = Scholarships.objects.all()
             
-    reqID = request.POST.get('id')
-    reqName = request.POST.get('name')
-    reqDonor = request.POST.get('donor_id')
-    minCov = request.POST.get('min_cov')
-    maxCov = request.POST.get('max_cov')
-    hasType0 = request.POST.get('type0')=='on'
-    hasType1 = request.POST.get('type1')=='on'
-    hasType2 = request.POST.get('type2')=='on'
-    flag = hasType0 or hasType1 or hasType2
-    print("-",flag)
-    scholarships = Scholarships.objects.all()
-    if(not isValid(reqID) and not isValid(reqName) and not isValid(reqDonor)
-       and not isValid(minCov) and not isValid(maxCov)):
-        try:
-            del request.session['id']
-        except:
-            print(0)
+        if isValid(reqID):
+            try:
+                scholarships = scholarships.filter(ID=reqID)
+            except:
+                scholarships = None
+        if isValid(reqName):
+            try:
+                scholarships = scholarships.filter(name=reqName)    
+            except:
+                scholarships = None
+        if isValid(reqDonor):
+            try:
+                scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
+            except:
+                scholarships = None
+        if isValid(minCov):
+            try:
+                scholarships = scholarships.filter(coverage__gte=minCov)
+            except:
+                scholarships = None
+        if isValid(maxCov):
+            try:
+                scholarships = scholarships.filter(coverage__lte=maxCov)
+            except:
+                scholarships = None
+        if len(type)>0:
+            print(type)
+            schl = list()
+            hold = None
+            for t in type:
+                schl.append(scholarships.filter(type=t))
+            print(schl)
+            for s in schl:
+                if hold is None:
+                    hold = s
+                else:
+                    print(s)
+                    hold = hold.union(s)
+                    print(hold)
+            
+            scholarships = hold
+                
         
-    if isValid(reqID):
-        try:
-            request.session['id'] = reqID
-            scholarships = scholarships.filter(ID=reqID)
-        except:
-            scholarships = None
-    else:
-        try:
-            reqID = request.session.get('id','')
-            request.session['id'] = reqID
-            scholarships = scholarships.filter(ID=reqID)
-        except:
-            scholarships = Scholarships.objects.all()
-    if isValid(reqName):
-        try:
-            request.session['name'] = reqName
-            scholarships = scholarships.filter(name=reqName)    
-        except:
-            scholarships = None
-    else:
-        try:
-            del request.session['name']
-        except:
-            print(0)
-    if isValid(reqDonor):
-        try:
-            request.session['donor_id'] = reqDonor
-            scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
-        except:
-            scholarships = None
-    else:
-        try:
-            del request.session['donor_id']
-        except:
-            print(0)
-    if isValid(minCov):
-        try:
-            request.session['min_cov'] = minCov
-            scholarships = scholarships.filter(coverage__gte=minCov)
-        except:
-            scholarships = None
-    else:
-        try:
-            del request.session['min_cov'] 
-        except:
-            print(0)
-    if isValid(maxCov):
-        try:
-            request.session['max_cov'] = maxCov
-            scholarships = scholarships.filter(coverage__lte=maxCov)
-        except:
-            scholarships = None
-    else:
-        try:
-            del request.session['max_cov']
-        except:
-            print(0)
-    if hasType0:
-        try:
-            request.session['type0'] = hasType0
-            scht0 = scholarships.filter(type = 0)
-            print(scht0)
-        except:
-            scht0 = Scholarships.objects.none()
-    else:
-        scht0 = Scholarships.objects.none()
-        try:
-            del request.session['type0']
-        except:
-            print(0)
-    if hasType1:
-        try:
-            request.session['type1'] = hasType1
-            scht1 = scholarships.filter(type = 1)
-        except:
-            scht1 = Scholarships.objects.none()
-    else:
-        scht1 = Scholarships.objects.none()
-        try:
-            del request.session['type1']
-        except:
-            print(0)
-    if hasType2:
-        try:
-            request.session['type2'] = hasType2
-            scht2 = scholarships.filter(type = 2)
-        except:
-            scht2 = Scholarships.objects.none()
-    else:
-        scht2 = Scholarships.objects.none()
-        try:
-            del request.session['type2']
-        except:
-            print(0)
-    if(flag):
-        try:
-            scholarships = scht0.union(scht1,scht2)
-            print('pito')
-        except:
-            print(0)
-    reqID = request.session.get('id','')
-    reqName = request.session.get('name','')
-    reqDonor = request.session.get('donor_id','')
-    minCov = request.session.get('min_cov','')
-    maxCov = request.session.get('max_cov','')
-    hasType0 = request.session.get('type0', False)
-    hasType1 = request.session.get('type1', False)
-    hasType2 = request.session.get('type2', False)
-    return render(request, './HTML/scholarships.html', {'scholarships': scholarships, 
-                                                        'id':reqID, 'name':reqName,
-                                                        'donor_id':reqDonor, 
-                                                        'min_cov':minCov,
-                                                        'max_cov':maxCov, 
-                                                        'type0':hasType0,
-                                                        'type1':hasType1,
-                                                        'type2':hasType2})
+        print(scholarships)
+        return render(request, './HTML/scholarships.html', {
+            'scholarships' : scholarships,  
+            'form': form,
+            'id': reqID if reqID != None else ''
+        })
 
 
 def createScholarships(request):
