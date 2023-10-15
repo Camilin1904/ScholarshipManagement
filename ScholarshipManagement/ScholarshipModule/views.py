@@ -29,11 +29,11 @@ def signUp(request):
             return redirect('/home')
         else:
             return render(
-                request, './HTML/Signin.html', {'form': form, 'error': error})
+                request, './HTML/signup.html', {'form': form, 'error': error})
     else:
         form = CreateNewUser
     return render(
-        request, './HTML/Signin.html', {'form': form, 'error':''})
+        request, './HTML/signup.html', {'form': form, 'error':''})
 
 def signOut(request):
     
@@ -370,7 +370,7 @@ def filterApplicants(request):
         
 def searchUserForRole(request):
     user = request.user
-    error = ""
+    success = ""
     if request.method == 'POST':
         try:
             username = request.POST['username']
@@ -383,22 +383,22 @@ def searchUserForRole(request):
                         'toChange' : toChange
                     })
             except:
-                # If the username is not found
-                error = 'El usuario no existe'
+                # If the username field does not exists
+                success = 'El usuario no existe'
         except:
             #username field does not exist so we are in roleAssign
             rol = request.POST['role']
             email = request.POST['email']
             toChange = User.objects.filter(username=email).update(role=rol)
-            print("se supone que hubo cambios")
-            redirect(home)
+            success = 'El cambio de rol ha sido exitoso'
 
 
     else:
         if user.role == 0:
             return render(
                 request, './HTML/searchUser.html', {
-                    'form': searchUser
+                    'form': searchUser,
+                    'success': success
                 })
         else:
             return redirect('/home')
@@ -406,7 +406,7 @@ def searchUserForRole(request):
     return render(
         request, './HTML/searchUser.html', {
             'form': searchUser,
-            'error': error
+            'success': success
         })
             
 def createAnnouncement(request):
