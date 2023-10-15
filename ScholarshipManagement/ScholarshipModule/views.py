@@ -169,7 +169,11 @@ def editApplicant(request):
                 announcement=request.POST['announcement'])
         else:
             idAnnouncement = request.POST['announcement']
-            announcementGet = Announcements.objects.get(id=idAnnouncement)
+            announcementGet = None
+            try:
+                announcementGet = Announcements.objects.get(id=idAnnouncement)
+            except:
+                print(0)
             formNew= AnnouncementAndApplicantForm()
             relation=formNew.save(commit=False)
             relation.announcement=announcementGet
@@ -182,14 +186,31 @@ def editApplicant(request):
         except:
             print(0)
 
-        return redirect('/searchStudent')
+        return redirect('/view/Student')
     
 def viewApplicant(request):
     studentCodeSt = request.session.get('studentCode')
     applicant = Applicant.objects.filter(studentCode = studentCodeSt)
+    idSt = applicant.first().ID
+
+    try:
+        announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement
+    except:
+        announcement = None
 
     if request.method == 'GET':
-        return render(request,'./HTML/viewApplicant.html')
+        return render(request,'./HTML/viewApplicant.html',{'applicant':applicant,
+                                                           'announcement':announcement})
+    else:
+        if 'back' in request.POST:
+            return redirect("/searchStudent/")
+        elif 'edit' in request.POST:
+       
+            print(request.POST)
+            request.session['studentCode'] = request.POST['edit']
+
+            return redirect('/applicants/edit')
+
     
 
 def createApplicants(request):
@@ -276,20 +297,11 @@ def filterApplicants(request):
                 del request.session['studentCode']
             except:
                 print(0)
-            
+       
+            print(request.POST)
             request.session['studentCode'] = request.POST["search"]
 
             return redirect('/view/Student')
-        elif 'edit' in request.POST:
-            try:
-                del request.session['studentCode']
-            except:
-                print(0)
-       
-            print(request.POST)
-            request.session['studentCode'] = request.POST["edit"]
-
-            return redirect('/applicants/edit')
         else:
             try:
                 

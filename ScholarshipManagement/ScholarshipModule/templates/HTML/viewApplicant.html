@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{% static 'CSS/createApplicant.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/viewApplicant.css' %}">
     {% block links %}
     {% endblock %}
     <title>Información de aplicante</title>
@@ -24,6 +24,88 @@
     </header>
 
     <div class="container">
+        <div class="content">
+            <h2>
+                <b>Información del aplicante</b>
+            </h2>
+            <div class="info_applicant">
+                {%for Applicant in applicant%}
+                    <ul>
+                        <li id="applicant_info">
+                            <p>
+                                <b>Nombre:</b>
+                                <br> 
+                                {{Applicant.name}}
+                            </p>
+                            <p>
+                                <b>Apellido:</b> 
+                                <br>
+                                {{Applicant.lastName}}
+                            </p>
+                            <p>
+                                <b>Código de estudiante:</b> 
+                                <br>
+                                {{Applicant.studentCode}}
+                            </p>
+                            <p>
+                                <b>Facultad:</b>
+                                <br>
+                                {{Applicant.faculty}}
+                            </p>
+                            <p>
+                                <b>Carrera:</b>
+                                <br>
+                                {{Applicant.major}}
+                            </p>
+                            <p>
+                                <b>Semestre: </b>
+                                <br>
+                                {{Applicant.semester}}
+                            </p>
+                            <p>
+                                <b>Electronico:</b> 
+                                <br>
+                                {{Applicant.email}}
+                            </p>
+                            <p>
+                                <b>Telefono:</b>
+                                <br>
+                                {{Applicant.phone}}
+                            </p>
+                            <p>
+                                <b>Estado</b>:
+                                <br> 
+                                {{Applicant.status}}
+                            </p>
+                            <p>
+                                <b>Convocatoria:</b> 
+                                <br>
+                                {{announcement}}
+                            </p>
+                        </li>
+                        
+                    </ul>
+                
+                <i class="bi bi-person-square" id="person"></i>
+                <form method="POST">
+                    
+                    <div class="buttons">
+                        
+                        <button class="button" id="back" value="{{Applicant.studentCode}}" name="back">
+                            {% csrf_token %}
+                            Atrás
+                        </button>
+                        <button class="button" id="edit" value="{{Applicant.studentCode}}" name="edit">
+                            {% csrf_token %}
+                            Editar
+                        </button>
+                    </div>
+                </form>
+                {%endfor%}
+            </div>
+            
+            
+        </div>
         
     </div>
 </body>
