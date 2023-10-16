@@ -32,10 +32,10 @@ urlpatterns = [
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
     path('roles/', views.searchUserForRole, name = 'roleAssign'),
-     path('applicants/edit',views.editApplicant, name = 'editApplicant'),
+    path('announcement/', views.searchAnnouncement, name = 'announcement'),
+    path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent')
-
 ]   
 
 
