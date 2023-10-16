@@ -222,4 +222,5 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Andrés Camilo Romero Ruiz | Created the test branch where I did a littles test for the user model and rename the tests so they all can be run at the same time | I shall explain brayan how the tests works | No |
+| Brayan Steven Ortega | I created the branch Reformat and start to apply the coding style to the US11 and US12 branches, also I helped Libreros to end the the CSS for his user story | I will end the coding style and I will make the tests for the US11 and US12 branches |No |
 
