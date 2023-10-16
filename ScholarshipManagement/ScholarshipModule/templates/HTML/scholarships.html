@@ -11,24 +11,14 @@
         <h2>Filtros:</h2>
         <form action="." method="POST">
             {% csrf_token %}
-            Nombre:<br>
-            <input id="name" name="name" value={{name}}></input><br>
-            ID del donante:<br>
-            <input id="donor_id" name="donor_id" value={{donor_id}}></input><br>
-            Covertura:<br>
-            <p>Desde:</p>
-            <input id="min_cov" name="min_cov" value={{min_cov}}></input><br>
-            <p>Hasta:</p>
-            <input id="max_cov" name="max_cov" value={{max_cov}}></input><br>
-            Tipo:<br>
-            <input name="type0" type="checkbox" {% if type0 %} checked {% endif %}>Intercambio</input><br>
-            <input name="type1" type="checkbox" {% if type1 %} checked {% endif %}>Rescate</input><br>
-            <input name="type2" type="checkbox" {% if type2 %} checked {% endif %}>Sustento</input><br>
+            {% for field in form %}
+                <div id="id_{{forloop.counter}}" class="items">
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                </div>
+            {% endfor %}
             <button id="apply">Apply filters</button>
             <br>
-        </form>
-        <form id="clear" method="GET">
-            <button id="btnClear">Clear filters</button>
         </form>
     </div>
 
