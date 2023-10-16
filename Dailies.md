@@ -217,3 +217,9 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 | Juan Sebastián Libreros | I connected filter screen with the view of applicant | Fix some issues that presented after connecting the two screens | No |
 
+## 15/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Andrés Camilo Romero Ruiz | Created the test branch where I did a littles test for the user model and rename the tests so they all can be run at the same time | I shall explain brayan how the tests works | No |
+
