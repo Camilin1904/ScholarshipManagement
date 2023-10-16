@@ -240,7 +240,7 @@ class roleAssign(Form):
     role = forms.ChoiceField(
         label="Nuevo rol", choices= CHOICES, initial= 3, widget=forms.Select(attrs={"class":"input"}))
     
-class CreateSearchAnnouncementForm(forms.Form): #Note that it is not inheriting from forms.ModelForm
+class CreateSearchAnnouncementForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
 
@@ -252,24 +252,23 @@ class CreateSearchAnnouncementForm(forms.Form): #Note that it is not inheriting 
         self.fields['startingInscriptionDate'].label = "Fecha inicial"
         self.fields['endInscriptionDate'].label = "Fecha final"
 
-
-    TYPE_CHOICES =( 
+    TYPE_CHOICES = ( 
     ("3", ""),
     ("0", "Abierta"), 
     ("1", "Cerrada"), 
     ("2", "Mixta"), 
     )
 
-    STATUS_CHOICES =( 
+    STATUS_CHOICES = ( 
     ("2", ""),
     ("0", "Activa"), 
     ("1", "Inactiva"), 
     )
 
-    scholarshipName= forms.CharField( max_length=100, widget = forms.TextInput(
-            attrs = { "class": "searchform"}),required=False) 
+    scholarshipName = forms.CharField( max_length=100, widget = forms.TextInput(
+            attrs = { "class": "searchform"}), required=False) 
     announcementId = forms.CharField( max_length=100, widget = forms.TextInput(
-            attrs = { "class": "searchform"}),required=False)
+            attrs = { "class": "searchform"}), required=False)
     announcementType = forms.ChoiceField(choices = TYPE_CHOICES,required=False)
     announcementStatus = forms.ChoiceField(choices = STATUS_CHOICES,required=False)
     startingInscriptionDate = forms.DateField(widget = NumberInput(

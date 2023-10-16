@@ -1,5 +1,7 @@
 <!DOCTYPE html>
+
 {% load static %}
+
 <html lang="es">
 
     <head>
@@ -8,9 +10,11 @@
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
         <link rel="stylesheet" href="{% static 'CSS/searchAnnouncement.css' %}">
+
         <title>
             Search Announcement
         </title>
+
     </head>
 
     <body>
@@ -26,8 +30,6 @@
             </div>    
         </header>
 
-        
-
         <div class="container">
 
                 <div class="filter">
@@ -36,67 +38,61 @@
 
                         {% csrf_token %} 
                         
-                    <h2>
-                        Filtros
-                    </h2>
+                        <h2>
+                            Filtros
+                        </h2>
 
-                    {% for field in announcementSearchForm %}
+                        {% for field in announcementSearchForm %}
 
-                    <div id = "id_announcementSearchForm_{{forloop.counter}}" class = "formField">
+                        <div id = "id_announcementSearchForm_{{forloop.counter}}" class = "formField">
 
-                        {% if forloop.counter == 5 %}
+                            {% if forloop.counter == 5 %}
 
-                            <div class = "InscriptionTxt">
+                                <div class = "InscriptionTxt">
+                                    Plazo de inscripción
+                                </div>
 
-                                Plazo de inscripción
+                            {% endif %}
+                    
+                            {{ field.label_tag }}<br>
 
+                            <div class = "field">
+                                {{ field }}
                             </div>
-                        {% endif %}
-                
-                        {{ field.label_tag }}<br>
-
-                        <div class = "field">
-
-                            {{ field }}
 
                         </div>
 
-                    </div>
+                        {% endfor %}
 
-                    {% endfor %}
+                        <button id = "searchBttn" name = "searchBttn" class = "buttonFilter">
 
-                    <button id = "searchBttn" name = "searchBttn" class = "buttonFilter">
+                            <h3>
+                                Buscar
+                            </h3>
 
-                        <h3>
+                        </button>
 
-                            Buscar
+                        <button id = "cleanBttn" name = "cleanBttn" class = "buttonFilter">
 
-                        </h3>
+                            <h3>
+                                Limpiar
+                            </h3>
 
-                    </butto>
+                        </button>
 
-                    <button id = "cleanBttn" name = "cleanBttn" class = "buttonFilter">
-
-                        <h3>
-
-                            Limpiar
-
-                        </h3>
-
-                    </button>
-
-                </form>
-
-                    
+                    </form>
+ 
                 </div>
-                <div class="content">
-                    <h1 id="convocatoriaTxt">
+
+                <div class = "content">
+
+                    <h1 id = "convocatoriaTxt">
                         Convocatorias
                     </h1>
 
                     <button id = "newScholarshipBttn" name = "newScholarshipBttn" class = "addButton" >
                         
-                        <a href="/announcement/create/" style="color: inherit;text-decoration: none" >
+                        <a href = "/announcement/create/" style = "color: inherit;text-decoration: none" >
                             <h2>
                                 Nueva convocatoria
                             </h2>
@@ -105,75 +101,71 @@
                     </button>
 
                     <table class = "table">
-                        <thead class="tablehead">
-                        <tr>
-                            <th>Nombre de la beca</th>
-                            <th>Id de la convocatoria</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
-                            <th class = "bttnBox">
-                            </th>
-                            <th class = "bttnBox">
-                            </th>
-                        </tr>
+                        <thead class = "tablehead">
+                            <tr>
+                                <th>Nombre de la beca</th>
+                                <th>Id de la convocatoria</th>
+                                <th>Tipo</th>
+                                <th>Estado</th>
+                                <th class = "bttnBox">
+                                </th>
+                                <th class = "bttnBox">
+                                </th>
+                            </tr>
                         </thead>
 
-                        {% for i in announcements%}
+                            {% for i in announcements%}
 
-                        <tr>
+                            <tr>
 
-                            <td>
-                                {{i.scholarshipName}}
-                                
-                            </td>
+                                <td>
+                                    {{i.scholarshipName}}
+                                    
+                                </td>
 
-                            <td>
-                                {{i.announcementId}}
-                            </td>
+                                <td>
+                                    {{i.announcementId}}
+                                </td>
 
-                            <td>
-                                {{i.type}}
-                            </td>
+                                <td>
+                                    {{i.type}}
+                                </td>
 
-                            <td>
-                                {{i.status}}
-                            </td>
+                                <td>
+                                    {{i.status}}
+                                </td>
 
-                            <td>
-                                <button id = "editBttn" name = "editBttn" class = "buttonAction">
+                                <td>
+                                    <button id = "editBttn" name = "editBttn" class = "buttonAction">
 
-                                    <h3>
-                                        Editar
-                                    </h3>
-        
-                                </button>
+                                        <h3>
+                                            Editar
+                                        </h3>
+            
+                                    </button>
 
-                            </td>
+                                </td>
 
-                            <td>
+                                <td>
 
-                                <button id = "DeleteBttn" name = "DeleteBttn" class = "buttonAction">
+                                    <button id = "DeleteBttn" name = "DeleteBttn" class = "buttonAction">
 
-                                    <h3>
-                                        Eliminar
-                                    </h3>
-        
-                                </button>   
+                                        <h3>
+                                            Eliminar
+                                        </h3>
+            
+                                    </button>   
 
-                            </td>
+                                </td>
 
-                        </tr>    
+                            </tr>    
 
-                        {% endfor %}
-
+                            {% endfor %}
 
                       </table>
                 </div>
 
-            
         </div>
-
-
 
     </body>    
 
