@@ -10,6 +10,8 @@ from .forms import *
 from .models import *
 from django.http import HttpResponse
 
+def isValid(query): return query is not None and query != ''
+
 # Create your views here.
 
 def signUp(request):
@@ -89,10 +91,70 @@ def home(request):
 
 
 def scholarships(request):
-    
-    scholarships = Scholarships.objects.all()
-    return render(request, './HTML/scholarships.html', 
-                  {'./HTML/scholarships': scholarships})
+    if request.method == 'GET':
+        return render(request, './HTML/scholarships.html', {
+            'scholarships' : Scholarships.objects.all(),
+            'form': FilterScholarshipForm
+            })
+    else:
+        form = FilterScholarshipForm(request.POST)
+        reqID = request.POST.get('id')
+        reqName = request.POST.get('name')
+        reqDonor = request.POST.get('donor')
+        minCov = request.POST.get('minCoverage')
+        maxCov = request.POST.get('maxCoverage')
+        type = request.POST.getlist('type')
+        scholarships = Scholarships.objects.all()
+            
+        if isValid(reqID):
+            try:
+                scholarships = scholarships.filter(ID=reqID)
+            except:
+                scholarships = None
+        if isValid(reqName):
+            try:
+                scholarships = scholarships.filter(name=reqName)    
+            except:
+                scholarships = None
+        if isValid(reqDonor):
+            try:
+                scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
+            except:
+                scholarships = None
+        if isValid(minCov):
+            try:
+                scholarships = scholarships.filter(coverage__gte=minCov)
+            except:
+                scholarships = None
+        if isValid(maxCov):
+            try:
+                scholarships = scholarships.filter(coverage__lte=maxCov)
+            except:
+                scholarships = None
+        if len(type)>0:
+            print(type)
+            schl = list()
+            hold = None
+            for t in type:
+                schl.append(scholarships.filter(type=t))
+            print(schl)
+            for s in schl:
+                if hold is None:
+                    hold = s
+                else:
+                    print(s)
+                    hold = hold.union(s)
+                    print(hold)
+            
+            scholarships = hold
+                
+        
+        print(scholarships)
+        return render(request, './HTML/scholarships.html', {
+            'scholarships' : scholarships,  
+            'form': form,
+            'id': reqID if reqID != None else ''
+        })
 
 
 def createScholarships(request):
@@ -104,7 +166,6 @@ def createScholarships(request):
     else:
         try:
             form = CreateScholarshipForm(request.POST)
-            print(form)
             form.save()
             return redirect('scholarships')
         except:
@@ -133,7 +194,7 @@ def editApplicant(request):
         phone = applicant.first().phone
         status = applicant.first().status
         try:
-            announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement
+            announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
         except:
             announcement = None    
         
@@ -153,7 +214,7 @@ def editApplicant(request):
     else:
         applicant = Applicant.objects.get(studentCode = studentCodeSt)
         try:
-            announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement
+            announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
         except:
             announcement = None   
         Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
@@ -165,15 +226,19 @@ def editApplicant(request):
                                                                    phone=request.POST['phone'],
                                                                    status=request.POST['status'])
         if announcement is not None:
-            AnnouncementAndApplicant.objects.filter(applicantID=idSt).update(
+            AnnouncementAndApplicant.objects.filter(applicant=idSt).update(
                 announcement=request.POST['announcement'])
         else:
             idAnnouncement = request.POST['announcement']
-            announcementGet = Announcements.objects.get(id=idAnnouncement)
+            announcementGet = None
+            try:
+                announcementGet = Announcements.objects.get(id=idAnnouncement)
+            except:
+                print(0)
             formNew= AnnouncementAndApplicantForm()
             relation=formNew.save(commit=False)
             relation.announcement=announcementGet
-            relation.applicantID=applicant
+            relation.applicant=applicant
             relation.save()
             
             
@@ -182,7 +247,32 @@ def editApplicant(request):
         except:
             print(0)
 
-        return redirect('/searchStudent')
+        return redirect('/view/Student')
+    
+def viewApplicant(request):
+    studentCodeSt = request.session.get('studentCode')
+    applicant = Applicant.objects.filter(studentCode = studentCodeSt)
+    idSt = applicant.first().ID
+
+    try:
+        announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement.id
+    except:
+        announcement = None
+
+    if request.method == 'GET':
+        return render(request,'./HTML/viewApplicant.html',{'applicant':applicant,
+                                                           'announcement':announcement})
+    else:
+        if 'back' in request.POST:
+            return redirect("/searchStudent/")
+        elif 'edit' in request.POST:
+       
+            print(request.POST)
+            request.session['studentCode'] = request.POST['edit']
+
+            return redirect('/applicants/edit')
+
+    
 
 def createApplicants(request):
 
@@ -194,11 +284,11 @@ def createApplicants(request):
     else:
         try:
 
-            AnnouncementPost = 0
+            
             form = CreateApplicantForm(request.POST)
             error = ""
             postStudentCode = request.POST['studentCode']
-            AnnouncementPost = request.POST['announcement']
+            announcementPost = request.POST['announcement']
             postEmail = request.POST['email']
 
             try:
@@ -223,18 +313,18 @@ def createApplicants(request):
                     error = 'Digite información correctamente'
                 form.save()
 
-                if AnnouncementPost == "":
+                if announcementPost == "":
                     error=""
                 else: 
                     student = Applicant.objects.get(studentCode = postStudentCode)
-                    annuncement=Announcements.objects.get(id=AnnouncementPost)
+                    annuncement=Announcements.objects.get(id=announcementPost)
 
-                    print(student.ID,AnnouncementPost)
+                    print(student.ID,announcementPost)
 
                     formNew= AnnouncementAndApplicantForm()
                     relation=formNew.save(commit=False)
                     relation.announcement=annuncement
-                    relation.applicantID=student
+                    relation.applicant=student
                     relation.save()
                     
                 return redirect('/home/')
@@ -252,10 +342,10 @@ def createApplicants(request):
             })
         
 def filterApplicants(request):
+
     applicants= None
     applicants = Applicant.objects.all()
     if request.method == 'GET':
-        
         return render(
             request, './HTML/searchStudent.html', {
                 'form': FilterApplicantForm,
@@ -263,65 +353,65 @@ def filterApplicants(request):
                 'applicants': applicants
             })
     else:
-        if 'edit' in request.POST:
+        if 'search' in request.POST:
             try:
                 del request.session['studentCode']
             except:
                 print(0)
        
             print(request.POST)
-            request.session['studentCode'] = request.POST["edit"]
+            request.session['studentCode'] = request.POST["search"]
 
-            return redirect('/applicants/edit')
+            return redirect('/view/Student')
         else:
             try:
                 
                 error = ""
                 form = FilterApplicantForm(request.POST)
                 
-                StudentCodeVerify = False
-                AnnouncementVerify = False
+                studentCodeVerify = False
+                announcementVerify = False
                 nameVerify = False
                 lastNameVerify = False
 
-                StudentCodePost = request.POST['ID']
-                AnnouncementPost = request.POST['announcement']
+                studentCodePost = request.POST['ID']
+                announcementPost = request.POST['announcement']
                 namePost = request.POST['name']
                 lastNamePost = request.POST['lastName']
 
-            
                 if namePost !="" and namePost is not None:
                     try: 
                         applicants = applicants.filter(name = namePost)
                     except:
                         nameVerify = True
 
-                if StudentCodePost !="" and StudentCodePost is not None:
+                if studentCodePost !="" and studentCodePost is not None:
                     try:
-                        applicants = applicants.filter(studentCode = StudentCodePost)
+                        applicants = applicants.filter(studentCode = studentCodePost)
                     except:
-                        StudentCodeVerify = True
-                        
+                        studentCodeVerify = True
+
                 if lastNamePost !="" and lastNamePost is not None:
                     try:
                         applicants = applicants.filter(lastName = lastNamePost)
                     except:
                         lastNameVerify = True
 
-                if AnnouncementPost !="" and AnnouncementPost is not None:
+                if announcementPost !="" and announcementPost is not None:
                     try:
-                        applicantFromAnnouncement = AnnouncementAndApplicant.objects.filter(announcement_id = AnnouncementPost).values_list('applicantID_id', flat=True)
-                        applicants = [applicants.get(ID=id_applicant) for id_applicant in applicantFromAnnouncement]
+                        applicant_ids = AnnouncementAndApplicant.objects.filter(announcement_id = announcementPost)
+                        applicant_ids = applicant_ids.values_list('applicant_id', flat=True)
+                        applicants = [applicants.get(ID=id_applicant) for id_applicant in applicant_ids]
                     except:
-                        AnnouncementVerify = True
-                        
+                        announcementVerify = True
+
                 if nameVerify == True:
                     error = "Nombre no encontrado"
-                elif AnnouncementVerify == True:
+                elif announcementVerify == True:
                     error = "Convocatora no encontrada"
                 elif lastNameVerify == True:
                     error = "Apellido no encontrado"
-                elif StudentCodeVerify == True:
+                elif studentCodeVerify == True:
                     error = "ID no encontrado"
 
                 return render(
@@ -330,9 +420,7 @@ def filterApplicants(request):
                         'error': error,
                         'applicants': applicants
                     })
-            
             except:
-                
                 return render(
                     request, './HTML/searchStudent.html', {
                     'form': form,
@@ -485,7 +573,7 @@ def createAnnouncement(request):
                         announcementAdditionalEventFormInstance.announcementId = announcementFormObj
                         announcementAdditionalEventFormInstance.save()
 
-                return redirect('/home/')
+                return redirect('/announcement/')
             
             if 'newEventBttn' in request.POST:
 
@@ -566,6 +654,249 @@ def createAnnouncement(request):
 
             return render(
                 request, 'createAnnouncement.html', context) 
+        
+
+def searchAnnouncement(request):
+
+    today = str(date.today())
+
+    def getAnnouncemnetContext(announcements):
+
+
+        class announcementTable:
+
+
+            def __init__(
+                    self, scholarshipName, announcementId, type,status):
+                self.scholarshipName= scholarshipName
+                self.announcementId = announcementId
+                self.type = type
+                self.status = status
+
+
+        scholarshipList = []
+        scholarshipNames = []
+        announcementList = []
+        count = 0
+        today = str(date.today())
+        types = ["Abierta", "Cerrada", "Mixta"]
+
+        for i in announcements:
+
+            status = "Activa"
+            typeNum = i.type
+            typeStr = types[typeNum]
+
+            scholarshipList.append(
+                ScholarshipAnnouncements.objects.filter(announcementId = i.id).values('scholarshipId').get()['scholarshipId'])
+            scholarshipNames.append(
+                Scholarships.objects.filter(ID = scholarshipList[count]).values('name').get()['name'])
+
+            startingInstcriptionDate = AnnouncementEvent.objects.filter(
+                type = "Inscription").filter(announcementId = i.id).values_list('startingDate', flat = True)
+            endPublicationDate = AnnouncementEvent.objects.filter(
+                type = "Publication").filter(announcementId = i.id).values_list('endDate', flat = True)
+
+            if today < str(startingInstcriptionDate[0]) or today > str(endPublicationDate[0]):
+                status="Inactiva"
+
+            announcementList.append(announcementTable(scholarshipNames[count], i.id, typeStr,status))
+            count+=1
+
+        return announcementList
+    
+    def joinQuery(querySets):
+
+        joinedQuerySets = Announcements.objects.none()
+
+        for i in querySets:
+            joinedQuerySets = joinedQuerySets | i
+
+        return joinedQuerySets
+
+    announcements = Announcements.objects.all()
+    announcementList = getAnnouncemnetContext(announcements)
+    context = {
+        'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
+        'announcements':announcementList,
+    }
+
+    if request.method == 'GET':
+
+        return render(
+            request, 'searchAnnouncement.html', context)
+
+    else:
+
+        try:
+
+            if 'searchBttn' in request.POST:
+                scholarshipName = request.POST["announcementSearchForm-scholarshipName"]
+                announcementId = request.POST["announcementSearchForm-announcementId"]
+                annoucementType = request.POST["announcementSearchForm-announcementType"]
+                annoucementStatus = request.POST["announcementSearchForm-announcementStatus"]
+                startingDateStr = request.POST["announcementSearchForm-startingInscriptionDate"]
+                endDateStr = request.POST["announcementSearchForm-endInscriptionDate"]
+                scholarshipList = []
+                announcementsPreList = []
+                startDateList = []
+                endDateList = []
+                flag = False
+
+                if(
+                    scholarshipName != "" or announcementId != "" or 
+                    annoucementType != "3" or annoucementStatus != "2" or 
+                    startingDateStr != "" or endDateStr !=  ""):
+
+                    announcementList = Announcements.objects.none()
+                
+                    if (scholarshipName != ""):
+                        scholarshipList = Scholarships.objects.filter(name = scholarshipName).values_list('ID', flat=True)
+                        count = 0
+                        hub = []
+
+                        for i in scholarshipList:
+
+                            hub = ScholarshipAnnouncements.objects.filter(
+                                scholarshipId= i).values_list('announcementId', flat=True)
+
+                            for m in hub:
+
+                                if (Announcements.objects.filter(id = m).exists()):
+                                    announcementsPreList.append(Announcements.objects.filter(id=m))
+                                    count+=1
+
+                        joinedQuery = joinQuery(announcementsPreList)
+        
+                        if flag:
+                            announcementList = announcementList.intersection(joinedQuery)
+                        else:
+                            announcementList = joinedQuery
+
+                        flag = True
+
+                    if (announcementId != ""):
+                        announcementsPreList = Announcements.objects.filter(id=announcementId)
+
+                        if flag:
+                            announcementList = announcementList.intersection(announcementsPreList)
+                        else:
+                            announcementList = announcementsPreList
+
+                        flag = True
+
+                    if (annoucementType != "3"):
+                        announcementsPreList = Announcements.objects.filter(type=annoucementType)
+
+                        if flag:
+                            announcementList = announcementList.intersection(announcementsPreList)
+                        else:
+                            announcementList = announcementsPreList
+
+                        flag=True
+
+                    if (annoucementStatus != "2"):
+                        announcementsPreList = []
+
+                        if (annoucementStatus == "0"):
+                            announcementsFirstPreList = AnnouncementEvent.objects.filter(
+                                type="Inscription").filter(startingDate__lte = today).values_list('announcementId', flat = True)
+                            announcementsSecondPreList = AnnouncementEvent.objects.filter(
+                                type="Publication").filter(endDate__gte = today).values_list('announcementId', flat = True)
+                            announcementsIdPreList = announcementsFirstPreList.intersection(announcementsSecondPreList)
+
+                            for i in announcementsIdPreList:
+
+                                if (Announcements.objects.filter(id = i).exists()):
+                                    announcementsPreList.append(Announcements.objects.filter(id = i))
+
+                            joinedQuery = joinQuery(announcementsPreList)
+
+                        else:
+                            announcementsFirstPreList = AnnouncementEvent.objects.filter(
+                                type = "Inscription").filter(startingDate__gte = today).values_list('announcementId', flat = True)
+                            announcementsSecondPreList = AnnouncementEvent.objects.filter(
+                                type = "Publication").filter(endDate__lte = today).values_list('announcementId', flat = True)
+                            announcementsIdPreList = announcementsFirstPreList | announcementsSecondPreList
+
+                            for i in announcementsIdPreList:
+                                if (Announcements.objects.filter(id = i).exists()):
+                                    announcementsPreList.append(Announcements.objects.filter(id = i))
+
+                            joinedQuery= joinQuery(announcementsPreList)
+
+                        if flag:
+                            announcementList = announcementList.intersection(joinedQuery)
+                        else:
+                            announcementList = joinedQuery
+
+                        flag=True
+
+                    if (startingDateStr != ""):
+
+                        startDateList = AnnouncementEvent.objects.filter(
+                            type = "Inscription").filter(startingDate__gte = startingDateStr).values_list('announcementId', flat = True)
+
+                        hub = Announcements.objects.none()
+                        announcementsPreList=[]
+
+                        for i in startDateList:
+
+                            if (Announcements.objects.filter(id = i).exists()):
+                                announcementsPreList.append(Announcements.objects.filter(id = i))
+
+                        joinedQuery = joinQuery(announcementsPreList)
+        
+                        if flag:
+                            announcementList = announcementList.intersection(joinedQuery)
+                        else:
+                            announcementList = joinedQuery
+
+                        flag = True
+
+                    if (endDateStr != ""):
+
+                        endDateList = AnnouncementEvent.objects.filter(
+                            type = "Inscription").filter(endDate__lte = endDateStr).values_list('announcementId', flat = True)
+
+                        hub=Announcements.objects.none()
+                        announcementsPreList=[]
+
+                        for i in endDateList:
+
+                            if (Announcements.objects.filter(id = i).exists()):
+                                announcementsPreList.append(Announcements.objects.filter(id = i))
+
+                        joinedQuery = joinQuery(announcementsPreList)
+        
+                        if flag:
+                            announcementList = announcementList.intersection(joinedQuery)
+                        else:
+                            announcementList = joinedQuery
+
+                        flag=True
+
+                    announcementList = getAnnouncemnetContext(announcementList)
+                    context = {
+                        'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
+                        'announcements':announcementList,
+                    }
+
+            else:
+                context = {
+                    'announcementSearchForm': CreateSearchAnnouncementForm (prefix="announcementSearchForm"),
+                    'announcements':announcementList,
+                }
+
+            return render(
+                request, 'searchAnnouncement.html', context)
+
+        except:
+
+            return render(
+            request, 'searchAnnouncement.html', context)
+
+
             
 def searchStudent(request):
     return render(

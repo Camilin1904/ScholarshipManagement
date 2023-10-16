@@ -17,6 +17,7 @@
     </head>
     <div class = "content">
         {{error}}
+        <h1>Crear programa de becas</h1>
         <form id= "create" action="/scholarships/create/" method = "POST" style="">
             {% csrf_token %}
             {% for field in form %}

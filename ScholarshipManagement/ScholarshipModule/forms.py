@@ -169,7 +169,11 @@ class Login(AuthenticationForm):
         ]
 
 class CreateApplicantForm(ModelForm):
-    def __init__(self, *args, **kwargs):
+
+
+    def __init__(
+        self, *args, **kwargs):
+
         super(CreateApplicantForm, self).__init__(*args,**kwargs)
         self.fields['name'].widget.attrs['size'] = 35
         self.fields['lastName'].widget.attrs['size'] = 35
@@ -183,63 +187,95 @@ class CreateApplicantForm(ModelForm):
     
     name = forms.CharField(
         label = "Nombre", max_length = 100, required = True,
-        widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'inputForm'}) )
+        widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'inputForm'}))
     lastName = forms.CharField(
-        label = "Apellido", 
+        label = "Apellido", max_length = 100, required = True,
         widget=forms.TextInput(attrs={'placeholder': 'Apellido', 'class': 'inputForm'}))
     studentCode = forms.CharField(
-        label = "Código del estudiante", required=True, 
-        widget=forms.TextInput(attrs={'placeholder': 'Codigo estudiante', 'class': 'inputForm'}))
+        label = "Código del estudiante", required=True, widget=forms.TextInput(
+            attrs={'placeholder': 'Codigo estudiante', 'class': 'inputForm'}))
     faculty = forms.CharField(
-        label = "Facultad", required=True, 
-        widget=forms.TextInput(attrs={'placeholder': 'Facultad', 'class': 'inputForm'}))
+        label = "Facultad", required=True, widget=forms.TextInput(
+            attrs={'placeholder': 'Facultad', 'class': 'inputForm'}))
     major = forms.CharField(
-        label = "Carrera", required=True, 
-        widget=forms.TextInput(attrs={'placeholder': 'Carrera', 'class': 'inputForm'}))
+        label = "Carrera", required=True, widget=forms.TextInput(
+            attrs={'placeholder': 'Carrera', 'class': 'inputForm'}))
     semester = forms.IntegerField(
-        label = "Semestre", required=True,
-        widget=forms.NumberInput(attrs={'placeholder': 'Semestre', 'class': 'inputForm'}))
+        label = "Semestre", required=True, widget=forms.NumberInput(
+            attrs={'placeholder': 'Semestre', 'class': 'inputForm'}))
     email = forms.EmailField(
-        label= "Correo electrónico", required=True,
-        widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'inputForm'}))
+        label= "Correo electrónico", required=True, widget=forms.EmailInput(
+            attrs={'placeholder': 'Email', 'class': 'inputForm'}))
     phone = forms.IntegerField(
-        label = "Teléfono", required=False,
-        widget=forms.NumberInput(attrs={'placeholder': 'Teléfono', 'class': 'inputForm'}))
+        label = "Teléfono", required=False, widget=forms.NumberInput(
+            attrs={'placeholder': 'Teléfono', 'class': 'inputForm'}))
     status = forms.ChoiceField(
-        label="Estado del Estudiante", required=False,
-        choices=StatusApplicant.choices, 
+        label="Estado del Estudiante", required=False, choices=StatusApplicant.choices, 
         widget=forms.Select(attrs={'class': 'inputForm'}))
     announcement = forms.ModelChoiceField(
-        label = "ID de la convocatoria", required=False,
-        widget=forms.TextInput(attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'} ),queryset=Announcements.objects)
+        label = "ID de la convocatoria", required=False,widget=forms.TextInput(
+            attrs={'cols':'10','placeholder': 'ID convocatoria', 'class': 'inputForm'}),
+        queryset=Announcements.objects) 
 
 
     class Meta:
+
+
         model = Applicant
-        fields = ['name', 'lastName', 'studentCode',
-                  'faculty', 'major', 'semester','email', 'phone','status', 'announcement'] 
+        fields = [
+            'name', 'lastName', 'studentCode',
+            'faculty', 'major', 'semester',
+            'email','phone','status', 
+            'announcement'
+        ] 
         
 
 class FilterApplicantForm(forms.Form):
+
+
     ID = forms.CharField(
-        label="ID", required=False,
-        widget=forms.TextInput(attrs={'placeholder': 'Codigo estudiante', 'class': 'inputForm'}))
+        label="ID", required=False, widget=forms.TextInput(
+            attrs={'placeholder': 'Codigo estudiante', 'class': 'inputForm'}))
     name = forms.CharField(
         label = "Nombre", max_length = 100, required = False,
-        widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'inputForm'}) )
+        widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'inputForm'}))
     lastName = forms.CharField(
         label = "Apellido", required = False,
         widget=forms.TextInput(attrs={'placeholder': 'Apellido', 'class': 'inputForm'}))
     announcement = forms.ModelChoiceField(
-        label = "ID de la convocatoria", required=False,
-        widget=forms.TextInput(attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'} )
-        ,queryset=Announcements.objects)
+        label = "ID de la convocatoria", required=False, widget=forms.TextInput(
+            attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'}),
+        queryset=Announcements.objects)
 
+class FilterScholarshipForm(forms.Form):
+    donor = forms.ModelChoiceField(
+        label = "ID del donante", required=False,
+        widget=forms.TextInput(attrs={"class":"id_donor"}),queryset=Donors.objects)
+    name = forms.CharField(
+        label = "Nombre", max_length = 100, required = False,
+        widget=forms.TextInput(attrs={"class":"id_name"}))
+    minCoverage = forms.CharField(
+        label = "Covertura economica minima", required=False, 
+        widget=forms.TextInput(attrs={"class":"id_coverage"}))
+    maxCoverage = forms.CharField(
+        label = "Covertura economica maxima", required=False, 
+        widget=forms.TextInput(attrs={"class":"id_coverage"}))
+    type = forms.IntegerField(
+        label = "Tipo", required=False, 
+        widget=forms.CheckboxSelectMultiple(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
 
 class AnnouncementAndApplicantForm(forms.ModelForm):
+
+
     class Meta:
+
+
         model = AnnouncementAndApplicant
-        fields = ['announcement', 'applicantID']
+        fields = [
+            'announcement', 'applicant'
+        ]
+
+
 class searchUser(Form):
 
     username = forms.ModelChoiceField(
@@ -255,3 +291,41 @@ class roleAssign(Form):
 
     role = forms.ChoiceField(
         label="Nuevo rol", choices= CHOICES, initial= 3, widget=forms.Select(attrs={"class":"input"}))
+    
+class CreateSearchAnnouncementForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+
+        super(CreateSearchAnnouncementForm, self).__init__(*args, **kwargs)
+        self.fields['scholarshipName'].label = "Nombre la beca"
+        self.fields['announcementId'].label = "ID de la convocatoria"
+        self.fields['announcementType'].label = "Tipo de convocatoria"
+        self.fields['announcementStatus'].label = "Estado de la convocatoria"
+        self.fields['startingInscriptionDate'].label = "Fecha inicial"
+        self.fields['endInscriptionDate'].label = "Fecha final"
+
+    TYPE_CHOICES = ( 
+    ("3", ""),
+    ("0", "Abierta"), 
+    ("1", "Cerrada"), 
+    ("2", "Mixta"), 
+    )
+
+    STATUS_CHOICES = ( 
+    ("2", ""),
+    ("0", "Activa"), 
+    ("1", "Inactiva"), 
+    )
+
+    scholarshipName = forms.CharField( max_length=100, widget = forms.TextInput(
+            attrs = { "class": "searchform"}), required=False) 
+    announcementId = forms.CharField( max_length=100, widget = forms.TextInput(
+            attrs = { "class": "searchform"}), required=False)
+    announcementType = forms.ChoiceField(choices = TYPE_CHOICES,required=False)
+    announcementStatus = forms.ChoiceField(choices = STATUS_CHOICES,required=False)
+    startingInscriptionDate = forms.DateField(widget = NumberInput(
+        attrs={'type': 'date', "class": "searchform"}), required = False)
+    endInscriptionDate = forms.DateField(widget = NumberInput(
+        attrs={'type': 'date', "class": "searchform"}), required = False)
+
+
