@@ -1,0 +1,50 @@
+{% extends 'HTML/home.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'CSS/searchDonor.css' %}">
+{% endblock %}
+
+
+
+{% block title %}
+<h1 id="title">Buscar donantes</h1>
+{% endblock %}
+{% block content %}
+<ul>
+    {% if user.is_authenticated %}
+    <a href="/scholarships/create/" id="CreateButton"><button> Crear programa de becas</button></a>
+    {% endif %}
+    <br><br>
+    <form id="search" action="." method="POST">
+        {% csrf_token %}
+        <input id="id" name="id" value="{{id}}" type = "search"></input>
+        <button>Search</button> 
+    </form>
+    <div class="table">
+        <table>
+            <thead> 
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Selecionar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for Donor in donors %}
+                    <tr>
+                        <td scope="col">{{Donor.name}}</td>
+                        <td scope="col">{{Donor.ID}}</td>
+                        <td scope="col">
+                            <form class="select" action="." method="POST">
+                                {% csrf_token %}
+                                <button class="selectbtn" name="select" value="{{Donor.ID}}">Seleccionar</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</ul>
+{% endblock  %}
