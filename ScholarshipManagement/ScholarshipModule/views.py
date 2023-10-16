@@ -8,7 +8,9 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
-from itertools import chain
+from django.http import HttpResponse
+
+def isValid(query): return query is not None and query != ''
 
 # Create your views here.
 
@@ -29,11 +31,11 @@ def signUp(request):
             return redirect('/home')
         else:
             return render(
-                request, './HTML/Signin.html', {'form': form, 'error': error})
+                request, './HTML/signup.html', {'form': form, 'error': error})
     else:
         form = CreateNewUser
     return render(
-        request, './HTML/Signin.html', {'form': form, 'error':''})
+        request, './HTML/signup.html', {'form': form, 'error':''})
 
 def signOut(request):
     
@@ -89,10 +91,70 @@ def home(request):
 
 
 def scholarships(request):
-    
-    scholarships = Scholarships.objects.all()
-    return render(request, './HTML/scholarships.html', 
-                  {'./HTML/scholarships': scholarships})
+    if request.method == 'GET':
+        return render(request, './HTML/scholarships.html', {
+            'scholarships' : Scholarships.objects.all(),
+            'form': FilterScholarshipForm
+            })
+    else:
+        form = FilterScholarshipForm(request.POST)
+        reqID = request.POST.get('id')
+        reqName = request.POST.get('name')
+        reqDonor = request.POST.get('donor')
+        minCov = request.POST.get('minCoverage')
+        maxCov = request.POST.get('maxCoverage')
+        type = request.POST.getlist('type')
+        scholarships = Scholarships.objects.all()
+            
+        if isValid(reqID):
+            try:
+                scholarships = scholarships.filter(ID=reqID)
+            except:
+                scholarships = None
+        if isValid(reqName):
+            try:
+                scholarships = scholarships.filter(name=reqName)    
+            except:
+                scholarships = None
+        if isValid(reqDonor):
+            try:
+                scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
+            except:
+                scholarships = None
+        if isValid(minCov):
+            try:
+                scholarships = scholarships.filter(coverage__gte=minCov)
+            except:
+                scholarships = None
+        if isValid(maxCov):
+            try:
+                scholarships = scholarships.filter(coverage__lte=maxCov)
+            except:
+                scholarships = None
+        if len(type)>0:
+            print(type)
+            schl = list()
+            hold = None
+            for t in type:
+                schl.append(scholarships.filter(type=t))
+            print(schl)
+            for s in schl:
+                if hold is None:
+                    hold = s
+                else:
+                    print(s)
+                    hold = hold.union(s)
+                    print(hold)
+            
+            scholarships = hold
+                
+        
+        print(scholarships)
+        return render(request, './HTML/scholarships.html', {
+            'scholarships' : scholarships,  
+            'form': form,
+            'id': reqID if reqID != None else ''
+        })
 
 
 def createScholarships(request):
@@ -111,34 +173,133 @@ def createScholarships(request):
                 'form': CreateScholarshipForm,
                 'error': 'Please provide valid data'
             })
+    
+
+def editApplicant(request):
+
+    studentCodeSt = request.session.get('studentCode')
+    applicant = Applicant.objects.filter(studentCode = studentCodeSt)
+    idSt = applicant.first().ID
+    
+    
+    if request.method == 'GET':
+        announcement=None
+       
+        name = applicant.first().name
+        lastName = applicant.first().lastName
+        faculty = applicant.first().faculty
+        major = applicant.first().major
+        semester = applicant.first().semester
+        email = applicant.first().email
+        phone = applicant.first().phone
+        status = applicant.first().status
+        try:
+            announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
+        except:
+            announcement = None    
         
 
+        form = CreateApplicantForm(initial={'name': name,
+                                            'lastName': lastName,
+                                            'studentCode': studentCodeSt,
+                                            'faculty':faculty,
+                                            'major': major,
+                                            'semester': semester,
+                                            'email': email,
+                                            'phone':phone,
+                                            'status':status,
+                                            'announcement':announcement})
+        
+        return render(request,'./HTML/editApplicant.html',{'form':form})
+    else:
+        applicant = Applicant.objects.get(studentCode = studentCodeSt)
+        try:
+            announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
+        except:
+            announcement = None   
+        Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
+                                                                   lastName=request.POST['lastName'],
+                                                                   faculty=request.POST['faculty'],
+                                                                   major=request.POST['major'],
+                                                                   semester=request.POST['semester'],
+                                                                   email=request.POST['email'],
+                                                                   phone=request.POST['phone'],
+                                                                   status=request.POST['status'])
+        if announcement is not None:
+            AnnouncementAndApplicant.objects.filter(applicant=idSt).update(
+                announcement=request.POST['announcement'])
+        else:
+            idAnnouncement = request.POST['announcement']
+            announcementGet = None
+            try:
+                announcementGet = Announcements.objects.get(id=idAnnouncement)
+            except:
+                print(0)
+            formNew= AnnouncementAndApplicantForm()
+            relation=formNew.save(commit=False)
+            relation.announcement=announcementGet
+            relation.applicant=applicant
+            relation.save()
+            
+            
+        try:
+            del request.session['name']
+        except:
+            print(0)
+
+        return redirect('/view/Student')
+    
+def viewApplicant(request):
+    studentCodeSt = request.session.get('studentCode')
+    applicant = Applicant.objects.filter(studentCode = studentCodeSt)
+    idSt = applicant.first().ID
+
+    try:
+        announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement.id
+    except:
+        announcement = None
+
+    if request.method == 'GET':
+        return render(request,'./HTML/viewApplicant.html',{'applicant':applicant,
+                                                           'announcement':announcement})
+    else:
+        if 'back' in request.POST:
+            return redirect("/searchStudent/")
+        elif 'edit' in request.POST:
+       
+            print(request.POST)
+            request.session['studentCode'] = request.POST['edit']
+
+            return redirect('/applicants/edit')
+
+    
 
 def createApplicants(request):
 
     if request.method == 'GET':
         return render(request, 'createApplicant.html', {
-            'form': CreateApplicantForm
+            'form': CreateApplicantForm,
+            'error': ""
         })
     else:
         try:
 
-            AnnouncementPost = 0
+            
             form = CreateApplicantForm(request.POST)
             error = ""
             postStudentCode = request.POST['studentCode']
-            AnnouncementPost = request.POST['announcement']
+            announcementPost = request.POST['announcement']
             postEmail = request.POST['email']
 
             try:
                 verifyEmail= Applicant.objects.get(email = postEmail)
             except: 
-                verifyEmail=1;
+                verifyEmail=1
 
             try:
                 verifyStudentCode= Applicant.objects.get(studentCode = postStudentCode)
             except:
-                verifyStudentCode=1;
+                verifyStudentCode=1
       
 
             try:
@@ -152,18 +313,18 @@ def createApplicants(request):
                     error = 'Digite información correctamente'
                 form.save()
 
-                if AnnouncementPost == "":
+                if announcementPost == "":
                     error=""
                 else: 
                     student = Applicant.objects.get(studentCode = postStudentCode)
-                    annuncement=Announcements.objects.get(id=AnnouncementPost)
+                    annuncement=Announcements.objects.get(id=announcementPost)
 
-                    print(student.ID,AnnouncementPost)
+                    print(student.ID,announcementPost)
 
                     formNew= AnnouncementAndApplicantForm()
                     relation=formNew.save(commit=False)
                     relation.announcement=annuncement
-                    relation.applicantID=student
+                    relation.applicant=student
                     relation.save()
                     
                 return redirect('/home/')
@@ -180,10 +341,95 @@ def createApplicants(request):
                 'error': error
             })
         
+def filterApplicants(request):
+
+    applicants= None
+    applicants = Applicant.objects.all()
+    if request.method == 'GET':
+        return render(
+            request, './HTML/searchStudent.html', {
+                'form': FilterApplicantForm,
+                'error': "",
+                'applicants': applicants
+            })
+    else:
+        if 'search' in request.POST:
+            try:
+                del request.session['studentCode']
+            except:
+                print(0)
+       
+            print(request.POST)
+            request.session['studentCode'] = request.POST["search"]
+
+            return redirect('/view/Student')
+        else:
+            try:
+                
+                error = ""
+                form = FilterApplicantForm(request.POST)
+                
+                studentCodeVerify = False
+                announcementVerify = False
+                nameVerify = False
+                lastNameVerify = False
+
+                studentCodePost = request.POST['ID']
+                announcementPost = request.POST['announcement']
+                namePost = request.POST['name']
+                lastNamePost = request.POST['lastName']
+
+                if namePost !="" and namePost is not None:
+                    try: 
+                        applicants = applicants.filter(name = namePost)
+                    except:
+                        nameVerify = True
+
+                if studentCodePost !="" and studentCodePost is not None:
+                    try:
+                        applicants = applicants.filter(studentCode = studentCodePost)
+                    except:
+                        studentCodeVerify = True
+
+                if lastNamePost !="" and lastNamePost is not None:
+                    try:
+                        applicants = applicants.filter(lastName = lastNamePost)
+                    except:
+                        lastNameVerify = True
+
+                if announcementPost !="" and announcementPost is not None:
+                    try:
+                        applicant_ids = AnnouncementAndApplicant.objects.filter(announcement_id = announcementPost)
+                        applicant_ids = applicant_ids.values_list('applicant_id', flat=True)
+                        applicants = [applicants.get(ID=id_applicant) for id_applicant in applicant_ids]
+                    except:
+                        announcementVerify = True
+
+                if nameVerify == True:
+                    error = "Nombre no encontrado"
+                elif announcementVerify == True:
+                    error = "Convocatora no encontrada"
+                elif lastNameVerify == True:
+                    error = "Apellido no encontrado"
+                elif studentCodeVerify == True:
+                    error = "ID no encontrado"
+
+                return render(
+                    request, './HTML/searchStudent.html', {
+                        'form': form,
+                        'error': error,
+                        'applicants': applicants
+                    })
+            except:
+                return render(
+                    request, './HTML/searchStudent.html', {
+                    'form': form,
+                    'error': error
+                })       
         
 def searchUserForRole(request):
     user = request.user
-    error = ""
+    success = ""
     if request.method == 'POST':
         try:
             username = request.POST['username']
@@ -196,22 +442,22 @@ def searchUserForRole(request):
                         'toChange' : toChange
                     })
             except:
-                # If the username is not found
-                error = 'El usuario no existe'
+                # If the username field does not exists
+                success = 'El usuario no existe'
         except:
             #username field does not exist so we are in roleAssign
             rol = request.POST['role']
             email = request.POST['email']
             toChange = User.objects.filter(username=email).update(role=rol)
-            print("se supone que hubo cambios")
-            redirect(home)
+            success = 'El cambio de rol ha sido exitoso'
 
 
     else:
         if user.role == 0:
             return render(
                 request, './HTML/searchUser.html', {
-                    'form': searchUser
+                    'form': searchUser,
+                    'success': success
                 })
         else:
             return redirect('/home')
@@ -219,7 +465,7 @@ def searchUserForRole(request):
     return render(
         request, './HTML/searchUser.html', {
             'form': searchUser,
-            'error': error
+            'success': success
         })
             
 def createAnnouncement(request):
@@ -651,3 +897,7 @@ def searchAnnouncement(request):
             request, 'searchAnnouncement.html', context)
 
 
+            
+def searchStudent(request):
+    return render(
+            request, './HTML/searchStudent.html')

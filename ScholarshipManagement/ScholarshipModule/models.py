@@ -28,11 +28,6 @@ class Announcements(models.Model):
     type = models.IntegerField(default = Type.CLOSED, choices = Type.choices)
 
 
-class Students(models.Model):
-
-
-    id = models.IntegerField(
-        primary_key = True, auto_created = True, serialize = True, unique = True)
     
 class Scholarships(models.Model):
 
@@ -47,7 +42,7 @@ class Scholarships(models.Model):
         EXCHANGE = 0, _('Intercambio')
         RESCUE = 1, _('Rescate')
         LIVELIHOOD = 2, _('Sustento')
-    type = models.TextField(choices=ScholarshipType.choices)
+    type = models.IntegerField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
 
 
@@ -99,32 +94,41 @@ class User(AbstractBaseUser):
 
 
 class StatusApplicant(models.IntegerChoices):
-        INREVIEW = 0, _('En revisión')
+        
+
+        IN_REVIEW = 0, _('En revisión')
         BENEFICIARY = 1, _('Beneficiario')
         REFUSED = 2, _('No aceptado')
 
 class Applicant(models.Model):
+
+
     name = models.CharField(max_length=20, blank=False)
     lastName = models.CharField(max_length=20, blank=False)
     ID = models.IntegerField(
-        primary_key=True, auto_created=True, serialize=True, unique=True)
-    studentCode = models.CharField(max_length=20, blank=False,unique=True)
+        primary_key=True, auto_created=True, serialize=True, 
+        unique=True)
+    studentCode = models.CharField(
+        max_length=20, blank=False,unique=True)
     faculty = models.CharField(max_length=20, blank=False)
     major = models.CharField(max_length=20, blank=False)
     semester = models.IntegerField(blank=True, null= True)
     email= models.EmailField(max_length=40, blank=True, unique=True)
     phone = models.IntegerField(blank=True, null=True)
-
-    status = models.IntegerField(default=StatusApplicant.INREVIEW, choices=StatusApplicant.choices)
+    status = models.IntegerField(
+        default=StatusApplicant.IN_REVIEW, choices=StatusApplicant.choices)
     
 
 class AnnouncementAndApplicant(models.Model):
-    id = models.IntegerField(
-        primary_key = True, auto_created = True, serialize = True, unique = True)
-    announcement= models.ForeignKey(Announcements, 
-        related_name="id_announcement", blank=False, null=True, 
-        on_delete= models.CASCADE)
-    applicantID= models.ForeignKey(Applicant, 
-        related_name="id_applicant", blank=False, null=True, 
-        on_delete= models.CASCADE)
+
+
+    ID = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, 
+        unique = True)
+    announcement= models.ForeignKey(
+        Announcements, related_name="id_announcement", blank=False, 
+        null=True, on_delete= models.CASCADE)
+    applicant= models.ForeignKey(
+        Applicant, related_name="id_applicant", blank=False, 
+        null=True, on_delete= models.CASCADE)
     

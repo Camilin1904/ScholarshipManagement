@@ -26,11 +26,16 @@ urlpatterns = [
     path('scholarships/', views.scholarships, name='scholarships'),
     path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
     path('applicants/create/', views.createApplicants, name='Applicants'),
+    path('applicants/filter/', views.filterApplicants, name='FilterApplicants'),
     path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
     path('logout/', views.signOut, name = 'signOut'),
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
     path('roles/', views.searchUserForRole, name = 'roleAssign'),
-    path('announcement/', views.searchAnnouncement, name = 'announcement')
-]
+    path('announcement/', views.searchAnnouncement, name = 'announcement'),
+    path('applicants/edit', views.editApplicant, name = 'editApplicant'),
+    path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
+    path('view/Student/', views.viewApplicant, name = 'viewStudent')
+]   
+
 

@@ -43,12 +43,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='Students',
-            fields=[
-                ('id', models.IntegerField(auto_created=True, primary_key=True, serialize=False, unique=True)),
-            ],
-        ),
-        migrations.CreateModel(
             name='User',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -72,7 +66,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('description', models.TextField(blank=True)),
                 ('coverage', models.FloatField()),
-                ('type', models.TextField(choices=[(0, 'Intercambio'), (1, 'Rescate'), (2, 'Sustento')])),
+                ('type', models.IntegerField(choices=[(0, 'Intercambio'), (1, 'Rescate'), (2, 'Sustento')])),
                 ('requirements', models.TextField(blank=True)),
                 ('donor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ScholarshipModule.donors')),
             ],

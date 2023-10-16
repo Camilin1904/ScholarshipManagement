@@ -49,6 +49,14 @@
                             Buscar
                         </button>
                     </form>
+                    {% if error == ""%}
+                        
+                    {% else %}
+                        <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                            <strong> {{success}} </strong>
+                        </div>
+                    {% endif%}
                 </div>
             </div>
         </div>

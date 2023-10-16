@@ -26,13 +26,16 @@
             </div>    
         </header>
 
+        
         <div class="container">
+            {% block filters %}
+            {% endblock %}
             <div class="content">
                 {% block content %}
                 {% endblock %}
             </div>
         </div>
 
-    </body>    
+    </body>
 
 </html>
