@@ -8,7 +8,8 @@ class TestApplicant(TestCase):
         applicant = Applicant.objects.create(
             name = "Juan Carlos", lastName = "Rios Garcia", ID = 10,
             studentCode = "A00302613", faculty = "Ingenieria", major = "Sistemas",
-            semester = 2, email = "juanCar22@gmail.com", phone = 322717233)
+            semester = 2, email = "juanCar22@gmail.com", phone = 322717233,
+            status = 1)
         self.assertEqual(applicant.name, "Juan Carlos")
         self.assertEqual(applicant.lastName, "Rios Garcia")
         self.assertEqual(applicant.ID, 10)
@@ -18,4 +19,5 @@ class TestApplicant(TestCase):
         self.assertEqual(applicant.semester, 2)
         self.assertEqual(applicant.email, "juanCar22@gmail.com")
         self.assertEqual(applicant.phone, 322717233)
+        self.assertEqual(applicant.status, 1)
 
