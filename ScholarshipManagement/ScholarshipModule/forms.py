@@ -247,6 +247,22 @@ class FilterApplicantForm(forms.Form):
             attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'}),
         queryset=Announcements.objects)
 
+class FilterScholarshipForm(forms.Form):
+    donor = forms.ModelChoiceField(
+        label = "ID del donante", required=False,
+        widget=forms.TextInput(attrs={"class":"id_donor"}),queryset=Donors.objects)
+    name = forms.CharField(
+        label = "Nombre", max_length = 100, required = False,
+        widget=forms.TextInput(attrs={"class":"id_name"}))
+    minCoverage = forms.CharField(
+        label = "Covertura economica minima", required=False, 
+        widget=forms.TextInput(attrs={"class":"id_coverage"}))
+    maxCoverage = forms.CharField(
+        label = "Covertura economica maxima", required=False, 
+        widget=forms.TextInput(attrs={"class":"id_coverage"}))
+    type = forms.IntegerField(
+        label = "Tipo", required=False, 
+        widget=forms.CheckboxSelectMultiple(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
 
 class AnnouncementAndApplicantForm(forms.ModelForm):
 
