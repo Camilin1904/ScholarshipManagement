@@ -14,9 +14,9 @@ class TestApplicant(TestCase):
             studentCode = "A00302613", faculty = "Ingenieria", major = "Sistemas",
             semester = 2, email = "juanCar22@gmail.com", phone = 322717233)
         relation = AnnouncementAndApplicant.objects.create(
-            id = 1, announcement= announcementTest , applicantID = applicantTest)
-        self.assertEqual(relation.id, 1)
+            ID = 1, announcement = announcementTest , applicant = applicantTest)
+        self.assertEqual(relation.ID, 1)
         self.assertEqual(relation.announcement.id, 1)
-        self.assertEqual(relation.applicantID.ID, 10)
+        self.assertEqual(relation.applicant.ID, 10)
 
 
