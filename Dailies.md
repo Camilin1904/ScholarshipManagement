@@ -225,3 +225,8 @@ Good morning, good evening and good night.
 | Brayan Steven Ortega | I created the branch Reformat and start to apply the coding style to the US11 and US12 branches, also I helped Libreros to end the the CSS for his user story | I will end the coding style and I will make the tests for the US11 and US12 branches |No |
 | Juan Sebastián Libreros García | I fixed some issues that presented after connecting the two screens | I ended my user story and pull request the branch. Also start with tests | No |
 
+## 16/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I finished the front-end part of US5 | I will reformat the code in order to apply the code style and make the pull request| No |
