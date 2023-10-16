@@ -230,3 +230,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I finished the front-end part of US5 | I will reformat the code in order to apply the code style and make the pull request| No |
+| Camilo Carmona Valencia | I finished US2 and pull requested | I will probably do some tests | Forgetting to do my dailies |
