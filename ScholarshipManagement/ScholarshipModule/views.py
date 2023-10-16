@@ -194,7 +194,7 @@ def editApplicant(request):
         phone = applicant.first().phone
         status = applicant.first().status
         try:
-            announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement
+            announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
         except:
             announcement = None    
         
@@ -214,7 +214,7 @@ def editApplicant(request):
     else:
         applicant = Applicant.objects.get(studentCode = studentCodeSt)
         try:
-            announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement
+            announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
         except:
             announcement = None   
         Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
@@ -226,7 +226,7 @@ def editApplicant(request):
                                                                    phone=request.POST['phone'],
                                                                    status=request.POST['status'])
         if announcement is not None:
-            AnnouncementAndApplicant.objects.filter(applicantID=idSt).update(
+            AnnouncementAndApplicant.objects.filter(applicant=idSt).update(
                 announcement=request.POST['announcement'])
         else:
             idAnnouncement = request.POST['announcement']
@@ -238,7 +238,7 @@ def editApplicant(request):
             formNew= AnnouncementAndApplicantForm()
             relation=formNew.save(commit=False)
             relation.announcement=announcementGet
-            relation.applicantID=applicant
+            relation.applicant=applicant
             relation.save()
             
             
@@ -255,7 +255,7 @@ def viewApplicant(request):
     idSt = applicant.first().ID
 
     try:
-        announcement = AnnouncementAndApplicant.objects.filter(applicantID=idSt).first().announcement.id
+        announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement.id
     except:
         announcement = None
 
@@ -284,11 +284,11 @@ def createApplicants(request):
     else:
         try:
 
-            AnnouncementPost = 0
+            
             form = CreateApplicantForm(request.POST)
             error = ""
             postStudentCode = request.POST['studentCode']
-            AnnouncementPost = request.POST['announcement']
+            announcementPost = request.POST['announcement']
             postEmail = request.POST['email']
 
             try:
@@ -313,18 +313,18 @@ def createApplicants(request):
                     error = 'Digite información correctamente'
                 form.save()
 
-                if AnnouncementPost == "":
+                if announcementPost == "":
                     error=""
                 else: 
                     student = Applicant.objects.get(studentCode = postStudentCode)
-                    annuncement=Announcements.objects.get(id=AnnouncementPost)
+                    annuncement=Announcements.objects.get(id=announcementPost)
 
-                    print(student.ID,AnnouncementPost)
+                    print(student.ID,announcementPost)
 
                     formNew= AnnouncementAndApplicantForm()
                     relation=formNew.save(commit=False)
                     relation.announcement=annuncement
-                    relation.applicantID=student
+                    relation.applicant=student
                     relation.save()
                     
                 return redirect('/home/')
@@ -342,10 +342,10 @@ def createApplicants(request):
             })
         
 def filterApplicants(request):
+
     applicants= None
     applicants = Applicant.objects.all()
     if request.method == 'GET':
-        
         return render(
             request, './HTML/searchStudent.html', {
                 'form': FilterApplicantForm,
@@ -369,49 +369,49 @@ def filterApplicants(request):
                 error = ""
                 form = FilterApplicantForm(request.POST)
                 
-                StudentCodeVerify = False
-                AnnouncementVerify = False
+                studentCodeVerify = False
+                announcementVerify = False
                 nameVerify = False
                 lastNameVerify = False
 
-                StudentCodePost = request.POST['ID']
-                AnnouncementPost = request.POST['announcement']
+                studentCodePost = request.POST['ID']
+                announcementPost = request.POST['announcement']
                 namePost = request.POST['name']
                 lastNamePost = request.POST['lastName']
 
-            
                 if namePost !="" and namePost is not None:
                     try: 
                         applicants = applicants.filter(name = namePost)
                     except:
                         nameVerify = True
 
-                if StudentCodePost !="" and StudentCodePost is not None:
+                if studentCodePost !="" and studentCodePost is not None:
                     try:
-                        applicants = applicants.filter(studentCode = StudentCodePost)
+                        applicants = applicants.filter(studentCode = studentCodePost)
                     except:
-                        StudentCodeVerify = True
-                        
+                        studentCodeVerify = True
+
                 if lastNamePost !="" and lastNamePost is not None:
                     try:
                         applicants = applicants.filter(lastName = lastNamePost)
                     except:
                         lastNameVerify = True
 
-                if AnnouncementPost !="" and AnnouncementPost is not None:
+                if announcementPost !="" and announcementPost is not None:
                     try:
-                        applicantFromAnnouncement = AnnouncementAndApplicant.objects.filter(announcement_id = AnnouncementPost).values_list('applicantID_id', flat=True)
-                        applicants = [applicants.get(ID=id_applicant) for id_applicant in applicantFromAnnouncement]
+                        applicant_ids = AnnouncementAndApplicant.objects.filter(announcement_id = announcementPost)
+                        applicant_ids = applicant_ids.values_list('applicant_id', flat=True)
+                        applicants = [applicants.get(ID=id_applicant) for id_applicant in applicant_ids]
                     except:
-                        AnnouncementVerify = True
-                        
+                        announcementVerify = True
+
                 if nameVerify == True:
                     error = "Nombre no encontrado"
-                elif AnnouncementVerify == True:
+                elif announcementVerify == True:
                     error = "Convocatora no encontrada"
                 elif lastNameVerify == True:
                     error = "Apellido no encontrado"
-                elif StudentCodeVerify == True:
+                elif studentCodeVerify == True:
                     error = "ID no encontrado"
 
                 return render(
@@ -420,9 +420,7 @@ def filterApplicants(request):
                         'error': error,
                         'applicants': applicants
                     })
-            
             except:
-                
                 return render(
                     request, './HTML/searchStudent.html', {
                     'form': form,
