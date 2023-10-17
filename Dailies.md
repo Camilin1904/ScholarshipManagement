@@ -223,7 +223,7 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 | Andrés Camilo Romero Ruiz | Created the test branch where I did a littles test for the user model and rename the tests so they all can be run at the same time | I shall explain brayan how the tests works | No |
 | Brayan Steven Ortega | I created the branch Reformat and start to apply the coding style to the US11 and US12 branches, also I helped Libreros to end the the CSS for his user story | I will end the coding style and I will make the tests for the US11 and US12 branches |No |
-| Juan Sebastián Libreros García | I fixed some issues that presented after connecting the two screens | I ended my user story and pull request the branch. Also start with tests | No |
+| Juan Sebastián Libreros García | I fixed some issues that presented after connecting the two screens | I will end my user story and pull request the branch. Also start with tests | No |
 
 ## 16/10/2023
 
@@ -231,3 +231,4 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I finished the front-end part of US5 | I will reformat the code in order to apply the code style and make the pull request| No |
 | Camilo Carmona Valencia | I finished US2 and pull requested | I will probably do some tests | Forgetting to do my dailies |
+| Juan Sebastián Libreros | I ended my user story and pull request the branch | I will reformat the code | No |
