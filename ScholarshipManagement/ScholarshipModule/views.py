@@ -901,3 +901,22 @@ def searchAnnouncement(request):
 def searchStudent(request):
     return render(
             request, './HTML/searchStudent.html')
+
+
+def editAnnouncement (request):
+
+    context = {
+            'announcementForm': CreateAnnouncementForm (prefix="announcementForm"),
+            'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (prefix="scholarshipAnnouncementForm"),
+            'announcementEventFormInscription': CreateAnnouncementEventForm (prefix="announcementEventFormInscription"),
+            'announcementEventFormSelection': CreateAnnouncementEventForm (prefix="announcementEventFormSelection"),
+            'announcementEventFormInterview': CreateAnnouncementEventForm (prefix="announcementEventFormInterview"),
+            'announcementEventFormPublication': CreateAnnouncementEventForm (prefix="announcementEventFormPublication"),
+            'error':""
+        }
+
+    if request.method == 'GET':
+
+        return render(
+            request, 'editAnnouncement.html', context)
+
