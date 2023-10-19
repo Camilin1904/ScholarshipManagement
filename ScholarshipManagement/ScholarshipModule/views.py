@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
 from django.http import HttpResponse
+import xlsxwriter
+import csv
 
 def isValid(query): return query is not None and query != ''
 
@@ -901,3 +903,60 @@ def searchAnnouncement(request):
 def searchStudent(request):
     return render(
             request, './HTML/searchStudent.html')
+
+
+def reportGenerator(request):
+
+    # Workbook() takes one, non-optional, argument 
+    # which is the filename that we want to create.
+    workbook = xlsxwriter.Workbook('university_records.xlsx')
+    
+    # The workbook object is then used to add new 
+    # worksheet via the add_worksheet() method.
+    worksheet = workbook.add_worksheet()
+    
+    # Use the worksheet object to write
+    # data via the write() method.
+
+    users = User.objects.all()
+
+    counter = 1
+
+    for user in users:
+        worksheet.write("A"+str(counter), user.username)
+        worksheet.write("B"+str(counter), user.name)
+        worksheet.write("C"+str(counter), user.role)
+        counter = counter + 1
+
+    workbook.close()
+
+    # field names  
+    fields = ['Email', 'Nombre', 'Rol']  
+    
+    # name of csv file  
+    filename = "university_records.csv"
+        
+    # writing to csv file  
+    with open(filename, 'w', newline="") as csvfile:  
+        # creating a csv writer object  
+        csvwriter = csv.writer(csvfile)  
+            
+        # writing the fields  
+        csvwriter.writerow(fields)  
+            
+        # writing the data rows
+        for user in users:
+            row = [str(user.username), str(user.name), str(user.role)]
+            csvwriter.writerow(row)
+            
+
+    return render(
+            request, './HTML/exampleReport.html', {'example':users}) 
+
+    if request.method == "POST":
+
+        return render(
+            request, './HTML/exampleReport.html', {'example':""}) 
+    else:
+        return render(
+            request, './HTML/exampleReport.html', {'example':""}) 
