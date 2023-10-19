@@ -243,3 +243,4 @@ Good morning, good evening and good night.
 | Juan Camilo Salazar | Yesterday we started the second sprint | I will make the HTML and CSS base files in order to begin with US6 | No |
 | Camilo Carmona Valencia | We started the second sprint | I will do a small refactor as I will separate the views that I use into different archives | No |
 | Andrés Camilo Romero Ruiz | The second sprint started | I am going to investigate and test how to generate csv and excel files from python to start with US9 for generating reports | No |
+| Juan Sebastián Libreros | The second sprint started | I will refactor the code and separate the new view of the US3 and start my user story | No |
