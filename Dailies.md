@@ -232,3 +232,12 @@ Good morning, good evening and good night.
 | Juan Camilo Salazar | I finished the front-end part of US5 | I will reformat the code in order to apply the code style and make the pull request| No |
 | Camilo Carmona Valencia | I finished US2 and pull requested | I will probably do some tests | Forgetting to do my dailies |
 | Juan Sebastián Libreros | I ended my user story and pull request the branch | I will reformat the code | No |
+
+
+# SECOND SPRINT
+
+## 18/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | Yesterday we started the second sprint | I will make the HTML and CSS base files in order to begin with US6 | No |
