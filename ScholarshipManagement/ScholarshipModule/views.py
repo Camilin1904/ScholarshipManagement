@@ -882,6 +882,13 @@ def searchAnnouncement(request):
                         'announcements':announcementList,
                     }
 
+            if 'editBttn' in request.POST:
+
+                request.session['annoucementId'] = request.POST['editBttn']
+                print(".................")
+                return redirect('/announcement/edit/')
+            
+
             else:
                 context = {
                     'announcementSearchForm': CreateSearchAnnouncementForm (prefix="announcementSearchForm"),
@@ -905,6 +912,9 @@ def searchStudent(request):
 
 def editAnnouncement (request):
 
+    announcementId = request.session.get['announcementId']
+
+
     context = {
             'announcementForm': CreateAnnouncementForm (prefix="announcementForm"),
             'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (prefix="scholarshipAnnouncementForm"),
@@ -918,5 +928,5 @@ def editAnnouncement (request):
     if request.method == 'GET':
 
         return render(
-            request, 'editAnnouncement.html', context)
+            request, './HTML/.html', context)
 

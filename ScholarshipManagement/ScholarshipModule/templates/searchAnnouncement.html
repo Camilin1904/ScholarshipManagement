@@ -85,6 +85,7 @@
                 </div>
 
                 <div class = "content">
+                    
 
                     <h1 id = "convocatoriaTxt">
                         Convocatorias
@@ -136,13 +137,16 @@
                                 </td>
 
                                 <td>
-                                    <button id = "editBttn" name = "editBttn" class = "buttonAction">
+                                    <form action="" method="post">
+                                        {% csrf_token %} 
+                                        <button id = "editBttn" name = "editBttn" class = "buttonAction" value="editBttn_{{i.announcementId}}">
 
-                                        <h3>
-                                            Editar
-                                        </h3>
-            
-                                    </button>
+                                            <h3>
+                                                Editar
+                                            </h3>
+                
+                                        </button>
+                                    </form>
 
                                 </td>
 
