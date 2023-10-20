@@ -254,3 +254,4 @@ Good morning, good evening and good night.
 | Juan Sebastián Libreros | I refactored the code and separated the new view of the US3 and started my user story | I wil create the new view on html to edit and work on US3 | No |
 | Andrés Camilo Romero Ruiz | I was capable of creating an excel and csv files with sample values through python | I will search on how to allow the user to select a folder to save de excel and csv that are supposed to be created | No |
 | Brayan Steven Ortega | I started the US8 and I separated the views that I use in diferent files | I will create in the data base the tables that I need to complete the US8 | No |
+| Camilo Carmona Valencia | I was able to do the small refactors, but didn't have the time to properly connect them | It is my birthday, so noting :) | No |
