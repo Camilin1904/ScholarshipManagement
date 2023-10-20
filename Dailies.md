@@ -251,3 +251,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I started US6 and I created the base files and methods I´ll be needing for this| I will link the announcement edition page from the announcement search page and show the information corresponding to the selected announcement | No |
+| Juan Sebastián Libreros | I refactored the code and separated the new view of the US3 and started my user story | I wil create the new view on html to edit and work on US3 | No |
