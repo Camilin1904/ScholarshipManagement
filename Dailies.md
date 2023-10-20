@@ -252,3 +252,4 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I started US6 and I created the base files and methods I´ll be needing for this| I will link the announcement edition page from the announcement search page and show the information corresponding to the selected announcement | No |
 | Juan Sebastián Libreros | I refactored the code and separated the new view of the US3 and started my user story | I wil create the new view on html to edit and work on US3 | No |
+| Andrés Camilo Romero Ruiz | I was capable of creating an excel and csv files with sample values through python | I will search on how to allow the user to select a folder to save de excel and csv that are supposed to be created | No |
