@@ -261,3 +261,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Camilo Carmona Valencia | I had other assignments so I couldn't work | I will properly separate my views into different archives | No |
+| Andrés Camilo Romero Ruiz | I searched about how to allow the user to select a folder | I shall keep on searching because apparently there's no way to do it with only HTML or JavaScript since it creates vulnerabilities for the user so the browsers stop this to be done, some posts in stack overflow tells that in can be done with help of programming languages as java, so I will keep on looking | No |
