@@ -263,3 +263,4 @@ Good morning, good evening and good night.
 | Camilo Carmona Valencia | I had other assignments so I couldn't work | I will properly separate my views into different archives | No |
 | Andrés Camilo Romero Ruiz | I searched about how to allow the user to select a folder | I shall keep on searching because apparently there's no way to do it with only HTML or JavaScript since it creates vulnerabilities for the user so the browsers stop this to be done, some posts in stack overflow tells that in can be done with help of programming languages as java, so I will keep on looking | No |
 | Juan Sebastián Libreros | I created the new view on html to edit and work on US3| I won't be ablo to work beacause of some duties I got to attend | No |
+| Juan Camilo Salazar |I linked the announcement edition page and related it with the information of the selected announcement| I will work on displaying the form with the announcement's previous information | No |
