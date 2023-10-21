@@ -255,3 +255,9 @@ Good morning, good evening and good night.
 | Andrés Camilo Romero Ruiz | I was capable of creating an excel and csv files with sample values through python | I will search on how to allow the user to select a folder to save de excel and csv that are supposed to be created | No |
 | Brayan Steven Ortega | I started the US8 and I separated the views that I use in diferent files | I will create in the data base the tables that I need to complete the US8 | No |
 | Camilo Carmona Valencia | I was able to do the small refactors, but didn't have the time to properly connect them | It is my birthday, so noting :) | No |
+
+## 20/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I had other assignments so I couldn't work | I will properly separate my views into different archives | No |
