@@ -265,3 +265,9 @@ Good morning, good evening and good night.
 | Juan Sebastián Libreros | I created the new view on html to edit and work on US3| I won't be ablo to work beacause of some duties I got to attend | No |
 | Juan Camilo Salazar |I linked the announcement edition page and related it with the information of the selected announcement| I will work on displaying the form with the announcement's previous information | No |
 | Brayan Steven Ortega | I created in the data base the necessary tables and start the implementation of the status update registration | I will continue make the implementation and the integration with the necessary views already created | No |
+
+## 21/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I have taken my user story and begun research for pdf generation | I will continue researching | My lack of knowledge and possibly conflicts with a dependency |
