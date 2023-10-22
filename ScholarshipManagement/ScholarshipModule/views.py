@@ -97,64 +97,75 @@ def scholarships(request):
             'form': FilterScholarshipForm
             })
     else:
-        form = FilterScholarshipForm(request.POST)
-        reqID = request.POST.get('id')
-        reqName = request.POST.get('name')
-        reqDonor = request.POST.get('donor')
-        minCov = request.POST.get('minCoverage')
-        maxCov = request.POST.get('maxCoverage')
-        type = request.POST.getlist('type')
-        scholarships = Scholarships.objects.all()
-            
-        if isValid(reqID):
+        if 'edit' in request.POST:
             try:
-                scholarships = scholarships.filter(ID=reqID)
+                del request.session['idScholarship']
             except:
-                scholarships = None
-        if isValid(reqName):
-            try:
-                scholarships = scholarships.filter(name=reqName)    
-            except:
-                scholarships = None
-        if isValid(reqDonor):
-            try:
-                scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
-            except:
-                scholarships = None
-        if isValid(minCov):
-            try:
-                scholarships = scholarships.filter(coverage__gte=minCov)
-            except:
-                scholarships = None
-        if isValid(maxCov):
-            try:
-                scholarships = scholarships.filter(coverage__lte=maxCov)
-            except:
-                scholarships = None
-        if len(type)>0:
-            print(type)
-            schl = list()
-            hold = None
-            for t in type:
-                schl.append(scholarships.filter(type=t))
-            print(schl)
-            for s in schl:
-                if hold is None:
-                    hold = s
-                else:
-                    print(s)
-                    hold = hold.union(s)
-                    print(hold)
-            
-            scholarships = hold
+                print(0)
+       
+            print(request.POST)
+            request.session['idScholarship'] = request.POST["edit"]
+
+            return redirect("/scholarships/edit/")
+        else:
+            form = FilterScholarshipForm(request.POST)
+            reqID = request.POST.get('id')
+            reqName = request.POST.get('name')
+            reqDonor = request.POST.get('donor')
+            minCov = request.POST.get('minCoverage')
+            maxCov = request.POST.get('maxCoverage')
+            type = request.POST.getlist('type')
+            scholarships = Scholarships.objects.all()
                 
-        
-        print(scholarships)
-        return render(request, './HTML/scholarships.html', {
-            'scholarships' : scholarships,  
-            'form': form,
-            'id': reqID if reqID != None else ''
-        })
+            if isValid(reqID):
+                try:
+                    scholarships = scholarships.filter(ID=reqID)
+                except:
+                    scholarships = None
+            if isValid(reqName):
+                try:
+                    scholarships = scholarships.filter(name=reqName)    
+                except:
+                    scholarships = None
+            if isValid(reqDonor):
+                try:
+                    scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
+                except:
+                    scholarships = None
+            if isValid(minCov):
+                try:
+                    scholarships = scholarships.filter(coverage__gte=minCov)
+                except:
+                    scholarships = None
+            if isValid(maxCov):
+                try:
+                    scholarships = scholarships.filter(coverage__lte=maxCov)
+                except:
+                    scholarships = None
+            if len(type)>0:
+                print(type)
+                schl = list()
+                hold = None
+                for t in type:
+                    schl.append(scholarships.filter(type=t))
+                print(schl)
+                for s in schl:
+                    if hold is None:
+                        hold = s
+                    else:
+                        print(s)
+                        hold = hold.union(s)
+                        print(hold)
+                
+                scholarships = hold
+                    
+            
+            print(scholarships)
+            return render(request, './HTML/scholarships.html', {
+                'scholarships' : scholarships,  
+                'form': form,
+                'id': reqID if reqID != None else ''
+            })
 
 
 def createScholarships(request):

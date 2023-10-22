@@ -25,12 +25,20 @@
     justify-content: center;
 }
 
+.button{
+    width: 60%;
+    height: 40%;
+    align-items: center;
+    background-color: #e9e1d8;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
+    border:0.5px solid #7d878b;
+    color: #455761;
+    transition-duration: 0.4s;
+}
+
 
 #apply{
     float: left;
-}
-#btnClear{
-    float: right;
 }
 
 #title{

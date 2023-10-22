@@ -37,30 +37,38 @@
         {% csrf_token %}
         <input id="id" name="id" value="{{id}}" type = "search"></input>
         <button>Search</button> 
-    </form>
-    <div class="table">
-        <table>
-            <thead> 
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Donante</th>
-                    <th scope="col">Covertura</th>
-                    <th scope="col">Tipo</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for Scholarship in scholarships %}
+    
+        <div class="table">
+            <table>
+                <thead> 
                     <tr>
-                        <td scope="col">{{Scholarship.name}}</td>
-                        <td scope="col">{{Scholarship.ID}}</td>
-                        <td scope="col">{{Scholarship.donor_id}}</td>
-                        <td scope="col">{{Scholarship.coverage}}</td>
-                        <td scope="col">{{Scholarship.type}}</td>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Donante</th>
+                        <th scope="col">Covertura</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col"></th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    {% for Scholarship in scholarships %}
+                        <tr>
+                            <td scope="col">{{Scholarship.name}}</td>
+                            <td scope="col">{{Scholarship.ID}}</td>
+                            <td scope="col">{{Scholarship.donor_id}}</td>
+                            <td scope="col">{{Scholarship.coverage}}</td>
+                            <td scope="col">{{Scholarship.type}}</td>
+                            <td scope="col">
+                                <button class="button" id="edit" name="edit" value="{{Scholarship.ID}}">
+                                    Editar
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+        </div>
+    </form>
 </ul>
 {% endblock  %}

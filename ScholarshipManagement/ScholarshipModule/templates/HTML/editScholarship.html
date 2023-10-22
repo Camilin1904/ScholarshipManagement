@@ -13,12 +13,12 @@
         <meta charset="UTF-8">
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
         <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
-        <title>Crear programa de beca</title>
+        <title>Edición de programa de becas</title>
     </head>
     <div class = "content">
         {{error}}
-        <h1>Crear programa de becas</h1>
-        <form id= "create" action="/scholarships/create/" method = "POST">
+        <h1>Editar programa de becas</h1>
+        <form id= "edit" action="/scholarships/edit/" method = "POST" style="">
             {% csrf_token %}
             {% for field in form %}
             <div id="id_{{forloop.counter}}">
@@ -27,7 +27,7 @@
                 {{ field }}
             </div>
             {% endfor %}
-            <button id = "save">Save</button>
+            <button id = "save">Guardar</button>
         </form>
     </div>
 {% endblock content %} 
