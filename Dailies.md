@@ -273,3 +273,9 @@ Good morning, good evening and good night.
 | Camilo Carmona Valencia | I have taken my user story and begun research for pdf generation | I will continue researching | My lack of knowledge and possibly conflicts with a dependency |
 | Andrés Camilo Romero Ruiz | Yesterday I could implement a folder chooser but only on pure python, when I try to move it to the Django framework inside a view it stopped working | Today I will keep on searching if I'm doing something wrong or if there's another way out of it | No |
 | Brayan Steven Ortega | I implemented the saving of the applicant's status when they are registered in an announcement | Today I will continue working on the implementation of the functionalities for my user story | No |
+
+## 22/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar |I made the information of the selected announcement visible on the edition page| I will make it possible to change the information shown on the edition page | No |
