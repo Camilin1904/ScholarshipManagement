@@ -286,3 +286,4 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 | Juan Camilo Salazar |I made the base information of an announcement editable| I will investigate dynamic forms in order to create or delete additional events | I need to know more about JavaScript |
 | Andrés Camilo Romero Ruiz | I didn't find a way out for the select folder option | I will ask domi about it today so the file can at least appear on download files | No |
+| Camilo Carmona Valencia | I Discovered a library to generate a pdf from an html file, unfortunately I have not been able to make images work | I will continue to troubleshoot the pdf generation | My lack of knowledge regarding the use of teh xhtml2pdf library |
