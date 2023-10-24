@@ -288,4 +288,5 @@ Good morning, good evening and good night.
 | Andrés Camilo Romero Ruiz | I didn't find a way out for the select folder option | I will ask domi about it today so the file can at least appear on download files | No |
 | Camilo Carmona Valencia | I Discovered a library to generate a pdf from an html file, unfortunately I have not been able to make images work | I will continue to troubleshoot the pdf generation | My lack of knowledge regarding the use of teh xhtml2pdf library |
 | Brayan Steven Ortega | I didn't work yesterday due to other duties | I will continue to the implementations in the US8 and I will start make the corrections in the US11 to improve the applicant creation as discussed in class | No |
+| Juan Sebastián Libreros | I finished my user story | I will fix some details on my user story and start a big reformat. Also help my co-workers with their duties if required | No |
 
