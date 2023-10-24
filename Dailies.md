@@ -279,3 +279,9 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar |I made the information of the selected announcement visible on the edition page| I will make it possible to change the information shown on the edition page | No |
+
+## 23/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar |I made the base information of an announcement editable| I will investigate dynamic forms in order to create or delete additional events | I need to know more about JavaScript |
