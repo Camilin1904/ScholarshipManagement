@@ -285,3 +285,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar |I made the base information of an announcement editable| I will investigate dynamic forms in order to create or delete additional events | I need to know more about JavaScript |
+| Andrés Camilo Romero Ruiz | I didn't find a way out for the select folder option | I will ask domi about it today so the file can at least appear on download files | No |
