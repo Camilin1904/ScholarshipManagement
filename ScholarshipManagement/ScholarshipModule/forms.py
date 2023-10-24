@@ -276,6 +276,19 @@ class AnnouncementAndApplicantForm(forms.ModelForm):
         ]
 
 
+class StatusCheckAppliForm(forms.ModelForm):
+
+
+    class Meta:
+
+
+        model = ApplicantStateCheck
+        fields = [
+            'announcementCheck', 'applicantCheck', 'semester',
+            'status'
+        ]
+
+
 class searchUser(Form):
 
     username = forms.ModelChoiceField(

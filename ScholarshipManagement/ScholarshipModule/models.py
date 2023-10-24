@@ -132,3 +132,21 @@ class AnnouncementAndApplicant(models.Model):
         Applicant, related_name="id_applicant", blank=False, 
         null=True, on_delete= models.CASCADE)
     
+class ApplicantStateCheck(models.Model):
+
+
+    ID = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, 
+        unique = True)
+    announcementCheck= models.ForeignKey(
+        Announcements, related_name="announcementCheck_id", blank=False, 
+        null=True, on_delete= models.CASCADE)
+    applicantCheck= models.ForeignKey(
+        Applicant, related_name="applicantCheck_id", blank=False, 
+        null=True, on_delete= models.CASCADE)
+    semester = models.IntegerField(blank=True, null= True)
+    status = models.IntegerField(
+        default=StatusApplicant.IN_REVIEW, choices=StatusApplicant.choices)
+    date = models.DateTimeField(auto_now_add=True)
+
+    
