@@ -118,7 +118,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'ScholarshipManagement/static/'
+STATIC_URL = 'ScholarshipModule/static/'
+STATIC_ROOT = str(BASE_DIR).replace('\\', '/') + "/ScholarshipModule/static/"
+MEDIA_URL = 'ScholarshipManagement/Media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

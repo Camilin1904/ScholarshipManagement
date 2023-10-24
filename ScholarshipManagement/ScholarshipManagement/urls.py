@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
+from ScholarshipModule.views2 import pdf
 
 
 urlpatterns = [
@@ -35,7 +36,8 @@ urlpatterns = [
     path('announcement/', views.searchAnnouncement, name = 'announcement'),
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
-    path('view/Student/', views.viewApplicant, name = 'viewStudent')
+    path('view/Student/', views.viewApplicant, name = 'viewStudent'),
+    path('pdf/', pdf.render_pdf_view, name = 'pdf')
 ]   
 
 
