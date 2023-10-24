@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
 from django.http import HttpResponse
-import xlsxwriter
+import io
 import csv
 
 def isValid(query): return query is not None and query != ''
@@ -24,7 +24,8 @@ def signUp(request):
         error = ''
         for field in form:
             # Errors as text
-            error = field.errors.as_text
+            error = error + (field.errors)
+            
         if form.is_valid():
             # Save user in data base
             user = form.save()
@@ -32,6 +33,8 @@ def signUp(request):
             login(request, user)
             return redirect('/home')
         else:
+            print("Me cago en todo lo cagable")
+            print(error)
             return render(
                 request, './HTML/signup.html', {'form': form, 'error': error})
     else:
@@ -906,57 +909,30 @@ def searchStudent(request):
 
 
 def reportGenerator(request):
-
-    # Workbook() takes one, non-optional, argument 
-    # which is the filename that we want to create.
-    workbook = xlsxwriter.Workbook('university_records.xlsx')
-    
-    # The workbook object is then used to add new 
-    # worksheet via the add_worksheet() method.
-    worksheet = workbook.add_worksheet()
     
     # Use the worksheet object to write
     # data via the write() method.
 
     users = User.objects.all()
 
-    counter = 1
-
-    for user in users:
-        worksheet.write("A"+str(counter), user.username)
-        worksheet.write("B"+str(counter), user.name)
-        worksheet.write("C"+str(counter), user.role)
-        counter = counter + 1
-
-    workbook.close()
-
     # field names  
     fields = ['Email', 'Nombre', 'Rol']  
     
     # name of csv file  
     filename = "university_records.csv"
-        
-    # writing to csv file  
-    with open(filename, 'w', newline="") as csvfile:  
-        # creating a csv writer object  
-        csvwriter = csv.writer(csvfile)  
-            
-        # writing the fields  
-        csvwriter.writerow(fields)  
-            
-        # writing the data rows
-        for user in users:
-            row = [str(user.username), str(user.name), str(user.role)]
-            csvwriter.writerow(row)
-            
 
-    return render(
-            request, './HTML/exampleReport.html', {'example':users}) 
+    rows = []  
 
-    if request.method == "POST":
+    rows.append(fields)  
+    
+    for user in users:
+        rows.append([str(user.username), str(user.name), str(user.role)])
 
-        return render(
-            request, './HTML/exampleReport.html', {'example':""}) 
-    else:
-        return render(
-            request, './HTML/exampleReport.html', {'example':""}) 
+    buffer = io.StringIO()  # python 2 needs io.BytesIO() instead
+    wr = csv.writer(buffer, quoting=csv.QUOTE_ALL)
+    wr.writerows(rows)
+    buffer.seek(0)
+    response = HttpResponse(buffer, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=stockitems_misuper.csv'
+
+    return response

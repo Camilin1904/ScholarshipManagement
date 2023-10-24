@@ -6,13 +6,12 @@
 }
 
 html, body {
-    display: flex;
     flex-flow: column;
     width: 100%;
     height: 100%;
     margin: 0px;
     padding: 0px;
-    background-color:#88A0A8;
+    background-color:#E2E9F3;
     align-items: center;
     justify-content: center;
 }
@@ -20,9 +19,9 @@ html, body {
 header{
     margin-top: auto;
     width: 100%;
-    height: 20%;
+    height: 15%;
     display: flex;
-    background-color: #455761;
+    background-color: #2D6A9F;
     align-items: center;
     object-fit: fill;
 }
@@ -38,7 +37,6 @@ header{
     display: flex;
     width:  100%;
     height: 10%;
-    background-color: #455761;
     color: white;
     align-items: center;
     font-size: large;
@@ -56,7 +54,7 @@ ul {
   
 li {
     float: left;
-    border-right:1px solid #bbb;
+    border-right:1px solid white;
     object-fit: fill;
 }
   
@@ -74,8 +72,8 @@ li a {
 }
 
 li a:hover {
-    color: #455761;
-    background-color: #bbb;
+    color: #2D6A9F;
+    background-color: white;
 }
 
 .container{
@@ -90,19 +88,19 @@ li a:hover {
 .content{
     width: 80%;
     height: 90%;
-    background-color: #DBD3C9;
+    background-color: #FFFFFF;
     border-radius: 15px;
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: center;
-    color: #455761;
+    color: #3A4459;
     overflow: hidden;
     object-fit: fill;
 }
 
 .buttons{
-    margin-top: 3%;
+    margin-top: 4.5%;
     display: flex;
     width: 100%;
     height: 80%;
@@ -111,10 +109,11 @@ li a:hover {
 
 .button{
     width: 50%;
+    height: 100%;
     background-color: transparent;
     border: none;
     border-right:0.5px solid black;
-    color: #455761;
+    color: #3A4459;
     transition-duration: 0.4s;
     object-fit: fill;
 }
@@ -124,6 +123,6 @@ button:last-child {
 }
 
 .button:hover{
-    background-color: #455761;
-    color: #DBD3C9;
+    background-color: #2D6A9F;
+    color: white;
 }
