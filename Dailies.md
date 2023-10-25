@@ -290,3 +290,8 @@ Good morning, good evening and good night.
 | Brayan Steven Ortega | I didn't work yesterday due to other duties | I will continue to the implementations in the US8 and I will start make the corrections in the US11 to improve the applicant creation as discussed in class | No |
 | Juan Sebastián Libreros | I finished my user story | I will fix some details on my user story and start a big reformat. Also help my co-workers with their duties if required | No |
 
+## 24/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Andrés Camilo Romero Ruiz | I solved the problem of downloading the csv so now it's sent to the downloads folder | I will learn javascript to implement dynamic search lists so it feels more interactive for the user | No |
