@@ -297,3 +297,4 @@ Good morning, good evening and good night.
 | Andrés Camilo Romero Ruiz | I solved the problem of downloading the csv so now it's sent to the downloads folder | I will learn javascript to implement dynamic search lists so it feels more interactive for the user | No |
 | Juan Sebastián Libreros | I fixed some details of my user story | I will reformat and adapt to the new style the team accorded | Besides reading bad the date, no |
 | Brayan Steven Ortega | I continued with the implementation of US8 to keep a record of when an applicant's status is changed and also I created the branch of US11a to make the improvement | I will start to make the corrections of the US11 in the branch US11a to improve the applicant creation with a better interface | No |
+| Camilo Carmona Valencia | I continued my research regarding pdf generation and images | I will continue until I can render a pdf with an image | My lack of knowledge |
