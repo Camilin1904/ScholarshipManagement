@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
 from ScholarshipModule.views2 import pdf
+from ScholarshipModule.views2 import Images
+
 
 
 urlpatterns = [
@@ -37,7 +39,7 @@ urlpatterns = [
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('pdf/', pdf.render_pdf_view, name = 'pdf')
+    path('pdf/', pdf.render_pdf_view, name = 'pdf'),
 ]   
 
 
