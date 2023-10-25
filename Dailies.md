@@ -295,3 +295,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Andrés Camilo Romero Ruiz | I solved the problem of downloading the csv so now it's sent to the downloads folder | I will learn javascript to implement dynamic search lists so it feels more interactive for the user | No |
+| Juan Sebastián Libreros | I fixed some details of my user story | I will reformat and adapt to the new style the team accorded | Besides reading bad the date, no |
