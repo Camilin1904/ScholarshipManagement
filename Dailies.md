@@ -307,4 +307,5 @@ Good morning, good evening and good night.
 | Juan Camilo Salazar | I continued investigating dynamic forms | I will start the implementation of dynamic forms for the additional events in an announcement| No |
 | Juan Sebastián Libreros | I couldn't work yesterday due to personal problems | I will continue reformating the app | No |
 | Camilo Carmona Valencia | I was able to get images rendering in a pdf using xhtml2pdf | I will make the report template | No |
+| Brayan Steven Ortega | I started to work in the US11a separating the forms of applicant creation to do this in steps for the user | I will add in the applicant table in the database a field for the picture of the applicant and also create this in the applicant creation page | No |
 
