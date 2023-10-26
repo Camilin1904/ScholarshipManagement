@@ -1,0 +1,12 @@
+h1{
+    background-color: blue;
+    grid-column: 1;
+}
+#icesi{
+    size: 20%;
+    grid-column: 2;
+}
+#header{
+    display: grid;
+    grid-template-columns: 1fr, 1fr;
+}

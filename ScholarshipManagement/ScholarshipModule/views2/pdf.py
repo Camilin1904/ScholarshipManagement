@@ -46,8 +46,6 @@ def link_callback(uri, rel):
    return path
 
 def render_pdf_view(request):
-   return render(
-      request, './HTML/reportTemplate.html')
      
    template_path = 'HTML/reportTemplate.html'
    static_url = settings.STATIC_URL 
