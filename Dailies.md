@@ -306,3 +306,5 @@ Good morning, good evening and good night.
 | Andrés Camilo Romero Ruiz | I implemented dynamic search for lists and tables | I will implement dynamic search for list of buttons so my teammates can use the implementation to their own purposes | No |
 | Juan Camilo Salazar | I continued investigating dynamic forms | I will start the implementation of dynamic forms for the additional events in an announcement| No |
 | Juan Sebastián Libreros | I couldn't work yesterday due to personal problems | I will continue reformating the app | No |
+| Camilo Carmona Valencia | I was able to get images rendering in a pdf using xhtml2pdf | I will make the report template | No |
+
