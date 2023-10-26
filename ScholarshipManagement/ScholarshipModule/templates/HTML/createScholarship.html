@@ -1,0 +1,33 @@
+{% extends "HTML/home.html" %}
+{% load static %}
+
+{% block links %}
+    <title>
+        Crear programa de becas
+    </title>
+{% endblock links %}
+
+{% block content %}
+
+    <head>
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
+        <title>Crear programa de beca</title>
+    </head>
+    <div class = "content">
+        {{error}}
+        <h1>Crear programa de becas</h1>
+        <form id= "create" action="/scholarships/create/" method = "POST" style="">
+            {% csrf_token %}
+            {% for field in form %}
+            <div id="id_{{forloop.counter}}">
+                <p>
+                {{ field.label_tag }}<br>
+                {{ field }}
+            </div>
+            {% endfor %}
+            <button id = "save">Save</button>
+        </form>
+    </div>
+{% endblock content %} 

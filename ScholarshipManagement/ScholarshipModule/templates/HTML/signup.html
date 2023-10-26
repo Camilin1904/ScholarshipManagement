@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="{% static '/CSS/loginSignin.css' %}">
+        <title>
+            Signin
+        </title>
+    </head>
+
+    <body>
+
+        <div class="content">
+            <div class="left" style="
+            text-align: center;
+            justify-content: center;
+            align-items: center;">
+
+                <img src="{% static './Icons/icesi.png' %}" class="icesi">
+                <div style="margin-top: 10%;"></div>
+                <div style="font-size: large;">
+                    Ya tienes una cuenta en el sistema?
+                    <br>
+                    <div style="margin-top: 10%;"></div>
+                    <div style="align-items: center;">
+                        <a href="login/" style="color: inherit;text-decoration: none">
+                            <h3>
+                                <button class="buttonWhite">
+                                    Ingresar
+                                </button>
+                            </h3>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="middle">
+
+                {% if error == ""%}
+                    
+                {% else %}
+                    <div class="alert" style="font-size: 85%;">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Advertencia</strong> {{error}}
+                    </div>
+                {% endif%}
+
+                <h1>Registro</h1>
+                
+                <form method="POST" style="
+                width: 61.8029%;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                overflow: hidden;">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <p>
+                    {{ field.label_tag }}
+                    <br>
+                    {{ field }}
+                    <br>
+                    <br>
+                    {% endfor %}
+                    </p>
+                    
+                    <button id="signin" class="buttonBlue">
+                        Registrar
+                    </button>
+                </form>
+
+            </div>
+        </div>
+    
+    </body>    
+
+</html>

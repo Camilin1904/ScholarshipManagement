@@ -1,0 +1,160 @@
+*{
+    margin: 0px;
+    top: 0px;
+    box-sizing: border-box;
+    font-family: Noto music;
+}
+
+html, body {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background-color:#88A0A8;
+    align-items: center;
+    justify-content: center;
+}
+
+header{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    background-color: #455761;
+    align-items: center;
+    float: left;
+    position: absolute;
+}
+
+.icesi{
+    display: flex;
+    width: 30%;
+    padding: 6%;
+}
+
+.menu{
+    display: flex;
+    width:  100%;
+    height: 3cm;
+    background-color: #455761;
+    color: white;
+    align-items: center;
+    font-size: large;
+    justify-content: end;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+  
+li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+  
+li:last-child {
+    border-right: none;
+}
+  
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#content{
+    margin-top: 32%;
+    height: 115%;
+    width: 80%;
+    background-color: #dbd3c9;
+    border-radius: 15px;
+    display: grid;
+    grid-row: 3% 97%;
+    align-items: center;
+    
+}
+
+.container{
+
+
+    grid-auto-rows: 100px;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    justify-content: space-around;
+    border-radius: 5%;
+    margin-inline: 10%;
+    grid-row: 2;
+    
+
+}
+
+
+
+#registerApplicant{
+    grid-column: 1/3;
+    margin-top: 1%;
+}
+
+
+.inputForm{
+    background-color: #e9e1d8;
+    border: none;
+    height: 45%;
+    border-radius: 10px;
+    border:  solid #88a0a8;
+    width: 100%;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
+
+}
+
+.inputForm option {
+    color: rgb(134, 125, 125); 
+}
+
+
+::placeholder {
+    color: rgb(134, 125, 125);
+
+}
+
+
+.button:hover{
+    background-color: #455761;
+    color: #DBD3C9;
+}
+
+.button{
+    width: 35%;
+    height: 40%;
+    align-items: center;
+    grid-column: 1; 
+    border: none;
+    background-color: #e9e1d8;
+    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
+    border:0.5px solid #7d878b;
+    color: #455761;
+    transition-duration: 0.4s;
+}
+
+.alert {
+    padding: 5px;
+    background-color: #f44336;
+    color: white;
+    border-radius: 10px;
+    grid-row: 1;
+    width: 50%;
+    height: 50%;
+}
+
+
+
+
+
+

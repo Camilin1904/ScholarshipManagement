@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/roles.css' %}">
+        <title>
+            Asignar Rol
+        </title>
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li class="menuObj"><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li class="menuObj"><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li class="menuObj"><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+
+        <div class="container">
+            <div class="content">
+                <div class="partition">
+                    <form method="POST">
+                        <h1>
+                            Asignación de Roles
+                        </h1>
+                        <br>
+                        <div id="username">
+                            Correo: {{toChange.username}}
+                        </div>
+                        <div>
+                            Nombre: {{toChange.name}}
+                        </div>
+                        <div>
+                            {% if toChange.role == 1 %}
+                                Rol Actual: Asistente de Apoyo Financiero
+                            {% elif toChange.role == 2 %}
+                                Rol Actual: Asistente de Filantropía
+                            {% else %}
+                                Rol Actual: Ninguno
+                            {% endif %}
+                        </div>
+                        <br>
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <p>
+                        {{ field.label_tag }}
+                        <br>
+                        {{ field }}
+                        <br>
+                        <br>
+                        {% endfor %}
+                        </p>
+                        <br>
+                        <button id="signin" class="buttonBlue">
+                            Guardar Cambios
+                        </button>
+                        <input type="hidden" name="email" value={{toChange.username}}>   
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body> 
+
+</html>

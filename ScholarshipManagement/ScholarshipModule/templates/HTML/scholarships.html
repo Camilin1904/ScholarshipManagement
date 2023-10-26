@@ -1,0 +1,66 @@
+{% extends 'HTML/home.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'CSS/scholarships.css' %}">
+{% endblock %}
+
+
+{% block filters %}
+    <div id="filter">
+        <h2>Filtros:</h2>
+        <form action="." method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+                <div id="id_{{forloop.counter}}" class="items">
+                    {{ field.label_tag }}<br>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button id="apply">Apply filters</button>
+            <br>
+        </form>
+    </div>
+
+{% endblock %}
+
+
+{% block content %}
+<h1 id="title">Programas de Becas</h1>
+
+<ul>
+    {% if user.is_authenticated %}
+    <a href="/scholarships/create/" id="CreateButton"><button> Crear programa de becas</button></a>
+    {% endif %}
+    <br><br>
+    <form id="search" action="." method="POST">
+        {% csrf_token %}
+        <input id="id" name="id" value="{{id}}" type = "search"></input>
+        <button>Search</button> 
+    </form>
+    <div class="table">
+        <table>
+            <thead> 
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Donante</th>
+                    <th scope="col">Covertura</th>
+                    <th scope="col">Tipo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for Scholarship in scholarships %}
+                    <tr>
+                        <td scope="col">{{Scholarship.name}}</td>
+                        <td scope="col">{{Scholarship.ID}}</td>
+                        <td scope="col">{{Scholarship.donor_id}}</td>
+                        <td scope="col">{{Scholarship.coverage}}</td>
+                        <td scope="col">{{Scholarship.type}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</ul>
+{% endblock  %}
