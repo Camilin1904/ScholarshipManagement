@@ -17,10 +17,10 @@
               /* Header frame starts within margin-top of @page */
                 @frame header {
                 -pdf-frame-content: header; /* headerContent is the #id of the element */
-                top: 1cm;
+                top: 0.5cm;
                 margin-left: 1cm;
                 margin-right:1cm;
-                height:2cm;
+                height:5cm;
                 }
           
               /* Footer frame starts outside margin-bottom of @page */
@@ -38,21 +38,42 @@
 
     <body>
         <div id="header">
+          <table>
+            <tbody>
+              <tr>
+                <td scope = "col">
+                  <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi">
+                </td>
+                <td scope = "col"></td>
+                <td scope = "col" colspan = "2" id = "title">
+                  <h1>Reporte de Fechas de convovatoria</h1>
+                </td>
+                <td scope = "col"></td>
+              <tr id = "gray">
+                <td scope = "col"></td>
+                <td scope = "col"></td>
+                <td scope = "col" colspan = "2">{{date}}  </td>
+                <td scope = "col"></td>
 
-            <h1>Reporte de Fechas de convovatoria</h1>
-            <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi">
-            
+            </tbody>
+          </table>   
         </div>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
-        <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi"><br>
+        <br>
+        <br>
+        <table>
+          <thead>
+            <th scope = "col">Tipo de Fecha</th>
+            <th scope = "col">Fecha de Inicio</th>
+            <th scope = "col">Fecha de Fin</th>
+          </thead>
+          <tbody>
+            {% for date in announcement %}
+              <tb scope = "col">{{date.type}}</tb>
+              <tb scope = "col">{{date.startingDate}}</tb>
+              <tb scope = "col">{{date.endDate}}</tb>
+            {% endfor %}
+          </tbody>
+        </table>
+        {{error}}
+        
     </body>
