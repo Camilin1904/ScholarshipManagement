@@ -909,6 +909,10 @@ def searchStudent(request):
 
 
 def reportGenerator(request):
+
+    return render(
+            request, './HTML/exampleReport.html', {'users': User.objects.all}
+    )
     
     # Use the worksheet object to write
     # data via the write() method.
@@ -933,6 +937,6 @@ def reportGenerator(request):
     wr.writerows(rows)
     buffer.seek(0)
     response = HttpResponse(buffer, content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=stockitems_misuper.csv'
+    response['Content-Disposition'] = 'attachment; filename=university_records.csv'
 
     return response

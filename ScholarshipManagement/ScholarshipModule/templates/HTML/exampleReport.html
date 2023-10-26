@@ -1,14 +1,118 @@
-{% extends 'HTML/home.html' %}
 
-{% block links %}
-<title>
-    Report
-</title>
-{% endblock %}
+<input type="text" id="myInput" onkeyup="myFunction3()" placeholder="Search for names..">
 
-{% block content %}
-Abajo mio está el seleccionar
-<input id="design" type="file" webkitdirectory = "true" directory/>
-{{example}}
+<ul id="myUL">
+    {% for user in users %}
+    <li> <a href="#"style="display:;">{{user.name}}</a> </li>
+    {% endfor %}
+</ul>
 
-{% endblock%}
+<table id = "myTable">
+    <tr>
+        <th> Nombre </th>
+        <th> Correo </th>
+        <th> Rol </th>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <th> {{user.name}} </th>
+        <th> {{user.username}} </th>
+        <th> {{user.role}} </th>
+    </tr>
+    {% endfor %}
+</table>
+
+<ul id="myButtons">
+    {% for user in users %}
+    <li> <button value="{{user.name}}"> <p>{{user.username}}</p> <p>{{user.name}}</p> <p>{{user.role}}</p></button> </li>
+    {% endfor %}
+</ul>
+
+<script>
+    //Lista
+    function myFunction() {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      // search field
+      input = document.getElementById('myInput');
+      // get the text on the search field
+      filter = input.value.toUpperCase();
+      // get list
+      ul = document.getElementById("myUL");
+      // get all elements inside the list
+      li = ul.getElementsByTagName('li');
+    
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        // for the ith object li get the a element
+        a = li[i].getElementsByTagName("a")[0];
+        // extract the text inside a
+        txtValue = a.textContent || a.innerText;
+        // does the list element contains the filter?
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            // if the index bigger that -1 the list element contains the filter
+            li[i].style.display = "";
+        } else {
+            // if the index is -1 the list element does not contains the filter
+            li[i].style.display = "none";
+        }
+      }
+    }
+    //Tabla
+    function myFunction2() {
+      // Declare variables
+      var input, filter, table, tr, th, i, txtValue;
+      // search field
+      input = document.getElementById('myInput');
+      // get the text on the search field
+      filter = input.value.toUpperCase();
+      // get table
+      table = document.getElementById("myTable");
+      // get all rows inside the table
+      tr = table.getElementsByTagName('tr');
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 1; i < tr.length; i++) {
+        // get the firts th from the ith tr
+        th = tr[i].getElementsByTagName("th")[0];
+        // extract the text inside th
+        txtValue = th.textContent || th.innerText;
+        // does the th element contains the filter?
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            // if the index bigger that -1 the th element contains the filter
+            tr[i].style.display = "";
+        } else {
+            // if the index is -1 the th element does not contains the filter
+            tr[i].style.display = "none";
+        }
+      }
+    }
+    //Lista de Botones
+    function myFunction3() {
+      // Declare variables
+      var input, filter, ul, li, button, i, txtValue;
+      // search field
+      input = document.getElementById('myInput');
+      // get the text on the search field
+      filter = input.value.toUpperCase();
+      // get list
+      ul = document.getElementById("myButtons");
+      // get all elements inside the list
+      li = ul.getElementsByTagName('li');
+      document.getElementById("demo").innerHTML = li[0].getElementsByTagName("button")[0].value;
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        // for the ith object li get the a element
+        button = li[i].getElementsByTagName("button")[0];
+        // extract the text inside a
+        txtValue = button.value;
+        // does the list element contains the filter?
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            // if the index bigger that -1 the list element contains the filter
+            li[i].style.display = "";
+        } else {
+            // if the index is -1 the list element does not contains the filter
+            li[i].style.display = "none";
+        }
+      }
+    }
+</script>
