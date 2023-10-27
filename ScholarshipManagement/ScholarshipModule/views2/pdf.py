@@ -29,7 +29,6 @@ def link_callback(uri, rel):
    if uri.startswith(media_url):
       path = os.path.join(media_root, uri.replace(media_url, ""))
    elif uri.startswith(static_url):
-      print("pito")
       path = os.path.join(static_root, uri.replace(static_url, ""))
    else:
       return os.path.join(base_dir, '../', uri)
@@ -44,7 +43,9 @@ def link_callback(uri, rel):
 def render_pdf_view(request):
    #Get the require announcement
    try:
-      announcementNum = request.sessions.get('announcementNum')
+      print("pito")
+      announcementNum = request.session.get('announcementId')
+      print(announcementNum)
       announcement = AnnouncementEvent.objects.filter(announcementId_id = announcementNum)
       context = {'date':date.today(), 'announcement': announcement}
    except:

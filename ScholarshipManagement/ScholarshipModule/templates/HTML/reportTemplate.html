@@ -67,11 +67,14 @@
             <th scope = "col">Fecha de Fin</th>
           </thead>
           <tbody>
-            {% for date in announcement %}
-              <tb scope = "col">{{date.type}}</tb>
-              <tb scope = "col">{{date.startingDate}}</tb>
-              <tb scope = "col">{{date.endDate}}</tb>
-            {% endfor %}
+              {% for date in announcement %}
+                <td scope= "row"></td>
+                <tr>
+                  <td scope = "col">{{date.type}}</td>
+                  <td scope = "col">{{date.startingDate}}</td>
+                  <td scope = "col">{{date.endDate}}</td>
+                </tr>
+              {% endfor %}
           </tbody>
         </table>
         {{error}}

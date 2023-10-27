@@ -921,6 +921,8 @@ def viewAnnouncement (request):
 
         if 'editBttn' in request.POST:
             return redirect('/announcement/edit/')
+        elif 'reportBttn' in request.POST:
+            return redirect('/pdf/')
 
 
 
