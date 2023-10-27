@@ -309,3 +309,8 @@ Good morning, good evening and good night.
 | Camilo Carmona Valencia | I was able to get images rendering in a pdf using xhtml2pdf | I will make the report template | No |
 | Brayan Steven Ortega | I started to work in the US11a separating the forms of applicant creation to do this in steps for the user | I will add in the applicant table in the database a field for the picture of the applicant and also create this in the applicant creation page | No |
 
+## 26/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+|Juan Camilo Salazar| I created the announcement individual view, changed the connections to the announcement edit page, and started implementing dynamic forms| I will continue the implementation of the dynamic form | No |
