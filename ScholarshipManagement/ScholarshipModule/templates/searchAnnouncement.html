@@ -110,8 +110,6 @@
                                 <th>Estado</th>
                                 <th class = "bttnBox">
                                 </th>
-                                <th class = "bttnBox">
-                                </th>
                             </tr>
                         </thead>
 
@@ -139,10 +137,10 @@
                                 <td>
                                     <form action="" method="post">
                                         {% csrf_token %} 
-                                        <button id = "editBttn" name = "editBttn" class = "buttonAction" value="editBttn_{{i.announcementId}}">
+                                        <button id = "checkBttn" name = "checkBttn" class = "buttonAction" value="{{i.announcementId}}">
 
                                             <h3>
-                                                Editar
+                                                Ver
                                             </h3>
                 
                                         </button>
@@ -150,17 +148,6 @@
 
                                 </td>
 
-                                <td>
-
-                                    <button id = "DeleteBttn" name = "DeleteBttn" class = "buttonAction">
-
-                                        <h3>
-                                            Eliminar
-                                        </h3>
-            
-                                    </button>   
-
-                                </td>
 
                             </tr>    
 

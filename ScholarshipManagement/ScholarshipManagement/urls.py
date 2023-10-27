@@ -36,7 +36,8 @@ urlpatterns = [
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('announcement/edit/', views.editAnnouncement, name = 'editAnnouncement')
+    path('announcement/edit/', views.editAnnouncement, name = 'editAnnouncement'),
+    path('announcement/view/', views.viewAnnouncement, name = 'viewAnnouncement')
     
 ]   
 
