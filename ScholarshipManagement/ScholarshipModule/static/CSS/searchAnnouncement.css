@@ -126,7 +126,7 @@ li a:hover {
 }
 
 .buttonAction{
-    width: 100%;
+    width: 80%;
     height: 50%;
     align-items: center;
     box-shadow: 2px 5px 5px rgba(0, 0, 0.2, 0.2);
@@ -135,12 +135,8 @@ li a:hover {
     transition-duration: 0.4s;
 }
 
-#editBttn{
+#checkBttn{
     background-color: #455761;
-}
-
-#DeleteBttn{
-    background-color: #831704;
 }
 
 .buttonFilter:hover{
