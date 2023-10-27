@@ -314,3 +314,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 |Juan Camilo Salazar| I created the announcement individual view, changed the connections to the announcement edit page, and started implementing dynamic forms| I will continue the implementation of the dynamic form | No |
+| Andrés Camilo Romero Ruiz | I implemented a dynamic search for list of buttons and pushed the commit so my teammates can use the dynamics searches I made | I will make a progress bar and start the form for generate reports | No |
