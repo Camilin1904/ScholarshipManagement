@@ -315,3 +315,4 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 |Juan Camilo Salazar| I created the announcement individual view, changed the connections to the announcement edit page, and started implementing dynamic forms| I will continue the implementation of the dynamic form | No |
 | Andrés Camilo Romero Ruiz | I implemented a dynamic search for list of buttons and pushed the commit so my teammates can use the dynamics searches I made | I will make a progress bar and start the form for generate reports | No |
+| Camilo Carmona Valencia | I was finally able to get pdf generation working correctly, I have made preliminary code to make the custom reports but I depend on another screen of which I am not responsible | I will reformat my previous user stories | No |
