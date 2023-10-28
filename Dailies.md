@@ -323,3 +323,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 |Juan Camilo Salazar| I finished the dynamic form implementation and started researching dynamic search lists for the scholarship selection in the announcement creation and edition| I will work on the CSS styling for US6 pages | No |
+| Juan Sebastián Libreros | I finished the User story 3 | I will pull request the user story 3 and wait for new duties | No |
