@@ -317,3 +317,9 @@ Good morning, good evening and good night.
 | Andrés Camilo Romero Ruiz | I implemented a dynamic search for list of buttons and pushed the commit so my teammates can use the dynamics searches I made | I will make a progress bar and start the form for generate reports | No |
 | Camilo Carmona Valencia | I was finally able to get pdf generation working correctly, I have made preliminary code to make the custom reports but I depend on another screen of which I am not responsible | I will reformat my previous user stories | No |
 | Brayan Steven Ortega | I did the first division in steps for the creation of an applicant and I already receive the photo of the applicant | I will make that the image in the HTML page that receive the photo of the applicant show a preview  | No |
+
+## 27/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+|Juan Camilo Salazar| I finished the dynamic form implementation and started researching dynamic search lists for the scholarship selection in the announcement creation and edition| I will work on the CSS styling for US6 pages | No |
