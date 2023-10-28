@@ -39,3 +39,33 @@ def scholarshipEdit(request):
                                                              requirements=request.POST['requirements'])
 
         return redirect('scholarships')
+
+def scholarshipView(request):
+    idScholarship = request.session['idScholarship']
+    scholarship = Scholarships.objects.filter(ID=idScholarship).first()
+
+
+    if request.method == 'GET':
+
+        name = scholarship.name
+        description = scholarship.description
+        id = scholarship.ID
+        donor = scholarship.donor
+        coverage = scholarship.coverage
+        type = scholarship.type
+        requirements = scholarship.requirements
+
+        form = ViewScholarshipForm(initial={'name':name,
+                                              'ID':id,
+                                              'description':description,
+                                              'donor':donor,
+                                              'coverage':coverage,
+                                              'type':type,
+                                              'requirements':requirements})
+
+
+        return render(request, './HTML/viewScholarship.html', {
+            'form': form
+        })
+    else:
+        return redirect("/scholarships/edit/")

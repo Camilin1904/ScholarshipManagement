@@ -97,16 +97,16 @@ def scholarships(request):
             'form': FilterScholarshipForm
             })
     else:
-        if 'edit' in request.POST:
+        if 'view' in request.POST:
             try:
                 del request.session['idScholarship']
             except:
                 print(0)
        
             print(request.POST)
-            request.session['idScholarship'] = request.POST["edit"]
+            request.session['idScholarship'] = request.POST["view"]
 
-            return redirect("/scholarships/edit/")
+            return redirect("/scholarships/view/")
         else:
             form = FilterScholarshipForm(request.POST)
             reqID = request.POST.get('id')

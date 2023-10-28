@@ -37,7 +37,8 @@ urlpatterns = [
     path('applicants/edit/', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('scholarships/edit/',scholarshipEditView.scholarshipEdit,name ='editScholarship')
+    path('scholarships/edit/',scholarshipEditView.scholarshipEdit,name ='editScholarship'),
+    path('scholarships/view/',scholarshipEditView.scholarshipView,name='viewScholarship')
 ]   
 
 
