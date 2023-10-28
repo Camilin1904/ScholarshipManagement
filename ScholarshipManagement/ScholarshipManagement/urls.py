@@ -36,7 +36,9 @@ urlpatterns = [
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('example/', views.reportGenerator, name = 'reportGenerator')
+    path('objectOfReport/', views.objectOfReport, name = 'reportGenerator'),
+    path('typeOfReport/', views.typeOfReport, name = 'reportGenerator'),
+    path('filterOfReport/', views.filterOfReport, name = 'reportGenerator')
 ]   
 
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/reportGenerator.css' %}">
+
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+
+        
+        <div class="container">
+
+            <div class="meter">
+                <span style="width: 75%;"></span>
+            </div>
+
+            <div class="card">
+                <h1>FILTROS DEL REPORTE</h1>
+            </div>
+
+            <br>
+            
+            <div class="content">
+                
+                <form method="" class="buttons">
+                    {% csrf_token %}
+                    <div class = "filters" >
+                        {% for field in form %}
+                        
+                            <div style="font-size: large ;">
+                                {{ field.label_tag }}
+                            </div>
+                            <div style="font-size: medium;">
+                                {{ field }}
+                            </div>
+                            <br>
+                        {% endfor %}
+                    </div>
+
+                    <div class="bigCard" style="margin-right: 0;">
+
+                        <div class="tbl-header">
+                            <table cellpadding="0" cellspacing="0" border="0">
+                              <thead>
+                                <tr>
+                                    {% for title in titles %}
+                                        <th> {{title}} </th>
+                                    {% endfor %}
+                                </tr>
+                              </thead>
+                            </table>
+                          </div>
+                          <div class="tbl-content">
+                            <table cellpadding="0" cellspacing="0">
+                              <tbody>
+                                {% for object in objects %}
+                                <tr>
+                                    {% if reportObject == "1" %}
+                                        <th> {{object.name}} </th>
+                                        <th> {{object.lastName}} </th>
+                                        <th> {{object.major}} </th>
+                                        <th> {{object.faculty}} </th>
+                                        <th> {{object.semester}} </th>
+                                    {% elif toChange.role == 2 %}
+                                        Rol Actual: Asistente de Filantropía
+                                    {% else %}
+                                        Rol Actual: Ninguno
+                                    {% endif %}
+                                    
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+
+
+                        <table id = "myTable">
+                            
+                            
+                        </table>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+    </body>
+
+</html>
+
+<style>
+    .meter > span {
+    animation-name: rotate;
+    animation-duration: 0.7s;
+  }
+  
+  @keyframes rotate {
+    0% {
+      width: 50%;
+    }
+    100% {
+      width: 75%;
+    }
+  }
+</style>

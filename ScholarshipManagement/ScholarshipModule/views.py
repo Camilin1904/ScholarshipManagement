@@ -908,11 +908,21 @@ def searchStudent(request):
             request, './HTML/searchStudent.html')
 
 
-def reportGenerator(request):
+def objectOfReport(request):   
+    if request.method == 'POST':
+        return redirect("/typeOfReport/")
+    else:
+        return render(
+            request, './HTML/objectOfReport.html'
+    ) 
 
-    return render(
-            request, './HTML/exampleReport.html', {'users': User.objects.all}
-    )
+def typeOfReport(request):
+
+    if request.method == 'POST':
+        return redirect("/filterOfReport")
+    else:
+        return render(
+            request, './HTML/typeOfReport.html')
     
     # Use the worksheet object to write
     # data via the write() method.
@@ -940,3 +950,24 @@ def reportGenerator(request):
     response['Content-Disposition'] = 'attachment; filename=university_records.csv'
 
     return response
+
+def filterOfReport(request):
+    
+    if(True):
+        form = StudentReportFilter
+        titles = ("Nombre", "Apellido", "Carrera", "Facultad", "Semestre")
+        objects = Applicant.objects.all()
+        reportObject = "1"
+    elif():
+        form = StudentReportFilter
+        titles = ("apple", "banana", "cherry")
+    else:
+        form = StudentReportFilter
+        titles = ("apple", "banana", "cherry")
+    
+    if request.method == 'POST':
+        return redirect("")
+    else: 
+        return render(
+            request, './HTML/filterOfReport.html', {
+                'form': form, 'titles': titles, 'objects' : objects, 'reportObject': reportObject}) 
