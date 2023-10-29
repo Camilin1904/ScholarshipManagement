@@ -333,3 +333,4 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 |Juan Camilo Salazar| I improved the announcement view and edit pages styling | I will fix an error in the dynamic form save| No |
+| Andrés Camilo Romero Ruiz | I started creating the UI for selecting filters at report generator for students | I will continue working on the UI so there's a kind of preview of the objects | No |
