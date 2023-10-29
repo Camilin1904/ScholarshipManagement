@@ -10,7 +10,7 @@
     <link href = 'https://fonts.googleapis.com/css?family=Noto Music' rel = 'stylesheet'>
 
     <link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
+    
     <link rel = "stylesheet" href = "{% static 'CSS/editAnnouncement.css' %}">
 
     {% block links %}
@@ -46,7 +46,8 @@
 
     <div class = "container">
 
-        <form action = "/announcement/edit/", method = 'POST'>
+        <form action = "/announcement/edit/", method = 'POST'
+            hx-trigger = "click from:#saveBttn">
 
             <div class = "content1">
 
@@ -161,71 +162,6 @@
                     </div>
 
                 {% endfor %}
-
-                {% if additionalEvents != 0 %}
-
-                    {% for i in data %}
-                            
-                        <h3 class = "newTitle">Nueva fecha </h3>
-                    
-                        {% for field in i %}
-
-                            <div class = "additionalItem{{forloop.counter}}">
-
-                                {{ field.label_tag }}<br>
-
-                                <div>
-
-                                    {{ field }}
-
-                                </div>
-
-                            </div>
-
-                        {% endfor %}
-
-                    {% endfor %}
-
-                {% endif %}
-
-                <input type = "hidden" class = list name = "title3" value = "{{ data }}">
-
-                <button id = "addBttn" name = "newEventBttn" class = "button">
-
-                    <h3>
-
-                        Añadir fechas
-
-                    </h3>
-
-                </button>
-
-                {% if additionalEvents != 0 %}
-
-                    <button id = "deleteBttn" name = "deleteEventBttn" class = "button">
-
-                        <h3>
-
-                            Borrar fechas
-
-                        </h3>
-
-                    </button>
-
-                {% endif %}
-                
-                <br>
-                <br>
-        
-                <button id = "saveBttn" name = "saveBttn" class = "button">
-
-                    <h3>
-
-                        Guardar convocatoria
-
-                    </h3>
-
-                </button>
                     
                 {% if error != ""%} 
                     <div class = "alert" style = "font-size: 85%; margin-top: 5%;">
@@ -238,10 +174,28 @@
 
                 {% endif%}
 
+
+                <button id = "saveBttn" name = "saveBttn" class = "button">
+
+                    <h3>
+                        Guardar convocatoria
+                    </h3>
+    
+                </button>
+    
+                <button id = "editDates" name = "editDates" class = "button" >
+
+                        <h3>
+                            Editar eventos adicionales
+                        </h3>
+    
+                </button>
+
             </div>
 
         </form>
-
+       
+        
     </div>
         
 </body>

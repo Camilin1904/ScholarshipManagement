@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+{% load static %}
+{{error}}
+
+<head>
+
+    <meta charset = "UTF-8">
+
+    <link href = 'https://fonts.googleapis.com/css?family=Noto Music' rel = 'stylesheet'>
+
+    <link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+    
+    <link rel = "stylesheet" href = "{% static 'CSS/editEvents.css' %}">
+
+    {% block links %}
+    {% endblock %}
+
+    <title>
+
+        Editar Eventos
+
+    </title>
+
+</head>
+
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    <header>
+
+        <img src = "{% static './Icons/icesi.png' %}" class = "icesi">
+
+        <div class = "menu">
+
+            <ul>
+
+                    <li><a href = "/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href = ""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li><a href = "/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+
+            </ul>       
+
+        </div>  
+    
+    </header>
+
+    <div class = "container">
+       
+        <div id = newEventsCard class = "content1">
+
+            <div class = "additionalEvents">
+
+                {% for newEventForm in newEvents %}
+
+                    {% include 'HTML/eventForm.html' %}
+
+                {% endfor %}
+
+            </div>
+
+
+            <button id = "addBttn" name = "newEventBttn" class = "button" type = "submit"
+                hx-get = "{% url 'createEvent' %}"
+                hx-target = ".additionalEvents"
+                hx-swap = "beforeend">
+
+                <h3>
+                    Añadir fechas
+                </h3>
+
+            </button>
+
+        </div> 
+
+           
+
+        <div id = "saveCard" class="content2">
+
+            <button id = "saveBttn" name = "saveBttn" class = "button">
+
+                <h3>
+                    Guardar Eventos
+                </h3>
+
+            </button>
+        </div>
+
+        <form method="POST">
+                    
+            <div class="buttons">
+                
+                <button class="button" id="editBttn" value="" name="editBttn">
+                    {% csrf_token %}
+                    volver
+                </button>
+        </form>
+
+    </div>
+        
+</body>

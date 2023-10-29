@@ -1,0 +1,41 @@
+
+<form id = eventForm hx-post = "{% url 'createEvent' %}" 
+    hx-trigger = "click from:#saveBttn"> 
+
+    <div class = "event">
+
+        {% csrf_token %}
+
+        Evento adicional
+
+        <div class = "type">
+            <label for = "{{newEventForm.type.id_for_label}}" {{newEventForm.type.label}}></label>
+            {{newEventForm.type}}
+        </div>
+
+        <div class = "startingDate">
+            <label for = "{{newEventForm.startingDate.id_for_label}}" {{newEventForm.startingDate.label}}></label>
+            {{newEventForm.startingDate}}
+        </div>
+
+
+        <div class = "endDate">
+            <label for = "{{newEventForm.endDate.id_for_label}}" {{newEventForm.endate.label}}></label>
+            {{newEventForm.endDate}}
+        </div>
+
+        <div class="saveDiv">
+
+
+            <button id = "deleteBttn" name = "deleteBttn" class = "button"
+                hx-on = "click: this.closest('#eventForm').remove()">
+
+                Eliminar
+
+            </button>
+
+        </div>
+    </div>
+
+
+</form>

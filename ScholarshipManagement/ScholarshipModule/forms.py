@@ -113,9 +113,9 @@ class CreateAnnouncementAdditionalEventForm(ModelForm):
         label = 'Tipo de convocatoria', max_length=50, required=False, 
         widget = forms.TextInput(attrs = {"class": "additionalItem1"}))
     startingDate = forms.DateField(widget = NumberInput(
-        attrs={'type': 'date', "class": "additionalDate"}), required = False)
+        attrs={'type': 'date', "class": "additionalDate1"}), required = False)
     endDate = forms.DateField(widget=NumberInput(
-        attrs={'type': 'date', "class": "additionalDate"}), required = False)
+        attrs={'type': 'date', "class": "additionalDate2"}), required = False)
 
 
     class Meta:

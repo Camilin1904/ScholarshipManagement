@@ -968,6 +968,7 @@ def getAnnouncementInfo(announcementId):
 
 def editAnnouncement (request):
 
+
     error = ""
 
     announcementId = request.session.get('announcementId')
@@ -996,6 +997,7 @@ def editAnnouncement (request):
             'announcementEventFormSelection': announcementEventFormSelection,
             'announcementEventFormInterview': announcementEventFormInterview,
             'announcementEventFormPublication':announcementEventFormPublication,
+            'newEventForm': CreateAnnouncementAdditionalEventForm(),
             'error': error
         }
 
@@ -1005,6 +1007,9 @@ def editAnnouncement (request):
             request, './HTML/editAnnouncement.html', context)
     
     else:
+
+        #raise Exception("La fecha final debe ser posterior a la fecha incial")
+
 
         #try:
 
@@ -1046,9 +1051,6 @@ def editAnnouncement (request):
 
                     raise Exception("Se deben llenar todos los campos de fecha")
 
-                if (today > initialDate or today > endDate):
-
-                    raise Exception("Se deben seleccionar fechas posteriores al día de hoy")
 
                 if (initialDate >= endDate):
                     raise Exception("La fecha final debe ser posterior a la fecha incial")
@@ -1056,29 +1058,38 @@ def editAnnouncement (request):
             announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
             scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
 
-            Announcements.objects.filter(id = announcementId).update(type = request.POST['name'])
+            Announcements.objects.filter(id = announcementId).update(type = request.POST['announcementForm-type'])
 
             announcementFormObj = Announcements.objects.filter(id = announcementId)
 
-            scholarshipAnnouncementFormInstance = scholarshipAnnouncementForm.save(commit=False)
-            scholarshipAnnouncementFormInstance.announcementId = announcementFormObj
-            scholarshipAnnouncementFormInstance.save()
+            ScholarshipAnnouncements.objects.filter(id = announcementId).update(scholarshipId = request.POST['announcementForm-scholarshipId'])
+
 
             events = [
                 "announcementEventFormInscription","announcementEventFormInterview",
                 "announcementEventFormSelection","announcementEventFormPublication"]
+            
+            eventsType = [
+                "Inscription","Interview",
+                "Selection","Publication"]
             eventNum = 0
 
             for event in events:
 
-                announcementEventForm = CreateAnnouncementEventForm(request.POST,prefix=event)
-                announcementEventFormInstance = announcementEventForm.save(commit=False)
-                announcementEventFormInstance.announcementId = announcementFormObj
-                announcementEventFormInstance.type = eventType[eventNum]
-                announcementEventFormInstance.save()
+                AnnouncementEvent.objects.filter(announcementId = announcementId).filter(
+                    type = eventsType[eventNum]).update(startingDate = request.POST[event+"-startingDate"],
+                                                        endDate = request.POST[event+"-endDate"] )
+            
+
                 eventNum += 1
 
             return redirect('/announcement/view/')
+        
+        else:
+            return redirect('/announcement/edit/events')
+
+           
+
         
         """
         except Exception as ex:
@@ -1098,4 +1109,58 @@ def editAnnouncement (request):
             return render(
                 request, 'createAnnouncement.html', context) 
         """
+
+def editEvent(request):
+
+    request.session['editFlag'] = True
+
+    announcementId = request.session.get('announcementId')
+    announcementDict = getAnnouncementInfo(announcementId)
+    eventsType = [
+                "Inscription","Interview",
+                "Selection","Publication"]
+    
+    newEvents=[]
+
+
+    for event in announcementDict["events"]:
+        if event.type not in eventsType:
+            newEvent= CreateAnnouncementAdditionalEventForm(initial={'type': event.type,'startingDate':event.startingDate,
+                 'endDate':event.endDate}, prefix = "announcementEventFormPublication")
+            
+            newEvents.append(newEvent)
+
+    if request.method == 'GET':
+
+        context = {'newEvents': newEvents}
+
+        return render(
+            request, './HTML/editEvents.html', context)
+    
+    else:
+
+        print("2")
+        return redirect('/announcement/edit/')
+
+
+def createEvent(request):
+
+    editFlag = request.session.get('editFlag')
+    announcementId = request.session.get('announcementId')
+    eventsType = [
+            "Inscription","Interview",
+            "Selection","Publication"]
+
+    if editFlag:
+
+        AnnouncementEvent.objects.filter(announcementId = announcementId).exclude(type__in = eventsType).delete()
+        request.session['editFlag'] = False
+
+    if request.method == 'POST':
+        form = CreateAnnouncementAdditionalEventForm(request.POST)
+        if form.is_valid():
+            print(form)
+            form.save()
+       
+    return render (request, 'HTML/eventForm.html', {'newEventForm': CreateAnnouncementAdditionalEventForm()})
 
