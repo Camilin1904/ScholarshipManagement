@@ -206,8 +206,8 @@ class CreateApplicantForm(ModelForm):
     email = forms.EmailField(
         label= "Correo electrónico", required=True, widget=forms.EmailInput(
             attrs={'placeholder': 'Email', 'class': 'inputForm'}))
-    phone = forms.IntegerField(
-        label = "Teléfono", required=False, widget=forms.NumberInput(
+    phone = forms.CharField(
+        label = "Teléfono", required=False, widget=forms.TextInput(
             attrs={'placeholder': 'Teléfono', 'class': 'inputForm'}))
     status = forms.ChoiceField(
         label="Estado del Estudiante", required=False, choices=StatusApplicant.choices, 
@@ -216,8 +216,10 @@ class CreateApplicantForm(ModelForm):
         label = "ID de la convocatoria", required=False,widget=forms.TextInput(
             attrs={'cols':'10','placeholder': 'ID convocatoria', 'class': 'inputForm'}),
         queryset=Announcements.objects) 
-
-
+    image = forms.ImageField(
+        label="Subir imagen", required=False,
+        widget=forms.FileInput(attrs={'class': 'inputForm', 'placeholder': 'Seleccionar imagen'}))
+    
     class Meta:
 
 
@@ -226,9 +228,131 @@ class CreateApplicantForm(ModelForm):
             'name', 'lastName', 'studentCode',
             'faculty', 'major', 'semester',
             'email','phone','status', 
-            'announcement'
+            'announcement','image'
         ] 
         
+
+class CreateAppliStep1Form(forms.Form):
+
+
+    def __init__(
+        self, *args, **kwargs):
+
+        super(CreateAppliStep1Form, self).__init__(*args,**kwargs)
+        self.fields['name'].widget.attrs['size'] = 35
+        self.fields['lastName'].widget.attrs['size'] = 35
+        self.fields['email'].widget.attrs['size'] = 35
+        self.fields['phone'].widget.attrs['size'] = 35
+       
+    
+    name = forms.CharField(
+        label = "Nombre", max_length = 100, required = True,
+        widget=forms.TextInput(attrs={'placeholder': 'Nombre', 'class': 'inputForm'}))
+    lastName = forms.CharField(
+        label = "Apellido", max_length = 100, required = True,
+        widget=forms.TextInput(attrs={'placeholder': 'Apellido', 'class': 'inputForm'}))
+    email = forms.EmailField(
+        label= "Correo electrónico", required=True, widget=forms.EmailInput(
+            attrs={'placeholder': 'Email', 'class': 'inputForm'}))
+    phone = forms.CharField(
+        label = "Teléfono", required=False, widget=forms.TextInput(
+            attrs={'placeholder': 'Teléfono', 'class': 'inputForm'}))
+    image = forms.ImageField(
+        label="Subir imagen", required=False,
+        widget=forms.FileInput(attrs={'class': 'inputForm', 'placeholder': 'Seleccionar imagen'}))
+    
+
+    class Meta:
+
+        model = Applicant
+        fields = [
+            'name', 'lastName', 'email',
+            'phone', 'status', 'image'
+        ]
+
+
+
+class CreateAppliStep2Form(forms.Form):  
+
+
+    def __init__(
+        self, *args, **kwargs):
+
+        super(CreateAppliStep2Form, self).__init__(*args,**kwargs)
+        self.fields['studentCode'].widget.attrs['size'] = 35
+        self.fields['faculty'].widget.attrs['size'] = 35
+        self.fields['major'].widget.attrs['size'] = 35
+        self.fields['semester'].widget.attrs['size'] = 35
+
+
+    CAREER_CHOICES = (
+        ("Administración de Empresas", "Administración de Empresas"),
+        ("Antropología", "Antropología"),
+        ("Biología", "Biología"),
+        ("Ciencia Política", "Ciencia Política"),
+        ("Comunicación", "Comunicación"),
+        ("Derecho", "Derecho"),
+        ("Diseño de Medios Interactivos", "Diseño de Medios Interactivos"),
+        ("Diseño Industrial", "Diseño Industrial"),
+        ("Economía y Negocios Internacionales", "Economía y Negocios Internacionales"),
+        ("Finanzas", "Finanzas"),
+        ("Ingeniería Bioquímica", "Ingeniería Bioquímica"),
+        ("Ingeniería de Sistemas", "Ingeniería de Sistemas"),
+        ("Ingeniería Industrial", "Ingeniería Industrial"),
+        ("Ingeniería Telemática", "Ingeniería Telemática"),
+        ("Licenciatura en Artes", "Licenciatura en Artes"),
+        ("Licenciatura en Ciencias Naturales", "Licenciatura en Ciencias Naturales"),
+        ("Licenciatura en Ciencias Sociales", "Licenciatura en Ciencias Sociales"),
+        ("Licenciatura en Educación Básica Primaria", "Licenciatura en Educación Básica Primaria"),
+        ("Licenciatura en Lenguas Extranjeras", "Licenciatura en Lenguas Extranjeras"),
+        ("Licenciatura en Literatura y Lengua Castellana", "Licenciatura en Literatura y Lengua Castellana"),
+        ("Medicina", "Medicina"),
+        ("Mercadeo Internacional y Publicidad", "Mercadeo Internacional y Publicidad"),
+        ("Música", "Música"),
+        ("Psicología", "Psicología"),
+        ("Química con Énfasis en Bioquímica", "Química con Énfasis en Bioquímica"),
+        ("Química Farmacéutica", "Química Farmacéutica"),
+        ("Sociología", "Sociología")
+    )
+
+    FACULTY_CHOICES = (
+        ("Ciencias Administrativas y Económicas", "Ciencias Administrativas y Económicas"),
+        ("Ciencias Humanas", "Ciencias Humanas"),
+        ("Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería, Diseño y Ciencias Aplicadas"),
+        ("Ciencias de la Salud", "Ciencias de la Salud")
+    )
+
+    SEMESTER_CHOICES = (
+        ("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5","5"), ("6","6"), 
+        ("7", "7"), ("8", "8"), ("9", "9"), ("10", "10"), ("11", "11"), ("12", "12")
+        )
+
+
+    studentCode = forms.CharField(
+        label = "Código del estudiante", required=True, widget=forms.TextInput(
+            attrs={'placeholder': 'Codigo estudiante', 'class': 'inputForm'}))
+    faculty = forms.ChoiceField(
+        label = "Facultad", required=True, choices = FACULTY_CHOICES,
+        widget=forms.Select(
+            attrs={'class': 'inputForm'}))
+    major = forms.ChoiceField(
+        label = "Carrera", required=True, choices = CAREER_CHOICES,
+        widget=forms.Select(attrs={'class': 'inputForm'}))
+    semester = forms.ChoiceField(
+        label = "Semestre", required=True, choices = SEMESTER_CHOICES,
+        widget=forms.Select(
+            attrs={'class': 'inputForm'}))
+    status = forms.ChoiceField(
+        label="Estado del Estudiante", required=False, choices=StatusApplicant.choices, 
+        widget=forms.Select(attrs={'class': 'inputForm'}))
+
+    class Meta:
+
+
+        fields = [
+            'studentCode', 'faculty', 'major', 
+            'semester', 'status',
+        ] 
 
 class FilterApplicantForm(forms.Form):
 

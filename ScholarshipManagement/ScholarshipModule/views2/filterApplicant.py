@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import *
-from .models import *
+from ..forms import *
+from ..models import *
 from django.http import HttpResponse        
 
 def filterApplicants(request):

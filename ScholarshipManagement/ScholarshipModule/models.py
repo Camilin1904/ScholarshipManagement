@@ -100,6 +100,8 @@ class StatusApplicant(models.IntegerChoices):
         BENEFICIARY = 1, _('Beneficiario')
         REFUSED = 2, _('No aceptado')
 
+
+
 class Applicant(models.Model):
 
 
@@ -114,10 +116,11 @@ class Applicant(models.Model):
     major = models.CharField(max_length=20, blank=False)
     semester = models.IntegerField(blank=True, null= True)
     email= models.EmailField(max_length=40, blank=True, unique=True)
-    phone = models.IntegerField(blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=False, default='None')
     status = models.IntegerField(
         default=StatusApplicant.IN_REVIEW, choices=StatusApplicant.choices)
-    
+    image = models.ImageField(upload_to='uploads/', null= True)
+
 
 class AnnouncementAndApplicant(models.Model):
 

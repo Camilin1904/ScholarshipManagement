@@ -48,10 +48,10 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: auto;
 }
   
-li {
+.iconsSup {
     float: left;
     border-right:1px solid #bbb;
 }
@@ -68,56 +68,63 @@ li a {
     text-decoration: none;
 }
 
-#content{
-    margin-top: 2%;
-    height: 80%;
-    width: 80%;
-    background-color: #dbd3c9;
-    border-radius: 15px;
-    display: grid;
-    grid-template-rows: 7% 93%;
-    align-items: center;
-    
-    
-}
-
-#backButton{
-    grid-row: 5;
-    grid-column: 1;
-    width: 35%;
-}
-
-#save2{
-    grid-row: 5;
-    grid-column: 2;
-    width: 40%;
-}
-
-#create1{
-    grid-row: 2;
-}
-
 .container{
-
-
-    grid-auto-rows: 100px;
-    display: grid;
-    grid-template-columns: auto auto;
+    width: 100%;
+    height: 80%;
+    display: flex;
     justify-content: center;
-    justify-content: space-around;
-    border-radius: 5%;
-    margin-inline: 10%;
-    grid-row: 2;
-    
+}
+
+.filter{
+    margin-top: 3%;
+    margin-right: 7%;
+    width: 20%;
+    height: 80%;
+    background-color: #DBD3C9;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: #455761;
+
+}
+
+.content{
+    margin-top: 3%;
+    width: 60%;
+    height: 95%;
+    overflow: auto;
+    background-color: #DBD3C9;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    color: #455761;
+
+}
+
+.announcements{
+    justify-content: center;
+    width: 90%;
+    height: 80%;
+    align-items: center;
+}
+
+.scroll_bar{
+    width: 100%;
+    overflow: auto;
+    max-height: 100%;
+    padding-right: 2%;
+    align-items: center;
+    justify-content: center;
 }
 
 
-
-#registerApplicant{
-    grid-column: 1/3;
+#foundStudents{
+    grid-column: 1;
     margin-top: 1%;
 }
-
 
 .inputForm{
     background-color: #e9e1d8;
@@ -147,10 +154,9 @@ li a {
 }
 
 .button{
-    width: 35%;
-    height: 40%;
-    align-items: center;
-    grid-column: 1; 
+    width: 100%;
+    height: 60%;
+    align-items: center; 
     border: none;
     background-color: #e9e1d8;
     box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
@@ -160,57 +166,33 @@ li a {
 }
 
 .alert {
+    grid-row: 1;
+    padding: 5px;
     background-color: #f44336;
     color: white;
     border-radius: 10px;
     grid-row: 1;
     width: 50%;
-    height: 80%;
-    align-content: center;
-}
-
-#image_label{
-    grid-row: 2;
-    grid-column: 2;
-}
-
-#container_image {
-    margin-top: 15%;
-    text-align: center;
-    display: flex;
-    width: 150px;
-    height: 150px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    background-color: #f0f0f0;
-    border-radius: 30px;
-    grid-row: 2/4;
-    grid-column: 2;
+    height: 50%;
     
-  }
+}
 
-  #customFileButton {
-    display: inline-block;
-    background-color: transparent;
-    color: transparent;
-    cursor: pointer;
+#myInput{
+    background-color: #e9e1d8;
+    border: none;
+    height: 45%;
+    border-radius: 10px;
+    border:  solid #88a0a8;
     width: 100%;
-    height: 100%;
-  }
+    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
+    grid-row: 1;
+}
 
-  #image {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-  }
+#myButtons{
+    display: flex;
+    flex-direction: column;
+}
+
 
 
 

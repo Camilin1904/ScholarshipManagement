@@ -30,32 +30,84 @@
         <div id="content">
             
         
-            <form action='/applicants/create/' method = "POST">
+            <form action='/applicants/create/' method = "POST" id="create1">
             <div class="container">
 
                 <h2 id="registerApplicant">Registro del aplicante</h2>
                 {% csrf_token %}
                 {% for field in form %}
+                    {% if forloop.counter < 5 %}
                     <div id="id_{{forloop.counter}}" class="items">
                     
                         {{ field.label_tag }}<br>
                         {{ field }}
                     </div>
+                    {% endif %}
                     {% endfor %}
-                    <button id="save" class="button">Guardar</button>
+                    <label for="id_image" id="image_label">Foto del estudiante:</label>
+                    
+                    <div class="inputForm" id="container_image">
+
+                        <input type="file" id="image"  accept="image/*" name="image">
+                        <div>
+                           
+                            <label for="image" id="customFileButton">Seleccionar archivo</label>
+                        </div>
+                    </div>
+
+                    <button id="save" class="button">Siguiente</button>
                 <br>
-            
+               
+
             </form>
             </div>
-            
+
             {% if error == ""%}
                     
             {% else %}
-                <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                <div class="alert" style="font-size: 85%; ">
                     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
                     <strong>Advertencia</strong> {{error}}
                 </div>
-            {% endif%}    
+            {% endif%} 
+
+            <script>
+                const imageContainer = document.getElementById("container_image");
+                const imageInput = document.getElementById("image");
+                const customFileButton = document.getElementById("customFileButton");
+                
+                const imagePath = "{% static './Icons/cam.png' %}";
+                imageContainer.style.backgroundImage = 'url(' + imagePath + ')';
+
+                imageInput.addEventListener("change", function () {
+                    const file = this.files[0];
+                    if (file) {
+                    
+                        imageInput.style.display = "none";
+                        
+                        const reader = new FileReader();
+            
+                        reader.onload = function (e) {
+                            const imageUrl = e.target.result;
+                            imageContainer.style.backgroundImage = 'url(' + imageUrl + ')';
+                            
+                        };
+                
+                        reader.readAsDataURL(file);
+                    } else {
+                        const imagePath = "{% static './Icons/cam.png' %}";
+                        imageContainer.style.backgroundImage = 'url(' + imagePath + ')';
+                        
+                    }
+                });
+                
+                customFileButton.addEventListener("click", function () {
+                    imageInput.click();
+                });
+                            
+                </script>
+
+   
                
         </div>  
     </body>
