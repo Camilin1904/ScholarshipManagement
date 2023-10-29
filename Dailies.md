@@ -327,3 +327,9 @@ Good morning, good evening and good night.
 | Andrés Camilo Romero Ruiz | I implemented the progress bar and start working on the first two parts of the report generator | I should keep on working on the report generator, in this case for students | No |
 | Brayan Steven Ortega | I made it possible to upload the applicant's image to the page and show a preview | I will make the second step of the applicant creation with the rest of the lack information and a final step where the user will select the announcement for the student | No |
 | Camilo Carmona Valencia | I have set up the base for what will become the complete reformat of US1 | I wil continue reformating | No |
+
+## 28/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+|Juan Camilo Salazar| I improved the announcement view and edit pages styling | I will fix an error in the dynamic form save| No |
