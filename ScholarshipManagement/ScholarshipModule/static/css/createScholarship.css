@@ -71,34 +71,28 @@ body{
     display: flex;
 }
 .id_ID{
-    border-radius: 10px;
     object-fit:cover;
     width: 291%;
 }
 .id_name{
     object-fit: cover;
-    border-radius: 10px;
     width: 291%;
 }
 .id_description{
     object-fit: cover;
-    border-radius: 10px;
     width: 305%;
 }
 .id_coverage{
     object-fit: cover;
-    border-radius: 10px;
     width: 291%;
 }
 #id_requirements{
     object-fit: cover;
-    border-radius: 10px;
     width: 87%;
     height: 50%;
 }
 .id_donor{
     object-fit: cover;
-    border-radius: 10px;
     width: 291%;
 }
 #save{
@@ -118,11 +112,15 @@ textarea{
     border: 3px solid #88A0A8;
     border-radius: 10px;
 }
-textInput{
-    border: 3px solid #88A0A8;
-    border-radius: 10px;
+
+input[name="type"]{
+    width: 100%;
+    object-fit:none;
 }
-.input{
+input{
     width: 80%;
+    border: none;
+    border-bottom: 1px solid #2D6A9F;
+    border-radius: 3px;
     object-fit: cover;
 }
