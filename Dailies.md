@@ -347,4 +347,5 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Camilo Carmona Valencia | I have succesfully made dynamic forms | I will finish US1a | No |
+| Juan Sebastián Libreros | I made my PR to merge dev | Due to some changes requested to the creation of a scholarship (US1a), I will re do my user story US3 and adapt it to the new design | No |
 
