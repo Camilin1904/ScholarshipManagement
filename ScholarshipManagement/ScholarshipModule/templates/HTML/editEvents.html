@@ -47,54 +47,57 @@
     </header>
 
     <div class = "container">
+
+        <form hx-post = "{% url 'createEvent' %}" 
+            hx-trigger = "click from:#saveBttn"
+            hx-target = ".container"
+            hx-swap = "afterbegin">
        
-        <div id = newEventsCard class = "content1">
+            <div id = newEventsCard class = "content1">
 
-            <div class = "additionalEvents">
+                <div class = "additionalEvents">
 
-                {% for newEventForm in newEvents %}
+                    {% for newEventForm in newEvents %}
 
-                    {% include 'HTML/eventForm.html' %}
+                        {% include 'HTML/eventForm.html' %}
 
-                {% endfor %}
+                    {% endfor %}
 
-            </div>
+                </div>
 
 
-            <button id = "addBttn" name = "newEventBttn" class = "button" type = "submit"
-                hx-get = "{% url 'createEvent' %}"
-                hx-target = ".additionalEvents"
-                hx-swap = "beforeend">
+                <button id = "addBttn" name = "newEventBttn" class = "button" type = "submit"
+                    hx-get = "{% url 'createEvent' %}"
+                    hx-target = ".additionalEvents"
+                    hx-swap = "beforeend">
 
-                <h3>
-                    Añadir fechas
-                </h3>
+                    <h3>
+                        Añadir fechas
+                    </h3>
 
-            </button>
-
-        </div> 
-
-           
-
-        <div id = "saveCard" class="content2">
-
-            <button id = "saveBttn" name = "saveBttn" class = "button">
-
-                <h3>
-                    Guardar Eventos
-                </h3>
-
-            </button>
-        </div>
-
-        <form method="POST" hx-trigger = "click from:#saveBttn">
-                    
-            <div class="buttons">
-                
-                <button class="button" id="editBttn" value="" name="editBttn">
-                    {% csrf_token %}
-                    volver
                 </button>
+
+            </div> 
+
+            
+
+            <div id = "saveCard" class="content2">
+
+                <button id = "saveBttn" name = "saveBttn" class = "button">
+
+                    <h3>
+                        Guardar Eventos
+                    </h3>
+
+                </button>
+            </div>
+                        
+                <div class="buttons">
+                    
+                    <button class="button" id="editBttn" value="" name="editBttn">
+                        {% csrf_token %}
+                        volver
+                    </button>
         </form>
 
     </div>

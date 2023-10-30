@@ -1,6 +1,5 @@
 
-<form id = eventForm hx-post = "{% url 'createEvent' %}" 
-    hx-trigger = "click from:#saveBttn"> 
+<div id = eventForm > 
 
     <div class = "event">
 
@@ -26,7 +25,6 @@
 
         <div class="saveDiv">
 
-
             <button id = "deleteBttn" name = "deleteBttn" class = "button"
                 hx-on = "click: this.closest('#eventForm').remove()">
 
@@ -38,4 +36,4 @@
     </div>
 
 
-</form>
+</div>

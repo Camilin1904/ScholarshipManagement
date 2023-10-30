@@ -10,6 +10,7 @@ from .forms import *
 from .models import *
 from django.http import HttpResponse
 
+
 def isValid(query): return query is not None and query != ''
 
 # Create your views here.
@@ -1133,7 +1134,8 @@ def editEvent(request):
 
     if request.method == 'GET':
 
-        context = {'newEvents': newEvents}
+        context = {'newEvents': newEvents,
+                    'error': ""}
 
         return render(
             request, './HTML/editEvents.html', context)
@@ -1146,29 +1148,67 @@ def editEvent(request):
 
 def createEvent(request):
 
-    editFlag = request.session.get('editFlag')
     announcementId = request.session.get('announcementId')
     announcementDict = getAnnouncementInfo(announcementId)
     eventsType = [
             "Inscription","Interview",
             "Selection","Publication"]
 
-    if editFlag:
+   
 
-        AnnouncementEvent.objects.filter(announcementId = announcementId).exclude(type__in = eventsType).delete()
-        request.session['editFlag'] = False
 
     if request.method == 'POST':
+
+        print(request.POST)
+        postDict = request.POST
+        eventsCounter = 0
+        objInstances = []
+
+        types =  postDict.getlist('type')
+        startDates = postDict.getlist('startingDate')
+        endDates = postDict.getlist('endDate')
         
-        form = CreateAnnouncementAdditionalEventForm(request.POST)
-        if form.is_valid():
-            print(request.POST)
-            print(form)
-            formObjInstance= form.save(commit = False)
-            formObjInstance.announcementId = announcementDict["idObj"]
-            formObjInstance.save()
-        
-        return render (request, 'HTML/eventForm.html', {'newEventForm': CreateAnnouncementAdditionalEventForm(request.POST)})
+        print (types)
+
+        print(postDict.keys())
+
+        if 'type' in postDict.keys():
+            print("Entro")
+
+            for type in types:
+
+                startingDate = startDates[eventsCounter]
+                print(startingDate)
+                endDate = endDates[eventsCounter]
+                print(endDate)
+                print(type)
+
+                if (type == '' or startingDate == ''  or endDate == '' ):
+
+                    print("error")
+
+                    return render (request, 'HTML/alertBox.html', {'error': "No se pueden guardar campos vacíos"})
+                
+                form = CreateAnnouncementAdditionalEventForm()
+
+                print(form)
+            
+                formObjInstance= form.save(commit = False)
+                formObjInstance.announcementId = announcementDict["idObj"]
+                formObjInstance.type = type
+                formObjInstance.startingDate = startingDate
+                formObjInstance.endDate = endDate
+                objInstances.append(formObjInstance)
+
+                eventsCounter+=1
+
+        AnnouncementEvent.objects.filter(announcementId = announcementId).exclude(type__in = eventsType).delete()
+        for obj in objInstances:
+            obj.save()
+
+        response = HttpResponse()
+        response["HX-Redirect"] = '/announcement/edit/'
+        return response
 
     else:
        
