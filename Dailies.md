@@ -341,3 +341,10 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 |Juan Camilo Salazar| I fixed the error and now new events can be edited correctly | I will start to implement dynamic list for the scholarship id selection| No |
+
+## 30/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I have succesfully made dynamic forms | I will finish US1a | No |
+
