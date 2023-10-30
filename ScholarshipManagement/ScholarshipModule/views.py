@@ -959,7 +959,8 @@ def getAnnouncementInfo(announcementId):
         "scholarship": scholarship,
         "events": announcementEvents,
         "status": getStatus(announcementId),
-        "typeNum":announcementObjt[0].type
+        "typeNum":announcementObjt[0].type,
+        "idObj":announcementObjt[0]
     }
 
     return announcementDict
@@ -1126,7 +1127,7 @@ def editEvent(request):
     for event in announcementDict["events"]:
         if event.type not in eventsType:
             newEvent= CreateAnnouncementAdditionalEventForm(initial={'type': event.type,'startingDate':event.startingDate,
-                 'endDate':event.endDate}, prefix = "announcementEventFormPublication")
+                 'endDate':event.endDate})
             
             newEvents.append(newEvent)
 
@@ -1147,6 +1148,7 @@ def createEvent(request):
 
     editFlag = request.session.get('editFlag')
     announcementId = request.session.get('announcementId')
+    announcementDict = getAnnouncementInfo(announcementId)
     eventsType = [
             "Inscription","Interview",
             "Selection","Publication"]
@@ -1157,10 +1159,17 @@ def createEvent(request):
         request.session['editFlag'] = False
 
     if request.method == 'POST':
+        
         form = CreateAnnouncementAdditionalEventForm(request.POST)
         if form.is_valid():
+            print(request.POST)
             print(form)
-            form.save()
-       
-    return render (request, 'HTML/eventForm.html', {'newEventForm': CreateAnnouncementAdditionalEventForm()})
+            formObjInstance= form.save(commit = False)
+            formObjInstance.announcementId = announcementDict["idObj"]
+            formObjInstance.save()
+        
+        return render (request, 'HTML/eventForm.html', {'newEventForm': CreateAnnouncementAdditionalEventForm(request.POST)})
 
+    else:
+       
+        return render (request, 'HTML/eventForm.html', {'newEventForm': CreateAnnouncementAdditionalEventForm()})
