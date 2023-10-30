@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
+from ScholarshipModule.views2 import CreateScholarship
 
 
 urlpatterns = [
@@ -27,7 +28,7 @@ urlpatterns = [
     path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
     path('applicants/create/', views.createApplicants, name='Applicants'),
     path('applicants/filter/', views.filterApplicants, name='FilterApplicants'),
-    path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
+    #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
     path('logout/', views.signOut, name = 'signOut'),
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
@@ -36,7 +37,8 @@ urlpatterns = [
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('example/', views.reportGenerator, name = 'reportGenerator')
+    path('example/', views.reportGenerator, name = 'reportGenerator'),
+    path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
 ]   
 
 

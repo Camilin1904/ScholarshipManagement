@@ -1,0 +1,45 @@
+{% extends 'HTML/searchDonor.html' %}
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'CSS/searchDonor.css' %}">
+{% endblock %}
+
+{% block script %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+    <script>
+        $('#add_more').click(function() {
+            cloneMore('div.table:last', 'service');
+        });
+        function cloneMore(selector, type) {
+            var newElement = $(selector).clone(true);
+            var total = $('#id_' + type + '-TOTAL_FORMS').val();
+            newElement.find(':input').each(function() {
+                var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+                var id = 'id_' + name;
+                $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+            });
+            newElement.find('label').each(function() {
+                var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+                $(this).attr('for', newFor);
+            });
+            total++;
+            $('#id_' + type + '-TOTAL_FORMS').val(total);
+            $(selector).after(newElement);
+        }
+    </script>
+{% endblock %}
+
+{% block title %}
+    <h1 id="title">Buscar donantes</h1>
+{% endblock %}
+
+{% block content %}
+    {% for form in forms.forms %}
+        <div class='table'>
+            <table class='no_error'>
+                {{ form.as_table }}
+            </table>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -38,11 +38,6 @@ class Scholarships(models.Model):
     description = models.TextField(blank=True)
     donor = models.ForeignKey(Donors, on_delete= models.CASCADE)
     coverage = models.FloatField(blank=False)
-    class ScholarshipType(models.IntegerChoices):
-        EXCHANGE = 0, _('Intercambio')
-        RESCUE = 1, _('Rescate')
-        LIVELIHOOD = 2, _('Sustento')
-    type = models.IntegerField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
 
 
@@ -131,4 +126,24 @@ class AnnouncementAndApplicant(models.Model):
     applicant= models.ForeignKey(
         Applicant, related_name="id_applicant", blank=False, 
         null=True, on_delete= models.CASCADE)
+
+class ScholarsipTypes(models.Model):
+    
+    scholarship = models.OneToOneField(Scholarships, primary_key= True, 
+                                    related_name="id_Scholarship", blank = False,
+                                    on_delete=models.CASCADE, unique=True)
+    
+    class SchUnit(models.IntegerChoices):
+
+        PERCENTAGE = 0, _('Porcentage')
+        MONEY = 1, _('Dinero')
+        UNSPECIFIED = 2, _('No especificado')
+        
+    unit = models.IntegerField(default=SchUnit.UNSPECIFIED, choices=SchUnit.choices)
+    value = models.FloatField(blank=False)
+    type = models.CharField(max_length=50,blank=False)
+    
+    
+    
+    
     
