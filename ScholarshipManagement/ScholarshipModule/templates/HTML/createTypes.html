@@ -2,15 +2,12 @@
 {% load static %}
 
 {% block links %}
-    <link rel="stylesheet" href="{% static 'CSS/searchDonor.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/createType.css' %}">
 {% endblock %}
 
 {% block script %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <script>
-        $('#add_more').click(function() {
-            cloneMore('div.table:last', 'service');
-        });
         function cloneMore(selector, type) {
             var newElement = $(selector).clone(true);
             var total = $('#id_' + type + '-TOTAL_FORMS').val();
@@ -35,11 +32,22 @@
 {% endblock %}
 
 {% block content %}
-    {% for form in forms.forms %}
-        <div class='table'>
-            <table class='no_error'>
-                {{ form.as_table }}
-            </table>
-        </div>
-    {% endfor %}
+    <form id="forms" action="." method="POST">
+        {% for form in forms.forms %}
+            <div class='table'>
+                <table class='no_error'>
+                    {{ form.as_table }}
+                </table>
+            </div>
+            <br>
+            <br>
+        {% endfor %}
+        <input type="button" value="Add More" id="add_more">
+        <script>
+            $('#add_more').click(function() {
+                cloneMore('div.table:last', 'service');
+            });
+        </script>
+        <button>Siguiente</button>
+    </form>
 {% endblock %}
