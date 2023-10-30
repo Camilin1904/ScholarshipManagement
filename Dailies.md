@@ -334,3 +334,10 @@ Good morning, good evening and good night.
 |----------|----------|----------|----------|
 |Juan Camilo Salazar| I improved the announcement view and edit pages styling | I will fix an error in the dynamic form save| No |
 | Andrés Camilo Romero Ruiz | I started creating the UI for selecting filters at report generator for students | I will continue working on the UI so there's a kind of preview of the objects | No |
+
+
+## 29/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+|Juan Camilo Salazar| I fixed the error and now new events can be edited correctly | I will start to implement dynamic list for the scholarship id selection| No |
