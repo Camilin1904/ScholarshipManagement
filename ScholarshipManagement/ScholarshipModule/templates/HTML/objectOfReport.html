@@ -32,8 +32,16 @@
                 <span style="width: 25%;"></span>
             </div>
 
-            <div class="card">
-                <h1>REPORTES</h1>
+            <div class="card" style="flex-direction: row;">
+                <div style="width: 33.3%;">
+                    <button class="littleButton" style="align-items: center;" onclick="history.back()">
+                        <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                    </button>
+                </div>
+                <div style="
+                width: 33.3%; display: flex; align-items: center; justify-content: center;
+                "><h1 id = "demo">REPORTES</h1></div>
+                <div style="width: 33.3%;"></div>
             </div>
 
             <br>
@@ -42,7 +50,7 @@
                 
                 <form method="POST" class="buttons">
                     {% csrf_token %}
-                    <button class="bigButton" >
+                    <button name="object" class="bigButton" value="1">
                         <div style="font-size: x-large ;">
                             REPORTE DE APLICANTES
                         </div>
@@ -51,7 +59,7 @@
                         </div>
                     </button>
                     
-                    <button class="bigButton">
+                    <button name="object" class="bigButton" value="2">
                         <div style="font-size: x-large ;">
                             REPORTE DE BECAS
                         </div>
@@ -60,7 +68,7 @@
                         </div>
                     </button>
 
-                    <button class="bigButton">
+                    <button name="object" class="bigButton" value="3">
                         <div style="font-size: x-large ;">
                             REPORTE DE CONVOCATORIAS
                         </div>

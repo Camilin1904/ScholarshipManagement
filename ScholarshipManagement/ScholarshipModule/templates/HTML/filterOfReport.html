@@ -26,39 +26,75 @@
         </header>
 
         
-        <div class="container">
-
+        <form method="POST" class="container">
+            {% csrf_token %}
             <div class="meter">
                 <span style="width: 75%;"></span>
             </div>
 
-            <div class="card">
-                <h1>FILTROS DEL REPORTE</h1>
+            <div class="card" style="flex-direction: row;">
+                <div style="width: 33.3%;">
+                    <button class="littleButton" style="align-items: center;" onclick="history.back()" type="button">
+                        <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                    </button>
+                </div>
+                <div style="width: 33.3%;"><h1 id = "demo">FILTROS DEL REPORTE</h1></div>
+                <div style="width: 33.3%; text-align: right;">
+                    <button class="littleButton" style="align-items: center;  margin-left: auto;">
+                        <h3>Siguiente</h3><h1><i class="bi bi-caret-right-fill"></i></h1>
+                    </button>
+                </div>
             </div>
 
             <br>
             
-            <div class="content">
+            <div class="content" >
                 
-                <form method="" class="buttons">
-                    {% csrf_token %}
-                    <div class = "filters" >
+                <div class="buttons">
+                    
+                    {% if objectOfReport == "1" %}
+                    <div class = "filters">
                         {% for field in form %}
-                        
-                            <div style="font-size: large ;">
-                                {{ field.label_tag }}
-                            </div>
-                            <div style="font-size: medium;">
-                                {{ field }}
-                            </div>
-                            <br>
+                        <fieldset class="filter">
+                            <legend>{{ field.label_tag }}</legend>
+                            {{field}}
+                        </fieldset>
+                        {% endfor %}
+                    </div> 
+                    {% elif objectOfReport == 2 %}
+                    <div class = "filters">
+                        {% for field in form %}
+                        <fieldset class="filter">
+                            <legend>{{ field.label_tag }}</legend>
+                            {{field}}
+                        </fieldset>
                         {% endfor %}
                     </div>
+                    {% else %}
+                    <div class = "filters" style="height: 40%;">
+                        {% for field in form %}
+                        <fieldset class="filter" style="height: fit-content;">
+                            <legend>{{ field.label_tag }}</legend>
+                            {{field}}
+                        </fieldset>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
 
                     <div class="bigCard" style="margin-right: 0;">
 
+                        <div class="inputs", style="display: flex;">
+                            <table>
+                                <tr>
+                                    {% for input in inputs %}
+                                    <th><input type="text" id="{{input}}" name="{{input}}" onkeyup="filter()" placeholder="{{input}}" class="input">
+                                    {% endfor %}
+                                </tr>
+                            </table>
+                        </div>
+
                         <div class="tbl-header">
-                            <table cellpadding="0" cellspacing="0" border="0">
+                            <table cellpadding="0" cellspacing="0">
                               <thead>
                                 <tr>
                                     {% for title in titles %}
@@ -69,20 +105,31 @@
                             </table>
                           </div>
                           <div class="tbl-content">
-                            <table cellpadding="0" cellspacing="0">
+                            <table id = "myTable" cellpadding="0" cellspacing="0">
                               <tbody>
                                 {% for object in objects %}
                                 <tr>
-                                    {% if reportObject == "1" %}
-                                        <th> {{object.name}} </th>
-                                        <th> {{object.lastName}} </th>
-                                        <th> {{object.major}} </th>
-                                        <th> {{object.faculty}} </th>
-                                        <th> {{object.semester}} </th>
-                                    {% elif toChange.role == 2 %}
+                                    {% if objectOfReport == "1" %}
+                                        <th>{{object.applicant.name}}</th>
+                                        <th>{{object.applicant.lastName}}</th>
+                                        <th>{{object.applicant.major}}</th>
+                                        <th>{{object.applicant.faculty}}</th>
+                                        <th>{{object.applicant.semester}}</th>
+                                        <th style="display: none;"> {{object.applicant.studentCode}} </th>
+                                        <th style="display: none;">{{object.announcement.id}}</th>
+                                    {% elif objectOfReport == 2 %}
                                         Rol Actual: Asistente de Filantropía
                                     {% else %}
-                                        Rol Actual: Ninguno
+                                    <th>{{object.announcementId.id}}</th>
+                                        {% if object.announcementId.type == 0 %}
+                                            <th>Abierta</th>
+                                        {% elif object.announcementId.type == 1 %}
+                                            <th>Cerrada</th>
+                                        {% else %}
+                                            <th>Mixta</th>
+                                        {% endif %}
+                                    <th>{{object.scholarshipId.name}}</th>
+                                    <th>{{object.scholarshipId.description}}</th>
                                     {% endif %}
                                     
                                 </tr>
@@ -90,17 +137,10 @@
                               </tbody>
                             </table>
                           </div>
-
-
-                        <table id = "myTable">
-                            
-                            
-                        </table>
                     </div>
-                </form>
-
+                </div>
             </div>
-        </div>
+        </form>
 
     </body>
 
@@ -121,3 +161,192 @@
     }
   }
 </style>
+
+<script>
+
+    function filter() {
+
+      // Declare variables
+      var ids, inputs, checkboxes, table, tr, th, i, txtValue;
+      
+      // search field
+      ids = "{{inputs}}";
+
+      
+
+      if (ids.includes("Código de estudiante..")){
+
+        const semesters = [""] 
+        const careers = [""] 
+        const faculties = [""]
+
+        inputs = [
+            document.getElementById("Código de estudiante.."),
+            document.getElementById("Id de la convocatoria.."),
+        ]
+
+        inputs = [
+            inputs[0].value.toUpperCase(), inputs[1].value.toUpperCase()]
+        
+        checkboxes = document.getElementById("id_semester").getElementsByTagName('input')
+
+        for(i = 0; i < checkboxes.length; i++){
+            if(checkboxes[i].checked){
+                semesters.push(checkboxes[i].value.toUpperCase())
+            }
+        }
+
+        if(semesters.length==1){
+            for(i = 0; i < checkboxes.length; i++){
+            semesters.push(checkboxes[i].value.toUpperCase())
+            }
+        }
+
+        checkboxes = document.getElementById("id_career").getElementsByTagName('input')
+
+        for(i = 0; i < checkboxes.length; i++){
+            if(checkboxes[i].checked){
+                careers.push(checkboxes[i].value.toUpperCase())
+            }
+        }
+
+        if(careers.length==1){
+            for(i = 0; i < checkboxes.length; i++){
+            careers.push(checkboxes[i].value.toUpperCase())
+            }
+        }
+
+
+        checkboxes = document.getElementById("id_faculty").getElementsByTagName('input')
+
+        for(i = 0; i < checkboxes.length; i++){
+            if(checkboxes[i].checked){
+                faculties.push(checkboxes[i].value.toLocaleUpperCase())
+            }
+        }
+
+        if(faculties.length==1){
+            for(i = 0; i < checkboxes.length; i++){
+            faculties.push(checkboxes[i].value.toUpperCase())
+            }
+        }
+
+        // get table
+        table = document.getElementById("myTable");
+        
+        // get all rows inside the table
+        tr = table.getElementsByTagName('tr')
+
+            // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+                // get the firts th from the ith tr
+                career = tr[i].getElementsByTagName("th")[2].textContent.toUpperCase()
+                faculty = tr[i].getElementsByTagName("th")[3].textContent.toUpperCase()
+                semester = tr[i].getElementsByTagName("th")[4].textContent.toUpperCase()
+                code = tr[i].getElementsByTagName("th")[5].textContent.toUpperCase()
+                announcement = tr[i].getElementsByTagName("th")[6].textContent.toUpperCase()
+                scholarship = tr[i].getElementsByTagName("th")[0].textContent.toUpperCase()
+                // does the th element contains the filter?
+                if (
+                    code.indexOf(inputs[0]) > -1 &&
+                    announcement.indexOf(inputs[1]) > -1
+                    ) {
+                    // if the index bigger that -1 the th element contains the filter
+                    if(semesters.indexOf(semester)>-1){
+
+                        if(faculties.indexOf(faculty)>-1){
+
+                            if(careers.indexOf(career)>-1){
+
+                                tr[i].style.display = "";
+
+                            }else{
+
+                                tr[i].style.display = "none";
+
+                            }
+                        }else{
+
+                            tr[i].style.display = "none";
+
+                        }
+                    }else{
+
+                        tr[i].style.display = "none";
+
+                    }           
+                } else {
+
+                    // if the index is -1 the th element does not contains the filter
+                    tr[i].style.display = "none";
+
+                }
+        }
+
+    }else if (ids[0] == ""){
+
+    }else{
+
+        
+        const types = [""]
+
+        inputs = [
+            document.getElementById("Id de la convocatoria.."),
+            document.getElementById("Nombre de la beca..")
+        ]
+
+        inputs = [
+            inputs[0].value.toUpperCase(), inputs[1].value.toUpperCase()]
+        
+        checkboxes = document.getElementById("id_type").getElementsByTagName('input')
+
+        for(i = 0; i < checkboxes.length; i++){
+            if(checkboxes[i].checked){
+                types.push(checkboxes[i].value.toUpperCase())
+            }
+        }
+
+        if(types.length==1){
+            for(i = 0; i < checkboxes.length; i++){
+            types.push(checkboxes[i].value.toUpperCase())
+            }
+        }
+
+        // get table
+        table = document.getElementById("myTable");
+        
+        // get all rows inside the table
+        tr = table.getElementsByTagName('tr')
+
+            // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+                // get the firts th from the ith tr
+                id = tr[i].getElementsByTagName("th")[0].textContent.toUpperCase()
+                type = tr[i].getElementsByTagName("th")[1].textContent.toUpperCase()
+                scholarship = tr[i].getElementsByTagName("th")[2].textContent.toUpperCase()
+                // does the th element contains the filter?
+                if (
+                    id.indexOf(inputs[0]) > -1 &&
+                    scholarship.indexOf(inputs[1]) > -1
+                    ) {
+                    // if the index bigger that -1 the th element contains the filter
+                    if(types.indexOf(type)>-1){
+
+                        tr[i].style.display = "";
+                        
+                    }else{
+
+                        tr[i].style.display = "none";
+
+                    }           
+                } else {
+
+                    // if the index is -1 the th element does not contains the filter
+                    tr[i].style.display = "none";
+
+                }
+        }
+    }
+      
+    }
+</script>

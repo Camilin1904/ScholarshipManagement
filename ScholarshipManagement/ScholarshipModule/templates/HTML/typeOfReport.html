@@ -32,8 +32,16 @@
                 <span style="width: 50%;"></span>
             </div>
 
-            <div class="card">
-                <h1>TIPO DE REPORTE</h1>
+            <div class="card" style="flex-direction: row;">
+                <div style="width: 33.3%;">
+                    <button class="littleButton" style="align-items: center;" onclick="history.back()">
+                        <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                    </button>
+                </div>
+                <div style="
+                width: 33.3%; display: flex; align-items: center; justify-content: center;
+                "><h1 id = "demo">TIPO DE REPORTE</h1></div>
+                <div style="width: 33.3%;"></div>
             </div>
 
             <br>
@@ -42,48 +50,24 @@
                 
                 <form method="POST" class="buttons">
                     {% csrf_token %}
-                    <button class="bigButton" style="align-items: baseline;">
+                    <button name="type" class="bigButton" value="1">
                         <div style="font-size: x-large ;">
-                            RESUMEN GENERAL
+                            DATOS FILTRADOS
                         </div>
                         <div style="font-size: medium;">
-                            Gráficas y Datos generales acerca de todos los registros en el sistema
+                            Se le va a redirigir a la sección de filtrado para que elija las condiciones que deben satisfacer los objetos del reporte y generar csv, pdf o resumen
                         </div>
                         <div style="font-size: xxx-large;">
                             <i class="bi bi-award"></i>
                         </div>
                     </button>
                     
-                    <button class="bigButton" style="align-items: baseline;">
+                    <button name="type" class="bigButton" value="2">
                         <div style="font-size: x-large ;">
-                            RESUMEN FILTRADO
+                            TODOS LOS DATOS
                         </div>
                         <div style="font-size: medium;">
-                            Gráficas y Datos generales acerca de los registros filtrados
-                        </div>
-                        <div style="font-size: xxx-large;">
-                            <i class="bi bi-megaphone"></i>
-                        </div>
-                    </button>
-
-                    <button class="bigButton">
-                        <div style="font-size: x-large ;">
-                            DATOS GENERALES
-                        </div>
-                        <div style="font-size: medium;">
-                            Retorna un csv con todos los registros del objeto seleccionado
-                        </div>
-                        <div style="font-size: xxx-large;">
-                            <i class="bi bi-megaphone"></i>
-                        </div>
-                    </button>
-
-                    <button class="bigButton">
-                        <div style="font-size: x-large ;">
-                            DATOS FILTRADOS
-                        </div>
-                        <div style="font-size: medium;">
-                            Retorna un csv con los registros filtrados del objeto seleccionado
+                            Se le va a redirigir para que elija entre el formato csv o pdf y resumen para los objetos
                         </div>
                         <div style="font-size: xxx-large;">
                             <i class="bi bi-megaphone"></i>

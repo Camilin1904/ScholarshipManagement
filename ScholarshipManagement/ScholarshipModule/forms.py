@@ -336,51 +336,65 @@ class StudentReportFilter(Form):
         )
 
     CAREER_CHOICES = (
-        ("1", "Administración de Empresas"),
-        ("2", "Antropología"),
-        ("3", "Biología"),
-        ("4", "Ciencia Política"),
-        ("5", "Comunicación"),
-        ("6", "Derecho"),
-        ("7", "Diseño de Medios Interactivos"),
-        ("8", "Diseño Industrial"),
-        ("9", "Economía y Negocios Internacionales"),
-        ("10", "Finanzas"),
-        ("11", "Ingeniería Bioquímica"),
-        ("12", "Ingeniería de Sistemas"),
-        ("13", "Ingeniería Industrial"),
-        ("14", "Ingeniería Telemática"),
-        ("15", "Licenciatura en Artes"),
-        ("16", "Licenciatura en Ciencias Naturales"),
-        ("17", "Licenciatura en Ciencias Sociales"),
-        ("18", "Licenciatura en Educación Básica Primaria"),
-        ("19", "Licenciatura en Lenguas Extranjeras"),
-        ("20", "Licenciatura en Literatura y Lengua Castellana"),
-        ("21", "Medicina"),
-        ("22", "Mercadeo Internacional y Publicidad"),
-        ("23", "Música"),
-        ("24", "Psicología"),
-        ("25", "Química con Énfasis en Bioquímica"),
-        ("26", "Química Farmacéutica"),
-        ("27", "Sociología")
+        ("Administración de Empresas", "Administración de Empresas"),
+        ("Antropología", "Antropología"),
+        ("Biología", "Biología"),
+        ("Ciencia Política", "Ciencia Política"),
+        ("Comunicación", "Comunicación"),
+        ("Derecho", "Derecho"),
+        ("Diseño de Medios Interactivos", "Diseño de Medios Interactivos"),
+        ("Diseño Industrial", "Diseño Industrial"),
+        ("Economía y Negocios Internacionales", "Economía y Negocios Internacionales"),
+        ("Finanzas", "Finanzas"),
+        ("Ingeniería Bioquímica", "Ingeniería Bioquímica"),
+        ("Ingeniería de Sistemas", "Ingeniería de Sistemas"),
+        ("Ingeniería Industrial", "Ingeniería Industrial"),
+        ("Ingeniería Telemática", "Ingeniería Telemática"),
+        ("Licenciatura en Artes", "Licenciatura en Artes"),
+        ("Licenciatura en Ciencias Naturales", "Licenciatura en Ciencias Naturales"),
+        ("Licenciatura en Ciencias Sociales", "Licenciatura en Ciencias Sociales"),
+        ("Licenciatura en Educación Básica Primaria", "Licenciatura en Educación Básica Primaria"),
+        ("Licenciatura en Lenguas Extranjeras", "Licenciatura en Lenguas Extranjeras"),
+        ("Licenciatura en Literatura y Lengua Castellana", "Licenciatura en Literatura y Lengua Castellana"),
+        ("Medicina", "Medicina"),
+        ("Mercadeo Internacional y Publicidad", "Mercadeo Internacional y Publicidad"),
+        ("Música", "Música"),
+        ("Psicología", "Psicología"),
+        ("Química con Énfasis en Bioquímica", "Química con Énfasis en Bioquímica"),
+        ("Química Farmacéutica", "Química Farmacéutica"),
+        ("Sociología", "Sociología")
     )
-
     FACULTY_CHOICES = (
-        ("1", "Ciencias Administrativas y Económicas"), ("2", "Ciencias Humanas"), 
-        ("3", "Ingeniería, Diseño y Ciencias Aplicadas"), ("4", "Ciencias de la Salud"))
+        ("Ciencias Administrativas y Económicas", "Ciencias Administrativas y Económicas"),
+        ("Ciencias Humanas", "Ciencias Humanas"),
+        ("Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería, Diseño y Ciencias Aplicadas"),
+        ("Ciencias de la Salud", "Ciencias de la Salud")
+    )
     
     FIELD_CHOICES = (
 
     )
     
-    semester = forms.ChoiceField(
-        choices=SEMESTER_CHOICES, label = "Semestre",widget=forms.Select(
-        attrs={"class":"input"}), required = False)
+    semester = forms.MultipleChoiceField(
+        choices=SEMESTER_CHOICES, label = "Semestre", widget=forms.CheckboxSelectMultiple(
+            attrs={'onclick' : "filter();"}), required = False)
 
-    career = forms.ChoiceField(
-        choices=CAREER_CHOICES, label = "Carrera", widget=forms.Select(
-            attrs={"class":"input"}), required = False)
+    career = forms.MultipleChoiceField(
+        choices=CAREER_CHOICES, label = "Carrera", widget=forms.CheckboxSelectMultiple(
+            attrs={'onclick' : "filter();"}), required = False)
 
-    faculty = forms.ChoiceField(
-        choices=FACULTY_CHOICES, label = "Facultad", widget=forms.Select(
-            attrs={"class":"input"}), required = False)
+    faculty = forms.MultipleChoiceField(
+        choices=FACULTY_CHOICES, label = "Facultad", widget=forms.CheckboxSelectMultiple(
+            attrs={'onclick' : "filter();"}), required = False)
+    
+class AnnouncementReportFilter(Form):
+
+    TYPE_CHOICES = (
+        ("Abierta", "Abierta"), 
+        ("Cerrada", "Cerrada"), 
+        ("Mixta", "Mixta"),
+    )
+
+    type = forms.MultipleChoiceField(
+        choices = TYPE_CHOICES, label = "Tipo", widget=forms.CheckboxSelectMultiple(
+            attrs={'onclick' : "filter();"}), required = False)

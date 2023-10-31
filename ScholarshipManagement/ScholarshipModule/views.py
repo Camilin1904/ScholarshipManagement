@@ -910,6 +910,13 @@ def searchStudent(request):
 
 def objectOfReport(request):   
     if request.method == 'POST':
+
+        try:
+            request.session["object"] = request.POST["object"]
+        except:
+            del request.session["object"]
+            request.session["object"] = request.POST["object"]
+
         return redirect("/typeOfReport/")
     else:
         return render(
@@ -919,8 +926,20 @@ def objectOfReport(request):
 def typeOfReport(request):
 
     if request.method == 'POST':
-        return redirect("/filterOfReport")
-    else:
+        
+        try:
+            request.session["type"] = request.POST["type"]
+        except:
+            del request.session["type"]
+            request.session["type"] = request.POST["type"]
+
+        if request.POST["type"] == "1":
+            return redirect("/filterOfReport")
+        else:
+            return redirect("/home")
+    
+    else:       
+
         return render(
             request, './HTML/typeOfReport.html')
     
@@ -952,22 +971,56 @@ def typeOfReport(request):
     return response
 
 def filterOfReport(request):
+
+    objectOfReport = request.session.get("object")
     
-    if(True):
-        form = StudentReportFilter
-        titles = ("Nombre", "Apellido", "Carrera", "Facultad", "Semestre")
-        objects = Applicant.objects.all()
-        reportObject = "1"
-    elif():
-        form = StudentReportFilter
-        titles = ("apple", "banana", "cherry")
+    if request.method == "POST":
+
+        if(objectOfReport == "1"):
+
+            studentCode = request.POST.get("Código de estudiante..")
+            announcementId = request.POST.get("Id de la convocatoria..")
+            scholarshipName = request.POST.get("Nombre de la beca..")
+
+            semesters = request.POST.getlist("semester")
+            careers = request.POST.getlist("career")
+            faculties = request.POST.getlist("faculty")
+
+            objects = AnnouncementAndApplicant.objects.select_related('applicant')
+
+            if studentCode is not empty
+
+            print(objects.applicant.name)
+
+
+
+        elif(objectOfReport == 2):
+            return redirect("/home")
+        else:
+            return redirect("/home")
+
+
+        return redirect("/home")
+
     else:
-        form = StudentReportFilter
-        titles = ("apple", "banana", "cherry")
-    
-    if request.method == 'POST':
-        return redirect("")
-    else: 
+
+        if(objectOfReport == "1"):
+            form = StudentReportFilter
+            titles = ("Nombre", "Apellido", "Carrera", "Facultad", "Semestre")
+            objects = AnnouncementAndApplicant.objects.all()
+            inputs = ("Código de estudiante..", "Id de la convocatoria..")
+        elif(objectOfReport == 2):
+            form = StudentReportFilter
+            titles = ("Nombre", "Id", "Id del Donante", "Donante", "Convocatorias", "Beneficios")
+            objects = ScholarshipAnnouncements.objects.all()
+            inputs = ("Nombre de la beca..", "Id de la beca..", "Id del donante..", "Nombre del donante..")
+        else:
+            form = AnnouncementReportFilter
+            titles = ("Id", "Tipo", "Beca Asociada", "Descripción")
+            objects = ScholarshipAnnouncements.objects.all()
+            inputs = ("Id de la convocatoria..", "Nombre de la beca..")
+
         return render(
             request, './HTML/filterOfReport.html', {
-                'form': form, 'titles': titles, 'objects' : objects, 'reportObject': reportObject}) 
+                'form': form, 'titles': titles, 'objects' : objects, 'inputs': inputs,
+                'objectOfReport': objectOfReport})

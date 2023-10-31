@@ -116,7 +116,7 @@ li a:hover {
 .buttons{
   display: flex;
   width: 100%;
-  height: 80%;
+  height: 100%;
   object-fit: fill;
 }
 
@@ -132,6 +132,10 @@ li a:hover {
   border-radius: 15px;
   margin-right: 3%;
   box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+
+.bigButton:last-child{
+  margin: 0%;
 }
 
 button:last-child {
@@ -175,6 +179,7 @@ button:last-child {
   }
 
 .input{
+  width: 100%;
   border: none;
   border-bottom: 1px solid #2D6A9F;
   border-radius: 3px;
@@ -185,7 +190,6 @@ button:last-child {
   display: flex;
   flex-direction: column;
   width: 30%;
-  height: 90%;
   background-color: transparent;
   border: none;
   color: #3A4459;
@@ -196,14 +200,22 @@ button:last-child {
   margin-right: 3%;
   box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
   align-items: center;
-  overflow: hidden;
+}
+
+.filter{
+  width: 90%;
+  height: 50%;
+  color: #3A4459;
+  transition-duration: 0.4s;
+  object-fit: fill;
+  overflow-y: auto;
 }
 
 .bigCard{
   display: flex;
   flex-direction: column;
   width: 70%;
-  height: 90%;
+  height: 100%;
   background-color: transparent;
   border: none;
   color: #3A4459;
@@ -225,7 +237,7 @@ table{
   background-color: #2D6A9F;
  }
 .tbl-content{
-  height:300px;
+  height:100%;
   overflow-x:auto;
   margin-top: 0px;
 }
@@ -253,4 +265,35 @@ td{
   border-bottom: solid 1px rgba(255,255,255,0.1);
 }
 
+::-webkit-scrollbar {
+  width: 12px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(58, 68, 89, .6);
+}
+
+.littleButton{
+  border: none;
+  color: #2D6A9F;
+  transition-duration: 0.4s;
+  object-fit: fill;
+  background-color: white;
+  display: flex;
+  border-radius: 15px;
+}
+
+.littleButton:hover{
+  background-color: #2D6A9F;
+  color: white;
+}

@@ -27,11 +27,26 @@
         </header>
 
         <div class="container">
+
+            <div class="card" style="flex-direction: row;">
+                <div style="width: 30.3%;">
+                    <button class="littleButton" style="align-items: center;" onclick="history.back()">
+                        <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                    </button>
+                </div>
+                <div style="
+                width: 39.3%; display: flex; align-items: center; justify-content: center;
+                "><h1 id = "demo">ASIGNACIÓN DE ROLES</h1></div>
+                <div style="width: 30.3%;"></div>
+            </div>
+
+            <br>
+
             <div class="content">
                 <div class="partition">
-                    <h1>
-                        Asignación de Roles
-                    </h1>
+                    <br>
+                    <h2>Búsqueda de Usuario</h2>
+                    <br>
                     <br>
                     <form method="POST">
                         {% csrf_token %}
