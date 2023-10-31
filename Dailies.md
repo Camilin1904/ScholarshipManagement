@@ -349,4 +349,4 @@ Good morning, good evening and good night.
 | Camilo Carmona Valencia | I have succesfully made dynamic forms | I will finish US1a | No |
 | Juan Sebastián Libreros | I made my PR to merge dev | Due to some changes requested to the creation of a scholarship (US1a), I will re do my user story US3 and adapt it to the new design | No |
 | Andrés Camilo Romero Ruiz | I created the dynamic search for applicants | I will start implementing the dynamic search for announcements and refactor the role and home pages | No |
-
+| Brayan Steven Ortega | I created all the steps in the applicant creation page and adjusted the fields to be completed by the user | I will improve the CSS of the announcement selection page and I will implement the status update of an applicant when he is assigned to an announcement | No |
