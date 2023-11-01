@@ -34,8 +34,12 @@ def createScholarshipsSC1(request):
         })
     else:
         try:
+            if request.session.get('flag2', False):
+                return createScholarshipsSC4(request)
+            
             if request.session.get('flag',False):
                 return searchDonor(request)
+            
             form = CreateScholarshipForm(request.POST)
             request.session['form1'] = form.data
             print('aaa ', request.session.get('form1','pito'))
@@ -75,7 +79,6 @@ def createTypes(request):
         formDataList = list()
         for item in formset:
             formDataList.append(item.changed_data)
-        
         return createScholarshipsSC4(request)
         
         
@@ -86,14 +89,12 @@ def createScholarshipsSC4(request):
 
     if request.method == 'GET':
         form  = request.session.get('form1',CreateScholarshipForm)
-        return render(request, './HTML/createTypes.html', {
+        return render(request, './HTML/summaryScreen.html', {
             'form': form
         })
     else:
         try:
-            form = CreateScholarshipForm(request.POST)
-            request.session['form2'] = form
-            request.method = 'POST'
+            request.session['flag2'] = True
             return searchDonor(request)
         except:
             return render(request, './HTML/createScholarship.html', {

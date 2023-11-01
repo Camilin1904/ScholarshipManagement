@@ -4,11 +4,19 @@
 {% block content %}
 
     <div id = "baseData">
-        {{ form1 as table}}
+        {{ form1.as_table}}
     </div>
     <div id = "donorData">
         {{ donor.as_table }}
-        
+    </div>
+    <div id = "types">
+        {% for type in types.forms %}
+            {{ type.as_table }}
+        {% endfor %}
+    </div>
+    <form method = "POST">
+        <button>Save</button>
+    </form>
 
 
 {% endblock %}
