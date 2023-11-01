@@ -335,7 +335,6 @@ Good morning, good evening and good night.
 |Juan Camilo Salazar| I improved the announcement view and edit pages styling | I will fix an error in the dynamic form save| No |
 | Andrés Camilo Romero Ruiz | I started creating the UI for selecting filters at report generator for students | I will continue working on the UI so there's a kind of preview of the objects | No |
 
-
 ## 29/10/2023
 
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
@@ -350,3 +349,9 @@ Good morning, good evening and good night.
 | Juan Sebastián Libreros | I made my PR to merge dev | Due to some changes requested to the creation of a scholarship (US1a), I will re do my user story US3 and adapt it to the new design | No |
 | Andrés Camilo Romero Ruiz | I created the dynamic search for applicants | I will start implementing the dynamic search for announcements and refactor the role and home pages | No |
 | Brayan Steven Ortega | I created all the steps in the applicant creation page and adjusted the fields to be completed by the user | I will improve the CSS of the announcement selection page and I will implement the status update of an applicant when he is assigned to an announcement | No |
+
+## 31/10/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I was occupied with different assignments so I was unable to advance any further | I will make deletable the extra types in US1a | time |
