@@ -355,3 +355,8 @@ Good morning, good evening and good night.
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Camilo Carmona Valencia | I was occupied with different assignments so I was unable to advance any further | I will make deletable the extra types in US1a | time |
+| Juan Sebastián Libreros | I was busy with academic stuff so I wasn't able to work | I will start investigating about how to use selenium on Python | time indeed |
+
+Spooky 
+
+![](https://cdn.discordapp.com/attachments/1000963726792466472/1169137042626723866/image.jpg?ex=65544eb8&is=6541d9b8&hm=4ac7417609256b75445c1c3e929c5385695e5b8120091f174248e66ce92d3656&)
