@@ -366,3 +366,4 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I made some changes in the announcements attributes in order to allow the user to delete them| I will finish the deletion functionality| We have a lot of assignments in other classes |
+| Andrés Camilo Romero Ruiz | I didn't work yesterday, on monday I finished the dynamic search for announcement and refactor the role and home pages | I will make the filters part on the backend for applicants and announcements so I can start working on html reports this week | No |
