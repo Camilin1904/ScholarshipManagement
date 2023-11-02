@@ -367,3 +367,5 @@ Spooky
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I made some changes in the announcements attributes in order to allow the user to delete them| I will finish the deletion functionality| We have a lot of assignments in other classes |
 | Andrés Camilo Romero Ruiz | I didn't work yesterday, on monday I finished the dynamic search for announcement and refactor the role and home pages | I will make the filters part on the backend for applicants and announcements so I can start working on html reports this week | No |
+| Brayan Steven Ortega | I didn't work yesterday due to other duties | I will make that the page of view applicant and edit applicant show the photo of the applicant saved in the database| No |
+
