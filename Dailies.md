@@ -360,3 +360,9 @@ Good morning, good evening and good night.
 Spooky 
 
 ![](https://cdn.discordapp.com/attachments/1000963726792466472/1169137042626723866/image.jpg?ex=65544eb8&is=6541d9b8&hm=4ac7417609256b75445c1c3e929c5385695e5b8120091f174248e66ce92d3656&)
+
+## 01/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I made some changes in the announcements attributes in order to allow the user to delete them| I will finish the deletion functionality| We have a lot of assignments in other classes |
