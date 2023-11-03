@@ -374,4 +374,5 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I made the deletion functionality| I will fix an error that showed up in US5 while making the deletion functionality |No|
+| Juan Sebastián Libreros | I investigated about the tests in selenium in Python | I found the way to implement the tests and I will start with the process | No |
 
