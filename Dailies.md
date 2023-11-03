@@ -376,4 +376,5 @@ Spooky
 | Juan Camilo Salazar | I made the deletion functionality| I will fix an error that showed up in US5 while making the deletion functionality |No|
 | Juan Sebastián Libreros | I investigated about the tests in selenium in Python | I found the way to implement the tests and I will start with the process | No |
 | Andrés Camilo Romero Ruiz | I made the filters on backend for applicants and announcements | I will investigate about plotly to show plots inside the html about data | No |
+| Brayan Steven Ortega | I created the fields to show the applicant's photo on the view and edit pages, but I had to make corrections in saving the photos | I will continue making the corrections to save in the correct way the photo in a folder and save the image url in the database to be able of calling up the photo and show it | No |
 
