@@ -369,3 +369,9 @@ Spooky
 | Andrés Camilo Romero Ruiz | I didn't work yesterday, on monday I finished the dynamic search for announcement and refactor the role and home pages | I will make the filters part on the backend for applicants and announcements so I can start working on html reports this week | No |
 | Brayan Steven Ortega | I didn't work yesterday due to other duties | I will make that the page of view applicant and edit applicant show the photo of the applicant saved in the database| No |
 
+## 02/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I made the deletion functionality| I will fix an error that showed up in US5 while making the deletion functionality |No|
+
