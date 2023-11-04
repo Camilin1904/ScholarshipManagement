@@ -379,3 +379,8 @@ Spooky
 | Camilo Carmona Valencia | I have been busy, so unfortunately i could not continue my work | I will make the deletion functionality for my dynamic forms | No |
 | Brayan Steven Ortega | I created the fields to show the applicant's photo on the view and edit pages, but I had to make corrections in saving the photos | I will continue making the corrections to save in the correct way the photo in a folder and save the image url in the database to be able of calling up the photo and show it | No |
 
+## 03/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I fixed the error in the announcement search page| I will finish the implementation of the dynamic list for the scholarship selection |No|
