@@ -384,3 +384,4 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I fixed the error in the announcement search page| I will finish the implementation of the dynamic list for the scholarship selection |No|
+| Andrés Camilo Romero Ruiz | I research about how plotly works | I will compare plotly and chart js to select one and work on it on weekend | No |
