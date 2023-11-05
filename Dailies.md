@@ -386,3 +386,9 @@ Spooky
 | Juan Camilo Salazar | I fixed the error in the announcement search page| I will finish the implementation of the dynamic list for the scholarship selection |No|
 | Andrés Camilo Romero Ruiz | I research about how plotly works | I will compare plotly and chart js to select one and work on it on weekend | No |
 | Brayan Steven Ortega | I made the corrections in the process of save the photo of the applicant | I will implement the dynamic search in the applicant filter and also I will show the student photo there | No |
+
+## 04/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I almost completed the dynamic list implementation| I will fix an error in the dynamic list information save and extend this functionality to the announcement creation |No|
