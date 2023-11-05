@@ -500,7 +500,8 @@ def createAnnouncement(request):
                     'Inscription','Interview','Selection','Publication']
                 today = str(date.today())
                 additionalEvents = int(request.POST['title']) + 1
-                scholarshipIdInt = int(request.POST['scholarshipAnnouncementForm-scholarshipId'])
+                scholarshipIdInt = request.POST['scholarshipAnnouncementForm-scholarshipId']
+                scholarshipIdInt = getSubString(scholarshipIdInt)[-1]
 
                 if (not Scholarships.objects.filter(ID =scholarshipIdInt).exists()):
 
@@ -541,12 +542,14 @@ def createAnnouncement(request):
                         raise Exception("La fecha final debe ser posterior a la fecha incial")
                 
                 announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
-                scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
+                scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm()
+                scholarshipObjt = Scholarships.objects.filter(ID = scholarshipIdInt).get()
                 announcementForm.save()
 
                 announcementFormObj = Announcements.objects.latest('id')
 
                 scholarshipAnnouncementFormInstance = scholarshipAnnouncementForm.save(commit=False)
+                scholarshipAnnouncementFormInstance.scholarshipId = scholarshipObjt
                 scholarshipAnnouncementFormInstance.announcementId = announcementFormObj
                 scholarshipAnnouncementFormInstance.save()
 
@@ -685,6 +688,7 @@ def searchAnnouncement(request):
             typeNum = i.type
             typeStr = getAnnouncemenType(typeNum)
 
+            print(i.id)
             scholarshipList.append(
                 ScholarshipAnnouncements.objects.filter(announcementId = i.id).values('scholarshipId').get()['scholarshipId'])
             scholarshipNames.append(

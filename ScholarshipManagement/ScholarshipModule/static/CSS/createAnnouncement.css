@@ -110,6 +110,23 @@ li a {
     background-color: #dbd3c9;
 }
 
+header {
+    z-index: 1000;
+}
+  
+.select2 select2-container select2-container--default select2-container--below{
+    z-index: 999;
+} 
+
+#id_scholarshipAnnouncementForm_1{
+    z-index: 999;
+} 
+
+.select2-results__options {
+    display: flex;
+    flex-direction: column;
+}
+
 
 #announcementCreation{
     grid-column: 1/3;
