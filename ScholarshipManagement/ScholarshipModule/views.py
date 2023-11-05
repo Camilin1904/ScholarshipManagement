@@ -706,7 +706,7 @@ def searchAnnouncement(request):
 
         return joinedQuerySets
 
-    announcements = Announcements.objects.all()
+    announcements = Announcements.objects.filter(archived = 0)
     announcementList = getAnnouncemnetContext(announcements)
     context = {
         'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
@@ -729,6 +729,7 @@ def searchAnnouncement(request):
                 annoucementStatus = request.POST["announcementSearchForm-announcementStatus"]
                 startingDateStr = request.POST["announcementSearchForm-startingInscriptionDate"]
                 endDateStr = request.POST["announcementSearchForm-endInscriptionDate"]
+                archivedOption = request.POST["announcementSearchForm-archivedSelection"]
                 scholarshipList = []
                 announcementsPreList = []
                 startDateList = []
@@ -738,7 +739,7 @@ def searchAnnouncement(request):
                 if(
                     scholarshipName != "" or announcementId != "" or 
                     annoucementType != "3" or annoucementStatus != "2" or 
-                    startingDateStr != "" or endDateStr !=  ""):
+                    startingDateStr != "" or endDateStr !=  "" or archivedOption != "0"):
 
                     announcementList = Announcements.objects.none()
                 
@@ -868,16 +869,46 @@ def searchAnnouncement(request):
 
                         flag=True
 
+                       
+
+                    if (archivedOption != "0"):
+
+                        print("entro")
+
+                        archivedList = Announcements.objects.filter(
+                            archived = 1).values_list('id', flat = True)
+
+                        announcementsPreList=[]
+
+                        for i in archivedList:
+
+                            if (Announcements.objects.filter(id = i).exists()):
+                                announcementsPreList.append(Announcements.objects.filter(id = i))
+
+                        joinedQuery = joinQuery(announcementsPreList)
+        
+                        if flag:
+                            announcementList = announcementList.intersection(joinedQuery)
+                        else:
+                            announcementList = joinedQuery
+
+                        flag=True
+                    
+
+
                     announcementList = getAnnouncemnetContext(announcementList)
                     context = {
                         'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
                         'announcements':announcementList,
                     }
 
+                    return render(
+                    request, 'searchAnnouncement.html', context)
+
+
             if 'checkBttn' in request.POST:
 
                 request.session['announcementId'] = request.POST['checkBttn']
-                print(".................")
                 return redirect('/announcement/view/')
             
 
@@ -890,7 +921,10 @@ def searchAnnouncement(request):
             return render(
                 request, 'searchAnnouncement.html', context)
 
-        except:
+        except Exception as e:
+
+            raise Exception(e)
+            
 
             return render(
             request, 'searchAnnouncement.html', context)
@@ -902,17 +936,39 @@ def searchStudent(request):
             request, './HTML/searchStudent.html')
 
 
-def viewAnnouncement (request):
-    announcementId = request.session.get('announcementId')
+def getAnnouncementViewContext(announcementId):
+
     announcementDict = getAnnouncementInfo(announcementId)
+
+    archivedStatus = "No"
+    archivedStatusBttn = "Archivar"
+
+    if announcementDict["archive"] == 1:
+        archivedStatus = "Si"
+        archivedStatusBttn = "Desarchivar"
 
     context = {
             'announcementId': announcementDict["id"],
             'type': announcementDict["type"],
             'scholarship': announcementDict["scholarship"],
             'events': announcementDict["events"],
-            'status': announcementDict["status"]
+            'status': announcementDict["status"],
+            'archive': archivedStatus,
+            'archiveBttn': archivedStatusBttn
         }
+    
+    return context
+
+
+def viewAnnouncement (request):
+
+    announcementId = request.session.get('announcementId')
+    announcementDict = getAnnouncementInfo(announcementId)
+    context = getAnnouncementViewContext(announcementId)
+    archiveNumberFlag = 1
+
+    if announcementDict["archive"] == 1:
+        archiveNumberFlag = 0
 
     if request.method == 'GET':
 
@@ -922,8 +978,16 @@ def viewAnnouncement (request):
 
         if 'editBttn' in request.POST:
             return redirect('/announcement/edit/')
+        
+        
+        if 'deleteBttn' in request.POST:
 
+            Announcements.objects.filter(id = announcementId).update(archived = archiveNumberFlag)
 
+            context = getAnnouncementViewContext(announcementId)
+
+            return render(
+            request, './HTML/viewAnnouncement.html', context)
 
 
 def getStatus(id):
@@ -961,7 +1025,8 @@ def getAnnouncementInfo(announcementId):
         "events": announcementEvents,
         "status": getStatus(announcementId),
         "typeNum":announcementObjt[0].type,
-        "idObj":announcementObjt[0]
+        "idObj":announcementObjt[0],
+        "archive": announcementObjt[0].archived 
     }
 
     return announcementDict
@@ -970,7 +1035,6 @@ def getAnnouncementInfo(announcementId):
 
 def editAnnouncement (request):
 
-
     error = ""
 
     announcementId = request.session.get('announcementId')
@@ -978,7 +1042,8 @@ def editAnnouncement (request):
 
     announcementForm = CreateAnnouncementForm(initial={'type':announcementDict["typeNum"]}, prefix = "announcementForm")
     scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(
-        initial={'scholarshipId':announcementDict["scholarship"].ID}, prefix = "announcementForm")
+        initial={'scholarshipId':announcementDict["scholarship"].name + "  (" + str(announcementDict["scholarship"].ID) +
+                  ")"}, prefix = "announcementForm")
     announcementEventFormInscription = CreateAnnouncementEventForm(
         initial={'startingDate':announcementDict["events"][0].startingDate,
                  'endDate':announcementDict["events"][0].endDate}, prefix = "announcementEventFormInscription")
@@ -1021,9 +1086,11 @@ def editAnnouncement (request):
                 'Inscription','Interview','Selection','Publication']
             today = str(date.today())
             #additionalEvents = int(request.POST['title']) + 1
-            scholarshipIdInt = int(request.POST['announcementForm-scholarshipId'])
 
-            if (not Scholarships.objects.filter(ID =scholarshipIdInt).exists()):
+            scholarshipIdInt = request.POST['announcementForm-scholarshipId']
+            scholarshipIdInt = getSubString(scholarshipIdInt)[-1]
+
+            if (not Scholarships.objects.filter(ID = scholarshipIdInt).exists()):
 
                 raise Exception("La beca seleccionada no está registrada")
 
@@ -1062,9 +1129,7 @@ def editAnnouncement (request):
 
             Announcements.objects.filter(id = announcementId).update(type = request.POST['announcementForm-type'])
 
-            announcementFormObj = Announcements.objects.filter(id = announcementId)
-
-            ScholarshipAnnouncements.objects.filter(id = announcementId).update(scholarshipId = request.POST['announcementForm-scholarshipId'])
+            ScholarshipAnnouncements.objects.filter(id = announcementId).update(scholarshipId = scholarshipIdInt)
 
 
             events = [
@@ -1213,3 +1278,23 @@ def createEvent(request):
     else:
        
         return render (request, 'HTML/eventForm.html', {'newEventForm': CreateAnnouncementAdditionalEventForm()})
+    
+
+def getSubString(str):
+    substrings = []
+    in_brackets = False
+    current_substring = ""
+    
+    for strItem in str:
+        if strItem == "(":
+            in_brackets = True
+        elif strItem == ")" and in_brackets:
+            substrings.append(current_substring)
+            current_substring = ""
+            in_brackets = False
+        elif in_brackets:
+            current_substring += strItem
+    
+    if current_substring:
+        substrings.append(current_substring)
+    return substrings

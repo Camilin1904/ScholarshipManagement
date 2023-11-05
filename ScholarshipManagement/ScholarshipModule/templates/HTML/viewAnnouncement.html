@@ -57,6 +57,12 @@
                                 {{status}}
                             </p>
 
+                            <p>
+                                <b>Archivado:</b>
+                                <br>
+                                {{archive}}
+                            </p>
+
 
                             {%for event in events%}
 
@@ -84,7 +90,7 @@
                         </button>
                         <button class="button" id="deleteBttn" value="" name="deleteBttn">
                             {% csrf_token %}
-                            Eliminar
+                            {{archiveBttn}}
                         </button>
                         <button class="button" id="reportBttn" value="" name="reportBttn">
                             {% csrf_token %}

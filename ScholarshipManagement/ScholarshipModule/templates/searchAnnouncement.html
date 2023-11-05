@@ -32,9 +32,11 @@
 
         <div class="container">
 
+             <form id = filterForm action = '/announcement/', method = 'POST'>
+
                 <div class="filter">
 
-                    <form action = '/announcement/', method = 'POST'>
+                    
 
                         {% csrf_token %} 
                         
@@ -44,7 +46,6 @@
 
                         {% for field in announcementSearchForm %}
 
-                        <div id = "id_announcementSearchForm_{{forloop.counter}}" class = "formField">
 
                             {% if forloop.counter == 5 %}
 
@@ -52,15 +53,23 @@
                                     Plazo de inscripción
                                 </div>
 
-                            {% endif %}
-                    
-                            {{ field.label_tag }}<br>
-
-                            <div class = "field">
                                 {{ field }}
-                            </div>
 
-                        </div>
+                            {% else %}
+                                
+                                {% if forloop.counter == 6 %}
+
+                                {{ field }}
+                                
+                                {% else %}
+                                {{ field.label_tag}}
+                        
+                                {{ field }}
+
+                                {% endif %}
+
+                            {% endif %}
+
 
                         {% endfor %}
 
@@ -80,9 +89,11 @@
 
                         </button>
 
-                    </form>
+                    
  
                 </div>
+
+            </form>
 
                 <div class = "content">
                     

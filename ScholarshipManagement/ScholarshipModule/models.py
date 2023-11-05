@@ -27,6 +27,8 @@ class Announcements(models.Model):
 
     type = models.IntegerField(default = Type.CLOSED, choices = Type.choices)
 
+    archived = models.BooleanField(default = False)
+
 
     
 class Scholarships(models.Model):
