@@ -2,71 +2,76 @@
 {% load static %}
 {% load index %}
 
+{% block links %}
+    <link rel="stylesheet" href="{% static 'CSS/summaryScreen.css' %}">
+{% endblock %}
 
 {% block content %}
-
-    <div id = "baseData">
-        <table>
-            <tr>
-                <th scope="row">Informacion Basica<th>
-            </tr>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">{{ID}}</th>
-            </tr>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">{{name}}</th>
-            </tr>
-            <tr>
-                <th scope="col">Descripcion</th>
-                <th scope="col">{{description}}</th>
-            </tr>
-            <tr>
-                <th scope="col">Requerimientos</th>
-                <th scope="col">{{requirements}}</th>
-            </tr>
-        </table>
-    </div>
-    <div id = "donorData">
-        <table>
-            <tr>
-                <th scope="row">Informacion del donante</th>
-            </tr>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">{{donor.ID}}</th>
-            </tr>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">{{donor.name}}</th>
-            </tr>
-        </table>
-    </div>
-    <div id = "types">
-        <table>
-            {% for n in amount %}
+    <div id="summary">
+        <div id = "baseData">
+            <table>
                 <tr>
-                    <th scope = "row">Tipo {{n}}</th>
+                    <th scope="row">Informacion Basica<th>
                 </tr>
                 <tr>
-                    <th scope="col">Unidad</th>
-                    <th scope="col">{{types|index:0|index:n}}</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">{{ID}}</th>
                 </tr>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">{{types|index:1|index:n}}</th>
+                    <th scope="col">{{name}}</th>
                 </tr>
                 <tr>
                     <th scope="col">Descripcion</th>
-                    <th scope="col">{{types|index:2|index:n}}</th>
+                    <th scope="col">{{description}}</th>
                 </tr>
-            {% endfor %}
-        </table>
-    </div>
+                <tr>
+                    <th scope="col">Requerimientos</th>
+                    <th scope="col">{{requirements}}</th>
+                </tr>
+            </table>
+        </div>
+        <div id = "donorData">
+            <table>
+                <tr>
+                    <th scope="row">Informacion del donante</th>
+                </tr>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">{{donor.ID}}</th>
+                </tr>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">{{donor.name}}</th>
+                </tr>
+            </table>
+        </div>
+        <div id = "types">
+            <table>
+                {% for n in amount %}
+                    <tr>
+                        <th scope = "row">Tipo {{n}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Unidad</th>
+                        <th scope="col">{{types|index:0|index:n}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">{{types|index:1|index:n}}</th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">{{types|index:2|index:n}}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>  
     <form method = "POST">
         {% csrf_token %}
         <button>Save</button>
+        <input name="screen" value="summary" style="visibility:hidden"></input>
     </form>
 
 

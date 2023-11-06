@@ -33,24 +33,22 @@ def createScholarshipsSC1(request):
             'form': form
         })
     else:
-        #try:
-            screen = request.POST.get('screen')
-            print('jijijija', screen=='types')
-            
-            if screen=='types':
-                print("me cago en todo")
-                return createTypes(request)
+        screen = request.POST.get('screen')
+        
+        if screen=='summary':
+            return saveIntoDatabase(request)
+        
+        if screen=='types':
+            print("me cago en todo")
+            return createTypes(request)
 
-            elif screen=='donor':
-                return searchDonor(request)
-        #except Exception as e:
-           #print('me cago en todo lo cagable', e)
-            form = CreateScholarshipForm(request.POST)
-            request.session['form1'] = form.data
-            print('aaa ', request.session.get('form1','pito'))
-
-            request.method = 'GET'
+        elif screen=='donor':
             return searchDonor(request)
+        form = CreateScholarshipForm(request.POST)
+        request.session['form1'] = form.data
+
+        request.method = 'GET'
+        return searchDonor(request)
             
 
 def searchDonor(request):
@@ -78,17 +76,18 @@ def createTypes(request):
             'forms': typesFormSet
             })
     else:
+        print("wut")
         request.session['flag2'] = False
-        unitList = request.POST.get('form-0-unit')
-        valueList = request.POST.get('form-0-value')
-        typeList = request.POST.get('form-0-type')
+        unitList = request.POST.getlist('form-0-unit')
+        valueList = request.POST.getlist('form-0-value')
+        typeList = request.POST.getlist('form-0-type')
         formDataList = list()
         formDataList.append(unitList)
         formDataList.append(valueList)
         formDataList.append(typeList)
         request.session['typeData'] = formDataList
         request.method = 'GET'
-        print("ass", formDataList)
+        print("ass", unitList)
         return createScholarshipsSC4(request)
         
         
@@ -129,3 +128,18 @@ def createScholarshipsSC4(request):
                 'form': CreateScholarshipForm,
                 'error': 'Please provide valid data'
             })
+
+
+def saveIntoDatabase(request):
+    baseData = request.session.get('form1')
+    donorID = request.session.get('donor')
+    types = request.session.get('typeData')
+    Scholarships.objects.create(ID=baseData['ID'], name=baseData['name'], 
+                                description=baseData['description'], 
+                                requirements=baseData['requirements'], 
+                                donor=Donors.objects.get(ID=donorID))
+    
+    for n in range(len(types[0])):
+        ScholarsipTypes.objects.create(scholarship=Scholarships.objects.get(ID=baseData['ID']), unit=types[0][n], value=types[1][n], type=types[2][n])
+    
+    return redirect('scholarships')

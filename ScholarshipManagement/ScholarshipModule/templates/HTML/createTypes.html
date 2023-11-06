@@ -36,7 +36,7 @@
             var oldId = 't_'+(total);
 
             newElement.find('table').attr({'id': newId});
-            $(selector).after(newElement);
+            $('div.table:last').after(newElement);
         }
         function deleteMyself(id){
             $(id).remove();

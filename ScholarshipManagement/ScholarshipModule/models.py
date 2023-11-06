@@ -37,7 +37,6 @@ class Scholarships(models.Model):
         primary_key=True, auto_created=True, serialize=True, unique=True)
     description = models.TextField(blank=True)
     donor = models.ForeignKey(Donors, on_delete= models.CASCADE)
-    coverage = models.FloatField(blank=False)
     requirements = models.TextField(blank=True)
 
 
@@ -129,9 +128,11 @@ class AnnouncementAndApplicant(models.Model):
 
 class ScholarsipTypes(models.Model):
     
-    scholarship = models.OneToOneField(Scholarships, primary_key= True, 
+    ID = models.AutoField(primary_key=True)
+    
+    scholarship = models.ForeignKey(Scholarships, 
                                     related_name="id_Scholarship", blank = False,
-                                    on_delete=models.CASCADE, unique=True)
+                                    on_delete=models.CASCADE, unique=False)
     
     class SchUnit(models.IntegerChoices):
 
