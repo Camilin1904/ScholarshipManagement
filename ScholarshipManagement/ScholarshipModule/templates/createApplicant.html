@@ -30,12 +30,15 @@
         <div id="content">
             
         
-            <form action='/applicants/create/' method = "POST" id="create1">
+            <form action='/applicants/create/' method = "POST" id="create1" enctype="multipart/form-data">
             <div class="container">
 
-                <h2 id="registerApplicant">Registro del aplicante</h2>
+                
                 {% csrf_token %}
-                {% for field in form %}
+            
+                <div id="step1">
+                    <h2 id="registerApplicant">Registro del aplicante</h2>
+                    {% for field in form %}
                     {% if forloop.counter < 5 %}
                     <div id="id_{{forloop.counter}}" class="items">
                     
@@ -50,17 +53,39 @@
 
                         <input type="file" id="image"  accept="image/*" name="image">
                         <div>
-                           
+                        
                             <label for="image" id="customFileButton">Seleccionar archivo</label>
                         </div>
                     </div>
 
-                    <button id="save" class="button">Siguiente</button>
-                <br>
-               
+                    <button type="button" id="nextButton" class="button">Siguiente</button>
+                    <br>
+                </div>
+            
 
+                
+                <div id="step2" style="display: none;">
+                    <h2 id="registerApplicant">Registro del aplicante</h2>
+                    {% for field in form2 %}
+        
+                    <div id="id_{{forloop.counter}}" class="items">
+                    
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                    </div>
+            
+                    {% endfor %}
+                    <button type="submit" id="goBack" class="button" style="display: none;">Atrás</button>
+                    <button type="submit" id="save" class="button" style="display: none;">Guardar</button>
+                <br>
+                
+                </div>
+                
+
+               
             </form>
             </div>
+
 
             {% if error == ""%}
                     
@@ -71,10 +96,14 @@
                 </div>
             {% endif%} 
 
+
+
             <script>
                 const imageContainer = document.getElementById("container_image");
                 const imageInput = document.getElementById("image");
                 const customFileButton = document.getElementById("customFileButton");
+                const step1 = document.getElementById("step1");
+                const step2 = document.getElementById("step2");
                 
                 const imagePath = "{% static './Icons/cam.png' %}";
                 imageContainer.style.backgroundImage = 'url(' + imagePath + ')';
@@ -104,7 +133,26 @@
                 customFileButton.addEventListener("click", function () {
                     imageInput.click();
                 });
+
+                nextButton.addEventListener("click", function () {
+                step1.style.display = "none";
+                step2.style.display = "";
+                save.style.display = "";
+                goBack.style.display = "";
+                nextButton.style.display = "none";
+                
+                });
                             
+                goBack.addEventListener("click", function () {
+                step1.style.display  = "";
+                step2.style.display = "none";
+                save.style.display = "none";
+                goBack.style.display = "none";
+                nextButton.style.display = "";
+                
+
+                });
+
                 </script>
 
    

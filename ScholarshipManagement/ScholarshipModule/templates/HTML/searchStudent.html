@@ -65,20 +65,34 @@
                     <nav class="scroll_bar">
                         
                         {% for Applicant in applicants %}
+                            {% if Applicant.image != "" %}
+                                <div id="image_container">
+                                    <img id="image" src="{{Applicant.image.url}}" />
+                                </div>
+                                
+                            {% else %}
+                                <div id="image_container">
+                                    <img id="image" src="{% static './Icons/cam.png' %}" />
+                                </div>
+                                
+                            {% endif %}
+                            
                         
-                        
-                            <ul>            
+                            <ul id="student">            
                                 <li>
-                                    <p id="studentCode">{{Applicant.studentCode}}</p> 
-                                    <p>Nombre : {{Applicant.name}}</p>
-                                    <p>Apellido : {{Applicant.lastName}}</p>
-                                    <p>Telefono : {{Applicant.phone}}</p>
+                                    
+                                        <p id="studentCode">{{Applicant.studentCode}}</p> 
+                                        <p>Nombre : {{Applicant.name}}</p>
+                                        <p>Apellido : {{Applicant.lastName}}</p>
+                                        <p>Telefono : {{Applicant.phone}}</p>    
+                                        <br>
+                                     
                                 </li>
                                 
                             </ul>
-                            <form method="POST">
+                            <form method="POST" id="buttons_container">
                                 {% csrf_token %}
-                                <div>
+                                <div id="button_div">
                                     <button name="search" class="button" value="{{Applicant.studentCode}}">
                                         Ver más
                                     </button>

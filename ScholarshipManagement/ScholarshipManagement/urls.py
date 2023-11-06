@@ -19,8 +19,9 @@ from django.urls import path, include
 from ScholarshipModule import views
 from ScholarshipModule.views2 import createApplicant
 from ScholarshipModule.views2 import filterApplicant
-from ScholarshipModule.views2 import createAppliStep2
 from ScholarshipModule.views2 import createAppliStep3
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 
@@ -40,9 +41,6 @@ urlpatterns = [
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
-    path('applicants/create/step2/', createAppliStep2.createAppliStep2, name='ApplicantStep2'),
     path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent')
-]   
-
-
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -125,9 +125,38 @@ li a:hover {
     padding-right: 2%;
     display: grid;
     grid-template-rows: auto;
-    grid-template-columns: 75% 25%;
+    grid-template-columns: 10% 70% 20%;
     align-items: center;
     justify-content: center;
+    
+}
+
+#student{
+    border-bottom: 1px solid #455761;
+}
+
+#image_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border-bottom: 1px solid #455761;
+}
+
+#buttons_container{
+    height: 100%;
+    width: 100%;
+
+}
+
+#button_div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border-bottom: 1px solid #455761;
 }
 
 .inputForm{
@@ -166,7 +195,7 @@ li a:hover {
 
 .button{
     width: 45%;
-    height: 10%;
+    height: 15%;
     align-items: center;
     grid-column: 1; 
     border: none;
@@ -189,3 +218,8 @@ li a:hover {
     background-color: #455761;
     color: #DBD3C9;
 }
+
+#image {
+    grid-column: 1;
+    width: 100%;
+  }

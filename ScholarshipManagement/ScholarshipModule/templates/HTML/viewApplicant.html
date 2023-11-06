@@ -25,12 +25,13 @@
 
     <div class="container">
         <div class="content">
-            <h2>
-                <b>Información del aplicante</b>
-            </h2>
+
             <div class="info_applicant">
+                <h2 id="title">
+                    <b>Información del aplicante</b>
+                </h2>
                 {%for Applicant in applicant%}
-                    <ul>
+                    <ul id="applicant_info_list">
                         <li id="applicant_info">
                             <p>
                                 <b>Nombre:</b>
@@ -81,12 +82,28 @@
                                 <b>Convocatoria:</b> 
                                 <br>
                                 {{announcement}}
+                                
                             </p>
                         </li>
                         
                     </ul>
-                
-                <i class="bi bi-person-square" id="person"></i>
+                    {% if Applicant.image != "" %}
+                        <p id="title_image">
+                            <b>Foto:</b> 
+                            <br>
+                            <img id="image" src="{{Applicant.image.url}}" />
+                        </p>
+
+                    {% else %}
+                        <p id="title_image">
+                            <b>Foto:</b> 
+                            <br>
+                            <img id="image" src="{% static './Icons/cam.png' %}" />
+                        </p>
+                    {% endif %}                  
+                    
+
+
                 <form method="POST">
                     
                     <div class="buttons">
@@ -108,5 +125,7 @@
         </div>
         
     </div>
+
+
 </body>
 </html>

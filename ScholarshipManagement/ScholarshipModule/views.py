@@ -193,6 +193,11 @@ def editApplicant(request):
         email = applicant.first().email
         phone = applicant.first().phone
         status = applicant.first().status
+        image = applicant.first().image
+
+        if image == "":
+            image = "none"
+        
         try:
             announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
         except:
@@ -210,7 +215,7 @@ def editApplicant(request):
                                             'status':status,
                                             'announcement':announcement})
         
-        return render(request,'./HTML/editApplicant.html',{'form':form})
+        return render(request,'./HTML/editApplicant.html',{'form':form, 'image': image})
     else:
         applicant = Applicant.objects.get(studentCode = studentCodeSt)
         try:
@@ -225,6 +230,11 @@ def editApplicant(request):
                                                                    email=request.POST['email'],
                                                                    phone=request.POST['phone'],
                                                                    status=request.POST['status'])
+        
+        student = Applicant.objects.get(studentCode = studentCodeSt)
+        form = CreateApplicantForm(request.POST, request.FILES, instance=student) 
+        form.save()
+        
         if announcement is not None:
             AnnouncementAndApplicant.objects.filter(applicant=idSt).update(
                 announcement=request.POST['announcement'])

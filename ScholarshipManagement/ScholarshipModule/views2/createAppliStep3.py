@@ -11,17 +11,17 @@ def createAppliStep3(request):
     if request.method == 'POST':
         try:
 
+
+                if 'skip' in request.POST:
+                     return redirect('/home/')
+                     
                 error = ""
 
-                print(request.POST)
-                
-                formPage2 = request.session.get('data_step_2', {})
+
+                formPage2 = request.session.get('data_step_1', {})
                 announcementPost = request.POST.get('announcement')
                 postStudentCode = formPage2.get('studentCode')
-                semesterPost = formPage2.get('semester') 
-                statusPost = formPage2.get('status') 
 
-                print(announcementPost)
 
                 if announcementPost == "":
                     error=""
@@ -35,13 +35,7 @@ def createAppliStep3(request):
                     relation.applicant = student
                     relation.save()
 
-                    formStatusCheck = StatusCheckAppliForm()
-                    appliStatusCheck = formStatusCheck.save(commit=False)
-                    appliStatusCheck.announcementCheck = announcement
-                    appliStatusCheck.applicantCheck = student
-                    appliStatusCheck.semester = semesterPost
-                    appliStatusCheck.status = statusPost
-                    appliStatusCheck.save()
+                    Applicant.objects.filter(studentCode=postStudentCode).update(status=0)
                     
                     
                 return redirect('/home/')

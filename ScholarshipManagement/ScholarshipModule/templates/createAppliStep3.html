@@ -31,7 +31,12 @@
 
                 <div class="filter">
                     <h2>Filtros</h2>
-                    <input type="text" id="myInput" onkeyup="myFunction3()" placeholder="Search for names..">
+                    <input type="text" id="myInput" class="inputForm" onkeyup="myFunction3()" placeholder="Buscar por ID de convocatoría">
+                    <br>
+                    <form action='/applicants/create/step3/' method = "POST" id="formSkip">
+                        {% csrf_token %}
+                        <button  name="skip" class="button" id="skipButton">Omitir</button>
+                    </form>
                     
                 </div>
             

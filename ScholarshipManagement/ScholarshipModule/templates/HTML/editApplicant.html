@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{% static 'CSS/createApplicant.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/editApplicant.css' %}">
     {% block links %}
     {% endblock %}
     <title>
@@ -30,24 +30,82 @@
         <div id="content">
             
         
-            <form method = "POST">
+            <form method = "POST" id="create1" enctype="multipart/form-data">
             <div class="container">
 
                 <h2 id="registerApplicant">Datos del aplicante</h2>
                 {% csrf_token %}
                 {% for field in form %}
-                    <div id="id_{{forloop.counter}}" class="items">
+
+                    {% if forloop.counter != 11 %}
+                        <div id="id_{{forloop.counter}}" class="items">
+                        
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <label for="id_image" id="image_label">Foto del estudiante:</label>
                     
-                        {{ field.label_tag }}<br>
-                        {{ field }}
+                    <div class="inputForm" id="container_image">
+
+                        <input type="file" id="image"  accept="image/*" name="image">
+                        <div>
+                        
+                            <label for="image" id="customFileButton">Seleccionar archivo</label>
+                        </div>
                     </div>
-                    {% endfor %}
+                
                     <button id="save" class="button">Guardar</button>
                 <br>
             
             </form>
             </div>
+ 
+            <script>
+                const imageContainer = document.getElementById("container_image");
+                const imageInput = document.getElementById("image");
+                const customFileButton = document.getElementById("customFileButton");
+                var imageStudent = "{{image}}";
+
+                var imagePath;
+
+                if (imageStudent === "none") {
+                    imagePath = "{% static './Icons/cam.png' %}";
+                } else {
+                    imagePath = "{{image.url}}";
+                }
+
+                
+                imageContainer.style.backgroundImage = 'url(' + imagePath + ')';
+
+                imageInput.addEventListener("change", function () {
+                    const file = this.files[0];
+                    if (file) {
+                    
+                        imageInput.style.display = "none";
+                        
+                        const reader = new FileReader();
             
+                        reader.onload = function (e) {
+                            const imageUrl = e.target.result;
+                            imageContainer.style.backgroundImage = 'url(' + imageUrl + ')';
+                            
+                        };
+                
+                        reader.readAsDataURL(file);
+                    } else {
+                        const imagePath = "{% static './Icons/cam.png' %}";
+                        imageContainer.style.backgroundImage = 'url(' + imagePath + ')';
+                        
+                    }
+                });
+                
+                customFileButton.addEventListener("click", function () {
+                    imageInput.click();
+                });
+            </script>           
               
                
         </div>  

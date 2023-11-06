@@ -120,6 +120,11 @@ USE_TZ = True
 
 STATIC_URL = 'ScholarshipManagement/static/'
 
+
+MEDIA_URL = '/ScholarshipModule/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'ScholarshipModule')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
