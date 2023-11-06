@@ -901,3 +901,16 @@ def searchAnnouncement(request):
 def searchStudent(request):
     return render(
             request, './HTML/searchStudent.html')
+
+
+def viewCalendar(request):
+
+    calendarEvents = []
+
+ 
+    context = {
+        'eventsList': calendarEvents,
+    }
+
+    return render(
+            request, './HTML/calendar.html',context)
