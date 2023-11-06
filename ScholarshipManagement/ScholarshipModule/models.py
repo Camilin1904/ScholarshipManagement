@@ -117,6 +117,7 @@ class Applicant(models.Model):
     phone = models.IntegerField(blank=True, null=True)
     status = models.IntegerField(
         default=StatusApplicant.IN_REVIEW, choices=StatusApplicant.choices)
+
     
 
 class AnnouncementAndApplicant(models.Model):

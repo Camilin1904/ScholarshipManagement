@@ -284,7 +284,7 @@ class searchUser(Form):
 class roleAssign(Form):
 
     CHOICES= (
-        (1, 'Asistente de apoyo Financiero'),
+        (1, 'Asistente de Apoyo Financiero'),
         (2, 'Asistente de Filantropía'),
         (3, 'Sin rol')
     )
@@ -369,10 +369,6 @@ class StudentReportFilter(Form):
         ("Ciencias Humanas", "Ciencias Humanas"),
         ("Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería, Diseño y Ciencias Aplicadas"),
         ("Ciencias de la Salud", "Ciencias de la Salud")
-    )
-    
-    FIELD_CHOICES = (
-
     )
     
     semester = forms.MultipleChoiceField(
