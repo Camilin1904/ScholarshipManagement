@@ -392,3 +392,9 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I almost completed the dynamic list implementation| I will fix an error in the dynamic list information save and extend this functionality to the announcement creation |No|
+
+## 5/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Sebastián Libreros | I started the implementation of the selenium tests for our forms | I will continue with the implementation | I'm having some problems with the imports of the package | 
