@@ -401,3 +401,4 @@ Spooky
 | Juan Camilo Salazar| I finished all functionalities of US6 | I will setup the base page for US18 | No |
 | Andrés Camilo Romero Ruiz | I started the resume page with chart js | I will finish the resume page, make the CSV generation work for applicants and announcements | The scholarship remake is still on going so the story will be on hold |
 | Camilo Carmona Valencia | I have the custom types working, but I have yet to have the summary screen working | I will finish the summary screen, and actually create the objects in the database | No |
+| Brayan Steven Ortega | I didn't work yesterday, I was out of my house | I will show the student photo in all the necessary pages and I will improve the CSS of those pages | No |
