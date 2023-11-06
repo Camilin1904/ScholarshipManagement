@@ -399,3 +399,4 @@ Spooky
 |----------|----------|----------|----------|
 | Juan Sebastián Libreros | I started the implementation of the selenium tests for our forms | I will continue with the implementation | I'm having some problems with the imports of the package | 
 | Juan Camilo Salazar| I finished all functionalities of US6 | I will setup the base page for US18 | No |
+| Andrés Camilo Romero Ruiz | I started the resume page with chart js | I will finish the resume page, make the CSV generation work for applicants and announcements | The scholarship remake is still on going so the story will be on hold |
