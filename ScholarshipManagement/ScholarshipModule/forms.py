@@ -303,13 +303,13 @@ class CreateSearchAnnouncementForm(forms.Form):
 class SchTypeCreationForm(forms.Form):
     
     UNIT_CHOICES = (
-        ("0", "Porcentage"),
+        ("0", "Porcentaje"),
         ("1", "Money")
     )
 
-    unit = forms.ChoiceField(choices=UNIT_CHOICES, required=True)
-    value = forms.FloatField(required=True, widget = forms.TextInput())
-    type = forms.CharField(required=True, widget=forms.TextInput())
+    unit = forms.ChoiceField(choices=UNIT_CHOICES, required=True, label = "Unidad")
+    value = forms.FloatField(required=True, widget = forms.TextInput(), label  = "Valor")
+    type = forms.CharField(required=True, widget=forms.TextInput(), label = "Tipo")
 
     
 

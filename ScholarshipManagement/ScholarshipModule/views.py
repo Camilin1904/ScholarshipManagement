@@ -94,7 +94,7 @@ def home(request):
     else:
         return render(request, './HTML/notAcces.html')
 
-
+@login_required(login_url="/login")
 def scholarships(request):
     if request.method == 'GET':
         try:
@@ -102,11 +102,11 @@ def scholarships(request):
         except:
             pass
         try:
-            del request.session['flag']
+            del request.session['donor']
         except:
             pass
         try:
-            del request.session['donor']
+            del request.session['typeData']
         except:
             pass
         return render(request, './HTML/scholarships.html', {

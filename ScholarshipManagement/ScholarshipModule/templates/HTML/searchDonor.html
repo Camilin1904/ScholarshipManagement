@@ -89,6 +89,7 @@
                         <td scope="col">
                             <form class="select" action="." method="POST">
                                 {% csrf_token %}
+                                <input name="screen" value="donor" style="visibility:hidden"></input>
                                 <button class="selectbtn" name="select" value="{{Donor.ID}}">Seleccionar</button>
                             </form>
                         </td>

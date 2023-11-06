@@ -33,30 +33,29 @@ def createScholarshipsSC1(request):
             'form': form
         })
     else:
-        try:
-            if request.session.get('flag2', False):
-                return createScholarshipsSC4(request)
+        #try:
+            screen = request.POST.get('screen')
+            print('jijijija', screen=='types')
             
-            if request.session.get('flag',False):
+            if screen=='types':
+                print("me cago en todo")
+                return createTypes(request)
+
+            elif screen=='donor':
                 return searchDonor(request)
-            
+        #except Exception as e:
+           #print('me cago en todo lo cagable', e)
             form = CreateScholarshipForm(request.POST)
             request.session['form1'] = form.data
             print('aaa ', request.session.get('form1','pito'))
-            
-        except:
-            return render(request, './HTML/createScholarship.html', {
-                'form': CreateScholarshipForm,
-                'error': 'Please provide valid data'
-            })
-        request.method = 'GET'
-        return searchDonor(request)
+
+            request.method = 'GET'
+            return searchDonor(request)
             
 
 def searchDonor(request):
     print(request.method)
     if request.method == 'GET':
-        request.session['flag'] = True
         return render(request, './HTML/searchDonor.html', {
             'donors' : Donors.objects.all(),
             'form': FilterScholarshipForm
@@ -67,34 +66,63 @@ def searchDonor(request):
         request.method = 'GET'
         return createTypes(request)
     
+    
 def createTypes(request):
-    typesFormSet = formset_factory(SchTypeCreationForm)
+    
+    print(request.method)
+    typesFormSet = formset_factory(SchTypeCreationForm, can_delete=True)
     if request.method == 'GET':
-        del request.session['flag']
+        print("aaaaaaaaa")
+        request.session['flag2'] = True
         return render(request, './HTML/createTypes.html', {
             'forms': typesFormSet
             })
     else:
-        formset = typesFormSet(request.POST, request.FILES)
+        request.session['flag2'] = False
+        unitList = request.POST.get('form-0-unit')
+        valueList = request.POST.get('form-0-value')
+        typeList = request.POST.get('form-0-type')
         formDataList = list()
-        for item in formset:
-            formDataList.append(item.changed_data)
+        formDataList.append(unitList)
+        formDataList.append(valueList)
+        formDataList.append(typeList)
+        request.session['typeData'] = formDataList
+        request.method = 'GET'
+        print("ass", formDataList)
         return createScholarshipsSC4(request)
         
         
     
 def createScholarshipsSC4(request):
 
-    
+    print("jljl", request.method)
+    print("porque putas", request.method == 'GET')
 
     if request.method == 'GET':
+        print("python")
         form  = request.session.get('form1',CreateScholarshipForm)
+        print(form)
+        donorID = request.session.get('donor')
+        donor = Donors.objects.get(ID = donorID)
+        types = request.session.get('typeData')
+        print(types)    
+        tnum = len(types[0])
+        a = list()
+        for i in range(tnum): a.append(i)
+        print(a)
+        print('python momento')
         return render(request, './HTML/summaryScreen.html', {
-            'form': form
+            'ID': form['ID'],
+            'name': form['name'],
+            'description':form['description'],
+            'requirements': form['requirements'],
+            'donor':donor,
+            'types':types,
+            'amount':a
         })
     else:
         try:
-            request.session['flag2'] = True
+            
             return searchDonor(request)
         except:
             return render(request, './HTML/createScholarship.html', {

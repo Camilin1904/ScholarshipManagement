@@ -1,4 +1,4 @@
-    {% extends 'HTML/searchDonor.html' %}
+{% extends 'HTML/searchDonor.html' %}
 {% load static %}
 
 {% block links %}
@@ -8,46 +8,89 @@
 {% block script %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <script>
+        class countC{
+            static count = 0;
+            constructor(){
+              this.instanceId = ++countC.count;
+            }
+          }
+    </script>
+    <script>
+        
         function cloneMore(selector, type) {
             var newElement = $(selector).clone(true);
-            var total = document.querySelectorAll('.table').length;
+            var a = new countC();
+            var total = a.instanceId;
+            var newId = 't_'+(total+1);
             newElement.find(':input').each(function() {
                 var name = $(this).attr('name');
-                var id = 'id_' + name;
-                $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+                var id = ('id_' + name).replace(total-1, total);
+                if($(this).attr('type') === 'button'){
+                    $(this).attr({'name': name, 'id': id, 'data-div':newId, style:'visibility:visible'});
+                }
+                else{
+                    $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+                }
+                
             });
-            newElement.find('label').each(function() {
-                var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
-                $(this).attr('for', newFor);
-            });
-            total++;
-            $('#id_' + type + '-TOTAL_FORMS').val(total);
+            var oldId = 't_'+(total);
+
+            newElement.find('table').attr({'id': newId});
             $(selector).after(newElement);
+        }
+        function deleteMyself(id){
+            $(id).remove();
         }
     </script>
 {% endblock %}
 
 {% block title %}
-    <h1 id="title">Buscar donantes</h1>
+    <h1 id="title">Añadir coverturas</h1>
 {% endblock %}
 
 {% block content %}
+
+    
     <form id="forms" action="." method="POST">
+        {% csrf_token %}
         {% for form in forms.forms %}
-            <div class='table'>
+            <div class='table'id = "t_{{ forloop.counter }}">
                 <table class='no_error'>
-                    {{ form.as_table }}
+                    {% for field in form %}
+                        {% if forloop.counter == 4 %}
+                            <tr style="visibility: hidden">
+                                <th scope = "col">{{ field.label }}</th>
+                                <th scope = "col">{{ field }}</th>
+                            </tr>                            
+                        {% else %}
+                            <tr>
+                                <th scope = "col">{{ field.label }}</th>
+                                <th scope = "col">{{ field }}</th>
+                            </tr>                            
+                        {% endif %}
+                    {% endfor %}
                 </table>
+                <input type="button" id = "id_n_0" name = "n_0" value="Eliminar" class = "deleter" data-div="t_{{forloop.counter}}" style="visibility: hidden"></input>
+                <script>
+                    $('.deleter').click(function(){
+                        console.log("pito");
+                        var div = $(this).attr('data-div');
+                        if(!(div === 't_1')){
+                            $('#'+div).remove();
+                            $(this).remove();
+                        }
+                    });
+                </script>
             </div>
-            <br>
-            <br>
+            
         {% endfor %}
         <input type="button" value="Add More" id="add_more">
         <script>
             $('#add_more').click(function() {
-                cloneMore('div.table:last', 'service');
+                cloneMore('div.table:first', 'service');
             });
         </script>
         <button>Siguiente</button>
+        <input name="screen" value="types" style="visibility:hidden"></input>
     </form>
 {% endblock %}
