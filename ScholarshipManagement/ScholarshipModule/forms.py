@@ -304,7 +304,7 @@ class SchTypeCreationForm(forms.Form):
     
     UNIT_CHOICES = (
         ("0", "Porcentaje"),
-        ("1", "Money")
+        ("1", "Dinero")
     )
 
     unit = forms.ChoiceField(choices=UNIT_CHOICES, required=True, label = "Unidad")

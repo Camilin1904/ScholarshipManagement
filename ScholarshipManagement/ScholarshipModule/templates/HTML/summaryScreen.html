@@ -2,11 +2,14 @@
 {% load static %}
 {% load index %}
 
+
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/summaryScreen.css' %}">
+    <title>Resumen de beca</title>
 {% endblock %}
 
 {% block content %}
+<h1>Resumen de beca</h1>
     <div id="summary">
         <div id = "baseData">
             <table>
@@ -47,15 +50,23 @@
             </table>
         </div>
         <div id = "types">
+            <p>Advertencia: Tenga en cuenta que si requiere hacer cambios, solo el primer tipo es guardado</p>
             <table>
                 {% for n in amount %}
                     <tr>
                         <th scope = "row">Tipo {{n}}</th>
                     </tr>
-                    <tr>
-                        <th scope="col">Unidad</th>
-                        <th scope="col">{{types|index:0|index:n}}</th>
-                    </tr>
+                    {% if types|index:0|index:n == '0'%}
+                        <tr>
+                            <th scope="col">Unidad</th>
+                            <th scope="col">Porcentaje</th>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th scope="col">Unidad</th>
+                            <th scope="col">Dinero</th>
+                        </tr>      
+                    {% endif %}          
                     <tr>
                         <th scope="col">Nombre</th>
                         <th scope="col">{{types|index:1|index:n}}</th>
@@ -71,7 +82,7 @@
     <form method = "POST">
         {% csrf_token %}
         <button>Save</button>
-        <input name="screen" value="summary" style="visibility:hidden"></input>
+        <input name="screen" value="summary" style="visibility:hidden"></input> 
     </form>
 
 

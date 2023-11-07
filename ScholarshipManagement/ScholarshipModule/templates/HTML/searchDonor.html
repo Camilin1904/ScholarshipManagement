@@ -3,6 +3,7 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/searchDonor.css' %}">
+    <title>Seleccion de donante</title>
 {% endblock %}
 {% block script %}
     <script>
@@ -69,6 +70,7 @@
 {% endblock %}
 {% block content %}
 <ul>
+    <h1>Seleccion de donante</h1>
     <br><br>
     <input type="text" id="id" onkeyup="idSearch()" placeholder="Search by id">
     <input type="text" id="name" onkeyup="nameSearch()" placeholder="Search by name">

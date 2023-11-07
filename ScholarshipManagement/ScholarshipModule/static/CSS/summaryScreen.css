@@ -3,3 +3,7 @@
 #summary{
     overflow-y: scroll;
 }
+p{
+    color: red;
+    overflow-wrap: break-word;
+}

@@ -3,7 +3,7 @@
 
 {% block links %}
     <title>
-        Crear programa de becas
+        Informacion basica de la Beca
     </title>
 {% endblock links %}
 
@@ -13,11 +13,11 @@
         <meta charset="UTF-8">
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
         <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
-        <title>Crear programa de beca</title>
+        <title>Informacion basica de la Beca</title>
     </head>
     <div class = "content">
         {{error}}
-        <h1>Crear programa de becas</h1>
+        <h1>Informacion basica de la Beca</h1>
         <form id= "create" action="/scholarships/create/" method = "POST" style="">
             {% csrf_token %}
             {% for field in form %} 
