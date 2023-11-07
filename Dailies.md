@@ -402,3 +402,9 @@ Spooky
 | Andrés Camilo Romero Ruiz | I started the resume page with chart js | I will finish the resume page, make the CSV generation work for applicants and announcements | The scholarship remake is still on going so the story will be on hold |
 | Camilo Carmona Valencia | I have the custom types working, but I have yet to have the summary screen working | I will finish the summary screen, and actually create the objects in the database | No |
 | Brayan Steven Ortega | I didn't work yesterday, I was out of my house | I will show the student photo in all the necessary pages and I will improve the CSS of those pages | No |
+
+## 6/11/2023
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Sebastián Libreros | I finished the implementation of sign up tests | I will fix a bug on the test that is not allowing the test to run because of the driver | The driver problem I mentioned | 
+
