@@ -407,4 +407,5 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Sebastián Libreros | I finished the implementation of sign up tests | I will fix a bug on the test that is not allowing the test to run because of the driver | The driver problem I mentioned | 
+| Juan Camilo Salazar | I started US18 and created the base files | I will display a calendar on the page and show the announcement's events in it | No | 
 
