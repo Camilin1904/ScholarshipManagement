@@ -410,4 +410,5 @@ Spooky
 | Juan Camilo Salazar | I started US18 and created the base files | I will display a calendar on the page and show the announcement's events in it | No | 
 | Andrés Camilo Romero Ruiz | I finished the report generation for announcements and applicants | I will fix an error that I found with announcements | No |
 | Camilo Carmona Valencia | I have finished the basic functionality of US1a, design changes remain | I will make the screens pretty :) | No |
+| Brayan Steven Ortega | I implemented correctly the showing of the applicant photo in all the necessary pages | I will make some corrections in the database to delete a applicant and I will continue improving the css in the applicant pages | No |
 
