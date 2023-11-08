@@ -404,6 +404,7 @@ Spooky
 | Brayan Steven Ortega | I didn't work yesterday, I was out of my house | I will show the student photo in all the necessary pages and I will improve the CSS of those pages | No |
 
 ## 6/11/2023
+
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Sebastián Libreros | I finished the implementation of sign up tests | I will fix a bug on the test that is not allowing the test to run because of the driver | The driver problem I mentioned | 
@@ -412,3 +413,8 @@ Spooky
 | Camilo Carmona Valencia | I have finished the basic functionality of US1a, design changes remain | I will make the screens pretty :) | No |
 | Brayan Steven Ortega | I implemented correctly the showing of the applicant photo in all the necessary pages | I will make some corrections in the database to delete a applicant and I will continue improving the css in the applicant pages | No |
 
+## 7/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I was unable to work due to another assignment | I will make visual improvements to US1a | No |
