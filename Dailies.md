@@ -418,3 +418,4 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Camilo Carmona Valencia | I was unable to work due to another assignment | I will make visual improvements to US1a | No |
+| Andrés Camilo Romero Ruiz | I fixed the error that I founded | I will pull Carmona's branch | No |
