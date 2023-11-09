@@ -1,5 +1,75 @@
 @import url('home.css');
 
 #forms{
+    height: 85%;
+}
+.container{
+    flex-flow: column;
+}
+
+.meter > span {
+    animation-name: rotate;
+    animation-duration: 0.11s;
+  }
+  
+  @keyframes rotate {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 75%;
+    }
+  }
+.meter > span {
+    height: 100%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #2D6A9F;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.meter {
+    box-sizing: content-box;
+    height: 20px; /* Can be anything */
+    position: relative;
+    margin: 2%;
+    background: white;
+    border-radius: 25px;
+    padding: 10px;
+    width: 78.5%;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+table{
+    width:100%;
+}
+#table{
+    width: 100%;
+}
+.no_error{
+    width: 100%;
+}
+
+form{
+    width: 100%;
+    margin-left: 50%;
+}
+
+#holder{
+    width: 50%;
+    position: relative ;
+    overflow-y: auto;
+    height: 85%;
     overflow-y: scroll;
+}
+
+
+#corner{
+    margin-left:50%;
 }

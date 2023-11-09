@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{% static 'CSS/searchDonor.css' %}">
     <title>Seleccion de donante</title>
 {% endblock %}
+
+
 {% block script %}
     <script>
         function idSearch() {
@@ -64,11 +66,14 @@
     </script>
 {% endblock %}
 
-
-{% block title %}
-<h1 id="title">Buscar donantes</h1>
+{% block filters %}
+    <div class="meter">
+        <span style="width: 50%;"></span>
+    </div>
 {% endblock %}
+
 {% block content %}
+
 <ul>
     <h1>Seleccion de donante</h1>
     <br><br>

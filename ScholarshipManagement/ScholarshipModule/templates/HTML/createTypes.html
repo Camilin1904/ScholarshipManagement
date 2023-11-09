@@ -19,13 +19,16 @@
     <script>
         
         function cloneMore(selector, type) {
+            console.log("aaaaaaaa");
             var newElement = $(selector).clone(true);
             var a = new countC();
             var total = a.instanceId;
+            console.log(total);
             var newId = 't_'+(total+1);
             newElement.find(':input').each(function() {
                 var name = $(this).attr('name');
-                var id = ('id_' + name).replace(total-1, total);
+                var id = ('id_' + name).replace('0', total);
+                console.log('me cago en todo');
                 if($(this).attr('type') === 'button'){
                     $(this).attr({'name': name, 'id': id, 'data-div':newId, style:'visibility:visible'});
                 }
@@ -36,8 +39,18 @@
             });
             var oldId = 't_'+(total);
 
-            newElement.find('table').attr({'id': newId});
-            $('div.table:last').after(newElement);
+            newElement.attr({'id': newId});
+            try{
+                newElement.find("#td_" + '1').attr({'id':"td_" + (total+1)});
+                newElement.find("#td_"+(total+1)).text(total+1);
+                console.log(newElement.find("#td_"+(total+1)));
+            }
+            catch (e){
+                console.log(e); 
+            }
+            
+            $('tr.table:last').after(newElement);
+            
         }
         function deleteMyself(id){
             $(id).remove();
@@ -45,53 +58,69 @@
     </script>
 {% endblock %}
 
-{% block title %}
-    <h1 id="title">Configuracion de coverturas</h1>
+
+{% block filters %}
+    <div class="meter">
+        <span style="width: 75%;"></span>
+    </div>
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
+    <h1 id="title">Configuracion de coverturas</h1>
     
     <form id="forms" action="." method="POST">
         {% csrf_token %}
-        {% for form in forms.forms %}
-            <div class='table'id = "t_{{ forloop.counter }}">
-                <table class='no_error'>
-                    {% for field in form %}
-                        {% if forloop.counter == 4 %}
-                            <tr style="visibility: hidden">
-                                <th scope = "col">{{ field.label }}</th>
-                                <th scope = "col">{{ field }}</th>
-                            </tr>                            
-                        {% else %}
-                            <tr>
-                                <th scope = "col">{{ field.label }}</th>
-                                <th scope = "col">{{ field }}</th>
-                            </tr>                            
-                        {% endif %}
+        <div id="holder">
+            <table class='no_error'>
+                <thead>
+                    <tr>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Unidad</th>
+                        <th scope="col">Valor</th>
+                        <th scope="col">Tipo</th>
+                        <th scope="col"></th>
+                    </tr>
+                <tbody>
+                    {% for form in forms.forms %}
+                        <div>
+                            <tr class='table'id = "t_{{ forloop.counter }}">
+                                    <td scope="col" id = "td_{{forloop.counter}}">{{forloop.counter}}</td>
+                                {% for field in form %}
+                                    {% if forloop.counter != 4 %}                        
+                                            <td scope = "col">{{ field }}</td>                          
+                                    {% endif %}
+                                {% endfor %}
+                            <td>
+                                <input type="button" id = "id_n_0" name = "n_0" value="Eliminar" class = "deleter" data-div="t_{{forloop.counter}}" style="visibility: hidden"></input>
+                            </td>
+                            <script>
+                                $('.deleter').click(function(){
+                                    console.log("pito");
+                                    var div = $(this).attr('data-div');
+                                    if(!(div === 't_1')){
+                                        $('#'+div).remove();
+                                        $(this).remove();
+                                    }
+                                });
+                            </script>
+                        </tr>
+                    </div>
                     {% endfor %}
-                </table>
-                <input type="button" id = "id_n_0" name = "n_0" value="Eliminar" class = "deleter" data-div="t_{{forloop.counter}}" style="visibility: hidden"></input>
-                <script>
-                    $('.deleter').click(function(){
-                        console.log("pito");
-                        var div = $(this).attr('data-div');
-                        if(!(div === 't_1')){
-                            $('#'+div).remove();
-                            $(this).remove();
-                        }
-                    });
-                </script>
-            </div>
-            
-        {% endfor %}
+                </tbody>
+            </table>
+        </div>
         <input type="button" value="Add More" id="add_more">
         <script>
             $('#add_more').click(function() {
-                cloneMore('div.table:first', 'service');
+                console.log(cloneMore); 
+                cloneMore('tr.table:first', 'service');
+                console.log("pito");
             });
         </script>
-        <button>Siguiente</button>
+        <div id="corner">
+            <button>Siguiente</button>
+        </div>
         <input name="screen" value="types" style="visibility:hidden"></input>
     </form>
 {% endblock %}
