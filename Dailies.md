@@ -428,5 +428,6 @@ Spooky
 | Camilo Carmona Valencia | I have made advancements in the redesign of my screens | I will continuo redesigning | No |
 | Juan Camilo Salazar | I displayed the events dates in the calendar | I will finish the calendar and work on US6 CSS design | No |
 | Andrés Camilo Romero Ruiz | I pull Carmona's branch to start fixing conflicts | I will review Sebastian's pull request | No |
+| Brayan Steven Ortega | I made the corrections to "delete" an applicant and the relation with an announcement | I will continue improving the css in the applicant pages to be able to merge with the new style implemented by Andres | No |
 
 
