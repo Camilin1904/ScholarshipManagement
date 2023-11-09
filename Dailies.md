@@ -419,3 +419,9 @@ Spooky
 |----------|----------|----------|----------|
 | Camilo Carmona Valencia | I was unable to work due to another assignment | I will make visual improvements to US1a | No |
 | Andrés Camilo Romero Ruiz | I fixed the error that I founded | I will pull Carmona's branch | No |
+
+## 8/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Sebastián Libreros | I fixed the bug on the test that wasn't allowing the test to run because of the driver | I will finised the log in an sign up tests and satrt the test of assign role |No|
