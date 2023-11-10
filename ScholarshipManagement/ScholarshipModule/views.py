@@ -94,9 +94,21 @@ def home(request):
     else:
         return render(request, './HTML/notAcces.html')
 
-
+@login_required(login_url="/login")
 def scholarships(request):
     if request.method == 'GET':
+        try:
+            del request.session['form1']
+        except:
+            pass
+        try:
+            del request.session['donor']
+        except:
+            pass
+        try:
+            del request.session['typeData']
+        except:
+            pass
         return render(request, './HTML/scholarships.html', {
             'scholarships' : Scholarships.objects.all(),
             'form': FilterScholarshipForm
