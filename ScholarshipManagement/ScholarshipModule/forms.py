@@ -55,6 +55,7 @@ class CreateAnnouncementForm(ModelForm):
 
         super(CreateAnnouncementForm, self).__init__(*args, **kwargs)
         self.fields['type'].label = "Tipo de convocatoria"
+        self.label_suffix = ""
 
 
     class Meta:
@@ -66,8 +67,12 @@ class CreateAnnouncementForm(ModelForm):
 
 class CreateScholarshipAnnouncementForm(ModelForm):
 
+    def __init__(self, *args, **kwargs):
 
-    scholarshipId = forms.ModelChoiceField( label = "Beca", required = True,
+        super(CreateScholarshipAnnouncementForm, self).__init__(*args, **kwargs)
+        self.label_suffix = ""
+
+    scholarshipId = forms.ModelChoiceField( label = "Beca asociada", required = True,
 
         queryset=Scholarships.objects.order_by('name').values_list(
             'name', flat=True).annotate(label=Concat('name', Value('  ('), 'ID', Value(')'), output_field=CharField())).values_list(
@@ -93,6 +98,7 @@ class CreateAnnouncementEventForm(ModelForm):
         super(CreateAnnouncementEventForm, self).__init__(*args, **kwargs)
         self.fields['startingDate'].label = "Fecha de inicio"
         self.fields['endDate'].label = "Fecha de finalización"
+        self.label_suffix = ""
 
     startingDate = forms.DateField(widget = NumberInput(
         attrs = {'type': 'date', "class": "dateInput"}), required=False)
@@ -311,6 +317,7 @@ class CreateSearchAnnouncementForm(forms.Form):
         self.fields['startingInscriptionDate'].label = "Fecha inicial"
         self.fields['endInscriptionDate'].label = "Fecha final"
         self.fields['archivedSelection'].label = "Archivadas"
+        self.label_suffix = ""
 
     TYPE_CHOICES = ( 
     ("3", ""),
@@ -335,12 +342,15 @@ class CreateSearchAnnouncementForm(forms.Form):
             attrs = { "class": "searchform"}), required=False) 
     announcementId = forms.CharField( max_length=100, widget = forms.TextInput(
             attrs = { "class": "searchform"}), required=False)
-    announcementType = forms.ChoiceField(choices = TYPE_CHOICES,required=False)
-    announcementStatus = forms.ChoiceField(choices = STATUS_CHOICES,required=False)
+    announcementType = forms.ChoiceField(choices = TYPE_CHOICES,required=False,
+                                         widget=forms.Select(attrs={'class':'searchform'}))
+    announcementStatus = forms.ChoiceField(choices = STATUS_CHOICES,required=False,
+                                         widget=forms.Select(attrs={'class':'searchform'}))
     startingInscriptionDate = forms.DateField(widget = NumberInput(
         attrs={'type': 'date', "class": "searchformDateStart"}), required = False)
     endInscriptionDate = forms.DateField(widget = NumberInput(
         attrs={'type': 'date', "class": "searchformDateEnd"}), required = False)
-    archivedSelection = forms.ChoiceField(choices = ARCHIVED_CHOICES,required = False)
+    archivedSelection = forms.ChoiceField(choices = ARCHIVED_CHOICES,required = False,
+                                         widget=forms.Select(attrs={'class':'searchform'}))
 
 

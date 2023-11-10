@@ -942,6 +942,15 @@ def searchStudent(request):
 
 def getAnnouncementViewContext(announcementId):
 
+    class translatedEvent:
+
+        def __init__(
+                self, type, startingDate, endDate):
+            self.type = type
+            self.startingDate = startingDate
+            self.endDate = endDate
+
+
     announcementDict = getAnnouncementInfo(announcementId)
 
     archivedStatus = "No"
@@ -951,11 +960,30 @@ def getAnnouncementViewContext(announcementId):
         archivedStatus = "Si"
         archivedStatusBttn = "Desarchivar"
 
+    events = announcementDict["events"]
+    translatedEvents = []
+
+    event_dict = {'Inscription' : 'Inscripción', 
+           'Interview' : 'Entrevista', 
+           'Selection' : 'Selección', 
+           'Publication' : 'Publicación'}
+    
+    for event in events:
+
+        try:
+            type = event_dict[event.type]
+        except KeyError:
+            type = event.type
+
+        translatedEvents.append(translatedEvent(type,
+                                                event.startingDate,
+                                                event.endDate))
+
     context = {
             'announcementId': announcementDict["id"],
             'type': announcementDict["type"],
             'scholarship': announcementDict["scholarship"],
-            'events': announcementDict["events"],
+            'events': translatedEvents,
             'status': announcementDict["status"],
             'archive': archivedStatus,
             'archiveBttn': archivedStatusBttn
@@ -1079,97 +1107,91 @@ def editAnnouncement (request):
     
     else:
 
-        #raise Exception("La fecha final debe ser posterior a la fecha incial")
+        try:
+
+            if 'saveBttn' in request.POST:
+
+                eventType = [
+                    'Inscription','Interview','Selection','Publication']
+                today = str(date.today())
+                #additionalEvents = int(request.POST['title']) + 1
+
+                scholarshipIdInt = request.POST['announcementForm-scholarshipId']
+                scholarshipIdInt = getSubString(scholarshipIdInt)[-1]
+
+                if (not Scholarships.objects.filter(ID = scholarshipIdInt).exists()):
+
+                    raise Exception("La beca seleccionada no está registrada")
 
 
-        #try:
+                for x in range (3):
 
-        if 'saveBttn' in request.POST:
+                    if(x <= 3):
 
-            eventType = [
-                'Inscription','Interview','Selection','Publication']
-            today = str(date.today())
-            #additionalEvents = int(request.POST['title']) + 1
+                        initString = 'announcementEventForm' +  eventType[x] + '-startingDate'
+                        endString = 'announcementEventForm' + eventType[x] + '-endDate'
 
-            scholarshipIdInt = request.POST['announcementForm-scholarshipId']
-            scholarshipIdInt = getSubString(scholarshipIdInt)[-1]
+                    else:
 
-            if (not Scholarships.objects.filter(ID = scholarshipIdInt).exists()):
+                        initString = 'announcementAdditionalEventForm' +  str(x - 4) + '-startingDate'
+                        endString = 'announcementAdditionalEventForm' + str(x - 4) + '-endDate'
+                        additionalType = 'announcementAdditionalEventForm'+ str(x - 4) + '-type'
+                        additionalTypeStr = request.POST[additionalType]
 
-                raise Exception("La beca seleccionada no está registrada")
+                        if(not bool(additionalTypeStr)):
+
+                            raise Exception("Se deben llenar los campos de tipo de convocatoria")
+
+                    initialDate = request.POST[initString]
+                    endDate = request.POST[endString]
+                    
+                    if ( not bool(initialDate) or not bool(endDate)):
+
+                        raise Exception("Se deben llenar todos los campos de fecha")
 
 
-            for x in range (3):
-
-                if(x <= 3):
-
-                    initString = 'announcementEventForm' +  eventType[x] + '-startingDate'
-                    endString = 'announcementEventForm' + eventType[x] + '-endDate'
-
-                else:
-
-                    initString = 'announcementAdditionalEventForm' +  str(x - 4) + '-startingDate'
-                    endString = 'announcementAdditionalEventForm' + str(x - 4) + '-endDate'
-                    additionalType = 'announcementAdditionalEventForm'+ str(x - 4) + '-type'
-                    additionalTypeStr = request.POST[additionalType]
-
-                    if(not bool(additionalTypeStr)):
-
-                        raise Exception("Se deben llenar los campos de tipo de convocatoria")
-
-                initialDate = request.POST[initString]
-                endDate = request.POST[endString]
+                    if (initialDate >= endDate):
+                        raise Exception("La fecha final debe ser posterior a la fecha incial")
                 
-                if ( not bool(initialDate) or not bool(endDate)):
+                announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
+                scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
 
-                    raise Exception("Se deben llenar todos los campos de fecha")
+                Announcements.objects.filter(id = announcementId).update(type = request.POST['announcementForm-type'])
+
+                ScholarshipAnnouncements.objects.filter(id = announcementId).update(scholarshipId = scholarshipIdInt)
 
 
-                if (initialDate >= endDate):
-                    raise Exception("La fecha final debe ser posterior a la fecha incial")
+                events = [
+                    "announcementEventFormInscription","announcementEventFormInterview",
+                    "announcementEventFormSelection","announcementEventFormPublication"]
+                
+                eventsType = [
+                    "Inscription","Interview",
+                    "Selection","Publication"]
+                eventNum = 0
+
+                for event in events:
+
+                    AnnouncementEvent.objects.filter(announcementId = announcementId).filter(
+                        type = eventsType[eventNum]).update(startingDate = request.POST[event+"-startingDate"],
+                                                            endDate = request.POST[event+"-endDate"] )
+                
+
+                    eventNum += 1
+
+                return redirect('/announcement/view/')
             
-            announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
-            scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
-
-            Announcements.objects.filter(id = announcementId).update(type = request.POST['announcementForm-type'])
-
-            ScholarshipAnnouncements.objects.filter(id = announcementId).update(scholarshipId = scholarshipIdInt)
-
-
-            events = [
-                "announcementEventFormInscription","announcementEventFormInterview",
-                "announcementEventFormSelection","announcementEventFormPublication"]
-            
-            eventsType = [
-                "Inscription","Interview",
-                "Selection","Publication"]
-            eventNum = 0
-
-            for event in events:
-
-                AnnouncementEvent.objects.filter(announcementId = announcementId).filter(
-                    type = eventsType[eventNum]).update(startingDate = request.POST[event+"-startingDate"],
-                                                        endDate = request.POST[event+"-endDate"] )
-            
-
-                eventNum += 1
-
-            return redirect('/announcement/view/')
-        
-        else:
-            return redirect('/announcement/edit/events')
+            else:
+                return redirect('/announcement/edit/events')
 
            
-
-        
-        """
         except Exception as ex:
 
             error = {str(ex)}
 
             context = {
                 'announcementForm': CreateAnnouncementForm (request.POST, prefix="announcementForm"),
-                'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (request.POST, prefix="scholarshipAnnouncementForm"),
+                'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (request.POST, prefix="announcementForm"),
                 'announcementEventFormInscription': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInscription"),
                 'announcementEventFormSelection': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormSelection"),
                 'announcementEventFormInterview': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInterview"),
@@ -1178,8 +1200,8 @@ def editAnnouncement (request):
             }
 
             return render(
-                request, 'createAnnouncement.html', context) 
-        """
+                request,  './HTML/editAnnouncement.html', context) 
+        
 
 def editEvent(request):
 
@@ -1222,9 +1244,6 @@ def createEvent(request):
     eventsType = [
             "Inscription","Interview",
             "Selection","Publication"]
-
-   
-
 
     if request.method == 'POST':
 

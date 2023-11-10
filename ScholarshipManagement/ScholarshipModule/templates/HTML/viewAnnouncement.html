@@ -24,83 +24,89 @@
     </header>
 
     <div class="container">
-        <div class="content">
-            <h2>
+        <div class="cardTitle">
+            <h1>
                 <b>Información de la convocatoria</b>
-            </h2>
-            <div class="infoAnnouncement">
-                    <ul>
-                        <li id="announcement_info">
+            </h1>
+        </div>
 
-                            
-                            <p>
-                                <b>Id:</b>
-                                <br> 
-                                {{announcementId}}
-                            </p>
+        <div class="content">
 
-                            <p>
-                                <b>Tipo:</b> 
-                                <br>
-                                {{type}}
-                            </p>
-                            
-                            <p>
-                                <b>Beca:</b> 
-                                <br>
-                                {{scholarship.name}}
-                            </p>
+                    <p>
+                        <b>Identificador</b>
+                        <br> 
+                        {{announcementId}}
+                    </p>
 
-                            <p>
-                                <b>Status:</b>
-                                <br>
-                                {{status}}
-                            </p>
-
-                            <p>
-                                <b>Archivado:</b>
-                                <br>
-                                {{archive}}
-                            </p>
-
-
-                            {%for event in events%}
-
-                                <p>
-                                    <b>{{event.type}}:</b>
-                                    <br>
-                                    {{event.startingDate}}
-                                    <br>
-                                    {{event.endDate}}
-                                </p>
-
-                            {%endfor%}
-                        </li>
-                        
-                    </ul>
-                
-                
-                <form method="POST">
+                    <p>
+                        <b>Tipo de convocatoria</b> 
+                        <br>
+                        {{type}}
+                    </p>
                     
-                    <div class="buttons">
-                        
-                        <button class="button" id="editBttn" value="" name="editBttn">
-                            {% csrf_token %}
-                            Editar
-                        </button>
-                        <button class="button" id="deleteBttn" value="" name="deleteBttn">
-                            {% csrf_token %}
-                            {{archiveBttn}}
-                        </button>
-                        <button class="button" id="reportBttn" value="" name="reportBttn">
-                            {% csrf_token %}
-                            Generar reporte
-                        </button>
-                    </div>
-                </form>
-                
-            </div>
-            
+                    <p>
+                        <b>Beca asociada</b> 
+                        <br>
+                        {{scholarship.name}}
+                    </p>
+
+                    <p>
+                        <b>Estado</b>
+                        <br>
+                        {{status}}
+                    </p>
+
+                    <p>
+                        <b>Archivada</b>
+                        <br>
+                        {{archive}}
+                    </p>
+        </div>
+
+        <div class="eventsTitleCard">
+            <h1>
+                <b>Eventos</b>
+            </h1>
+        </div>
+
+
+        <div class="datesCard">
+            {%for event in events%}
+
+                <p>
+                    <b>{{event.type}}</b>
+                    <br>
+                    &#160 Inicio: &#160 {{event.startingDate}}
+                    
+                    <br>
+                    &#160 Fin: &#160 {{event.endDate}}
+                </p>
+
+            {%endfor%}
+        </div>
+
+        <div class="bttnCard">
+                    
+            <form method="POST">
+              
+                <button class="button" id="editBttn" value="" name="editBttn">
+                    {% csrf_token %}
+                    Editar
+                </button>
+            </form>
+            <form method="POST">
+                <button class="button" id="deleteBttn" value="" name="deleteBttn">
+                    {% csrf_token %}
+                    {{archiveBttn}}
+                </button>
+            </form>
+            <form method="POST">
+                <button class="button" id="reportBttn" value="" name="reportBttn">
+                    {% csrf_token %}
+                    Generar reporte
+                </button>
+            </form>
+           
             
         </div>
         
