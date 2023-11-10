@@ -33,7 +33,6 @@ def typeOfReport(request):
 
         if request.POST["type"] == "1":
             return redirect("/filterOfReport")
-        #DEBO PROGRAMAR ESTA PARTE NOTA PARA ANDRESK
         else:
             filters = []
             try:
@@ -231,12 +230,11 @@ def reportResume(request):
     else:
 
         if len(filters)==0 :
-            studentCode = ""
-            announcementId = ""
+            scholarship = []
+            announcementId = []
 
-            semesters = ""
-            careers = ""
-            faculties = ""
+            types = []
+
         else :
             scholarship = filters[0]
             announcementId = filters[1]
@@ -250,13 +248,13 @@ def reportResume(request):
 
         objects = ScholarshipAnnouncements.objects.select_related('scholarshipId')
 
-        if scholarship != "":
+        if len(scholarship) > 0:
             objects = objects.filter(scholarshipId__name__contains = scholarship)
 
-        if announcementId != "":
+        if len(announcementId) > 0:
             objects = objects.filter(announcementId__id__contains = announcementId)
 
-        if len(types) != 0:
+        if len(types) > 0:
             for i in range(len(types)):
                 if types[i] == "Abierta":
                     types[i] = 0

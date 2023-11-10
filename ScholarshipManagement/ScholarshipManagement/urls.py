@@ -41,7 +41,7 @@ urlpatterns = [
     path('objectOfReport/', reportsViews.objectOfReport, name = 'reportGenerator'),
     path('typeOfReport/', reportsViews.typeOfReport, name = 'reportGenerator'),
     path('filterOfReport/', reportsViews.filterOfReport, name = 'reportGenerator'),
-    path('reportResume/', reportsViews.reportResume, name = 'reportPreview')
+    path('reportResume/', reportsViews.reportResume, name = 'reportPreview'),
     path('example/', views.reportGenerator, name = 'reportGenerator'),
     path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
 ]   
