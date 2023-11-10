@@ -430,4 +430,10 @@ Spooky
 | Andrés Camilo Romero Ruiz | I pull Carmona's branch to start fixing conflicts | I will review Sebastian's pull request | No |
 | Brayan Steven Ortega | I made the corrections to "delete" an applicant and the relation with an announcement | I will continue improving the css in the applicant pages to be able to merge with the new style implemented by Andres | No |
 
+## 9/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I almost completely finished the calendar and made some improvements in the announcement search page styling  | I will continue working on US6 CSS design |No|
+
 
