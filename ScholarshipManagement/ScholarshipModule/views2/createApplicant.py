@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from ..forms import *
 from ..models import *
 from django.http import HttpResponse
+from datetime import date
 
 
 def createApplicants(request):
@@ -46,7 +47,11 @@ def createApplicants(request):
                     form.save()
                     request.session['data_step_1'] = request.POST
                     
-                    scholarshipAnnouns=ScholarshipAnnouncements.objects.all()
+                    
+                    announcements = AnnouncementEvent.objects.filter(type = "Inscription").filter(startingDate__lte = date.today()).filter(endDate__gte = date.today())
+                    announcements = announcements.values_list('announcementId', flat=True)
+                    scholarshipAnnouns=ScholarshipAnnouncements.objects.filter(announcementId__in = announcements)
+
                     return render(
                         request, 'createAppliStep3.html', 
                         {'error': error, 'scholarshipAnnoun': scholarshipAnnouns})

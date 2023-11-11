@@ -116,9 +116,32 @@
                             {% csrf_token %}
                             Editar
                         </button>
+                        
                     </div>
                 </form>
+
+                
+                <form method="POST" id="post_method2">
+                    
+                    <button class="button" id="delete" value="{{Applicant.studentCode}}" name="delete">
+                        {% csrf_token %}
+                        Eliminar
+                    </button>
+
+                </form>
+
                 {%endfor%}
+
+                
+            {% if error == ""%}
+                    
+            {% else %}
+                <div class="alert" style="font-size: 85%; ">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>Advertencia</strong> {{error}}
+                </div>
+            {% endif%} 
+
             </div>
             
             

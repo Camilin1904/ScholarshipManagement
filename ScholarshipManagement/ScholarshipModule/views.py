@@ -198,11 +198,15 @@ def editApplicant(request):
         if image == "":
             image = "none"
         
+
         try:
             announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
+            announNoDeleted = AnnouncementAndApplicant.objects.get(applicant=idSt)
+            if announNoDeleted.deleted == True:
+                announcement = None
         except:
             announcement = None    
-        
+  
 
         form = CreateApplicantForm(initial={'name': name,
                                             'lastName': lastName,
@@ -215,13 +219,22 @@ def editApplicant(request):
                                             'status':status,
                                             'announcement':announcement})
         
-        return render(request,'./HTML/editApplicant.html',{'form':form, 'image': image})
+        return render(request,'./HTML/editApplicant.html',{'form':form, 'image': image, 'Applicant': applicant})
+    
     else:
         applicant = Applicant.objects.get(studentCode = studentCodeSt)
-        try:
-            announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement
-        except:
-            announcement = None   
+
+        if 'delete' in request.POST:
+            
+            try:
+                announcement = AnnouncementAndApplicant.objects.get(applicant=idSt)
+                announcement.deleted = True
+                announcement.save()
+            except:
+                announcement = None  
+
+            return redirect('/view/Student')
+
         Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
                                                                    lastName=request.POST['lastName'],
                                                                    faculty=request.POST['faculty'],
@@ -231,27 +244,45 @@ def editApplicant(request):
                                                                    phone=request.POST['phone'],
                                                                    status=request.POST['status'])
         
+        
+        try:
+            announcementGet = Announcements.objects.get(id = request.POST['announcement'])
+        except:
+            return redirect('/view/Student')
+        
         student = Applicant.objects.get(studentCode = studentCodeSt)
         form = CreateApplicantForm(request.POST, request.FILES, instance=student) 
         form.save()
         
-        if announcement is not None:
-            AnnouncementAndApplicant.objects.filter(applicant=idSt).update(
-                announcement=request.POST['announcement'])
-        else:
-            idAnnouncement = request.POST['announcement']
-            announcementGet = None
+        if request.POST['announcement'] == "":
+
             try:
-                announcementGet = Announcements.objects.get(id=idAnnouncement)
+                announcementChange = AnnouncementAndApplicant.objects.get(applicant=idSt)
+                announcementChange.announcement = None
+                announcementChange.deleted = False
+                announcementChange.save()
+
+
             except:
-                print(0)
-            formNew= AnnouncementAndApplicantForm()
-            relation=formNew.save(commit=False)
-            relation.announcement=announcementGet
-            relation.applicant=applicant
-            relation.save()
-            
-            
+                announcementChange = None
+                
+        else:
+            try:
+                announcementChange = AnnouncementAndApplicant.objects.get(applicant=idSt)
+                announcementChange.announcement = announcementGet
+                announcementChange.deleted = False
+                announcementChange.save()
+
+
+            except:
+                formNew= AnnouncementAndApplicantForm()
+                relation=formNew.save(commit=False)
+                relation.announcement=announcementGet
+                relation.applicant=applicant
+                relation.save()
+
+
+
         try:
             del request.session['name']
         except:
@@ -266,12 +297,15 @@ def viewApplicant(request):
 
     try:
         announcement = AnnouncementAndApplicant.objects.filter(applicant=idSt).first().announcement.id
+        announNoDeleted = AnnouncementAndApplicant.objects.get(applicant=idSt)
+        if announNoDeleted.deleted == True:
+            announcement = None
     except:
         announcement = None
 
     if request.method == 'GET':
         return render(request,'./HTML/viewApplicant.html',{'applicant':applicant,
-                                                           'announcement':announcement})
+                                                           'announcement':announcement, 'error': ''})
     else:
         if 'back' in request.POST:
             return redirect("/searchStudent/")
@@ -281,6 +315,19 @@ def viewApplicant(request):
             request.session['studentCode'] = request.POST['edit']
 
             return redirect('/applicants/edit')
+        elif 'delete' in request.POST:
+            applicantDelete = Applicant.objects.get(studentCode = studentCodeSt)
+            applicantDelete.deleted = True
+            if announcement == None:
+                applicantDelete.save()
+            else:
+                announNoDeleted.deleted = True
+                announNoDeleted.save()
+                applicantDelete.save()
+
+           
+
+            return redirect("/searchStudent/")
 
          
         

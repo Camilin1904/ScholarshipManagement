@@ -120,6 +120,7 @@ class Applicant(models.Model):
     status = models.IntegerField(
         default=StatusApplicant.NA, choices=StatusApplicant.choices)
     image = models.ImageField(upload_to='images/photos', null= True, blank=True, default="")
+    deleted = models.BooleanField(default = False)
 
 
 class AnnouncementAndApplicant(models.Model):
@@ -134,6 +135,7 @@ class AnnouncementAndApplicant(models.Model):
     applicant= models.ForeignKey(
         Applicant, related_name="id_applicant", blank=False, 
         null=True, on_delete= models.CASCADE)
+    deleted = models.BooleanField(default = False)
 
 
     

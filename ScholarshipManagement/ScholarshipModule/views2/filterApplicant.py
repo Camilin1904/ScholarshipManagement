@@ -7,7 +7,7 @@ from django.http import HttpResponse
 def filterApplicants(request):
 
     applicants= None
-    applicants = Applicant.objects.all()
+    applicants = Applicant.objects.filter(deleted = False)
     if request.method == 'GET':
         return render(
             request, './HTML/searchStudent.html', {
@@ -62,7 +62,7 @@ def filterApplicants(request):
 
                 if announcementPost !="" and announcementPost is not None:
                     try:
-                        applicant_ids = AnnouncementAndApplicant.objects.filter(announcement_id = announcementPost)
+                        applicant_ids = AnnouncementAndApplicant.objects.filter(deleted = False).filter(announcement_id = announcementPost)
                         applicant_ids = applicant_ids.values_list('applicant_id', flat=True)
                         applicants = [applicants.get(ID=id_applicant) for id_applicant in applicant_ids]
                     except:
