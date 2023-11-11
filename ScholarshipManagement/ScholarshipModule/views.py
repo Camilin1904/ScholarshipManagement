@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
 from django.http import HttpResponse
+import io
+import csv
 
 def isValid(query): return query is not None and query != ''
 
@@ -22,7 +24,8 @@ def signUp(request):
         error = ''
         for field in form:
             # Errors as text
-            error = field.errors.as_text
+            error = error + (field.errors)
+            
         if form.is_valid():
             # Save user in data base
             user = form.save()
@@ -30,6 +33,8 @@ def signUp(request):
             login(request, user)
             return redirect('/home')
         else:
+            print("Me cago en todo lo cagable")
+            print(error)
             return render(
                 request, './HTML/signup.html', {'form': form, 'error': error})
     else:
@@ -89,9 +94,21 @@ def home(request):
     else:
         return render(request, './HTML/notAcces.html')
 
-
+@login_required(login_url="/login")
 def scholarships(request):
     if request.method == 'GET':
+        try:
+            del request.session['form1']
+        except:
+            pass
+        try:
+            del request.session['donor']
+        except:
+            pass
+        try:
+            del request.session['typeData']
+        except:
+            pass
         return render(request, './HTML/scholarships.html', {
             'scholarships' : Scholarships.objects.all(),
             'form': FilterScholarshipForm

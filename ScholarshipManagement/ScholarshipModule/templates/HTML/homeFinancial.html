@@ -5,9 +5,13 @@
 {% endblock %}
 
 {% block content %}
-<h1 id= "deletable">
-    Bienvenido {{user.name}}
-</h1>
+
+<div class="card" style="flex-direction: row;">
+    <h1 id= "deletable">
+        Bienvenido {{user.name}}
+    </h1>
+</div>
+
 <div class="buttons">
     <button class="button" >
         <a href="/applicants/create/" style="color: inherit;text-decoration: none">

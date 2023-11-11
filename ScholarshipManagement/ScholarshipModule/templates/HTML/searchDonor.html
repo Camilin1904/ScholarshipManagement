@@ -3,26 +3,84 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/searchDonor.css' %}">
+    <title>Seleccion de donante</title>
 {% endblock %}
 
 
-
-{% block title %}
-<h1 id="title">Buscar donantes</h1>
+{% block script %}
+    <script>
+        function idSearch() {
+            // Declare variables
+            var input, filter, table, tr, th, i, txtValue;
+            // search field
+            input = document.getElementById('id');
+            // get the text on the search field
+            filter = input.value.toUpperCase();
+            // get table
+            table = document.getElementById("donorTable");
+            // get all rows inside the table
+            tr = table.getElementsByTagName('tr');
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 1; i < tr.length; i++) {
+              // get the firts th from the ith tr
+              td = tr[i].getElementsByTagName("td")[1];
+              // extract the text inside th
+              txtValue = td.textContent || td.innerText;
+              // does the th element contains the filter?
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  // if the index bigger that -1 the th element contains the filter
+                  tr[i].style.display = "";
+              } else {
+                  // if the index is -1 the th element does not contains the filter
+                  tr[i].style.display = "none";
+              }
+            }
+          }
+          function nameSearch() {
+            // Declare variables
+            var input, filter, table, tr, th, i, txtValue;
+            // search field
+            input = document.getElementById('name');
+            // get the text on the search field
+            filter = input.value.toUpperCase();
+            // get table
+            table = document.getElementById("donorTable");
+            // get all rows inside the table
+            tr = table.getElementsByTagName('tr');
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 1; i < tr.length; i++) {
+              // get the firts th from the ith tr
+              td = tr[i].getElementsByTagName("td")[0];
+              // extract the text inside th
+              txtValue = td.textContent || td.innerText;
+              // does the th element contains the filter?
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  // if the index bigger that -1 the th element contains the filter
+                  tr[i].style.display = "";
+              } else {
+                  // if the index is -1 the th element does not contains the filter
+                  tr[i].style.display = "none";
+              }
+            }
+          }
+    </script>
 {% endblock %}
+
+{% block filters %}
+    <div class="meter">
+        <span style="width: 50%;"></span>
+    </div>
+{% endblock %}
+
 {% block content %}
+
 <ul>
-    {% if user.is_authenticated %}
-    <a href="/scholarships/create/" id="CreateButton"><button> Crear programa de becas</button></a>
-    {% endif %}
+    <h1>Seleccion de donante</h1>
     <br><br>
-    <form id="search" action="." method="POST">
-        {% csrf_token %}
-        <input id="id" name="id" value="{{id}}" type = "search"></input>
-        <button>Search</button> 
-    </form>
+    <input type="text" id="id" onkeyup="idSearch()" placeholder="Search by id">
+    <input type="text" id="name" onkeyup="nameSearch()" placeholder="Search by name">
     <div class="table">
-        <table>
+        <table id = "donorTable">
             <thead> 
                 <tr>
                     <th scope="col">Nombre</th>
@@ -30,7 +88,7 @@
                     <th scope="col">Selecionar</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id = "tableContent">
                 {% for Donor in donors %}
                     <tr>
                         <td scope="col">{{Donor.name}}</td>
@@ -38,6 +96,7 @@
                         <td scope="col">
                             <form class="select" action="." method="POST">
                                 {% csrf_token %}
+                                <input name="screen" value="donor" style="visibility:hidden"></input>
                                 <button class="selectbtn" name="select" value="{{Donor.ID}}">Seleccionar</button>
                             </form>
                         </td>
@@ -48,3 +107,4 @@
     </div>
 </ul>
 {% endblock  %}
+

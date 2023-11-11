@@ -7,46 +7,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 
-
-class CreateScholarshipForm(ModelForm):
-    
-    #def __init__(self, *args, **kwargs):
-        #super(CreateScholarshipForm, self).__init__(*args,**kwargs)
-        #self.fields['donor'].widget.attrs['size'] = 51
-        #self.fields['name'].widget.attrs['size'] = 51
-        #self.fields['ID'].widget.attrs['size'] = 51
-        #self.fields['description'].widget.attrs['size'] = 50
-        #self.fields['coverage'].widget.attrs['size'] = 51
-        #self.fields['type'].widget.attrs['size'] = 3
-
-    donor = forms.ModelChoiceField(
-        label = "ID del donante", required=True,
-        widget=forms.TextInput(attrs={"class":"id_donor"}),queryset=Donors.objects)
+class CreateScholarshipForm(forms.Form):
+    ID = forms.IntegerField(label = 'ID', required=True, 
+                            widget=forms.TextInput(attrs={"class":"id_ID"}))
     name = forms.CharField(
         label = "Nombre", max_length = 100, required = True,
         widget=forms.TextInput(attrs={"class":"id_name"}))
     description = forms.CharField(
-        label = "Descripción", widget=forms.Textarea(attrs={"class":"id_description",'rows':'3'}))
-    coverage = forms.CharField(
-        label = "Covertura economica", required=True, 
-        widget=forms.TextInput(attrs={"class":"id_coverage"}))
-    type = forms.IntegerField(
-        label = "Tipo", required=True, 
-        widget=forms.RadioSelect(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
+        label = "Descripción", 
+        widget=forms.Textarea(attrs={"class":"id_description",'rows':'3'}))
     requirements = forms.CharField(
         label = "Requerimientos",
         widget=forms.Textarea(attrs={"class":"id_requirements",'rows':'3'}))
-    ID = forms.IntegerField(label = 'ID', required=True, widget=forms.TextInput(attrs={"class":"id_ID"}))
     
-
-    class Meta:
-
-
-        model = Scholarships
-        fields = ['name', 'ID', 'description', 'donor',
-                  'coverage', 'type', 'requirements']
-        
-        
 class CreateAnnouncementForm(ModelForm):
 
 
@@ -415,6 +388,7 @@ class FilterApplicantForm(forms.Form):
             attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'}),
         queryset=Announcements.objects)
 
+
 class FilterScholarshipForm(forms.Form):
     donor = forms.ModelChoiceField(
         label = "ID del donante", required=False,
@@ -428,9 +402,7 @@ class FilterScholarshipForm(forms.Form):
     maxCoverage = forms.CharField(
         label = "Covertura economica maxima", required=False, 
         widget=forms.TextInput(attrs={"class":"id_coverage"}))
-    type = forms.IntegerField(
-        label = "Tipo", required=False, 
-        widget=forms.CheckboxSelectMultiple(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
+    
 
 class AnnouncementAndApplicantForm(forms.ModelForm):
 
@@ -454,7 +426,7 @@ class searchUser(Form):
 class roleAssign(Form):
 
     CHOICES= (
-        (1, 'Asistente de apoyo Financiero'),
+        (1, 'Asistente de Apoyo Financiero'),
         (2, 'Asistente de Filantropía'),
         (3, 'Sin rol')
     )
@@ -498,4 +470,81 @@ class CreateSearchAnnouncementForm(forms.Form):
     endInscriptionDate = forms.DateField(widget = NumberInput(
         attrs={'type': 'date', "class": "searchform"}), required = False)
 
+class StudentReportFilter(Form):
 
+    SEMESTER_CHOICES = (
+        ("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5","5"), ("6","6"), 
+        ("7", "7"), ("8", "8"), ("9", "9"), ("10", "10"), ("11", "11"), ("12", "12")
+        )
+
+    CAREER_CHOICES = (
+        ("Administración de Empresas", "Administración de Empresas"),
+        ("Antropología", "Antropología"),
+        ("Biología", "Biología"),
+        ("Ciencia Política", "Ciencia Política"),
+        ("Comunicación", "Comunicación"),
+        ("Derecho", "Derecho"),
+        ("Diseño de Medios Interactivos", "Diseño de Medios Interactivos"),
+        ("Diseño Industrial", "Diseño Industrial"),
+        ("Economía y Negocios Internacionales", "Economía y Negocios Internacionales"),
+        ("Finanzas", "Finanzas"),
+        ("Ingeniería Bioquímica", "Ingeniería Bioquímica"),
+        ("Ingeniería de Sistemas", "Ingeniería de Sistemas"),
+        ("Ingeniería Industrial", "Ingeniería Industrial"),
+        ("Ingeniería Telemática", "Ingeniería Telemática"),
+        ("Licenciatura en Artes", "Licenciatura en Artes"),
+        ("Licenciatura en Ciencias Naturales", "Licenciatura en Ciencias Naturales"),
+        ("Licenciatura en Ciencias Sociales", "Licenciatura en Ciencias Sociales"),
+        ("Licenciatura en Educación Básica Primaria", "Licenciatura en Educación Básica Primaria"),
+        ("Licenciatura en Lenguas Extranjeras", "Licenciatura en Lenguas Extranjeras"),
+        ("Licenciatura en Literatura y Lengua Castellana", "Licenciatura en Literatura y Lengua Castellana"),
+        ("Medicina", "Medicina"),
+        ("Mercadeo Internacional y Publicidad", "Mercadeo Internacional y Publicidad"),
+        ("Música", "Música"),
+        ("Psicología", "Psicología"),
+        ("Química con Énfasis en Bioquímica", "Química con Énfasis en Bioquímica"),
+        ("Química Farmacéutica", "Química Farmacéutica"),
+        ("Sociología", "Sociología")
+    )
+    FACULTY_CHOICES = (
+        ("Ciencias Administrativas y Económicas", "Ciencias Administrativas y Económicas"),
+        ("Ciencias Humanas", "Ciencias Humanas"),
+        ("Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería, Diseño y Ciencias Aplicadas"),
+        ("Ciencias de la Salud", "Ciencias de la Salud")
+    )
+    
+    semester = forms.MultipleChoiceField(
+        choices=SEMESTER_CHOICES, label = "Semestre", widget=forms.CheckboxSelectMultiple(
+            attrs={'onclick' : "filter();"}), required = False)
+
+    career = forms.MultipleChoiceField(
+        choices=CAREER_CHOICES, label = "Carrera", widget=forms.CheckboxSelectMultiple(
+            attrs={'onclick' : "filter();"}), required = False)
+
+    faculty = forms.MultipleChoiceField(
+        choices=FACULTY_CHOICES, label = "Facultad", widget=forms.CheckboxSelectMultiple(
+            attrs={'onclick' : "filter();"}), required = False)
+    
+class AnnouncementReportFilter(Form):
+
+    TYPE_CHOICES = (
+        ("Abierta", "Abierta"), 
+        ("Cerrada", "Cerrada"), 
+        ("Mixta", "Mixta"),
+    )
+
+    type = forms.MultipleChoiceField(
+        choices = TYPE_CHOICES, label = "Tipo", widget=forms.CheckboxSelectMultiple(
+            attrs={'onclick' : "filter();"}), required = False)
+    
+    
+class SchTypeCreationForm(forms.Form):
+    
+    UNIT_CHOICES = (
+        ("0", "Porcentaje"),
+        ("1", "Dinero")
+    )
+
+    unit = forms.ChoiceField(choices=UNIT_CHOICES, required=True, label = "Unidad")
+    value = forms.FloatField(required=True, widget = forms.TextInput(), label  = "Valor")
+    type = forms.CharField(required=True, widget=forms.TextInput(), label = "Tipo")

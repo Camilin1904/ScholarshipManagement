@@ -24,6 +24,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+from ScholarshipModule import reportsViews
+from ScholarshipModule.views2 import CreateScholarship
 
 
 urlpatterns = [
@@ -32,7 +34,7 @@ urlpatterns = [
     path('home/', views.home, name = 'home'),
     path('scholarships/', views.scholarships, name='scholarships'),
     path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
-    path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
+    #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
     path('logout/', views.signOut, name = 'signOut'),
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
@@ -42,5 +44,15 @@ urlpatterns = [
     path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
     path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
-    path('view/Student/', views.viewApplicant, name = 'viewStudent')
+    path('view/Student/', views.viewApplicant, name = 'viewStudent'),
+    path('objectOfReport/', reportsViews.objectOfReport, name = 'reportGenerator'),
+    path('typeOfReport/', reportsViews.typeOfReport, name = 'reportGenerator'),
+    path('filterOfReport/', reportsViews.filterOfReport, name = 'reportGenerator'),
+    path('reportResume/', reportsViews.reportResume, name = 'reportPreview'),
+    path('example/', views.reportGenerator, name = 'reportGenerator'),
+    path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
