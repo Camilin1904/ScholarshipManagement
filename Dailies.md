@@ -437,4 +437,10 @@ Spooky
 | Juan Camilo Salazar | I almost completely finished the calendar and made some improvements in the announcement search page styling  | I will continue working on US6 CSS design |No|
 | Brayan Steven Ortega | I almost finish the css of the pages to merge with Andres | I will finish the css to merge with Andres new style and and go back to work on US8 final funcionalities |No|
 
+## 10/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Camilo Salazar | I finished the announcement search and view pages styling | I will finish the announcement edit and creation pages styling so US6 is completely done |No|
+
 
