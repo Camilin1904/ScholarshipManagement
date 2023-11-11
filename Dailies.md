@@ -445,5 +445,6 @@ Spooky
 | Andrés Camilo Romero Ruiz | I started working on scholarships report generation | I will continue working on scholarships report generation, probably the user story will be done by tomorrow | No |
 | Juan Sebastián Libreros | I started the implementation of the tests of the notifications | I will continue the implementation of those tests | No | 
 | Camilo Carmona Valencia | I finished the graphical overhaul of the user story apart from some minor details | I will iron out the small details | No |
+| Brayan Steven Ortega | I finished the css and start merging with the new style | I will finish the merging and I will return to the US8 to finish the necessary funcionalities | No | 
 
 
