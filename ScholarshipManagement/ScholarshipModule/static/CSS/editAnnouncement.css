@@ -115,22 +115,20 @@ li a:hover {
     font-size: large;
 }
 
-
-
 .titleCard, .titleEventsCard{
     background-color: #2D6A9F;
     margin-top: 5%;
     color: white;
     border-radius: 15px;
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
     align-items: center;
     box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
 }
 
-h1{
-    margin: auto;
+.titleCard{
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
 }
 
 .titleEventsCard{
@@ -138,6 +136,12 @@ h1{
     align-self: center;
     margin: auto;
     margin-top: 5%;
+    text-align: center;
+    justify-content: center;
+}
+
+div.titleCard h1 {
+   margin-left: 15%;
 }
 
 .event{
@@ -183,13 +187,10 @@ header {
     margin-top: 1%;
 }
 
-
 #id_scholarshipAnnouncementForm_1{
     grid-column: 2;
     margin-top: 1%;
 }
-
-
 
 #id_announcementForm-type{
     width: 60%;
@@ -327,3 +328,12 @@ header {
     border: none;
     color: white;
 }
+
+.button:hover{
+    background-color: #1d466a;
+}
+
+.backBttn:hover{
+    color: #9db9c8;
+}
+

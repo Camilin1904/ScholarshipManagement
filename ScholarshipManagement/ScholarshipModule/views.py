@@ -1071,6 +1071,7 @@ def editAnnouncement (request):
 
     announcementId = request.session.get('announcementId')
     announcementDict = getAnnouncementInfo(announcementId)
+    scholarshipName = announcementDict["scholarship"].name
 
     announcementForm = CreateAnnouncementForm(initial={'type':announcementDict["typeNum"]}, prefix = "announcementForm")
     scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(
@@ -1097,6 +1098,7 @@ def editAnnouncement (request):
             'announcementEventFormInterview': announcementEventFormInterview,
             'announcementEventFormPublication':announcementEventFormPublication,
             'newEventForm': CreateAnnouncementAdditionalEventForm(),
+            'scholarshipName':scholarshipName,
             'error': error
         }
 
@@ -1196,6 +1198,7 @@ def editAnnouncement (request):
                 'announcementEventFormSelection': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormSelection"),
                 'announcementEventFormInterview': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInterview"),
                 'announcementEventFormPublication': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormPublication"),
+                'scholarshipName':scholarshipName,
                 'error':error
             }
 
@@ -1209,12 +1212,13 @@ def editEvent(request):
 
     announcementId = request.session.get('announcementId')
     announcementDict = getAnnouncementInfo(announcementId)
+    scholarshipName = announcementDict["scholarship"].name
+
     eventsType = [
                 "Inscription","Interview",
                 "Selection","Publication"]
     
     newEvents=[]
-
 
     for event in announcementDict["events"]:
         if event.type not in eventsType:
@@ -1226,6 +1230,7 @@ def editEvent(request):
     if request.method == 'GET':
 
         context = {'newEvents': newEvents,
+                   'scholarshipName':scholarshipName,
                     'error': ""}
 
         return render(

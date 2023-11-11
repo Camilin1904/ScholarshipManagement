@@ -123,7 +123,7 @@ class CreateAnnouncementAdditionalEventForm(ModelForm):
         self.fields['endDate'].label = "Fecha de finalización"
 
     type = forms.CharField(
-        label = 'Tipo de convocatoria', max_length=50, required=False, 
+        label = 'Tipo de evento', max_length=50, required=False, 
         widget = forms.TextInput(attrs = {"class": "additionalItem1"}))
     startingDate = forms.DateField(widget = NumberInput(
         attrs={'type': 'date', "class": "additionalDate1"}), required = False)

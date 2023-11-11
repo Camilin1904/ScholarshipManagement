@@ -15,103 +15,110 @@
 
 
 html, body {
-    display: flex;
     flex-flow: column;
     width: 100%;
     height: 100%;
     margin: 0px;
     padding: 0px;
-    background-color:#88A0A8;
-
-}
-
-
-header{
-    width: 100%;
-    height: 20%;
-    display: flex;
-    background-color: #455761;
+    background-color:#E2E9F3;
     align-items: center;
-    float: left;
-    position: fixed;
+    justify-content: center;
 }
-
-
+    
+header{
+    margin-top: auto;
+    width: 100%;
+    height: 15%;
+    display: flex;
+    background-color: #2D6A9F;
+    align-items: center;
+    object-fit: fill;
+}
+    
 .icesi{
     display: flex;
     width: 30%;
     padding: 6%;
+    object-fit: fill;
 }
-
-
+    
 .menu{
     display: flex;
     width:  100%;
-    height: 3cm;
-    background-color: #455761;
+    height: 10%;
     color: white;
     align-items: center;
     font-size: large;
     justify-content: end;
+    object-fit: fill;
 }
-
-
+    
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    object-fit: fill;
 }
-
-  
+    
 li {
     float: left;
-    border-right:1px solid #bbb;
+    border-right:1px solid white;
+    object-fit: fill;
 }
-
-  
+    
 li:last-child {
     border-right: none;
 }
-
-  
+    
 li a {
     display: block;
     color: white;
-    text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    transition-duration: 0.4s;
+}
+    
+li a:hover {
+    color: #2D6A9F;
+    background-color: white;
 }
 
 
 .content1{
+    margin-top: 4%;
     padding-left: 5%;
     padding-right: 5%;
-    background-color: #dbd3c9;
+    background-color: white;
     border-radius: 15px;
     height: auto;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+    color: #455761;
+    padding-bottom: 2%;
 }
 
-.content2{
-    padding-left: 5%;
-    padding-right: 5%;
-    margin-top: 5%;
-    background-color: #dbd3c9;
-    border-radius: 15px;
+.bttnCard{
+    margin: auto;
+    width: 70%;
+    margin-top: 2%;
+    margin-bottom: 4%;
+    display: grid;
     grid-template-columns: 50% 50%;
-    justify-content: center;
-    justify-content: space-around;
-    height: auto;
+    padding-left: 5%;
+    padding-bottom: 5%;
+    font-size: large;
 }
 
 .event{
     grid-column: 1/3;
     display: grid;
     grid-template-columns: 50% 50%;
+    border-bottom-style: dashed;
+    margin-bottom: 2%;
 }
 
 .container{ 
-    margin-top: 15%;
+    margin-top: 4%;
     height: 102%;
     width: 80%;
     justify-content: center;
@@ -120,18 +127,30 @@ li a {
     margin-inline: 10%;
 }
 
+.titleCard{
+    background-color: #2D6A9F;
+    margin-top: 5%;
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+
+div.titleCard h1{
+    margin-left: 15%;
+}
 
 .dateInput{
     width: 60%;
 }
 
-
-
 .type{
     grid-column: 1/3;
     margin-top: 1%;
 }
-
 
 .startingDate{
     grid-column: 1;
@@ -139,13 +158,10 @@ li a {
 }
 
 
-
-
 .endDate{
     grid-column: 2;
     margin-top: 1%;
 }
-
 
 .newTitle{
     grid-column: 1/3;
@@ -153,37 +169,15 @@ li a {
     align-self: center;
 }
 
-
 .additionalDate{
     width: 60%;
-}
-
-
-
-#addBttn{
-
-    width: 30%;
-    height: 50%;
-    align-items: center;
-    grid-column: 1; 
-    border: none;
-    background-color: #e9e1d8;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
-    border:0.5px solid #7d878b;
-    color: #455761;
-    transition-duration: 0.4s;
-    align-self: center;
-
 }
 
 .saveDiv{
     grid-column: 1/3;
 }
 
-
-
 .deleteBttn{
-
     width: 30%;
     height: 50%;
     align-items: center;
@@ -196,26 +190,90 @@ li a {
     align-self: center;
 }
 
-#saveBttn{
-
-    width: 30%;
-    height: 85%;
-    align-items: center;
-    grid-column: 1; 
-    border: none;
-    background-color: #e9e1d8;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
-    border:0.5px solid #7d878b;
-    color: #455761;
-    transition-duration: 0.4s;
-}
-
 .alert {
-    padding: 5px;
     background-color: #f44336;
     color: white;
     border-radius: 10px;
     grid-row: 1;
     width: fit-content;
     height: 50%;
+}
+
+.button{
+    width: 60%;
+    height: 100%;
+    font-size: large;
+    align-items: center;
+    border:0.5px solid #7d878b;
+    color: white;
+    transition-duration: 0.4s;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0.2, 0.2);
+    background-color: #2D6A9F;
+    border-radius: 8px;
+}
+
+.button:hover{
+    background-color: #1d466a;
+}
+
+.backBttn{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.button:hover{
+    background-color: #1d466a;
+}
+
+.backBttn:hover{
+    color: #9db9c8;
+}
+
+.deletebutton{
+    margin-top: 1%;
+    margin-bottom: 3%;
+    width: 5%;
+    align-items: center;
+    border:0.5px solid #7d878b;
+    color: white;
+    transition-duration: 0.4s;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0.2, 0.2);
+    background-color: red;
+    border-radius: 8px;
+
+
+    text-align: center;
+}
+
+.deletebutton:hover{
+    background-color: rgb(175, 6, 6);
+}
+
+input{
+    width: 60%;
+    box-shadow: 0px 5px 8px -3px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    border-style:double;
+    background-color:#f5f9fb;;
+}
+
+.additionalItem1{
+    width: 40%;
+
+}
+
+div.additionalEvents + div.contentnull {
+    display: none;
+}
+
+.additionalEvents:empty + .contentnull{
+    display: block;
+}
+
+.contentnull{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

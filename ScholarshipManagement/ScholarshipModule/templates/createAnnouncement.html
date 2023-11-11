@@ -62,13 +62,31 @@
 
     <div class = "container">
 
+        <div class = "titleCard">
+            <button class="backBttn" style="align-items: center;" onclick="location.href = '/announcement/';">
+                <h2><i class="bi bi-caret-left-fill"></i></h2>
+            </button>
+            <h1>
+                Creación de convocatoria
+            </h1>
+        </div>
+
         <form action = '/announcement/create/', method = 'POST'>
 
             <div class = "content1">
 
                 {% csrf_token %} 
 
-                <h2 id = "announcementCreation">Registro de convocatoria</h2>
+                {% if error != ""%} 
+                <div class = "alert" style = "font-size: 85%; margin-top: 5%;">
+
+                    <span class = "closebtn" onclick = "this.parentElement.style.display = 'none';">&times;</span> 
+
+                    <strong>Advertencia</strong> {{error}}
+
+                </div>
+
+                {% endif%}
 
                 <input type = "hidden" name = "title" value = "{{ additionalEvents }}">
 
@@ -105,8 +123,17 @@
                     </div>
 
                 {% endfor %}
+            </div>
+
+            <div class = "titleEventsCard">
+                <h1>
+                    Creación de eventos
+                </h1>
+            </div>
+
+            <div class = "eventsCard">
         
-                <h3 id = "inscrip">Plazo de inscripciones</h2>
+                <h2 id = "inscrip">Plazo de inscripciones</h2>
 
                 {% for field in announcementEventFormInscription %}
 
@@ -124,7 +151,7 @@
 
                 {% endfor %}
 
-                <h3 id = "entrev">Entrevistas con los candidatos</h3>
+                <h2 id = "entrev">Entrevistas con los candidatos</h2>
 
                 {% for field in announcementEventFormInterview %}
 
@@ -142,7 +169,7 @@
 
                 {% endfor %}
 
-                <h3 id = "selec">Selección de beneficiarios</h3>
+                <h2 id = "selec">Selección de beneficiarios</h2>
 
                 {% for field in announcementEventFormSelection %}
 
@@ -160,7 +187,7 @@
 
                 {% endfor %}
 
-                <h3 id = "benef">Publicación de beneficiarios</h3>
+                <h2 id = "benef">Publicación de beneficiarios</h2>
 
                 {% for field in announcementEventFormPublication %}
 
@@ -203,6 +230,9 @@
                     {% endfor %}
 
                 {% endif %}
+            </div>
+
+            <div class = "bttnCardAditional">
 
                 <input type = "hidden" class = list name = "title3" value = "{{ data }}">
 
@@ -210,7 +240,7 @@
 
                     <h3>
 
-                        Añadir fechas
+                        <h1><i class="bi bi-plus"></i></h1>
 
                     </h3>
 
@@ -222,7 +252,7 @@
 
                         <h3>
 
-                            Borrar fechas
+                            <h1><i class="bi bi-trash"></i></h1>
 
                         </h3>
 
@@ -232,6 +262,9 @@
                 
                 <br>
                 <br>
+            </div>
+
+            <div class = "bttnCard">
         
                 <button id = "saveBttn" name = "saveBttn" class = "button">
 
@@ -242,17 +275,6 @@
                     </h3>
 
                 </button>
-                    
-                {% if error != ""%} 
-                    <div class = "alert" style = "font-size: 85%; margin-top: 5%;">
-
-                        <span class = "closebtn" onclick = "this.parentElement.style.display = 'none';">&times;</span> 
-
-                        <strong>Advertencia</strong> {{error}}
-
-                    </div>
-
-                {% endif%}
 
             </div>
 

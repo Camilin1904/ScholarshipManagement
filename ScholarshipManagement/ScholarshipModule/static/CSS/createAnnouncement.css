@@ -15,100 +15,132 @@
 
 
 html, body {
-    display: flex;
     flex-flow: column;
     width: 100%;
     height: 100%;
     margin: 0px;
     padding: 0px;
-    background-color:#88A0A8;
+    background-color:#E2E9F3;
     align-items: center;
     justify-content: center;
 }
-
-
+    
 header{
+    margin-top: auto;
     width: 100%;
-    height: 20%;
+    height: 15%;
     display: flex;
-    background-color: #455761;
+    background-color: #2D6A9F;
     align-items: center;
-    float: left;
-    position: fixed;
+    object-fit: fill;
 }
-
-
+    
 .icesi{
     display: flex;
     width: 30%;
     padding: 6%;
+    object-fit: fill;
 }
-
-
+    
 .menu{
     display: flex;
     width:  100%;
-    height: 3cm;
-    background-color: #455761;
+    height: 10%;
     color: white;
     align-items: center;
     font-size: large;
     justify-content: end;
+    object-fit: fill;
 }
-
-
+    
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    object-fit: fill;
 }
-
-  
+    
 li {
     float: left;
-    border-right:1px solid #bbb;
+    border-right:1px solid white;
+    object-fit: fill;
 }
-
-  
+    
 li:last-child {
     border-right: none;
 }
-
-  
+    
 li a {
     display: block;
     color: white;
-    text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    transition-duration: 0.4s;
+}
+    
+li a:hover {
+    color: #2D6A9F;
+    background-color: white;
 }
 
-
-.content1{
+.content1, .eventsCard{
+    padding-top: 3%;
+    padding-bottom: 3%;
     padding-left: 5%;
     padding-right: 5%;
     margin-top: 5%;
     grid-auto-rows: 70px;
-    background-color: #dbd3c9;
+    background-color: white;
     border-radius: 15px;
     display: grid;
     grid-template-columns: 50% 50%;
     justify-content: center;
     justify-content: space-around;
+    color: #455761;
 }
 
 
 .container{
-    margin-top: 26%;
-    height: 102%;
+    margin-top: 4%;
     width: 80%;
     justify-content: center;
     justify-content: space-around;
     border-radius: 15px;
     margin-inline: 10%;
-    background-color: #dbd3c9;
+    padding-bottom: 3%;
 }
+
+.titleCard, .titleEventsCard{
+    background-color: #2D6A9F;
+    margin-top: 5%;
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+
+.titleEventsCard{
+    width: 60%;
+    align-self: center;
+    margin: auto;
+    margin-top: 5%;
+    text-align: center;
+    justify-content: center;
+}
+
+h1{
+    margin: auto;
+}
+
+
+.event{
+    grid-column: 1/3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
 
 header {
     z-index: 1000;
@@ -133,6 +165,12 @@ header {
     margin-top: 1%;
 }
 
+#id_announcementForm-type{
+    width: 60%;
+    box-shadow: 0px 10px 27px 0px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    border-style: double;
+}
 
 #id_announcementForm_1{
     grid-column: 1;
@@ -203,6 +241,13 @@ header {
     margin-top: 1%;
 }
 
+.dateInput{
+    width: 60%;
+    box-shadow: 0px 10px 27px 0px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    border-style:double;
+}
+
 
 #inscrip{
     grid-column: 1/3;
@@ -227,12 +272,6 @@ header {
     margin-top: 1%;
     align-self: center;
 }
-
-
-.dateInput{
-    width: 60%;
-}
-
 
 .additionalItem1{
     grid-column: 1/3;
@@ -267,53 +306,6 @@ header {
     width: 60%;
 }
 
-
-
-#addBttn{
-
-    width: 30%;
-    height: 50%;
-    align-items: center;
-    grid-column: 1; 
-    border: none;
-    background-color: #e9e1d8;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
-    border:0.5px solid #7d878b;
-    color: #455761;
-    transition-duration: 0.4s;
-    align-self: center;
-
-}
-
-#deleteBttn{
-
-    width: 30%;
-    height: 50%;
-    align-items: center;
-    grid-column: 2; 
-    border: none;
-    background-color: #e9e1d8;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
-    border:0.5px solid #7d878b;
-    color: #455761;
-    transition-duration: 0.4s;
-    align-self: center;
-}
-
-#saveBttn{
-
-    width: 30%;
-    height: 85%;
-    align-items: center;
-    grid-column: 1; 
-    border: none;
-    background-color: #e9e1d8;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
-    border:0.5px solid #7d878b;
-    color: #455761;
-    transition-duration: 0.4s;
-}
-
 .alert {
     padding: 5px;
     background-color: #f44336;
@@ -322,4 +314,67 @@ header {
     grid-row: 1;
     width: fit-content;
     height: 50%;
+}
+
+.bttnCardAditional{
+    width: 30%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    align-items: center;
+    justify-content: center;
+}
+
+.bttnCard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20%
+}
+
+.button{
+    margin: auto;
+    width: 40%;
+    align-items: center;
+    border:0.5px solid #7d878b;
+    color: white;
+    transition-duration: 0.4s;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0.2, 0.2);
+    background-color: #2D6A9F;
+    border-radius: 8px;
+}
+
+#saveBttn{
+    width: 40%;
+}
+
+#addBttn{
+    background-color: rgb(1, 202, 1);
+}
+
+#deleteBttn{
+    background-color: rgb(255, 17, 17);
+}
+
+.backBttn{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+#saveBttn:hover{
+    background-color: #1d466a;
+}
+
+#addBttn:hover{
+    background-color: rgb(3, 142, 3);
+}
+
+#deleteBttn:hover{
+    background-color: rgb(200, 14, 14);
+}
+
+.backBttn:hover{
+    color: #9db9c8;
 }

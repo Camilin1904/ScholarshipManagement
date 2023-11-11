@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 {% load static %}
+
 {{error}}
 
 <head>
@@ -19,9 +20,7 @@
     {% endblock %}
 
     <title>
-
         Editar Eventos
-
     </title>
 
 </head>
@@ -48,40 +47,36 @@
 
     <div class = "container">
 
+        <div class = "titleCard">
+            <button class="backBttn" style="align-items: center;" onclick="location.href = '/announcement/edit';">
+                <h3><i class="bi bi-caret-left-fill"></i> Editar convocatoria: {{scholarshipName}}</h3>
+            </button>
+            <h1>
+                Edición de eventos adicionales
+            </h1>
+        </div>
+
         <form hx-post = "{% url 'createEvent' %}" 
             hx-trigger = "click from:#saveBttn"
-            hx-target = ".container"
-            hx-swap = "afterbegin">
+            hx-target = ".content1"
+            hx-swap = "beforeend">
        
             <div id = newEventsCard class = "content1">
 
-                <div class = "additionalEvents">
-
-                    {% for newEventForm in newEvents %}
-
+                <div class = "additionalEvents">{% for newEventForm in newEvents %}
                         {% include 'HTML/eventForm.html' %}
+                    {% endfor %}</div>
 
-                    {% endfor %}
-
-                </div>
-
-
-                <button id = "addBttn" name = "newEventBttn" class = "button" type = "submit"
-                    hx-get = "{% url 'createEvent' %}"
-                    hx-target = ".additionalEvents"
-                    hx-swap = "beforeend">
-
+                <div class = "contentnull">
                     <h3>
-                        Añadir fechas
+                        No hay eventos adicionales registrados
                     </h3>
-
-                </button>
+                </div>
 
             </div> 
 
             
-
-            <div id = "saveCard" class="content2">
+            <div id = "saveCard" class="bttnCard">
 
                 <button id = "saveBttn" name = "saveBttn" class = "button">
 
@@ -90,14 +85,21 @@
                     </h3>
 
                 </button>
+
+                <button id = "addBttn" name = "newEventBttn" class = "button" type = "submit"
+                hx-get = "{% url 'createEvent' %}"
+                hx-target = ".additionalEvents"
+                hx-swap = "beforeend">
+
+                <h3>
+                    Añadir eventos
+                </h3>
+
+            </button>
+
+
             </div>
                         
-                <div class="buttons">
-                    
-                    <button class="button" id="editBttn" value="" name="editBttn">
-                        {% csrf_token %}
-                        volver
-                    </button>
         </form>
 
     </div>
