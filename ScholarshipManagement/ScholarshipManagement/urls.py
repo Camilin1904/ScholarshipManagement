@@ -17,32 +17,39 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
-from ScholarshipModule import reportsViews
+from ScholarshipModule.views2 import FilterOfReport
+from ScholarshipModule.views2 import HomePage
+from ScholarshipModule.views2 import Login
+from ScholarshipModule.views2 import Logout
+from ScholarshipModule.views2 import ObjectOfReport
+from ScholarshipModule.views2 import ReportResume
+from ScholarshipModule.views2 import SearchUserForRole
+from ScholarshipModule.views2 import SignUp
 from ScholarshipModule.views2 import CreateScholarship
+from ScholarshipModule.views2 import TypeOfReport
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.signUp, name = 'signup'),
-    path('home/', views.home, name = 'home'),
+    path('', SignUp.signUp, name = 'signup'),
+    path('home/', HomePage.home, name = 'home'),
     path('scholarships/', views.scholarships, name='scholarships'),
     path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
     path('applicants/create/', views.createApplicants, name='Applicants'),
     path('applicants/filter/', views.filterApplicants, name='FilterApplicants'),
     #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
-    path('logout/', views.signOut, name = 'signOut'),
-    path('login/', views.signIn, name = 'signIn'),
-    path('roles/', views.searchUserForRole, name = 'searchUser'),
-    path('roles/', views.searchUserForRole, name = 'roleAssign'),
+    path('logout/', Logout.signOut, name = 'signOut'),
+    path('login/', Login.signIn, name = 'signIn'),
+    path('roles/', SearchUserForRole.searchUserForRole, name = 'searchUser'),
+    path('roles/', SearchUserForRole.searchUserForRole, name = 'roleAssign'),
     path('announcement/', views.searchAnnouncement, name = 'announcement'),
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('objectOfReport/', reportsViews.objectOfReport, name = 'reportGenerator'),
-    path('typeOfReport/', reportsViews.typeOfReport, name = 'reportGenerator'),
-    path('filterOfReport/', reportsViews.filterOfReport, name = 'reportGenerator'),
-    path('reportResume/', reportsViews.reportResume, name = 'reportPreview'),
-    path('example/', views.reportGenerator, name = 'reportGenerator'),
+    path('objectOfReport/', ObjectOfReport.objectOfReport, name = 'reportGenerator'),
+    path('typeOfReport/', TypeOfReport.typeOfReport, name = 'reportGenerator'),
+    path('filterOfReport/', FilterOfReport.filterOfReport, name = 'reportGenerator'),
+    path('reportResume/', ReportResume.reportResume, name = 'reportPreview'),
     path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
 ]   
 

@@ -131,3 +131,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #New user addres for django
 AUTH_USER_MODEL = 'ScholarshipModule.User'
+
+LOGOUT_REDIRECT_URL = "/"

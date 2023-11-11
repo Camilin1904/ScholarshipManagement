@@ -61,15 +61,7 @@
                         </fieldset>
                         {% endfor %}
                     </div> 
-                    {% elif objectOfReport == 2 %}
-                    <div class = "filters">
-                        {% for field in form %}
-                        <fieldset class="filter">
-                            <legend>{{ field.label_tag }}</legend>
-                            {{field}}
-                        </fieldset>
-                        {% endfor %}
-                    </div>
+                    {% elif objectOfReport == "2" %}
                     {% else %}
                     <div class = "filters" style="height: 40%;">
                         {% for field in form %}
@@ -81,7 +73,11 @@
                     </div>
                     {% endif %}
 
+                    {% if objectOfReport == "2" %}
+                    <div class="bigCard" style="margin-right: 0; width: 100%;">
+                    {% else %}
                     <div class="bigCard" style="margin-right: 0;">
+                    {% endif %}
 
                         <div class="inputs", style="display: flex;">
                             <table>
@@ -117,8 +113,12 @@
                                         <th>{{object.applicant.semester}}</th>
                                         <th style="display: none;"> {{object.applicant.studentCode}} </th>
                                         <th style="display: none;">{{object.announcement.id}}</th>
-                                    {% elif objectOfReport == 2 %}
-                                        Rol Actual: Asistente de Filantropía
+                                    {% elif objectOfReport == "2" %}
+                                        <th>{{object.scholarshipId.ID}}</th>
+                                        <th>{{object.scholarshipId.name}}</th>
+                                        <th>{{object.scholarshipId.description}}</th>
+                                        <th>{{object.scholarshipId.requirements}}</th>
+                                        <th>{{object.announcementId.id}}</th>
                                     {% else %}
                                     <th>{{object.announcementId.id}}</th>
                                         {% if object.announcementId.type == 0 %}
@@ -281,7 +281,45 @@ if (ids.includes("Código de estudiante..")){
           }
   }
 
-}else if (ids[0] == ""){
+}else if (ids.includes("Id de la beca..")){
+
+    inputs = [
+      document.getElementById("Id de la beca.."),
+      document.getElementById("Nombre de la beca.."),
+      document.getElementById("Id de la convocatoria..")
+    ]
+
+    inputs = [
+      inputs[0].value.toUpperCase(), inputs[1].value.toUpperCase(), inputs[2].value.toUpperCase()
+    ]
+
+    // get table
+    table = document.getElementById("myTable");
+    
+    // get all rows inside the table
+    tr = table.getElementsByTagName('tr')
+
+        // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+            // get the firts th from the ith tr
+            id = tr[i].getElementsByTagName("th")[0].textContent.toUpperCase()
+            scholarship = tr[i].getElementsByTagName("th")[1].textContent.toUpperCase()
+            announcement = tr[i].getElementsByTagName("th")[4].textContent.toUpperCase()
+            // does the th element contains the filter?
+            if (
+                id.indexOf(inputs[0]) > -1 &&
+                scholarship.indexOf(inputs[1]) > -1 &&
+                announcement.indexOf(inputs[2]) > -1
+                ) {
+                // if the index is -1 the th element does not contains the filter
+                tr[i].style.display = "";
+            } else {
+
+                // if the index is -1 the th element does not contains the filter
+                tr[i].style.display = "none";
+
+            }
+    }
 
 }else{
 

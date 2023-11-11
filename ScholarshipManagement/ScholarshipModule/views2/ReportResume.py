@@ -1,120 +1,19 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from .forms import *
-from .models import *
+from django.contrib.auth.decorators import login_required
+from ..forms import *
+from ..models import *
 from django.http import HttpResponse
 import io
 import csv
+from .IsAllowed import isAllowed
 
-def objectOfReport(request):   
-    if request.method == 'POST':
-
-        try:
-            request.session["object"] = request.POST["object"]
-        except:
-            del request.session["object"]
-            request.session["object"] = request.POST["object"]
-
-        return redirect("/typeOfReport/")
-    else:
-        return render(
-            request, './HTML/objectOfReport.html'
-    ) 
-
-def typeOfReport(request):
-
-    if request.method == 'POST':
-        
-        try:
-            request.session["type"] = request.POST["type"]
-        except:
-            del request.session["type"]
-            request.session["type"] = request.POST["type"]
-
-        if request.POST["type"] == "1":
-            return redirect("/filterOfReport")
-        else:
-            filters = []
-            try:
-                request.session["filters"] = filters
-            except:
-                del request.session["filters"]
-                request.session["filters"] = filters
-            return redirect("/reportResume")
-    
-    else:       
-
-        return render(
-            request, './HTML/typeOfReport.html')
-
-def filterOfReport(request):
-
-    try:
-        objectOfReport = request.session.get("object")
-    except:
-        return redirect("/home")
-    
-    if request.method == "POST":
-
-        objects = None
-
-        if(objectOfReport == "1"):
-
-            studentCode = request.POST.get("Código de estudiante..")
-            announcementId = request.POST.get("Id de la convocatoria..")
-
-            semesters = request.POST.getlist("semester")
-            careers = request.POST.getlist("career")
-            faculties = request.POST.getlist("faculty")
-
-            filters = [
-                studentCode, announcementId, semesters, careers, faculties
-            ]
-                
-        elif(objectOfReport == 2):
-            return redirect("/home")
-        else:
-            scholarship = request.POST.get("Nombre de la beca..")
-            announcementId = request.POST.get("Id de la convocatoria..")
-
-            types = request.POST.getlist("type")
-
-            filters = [
-                scholarship, announcementId, types
-            ]
-
-        try:
-            request.session["filters"] = filters
-        except:
-            del request.session["filters"]
-            request.session["filters"] = filters
-
-        return redirect("/reportResume")
-
-    else:
-
-        if(objectOfReport == "1"):
-            form = StudentReportFilter
-            titles = ("Nombre", "Apellido", "Carrera", "Facultad", "Semestre")
-            objects = AnnouncementAndApplicant.objects.all()
-            inputs = ("Código de estudiante..", "Id de la convocatoria..")
-        elif(objectOfReport == 2):
-            form = StudentReportFilter
-            titles = ("Nombre", "Id", "Id del Donante", "Donante", "Convocatorias", "Beneficios")
-            objects = ScholarshipAnnouncements.objects.all()
-            inputs = ("Nombre de la beca..", "Id de la beca..", "Id del donante..", "Nombre del donante..")
-        else:
-            form = AnnouncementReportFilter
-            titles = ("Id", "Tipo", "Beca Asociada", "Descripción")
-            objects = ScholarshipAnnouncements.objects.all()
-            inputs = ("Id de la convocatoria..", "Nombre de la beca..")
-
-        return render(
-            request, './HTML/filterOfReport.html', {
-                'form': form, 'titles': titles, 'objects' : objects, 'inputs': inputs,
-                'objectOfReport': objectOfReport})
-
+@login_required(login_url="/login")
 def reportResume(request):
+
+    if not (isAllowed(request.user, 0) | isAllowed(request.user, 2)):
+        return redirect("/home")
+
     try:
         filters = request.session.get("filters")
     except:
@@ -151,13 +50,13 @@ def reportResume(request):
             objects = objects.filter(announcement_id__id__contains = announcementId)
 
         if len(semesters) != 0:
-            objects.filter(applicant_id__semester__in = semesters)
+            objects = objects.filter(applicant_id__semester__in = semesters)
 
         if len(careers) != 0:
-            objects.filter(applicant_id__major__in = careers)
+            objects = objects.filter(applicant_id__major__in = careers)
 
         if len(faculties) != 0:
-            objects.filter(applicant_id__faculty__in = faculties)
+            objects = objects.filter(applicant_id__faculty__in = faculties)
 
         semesterCounts = []
         semesterNames = []
@@ -224,9 +123,30 @@ def reportResume(request):
             if len(objects.filter(applicant_id__faculty = i))>0:
                 facultyNames.append([i])
                 facultyCounts.append(len(objects.filter(applicant_id__faculty = i)))
-    elif objectOfReport == 2:
-        return render(
-        request, './HTML/reportResume.html', {})
+
+    elif objectOfReport == "2":
+        
+        if len(filters) == 0 :
+            scholarshipId = []
+            scholarship = []
+            announcementId = []
+
+        else:
+            scholarshipId = filters[0]
+            scholarship = filters[1]
+            announcementId = filters[2]
+
+        objects = ScholarshipAnnouncements.objects.select_related('scholarshipId')
+
+        if len(scholarshipId) > 0:
+            objects = objects.filter(scholarshipId__ID__contains = scholarshipId)
+
+        if len(scholarship) > 0:
+            objects = objects.filter(scholarshipId__name__contains = scholarship)
+
+        if len(announcementId) > 0:
+            objects = objects.filter(announcementId__id__contains = announcementId)
+
     else:
 
         if len(filters)==0 :
@@ -262,7 +182,7 @@ def reportResume(request):
                     types[i] = 1
                 else:
                     types[i] = 2
-            objects.filter(announcementId__type__in = types)
+            objects = objects.filter(announcementId__type__in = types)
 
         for i in range(0,3):
             typeCounts.append(len(objects.filter(announcementId__type=i)))
@@ -306,8 +226,34 @@ def reportResume(request):
             response['Content-Disposition'] = 'attachment; filename=university_records.csv'
 
             return response
+        
         elif objectOfReport == "2":
+
+            # field names  
+            fields = [
+                'Id', 'Nombre', 'Descripción', 'Requerimientos', 'Id del donante', 'Nombre del Donante'
+            ]  
+
+            rows = []  
+
+            rows.append(fields) 
+            
+            for object in objects:
+
+                rows.append([
+                    object.scholarshipId.ID, object.scholarshipId.name, object.scholarshipId.description,
+                    object.scholarshipId.donor.ID, object.scholarshipId.donor.name
+                    ])
+
+            buffer = io.StringIO()  # python 2 needs io.BytesIO() instead
+            wr = csv.writer(buffer, quoting=csv.QUOTE_ALL)
+            wr.writerows(rows)
+            buffer.seek(0)
+            response = HttpResponse(buffer, content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename=university_records.csv'
+
             return response
+        
         else:
             # field names  
             fields = [
@@ -368,10 +314,11 @@ def reportResume(request):
                     'facultyNames': facultyNames,
                     'faculty': facultyCounts
                 })
-        elif objectOfReport == 2:
+        elif objectOfReport == "2":
             return render(
                 request, './HTML/reportResume.html', {
-                    'data': objects
+                    'data': objects,
+                    'objectOfReport': objectOfReport
                 })
         else:
             return render(
