@@ -443,5 +443,6 @@ Spooky
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I finished the announcement search and view pages styling | I will finish the announcement edit and creation pages styling so US6 is completely done |No|
 | Andrés Camilo Romero Ruiz | I started working on scholarships report generation | I will continue working on scholarships report generation, probably the user story will be done by tomorrow | No |
+| Juan Sebastián Libreros | I started the implementation of the tests of the notifications | I will continue the implementation of those tests | No | 
 
 
