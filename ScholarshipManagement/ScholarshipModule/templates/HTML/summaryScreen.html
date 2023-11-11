@@ -1,5 +1,6 @@
 {% extends 'HTML/home.html' %}
 {% load static %}
+{% load add1 %}
 {% load index %}
 
 
@@ -13,85 +14,91 @@
     <div class="meter">
         <span style="width: 100%;"></span>
     </div>
+    <div id="box">
+        <h1>Resumen de beca</h1>
+    </div>
+    <div id="info">
 {% endblock %}
 
 
 {% block content %}
-<h1>Resumen de beca</h1>
     <div id="summary">
         <div id = "baseData">
+            
             <table>
-                <tr>
-                    <th scope="row">Informacion Basica<th>
-                </tr>
+                <tr><th><h2>Informacion Basica</h2></th></tr>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">{{ID}}</th>
+                    <th scope="col"><p>{{ID}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">{{name}}</th>
+                    <th scope="col"><p>{{name}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Descripcion</th>
-                    <th scope="col">{{description}}</th>
+                    <th scope="col"><p id="desc">{{description}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Requerimientos</th>
-                    <th scope="col">{{requirements}}</th>
+                    <th scope="col"><p id="req">{{requirements}}</p></th>
                 </tr>
             </table>
         </div>
         <div id = "donorData">
             <table>
                 <tr>
-                    <th scope="row">Informacion del donante</th>
+                    <th scope="row"><h2>Informacion del donante</h2></th>
                 </tr>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">{{donor.ID}}</th>
+                    <th scope="col"><p>{{donor.ID}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col">{{donor.name}}</th>
+                    <th scope="col"><p>{{donor.name}}</p></th>
                 </tr>
-            </table>
-        </div>
-        <div id = "types">
-            <p>Advertencia: Tenga en cuenta que si requiere hacer cambios, solo el primer tipo es guardado</p>
-            <table>
-                {% for n in amount %}
-                    <tr>
-                        <th scope = "row">Tipo {{n}}</th>
-                    </tr>
-                    {% if types|index:0|index:n == '0'%}
-                        <tr>
-                            <th scope="col">Unidad</th>
-                            <th scope="col">Porcentaje</th>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <th scope="col">Unidad</th>
-                            <th scope="col">Dinero</th>
-                        </tr>      
-                    {% endif %}          
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">{{types|index:1|index:n}}</th>
-                    </tr>
-                    <tr>
-                        <th scope="col">Descripcion</th>
-                        <th scope="col">{{types|index:2|index:n}}</th>
-                    </tr>
-                {% endfor %}
             </table>
         </div>
     </div>  
     <form method = "POST">
         {% csrf_token %}
-        <button>Save</button>
+        <button>Guardar</button>
         <input name="screen" value="summary" style="visibility:hidden"></input> 
     </form>
+{% endblock %}
 
-
+{% block afterContent %}
+    <div id = "types">
+        <div id="inner">
+            <p id="warning">Advertencia: Tenga en cuenta que si requiere hacer cambios, solo el primer tipo es guardado</p>
+            <table>
+                {% for n in amount %}
+                    <tr>
+                        <th scope = "row"><h2>Tipo {{n|add1}}</h2></th>
+                    </tr>
+                    {% if types|index:0|index:n == '0'%}
+                        <tr>
+                            <th scope="col">Unidad</th>
+                            <th scope="col"><p>Porcentaje</p></th>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th scope="col">Unidad</th>
+                            <th scope="col"><p>Dinero</p></th>
+                        </tr>      
+                    {% endif %}          
+                    <tr>
+                        <th scope="col">Valor</th>
+                        <th scope="col"><p>{{types|index:1|index:n}}</p></th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col"><p>{{types|index:2|index:n}}</p></th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    </div>
 {% endblock %}

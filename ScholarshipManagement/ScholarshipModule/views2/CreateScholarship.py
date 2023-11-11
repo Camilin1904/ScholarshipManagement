@@ -13,6 +13,8 @@ import json
 
 def isValid(query): return query is not None and query != ''
 
+
+@login_required(login_url="/login")
 def createScholarshipsSC1(request):
 
     if request.method == 'GET':
@@ -94,22 +96,18 @@ def createTypes(request):
     
 def createScholarshipsSC4(request):
 
-    print("jljl", request.method)
-    print("porque putas", request.method == 'GET')
-
     if request.method == 'GET':
-        print("python")
+
         form  = request.session.get('form1',CreateScholarshipForm)
-        print(form)
+
         donorID = request.session.get('donor')
         donor = Donors.objects.get(ID = donorID)
         types = request.session.get('typeData')
-        print(types)    
+ 
         tnum = len(types[0])
         a = list()
         for i in range(tnum): a.append(i)
-        print(a)
-        print('python momento')
+
         return render(request, './HTML/summaryScreen.html', {
             'ID': form['ID'],
             'name': form['name'],
