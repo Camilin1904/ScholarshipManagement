@@ -442,5 +442,6 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Camilo Salazar | I finished the announcement search and view pages styling | I will finish the announcement edit and creation pages styling so US6 is completely done |No|
+| Andrés Camilo Romero Ruiz | I started working on scholarships report generation | I will continue working on scholarships report generation, probably the user story will be done by tomorrow | No |
 
 
