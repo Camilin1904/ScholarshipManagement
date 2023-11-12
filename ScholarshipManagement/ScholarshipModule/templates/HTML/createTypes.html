@@ -3,59 +3,9 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/createType.css' %}">
-    <title>Configuracion de coverturas</title>
-{% endblock %}
-
-{% block script %}
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-    <script>
-        class countC{
-            static count = 0;
-            constructor(){
-              this.instanceId = ++countC.count;
-            }
-          }
-    </script>
-    <script>
-        
-        function cloneMore(selector, type) {
-            console.log("aaaaaaaa");
-            var newElement = $(selector).clone(true);
-            var a = new countC();
-            var total = a.instanceId;
-            console.log(total);
-            var newId = 't_'+(total+1);
-            newElement.find(':input').each(function() {
-                var name = $(this).attr('name');
-                var id = ('id_' + name).replace('0', total);
-                console.log('me cago en todo');
-                if($(this).attr('type') === 'button'){
-                    $(this).attr({'name': name, 'id': id, 'data-div':newId, style:'visibility:visible'});
-                }
-                else{
-                    $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-                }
-                
-            });
-            var oldId = 't_'+(total);
-
-            newElement.attr({'id': newId});
-            try{
-                newElement.find("#td_" + '1').attr({'id':"td_" + (total+1)});
-                newElement.find("#td_"+(total+1)).text(total+1);
-                console.log(newElement.find("#td_"+(total+1)));
-            }
-            catch (e){
-                console.log(e); 
-            }
-            
-            $('tr.table:last').after(newElement);
-            
-        }
-        function deleteMyself(id){
-            $(id).remove();
-        }
-    </script>
+    <script src="{% static 'JS/dynamicTypes.js' %}"></script>
+    <title>Configuracion de coverturas</title>
 {% endblock %}
 
 
@@ -63,12 +13,16 @@
     <div class="meter">
         <span style="width: 75%;"></span>
     </div>
+    <div id="title" style="flex-direction: row;">
+        <button class="littleButton" style="align-items: center;" onclick="history.back()" type="button">
+            <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+        </button>
+        <h1 id="title1">Configuracion de coverturas</h1>
+    </div>
 {% endblock %}
 
 
-{% block content %}
-    <h1 id="title">Configuracion de coverturas</h1>
-    
+{% block content %}    
     <form id="forms" action="." method="POST">
         {% csrf_token %}
         <div id="holder">

@@ -18,17 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
 from ScholarshipModule.views2 import CreateScholarship
+from ScholarshipModule.views2 import Scholarships
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.signUp, name = 'signup'),
     path('home/', views.home, name = 'home'),
-    path('scholarships/', views.scholarships, name='scholarships'),
+    path('scholarships/', Scholarships.scholarships, name='scholarships'),
     path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
     path('applicants/create/', views.createApplicants, name='Applicants'),
     path('applicants/filter/', views.filterApplicants, name='FilterApplicants'),
-    #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
     path('logout/', views.signOut, name = 'signOut'),
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
