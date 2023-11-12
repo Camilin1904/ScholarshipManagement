@@ -45,9 +45,7 @@ class testRoleAssignment(LiveServerTestCase):
         self.driver.implicitly_wait(10)
 
     def searchUser(self):
-
         
-
         select = self.driver.find_element(by=By.XPATH,value="//select[@name= 'username']")
         select.click()
 
