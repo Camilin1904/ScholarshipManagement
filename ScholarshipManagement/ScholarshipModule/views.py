@@ -8,7 +8,6 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
-from django.http import HttpResponse
 
 def isValid(query): return query is not None and query != ''
 
