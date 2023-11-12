@@ -12,6 +12,7 @@ from django.http import HttpResponse
 import io
 import csv
 
+
 # Create your views here.
 
 def signUp(request):
