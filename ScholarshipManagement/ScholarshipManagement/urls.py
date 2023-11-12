@@ -18,17 +18,18 @@ from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
 from ScholarshipModule.views2 import scholarshipEditView
+from ScholarshipModule.views2 import CreateScholarship
+from ScholarshipModule.views2 import Scholarships
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.signUp, name = 'signup'),
     path('home/', views.home, name = 'home'),
-    path('scholarships/', views.scholarships, name='scholarships'),
+    path('scholarships/', Scholarships.scholarships, name='scholarships'),
     path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
     path('applicants/create/', views.createApplicants, name='Applicants'),
     path('applicants/filter/', views.filterApplicants, name='FilterApplicants'),
-    path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
     path('logout/', views.signOut, name = 'signOut'),
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
@@ -36,6 +37,9 @@ urlpatterns = [
     path('announcement/', views.searchAnnouncement, name = 'announcement'),
     path('applicants/edit/', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
+    path('view/Student/', views.viewApplicant, name = 'viewStudent'),
+    path('example/', views.reportGenerator, name = 'reportGenerator'),
+    path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
     path('scholarships/edit/',scholarshipEditView.scholarshipEdit,name ='editScholarship'),
     path('scholarships/view/',scholarshipEditView.scholarshipView,name='viewScholarship')

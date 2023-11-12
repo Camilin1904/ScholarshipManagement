@@ -7,18 +7,27 @@
     </title>
 {% endblock links %}
 
-{% block content %}
+{% block filters %}
+    <div class="meter">
+        <span style="width: 25%; height: 100%;"></span>
+    </div>
 
+    <div id="title">
+        <h1>Informacion basica de la Beca</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
     <head>
         <meta charset="UTF-8">
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
         <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
-        <title>Crear programa de beca</title>
+        <title>Informacion basica de la Beca</title>
     </head>
     <div class = "content">
         {{error}}
-        <h1>Crear programa de becas</h1>
-        <form id= "create" action="/scholarships/create/" method = "POST">
+        
+        <form id= "create" action="/scholarships/create/" method = "POST" style="">
             {% csrf_token %}
             {% for field in form %}
             <div id="id_{{forloop.counter}}">

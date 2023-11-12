@@ -7,44 +7,19 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 
-
-class CreateScholarshipForm(ModelForm):
-    
-    #def __init__(self, *args, **kwargs):
-        #super(CreateScholarshipForm, self).__init__(*args,**kwargs)
-        #self.fields['donor'].widget.attrs['size'] = 51
-        #self.fields['name'].widget.attrs['size'] = 51
-        #self.fields['ID'].widget.attrs['size'] = 51
-        #self.fields['description'].widget.attrs['size'] = 50
-        #self.fields['coverage'].widget.attrs['size'] = 51
-        #self.fields['type'].widget.attrs['size'] = 3
-
-    donor = forms.ModelChoiceField(
-        label = "ID del donante", required=True,
-        widget=forms.TextInput(attrs={"class":"id_donor"}),queryset=Donors.objects)
+class CreateScholarshipForm(forms.Form):
+    ID = forms.IntegerField(label = 'ID', required=True, 
+                            widget=forms.TextInput(attrs={"class":"id_ID"}))
     name = forms.CharField(
         label = "Nombre", max_length = 100, required = True,
         widget=forms.TextInput(attrs={"class":"id_name"}))
     description = forms.CharField(
-        label = "Descripción", widget=forms.Textarea(attrs={"class":"id_description",'rows':'3'}))
-    coverage = forms.CharField(
-        label = "Covertura economica", required=True, 
-        widget=forms.TextInput(attrs={"class":"id_coverage"}))
-    type = forms.IntegerField(
-        label = "Tipo", required=True, 
-        widget=forms.RadioSelect(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
+        label = "Descripción", 
+        widget=forms.Textarea(attrs={"class":"id_description",'rows':'3'}))
     requirements = forms.CharField(
         label = "Requerimientos",
         widget=forms.Textarea(attrs={"class":"id_requirements",'rows':'3'}))
-    ID = forms.IntegerField(label = 'ID', required=True, widget=forms.TextInput(attrs={"class":"id_ID"}))
-    
 
-    class Meta:
-
-
-        model = Scholarships
-        fields = ['name', 'ID', 'description', 'donor',
-                  'coverage', 'type', 'requirements']
 
 class EditScholarshipForm(ModelForm):
     donor = forms.ModelChoiceField(
@@ -303,6 +278,7 @@ class FilterApplicantForm(forms.Form):
             attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'}),
         queryset=Announcements.objects)
 
+
 class FilterScholarshipForm(forms.Form):
     donor = forms.ModelChoiceField(
         label = "ID del donante", required=False,
@@ -316,9 +292,7 @@ class FilterScholarshipForm(forms.Form):
     maxCoverage = forms.CharField(
         label = "Covertura economica maxima", required=False, 
         widget=forms.TextInput(attrs={"class":"id_coverage"}))
-    type = forms.IntegerField(
-        label = "Tipo", required=False, 
-        widget=forms.CheckboxSelectMultiple(choices=Scholarships.ScholarshipType.choices, attrs={'size':'3'}))
+    
 
 class AnnouncementAndApplicantForm(forms.ModelForm):
 
@@ -383,5 +357,18 @@ class CreateSearchAnnouncementForm(forms.Form):
         attrs={'type': 'date', "class": "searchform"}), required = False)
     endInscriptionDate = forms.DateField(widget = NumberInput(
         attrs={'type': 'date', "class": "searchform"}), required = False)
+
+class SchTypeCreationForm(forms.Form):
+    
+    UNIT_CHOICES = (
+        ("0", "Porcentaje"),
+        ("1", "Dinero")
+    )
+
+    unit = forms.ChoiceField(choices=UNIT_CHOICES, required=True, label = "Unidad")
+    value = forms.FloatField(required=True, widget = forms.TextInput(), label  = "Valor")
+    type = forms.CharField(required=True, widget=forms.TextInput(), label = "Tipo")
+
+    
 
 
