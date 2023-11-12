@@ -26,13 +26,14 @@ from django.conf.urls.static import static
 
 from ScholarshipModule import reportsViews
 from ScholarshipModule.views2 import CreateScholarship
+from ScholarshipModule.views2 import Scholarships
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.signUp, name = 'signup'),
     path('home/', views.home, name = 'home'),
-    path('scholarships/', views.scholarships, name='scholarships'),
+    path('scholarships/', Scholarships.scholarships, name='scholarships'),
     path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
     #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
     path('logout/', views.signOut, name = 'signOut'),

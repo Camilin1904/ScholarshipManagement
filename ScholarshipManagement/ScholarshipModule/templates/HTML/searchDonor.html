@@ -3,108 +3,52 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/searchDonor.css' %}">
+    <script src="{% static 'JS/donorFilter.js' %}"></script>
     <title>Seleccion de donante</title>
-{% endblock %}
-
-
-{% block script %}
-    <script>
-        function idSearch() {
-            // Declare variables
-            var input, filter, table, tr, th, i, txtValue;
-            // search field
-            input = document.getElementById('id');
-            // get the text on the search field
-            filter = input.value.toUpperCase();
-            // get table
-            table = document.getElementById("donorTable");
-            // get all rows inside the table
-            tr = table.getElementsByTagName('tr');
-            // Loop through all list items, and hide those who don't match the search query
-            for (i = 1; i < tr.length; i++) {
-              // get the firts th from the ith tr
-              td = tr[i].getElementsByTagName("td")[1];
-              // extract the text inside th
-              txtValue = td.textContent || td.innerText;
-              // does the th element contains the filter?
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                  // if the index bigger that -1 the th element contains the filter
-                  tr[i].style.display = "";
-              } else {
-                  // if the index is -1 the th element does not contains the filter
-                  tr[i].style.display = "none";
-              }
-            }
-          }
-          function nameSearch() {
-            // Declare variables
-            var input, filter, table, tr, th, i, txtValue;
-            // search field
-            input = document.getElementById('name');
-            // get the text on the search field
-            filter = input.value.toUpperCase();
-            // get table
-            table = document.getElementById("donorTable");
-            // get all rows inside the table
-            tr = table.getElementsByTagName('tr');
-            // Loop through all list items, and hide those who don't match the search query
-            for (i = 1; i < tr.length; i++) {
-              // get the firts th from the ith tr
-              td = tr[i].getElementsByTagName("td")[0];
-              // extract the text inside th
-              txtValue = td.textContent || td.innerText;
-              // does the th element contains the filter?
-              if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                  // if the index bigger that -1 the th element contains the filter
-                  tr[i].style.display = "";
-              } else {
-                  // if the index is -1 the th element does not contains the filter
-                  tr[i].style.display = "none";
-              }
-            }
-          }
-    </script>
 {% endblock %}
 
 {% block filters %}
     <div class="meter">
-        <span style="width: 50%;"></span>
+        <span style="width: 50%; height: 100%;"></span>
+    </div>
+    <div id="title" style="flex-direction: row;">
+        <button class="littleButton" style="align-items: center;" onclick="history.back()" type="button">
+            <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+        </button>
+        <h1>Seleccion de donante</h1>
     </div>
 {% endblock %}
 
 {% block content %}
-
-<ul>
-    <h1>Seleccion de donante</h1>
-    <br><br>
-    <input type="text" id="id" onkeyup="idSearch()" placeholder="Search by id">
-    <input type="text" id="name" onkeyup="nameSearch()" placeholder="Search by name">
-    <div class="table">
-        <table id = "donorTable">
-            <thead> 
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Selecionar</th>
-                </tr>
-            </thead>
-            <tbody id = "tableContent">
-                {% for Donor in donors %}
+    <div id="behaviour">
+        <input type="text" id="name" onkeyup="nameSearch()" placeholder="Buscar por nombre">
+        <input type="text" id="id" onkeyup="idSearch()" placeholder="Buscar por ID">
+        <div class="table">
+            <table id = "donorTable">
+                <thead> 
                     <tr>
-                        <td scope="col">{{Donor.name}}</td>
-                        <td scope="col">{{Donor.ID}}</td>
-                        <td scope="col">
-                            <form class="select" action="." method="POST">
-                                {% csrf_token %}
-                                <input name="screen" value="donor" style="visibility:hidden"></input>
-                                <button class="selectbtn" name="select" value="{{Donor.ID}}">Seleccionar</button>
-                            </form>
-                        </td>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Selecionar</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody id = "tableContent">
+                    {% for Donor in donors %}
+                        <tr>
+                            <td scope="col">{{Donor.name}}</td>
+                            <td scope="col">{{Donor.ID}}</td>
+                            <td scope="col">
+                                <form class="select" action="." method="POST">
+                                    {% csrf_token %}
+                                    <input name="screen" value="donor" style="visibility:hidden"></input>
+                                    <button class="selectbtn" name="select" value="{{Donor.ID}}">Seleccionar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</ul>
 {% endblock  %}
 

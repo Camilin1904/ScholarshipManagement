@@ -12,7 +12,6 @@ from django.http import HttpResponse
 import io
 import csv
 
-def isValid(query): return query is not None and query != ''
 
 # Create your views here.
 
@@ -94,103 +93,6 @@ def home(request):
     else:
         return render(request, './HTML/notAcces.html')
 
-@login_required(login_url="/login")
-def scholarships(request):
-    if request.method == 'GET':
-        try:
-            del request.session['form1']
-        except:
-            pass
-        try:
-            del request.session['donor']
-        except:
-            pass
-        try:
-            del request.session['typeData']
-        except:
-            pass
-        return render(request, './HTML/scholarships.html', {
-            'scholarships' : Scholarships.objects.all(),
-            'form': FilterScholarshipForm
-            })
-    else:
-        form = FilterScholarshipForm(request.POST)
-        reqID = request.POST.get('id')
-        reqName = request.POST.get('name')
-        reqDonor = request.POST.get('donor')
-        minCov = request.POST.get('minCoverage')
-        maxCov = request.POST.get('maxCoverage')
-        type = request.POST.getlist('type')
-        scholarships = Scholarships.objects.all()
-            
-        if isValid(reqID):
-            try:
-                scholarships = scholarships.filter(ID=reqID)
-            except:
-                scholarships = None
-        if isValid(reqName):
-            try:
-                scholarships = scholarships.filter(name=reqName)    
-            except:
-                scholarships = None
-        if isValid(reqDonor):
-            try:
-                scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
-            except:
-                scholarships = None
-        if isValid(minCov):
-            try:
-                scholarships = scholarships.filter(coverage__gte=minCov)
-            except:
-                scholarships = None
-        if isValid(maxCov):
-            try:
-                scholarships = scholarships.filter(coverage__lte=maxCov)
-            except:
-                scholarships = None
-        if len(type)>0:
-            print(type)
-            schl = list()
-            hold = None
-            for t in type:
-                schl.append(scholarships.filter(type=t))
-            print(schl)
-            for s in schl:
-                if hold is None:
-                    hold = s
-                else:
-                    print(s)
-                    hold = hold.union(s)
-                    print(hold)
-            
-            scholarships = hold
-                
-        
-        print(scholarships)
-        return render(request, './HTML/scholarships.html', {
-            'scholarships' : scholarships,  
-            'form': form,
-            'id': reqID if reqID != None else ''
-        })
-
-
-def createScholarships(request):
-
-    if request.method == 'GET':
-        return render(request, './HTML/createScholarship.html', {
-            'form': CreateScholarshipForm
-        })
-    else:
-        try:
-            form = CreateScholarshipForm(request.POST)
-            form.save()
-            return redirect('scholarships')
-        except:
-            return render(request, './HTML/createScholarship.html', {
-                'form': CreateScholarshipForm,
-                'error': 'Please provide valid data'
-            })
-    
 
 def editApplicant(request):
 
