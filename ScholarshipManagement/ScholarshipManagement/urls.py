@@ -17,6 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
+from ScholarshipModule.views2 import createApplicant
+from ScholarshipModule.views2 import filterApplicant
+from ScholarshipModule.views2 import createAppliStep3
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+from ScholarshipModule import reportsViews
 from ScholarshipModule.views2 import CreateScholarship
 from ScholarshipModule.views2 import Scholarships
 
@@ -27,18 +35,25 @@ urlpatterns = [
     path('home/', views.home, name = 'home'),
     path('scholarships/', Scholarships.scholarships, name='scholarships'),
     path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
-    path('applicants/create/', views.createApplicants, name='Applicants'),
-    path('applicants/filter/', views.filterApplicants, name='FilterApplicants'),
+    #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
     path('logout/', views.signOut, name = 'signOut'),
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
     path('roles/', views.searchUserForRole, name = 'roleAssign'),
     path('announcement/', views.searchAnnouncement, name = 'announcement'),
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
-    path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
+    path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
+    path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
+    path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('example/', views.reportGenerator, name = 'reportGenerator'),
+    path('objectOfReport/', reportsViews.objectOfReport, name = 'reportGenerator'),
+    path('typeOfReport/', reportsViews.typeOfReport, name = 'reportGenerator'),
+    path('filterOfReport/', reportsViews.filterOfReport, name = 'reportGenerator'),
+    path('reportResume/', reportsViews.reportResume, name = 'reportPreview'),
+    #path('example/', views.reportGenerator, name = 'reportGenerator'),
     path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
-]   
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 
 

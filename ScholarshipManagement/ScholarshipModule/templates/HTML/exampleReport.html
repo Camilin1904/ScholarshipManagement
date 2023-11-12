@@ -101,9 +101,9 @@
       document.getElementById("demo").innerHTML = li[0].getElementsByTagName("button")[0].value;
       // Loop through all list items, and hide those who don't match the search query
       for (i = 0; i < li.length; i++) {
-        // for the ith object li get the a element
+        // for the ith object li get the button element
         button = li[i].getElementsByTagName("button")[0];
-        // extract the text inside a
+        // extract the value of the button
         txtValue = button.value;
         // does the list element contains the filter?
         if (txtValue.toUpperCase().indexOf(filter) > -1) {

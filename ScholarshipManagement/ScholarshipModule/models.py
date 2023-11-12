@@ -93,25 +93,29 @@ class StatusApplicant(models.IntegerChoices):
         IN_REVIEW = 0, _('En revisión')
         BENEFICIARY = 1, _('Beneficiario')
         REFUSED = 2, _('No aceptado')
+        NA = 3, _('NA')
+
 
 class Applicant(models.Model):
 
 
-    name = models.CharField(max_length=20, blank=False)
-    lastName = models.CharField(max_length=20, blank=False)
+    name = models.CharField(max_length=50, blank=False)
+    lastName = models.CharField(max_length=50, blank=False)
     ID = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, 
         unique=True)
     studentCode = models.CharField(
         max_length=20, blank=False,unique=True)
-    faculty = models.CharField(max_length=20, blank=False)
-    major = models.CharField(max_length=20, blank=False)
+    faculty = models.CharField(max_length=50, blank=False)
+    major = models.CharField(max_length=50, blank=False)
     semester = models.IntegerField(blank=True, null= True)
-    email= models.EmailField(max_length=40, blank=True, unique=True)
-    phone = models.IntegerField(blank=True, null=True)
+    email= models.EmailField(max_length=50, blank=True, unique=True)
+    phone = models.CharField(max_length=20, blank=False, default='None')
     status = models.IntegerField(
-        default=StatusApplicant.IN_REVIEW, choices=StatusApplicant.choices)
-    
+        default=StatusApplicant.NA, choices=StatusApplicant.choices)
+    image = models.ImageField(upload_to='images/photos', null= True, blank=True, default="")
+    deleted = models.BooleanField(default = False)
+
 
 class AnnouncementAndApplicant(models.Model):
 
@@ -125,6 +129,9 @@ class AnnouncementAndApplicant(models.Model):
     applicant= models.ForeignKey(
         Applicant, related_name="id_applicant", blank=False, 
         null=True, on_delete= models.CASCADE)
+    deleted = models.BooleanField(default = False)
+
+
 
 class ScholarsipTypes(models.Model):
     
