@@ -452,5 +452,6 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Sebastián Libreros García | I finished the tests about the notifications that are displayed | I will countinue testing and improving the code style of the project | No |
+| Camilo Carmona Valencia | I have finished US1a | I will redo US3 taking into account the changes made to US1 | No |
 
 
