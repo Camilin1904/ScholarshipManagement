@@ -453,5 +453,6 @@ Spooky
 |----------|----------|----------|----------|
 | Juan Sebastián Libreros García | I finished the tests about the notifications that are displayed | I will countinue testing and improving the code style of the project | No |
 | Camilo Carmona Valencia | I have finished US1a | I will redo US3 taking into account the changes made to US1 | No |
+| Brayan Steven Ortega | I merged with the US9 and I found some errors in my CSS and in a method that I start to correct | I will finish the corrections and continue implementing the functionalities of the US8 | No |
 
 
