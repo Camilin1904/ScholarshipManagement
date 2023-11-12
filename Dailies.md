@@ -447,4 +447,10 @@ Spooky
 | Camilo Carmona Valencia | I finished the graphical overhaul of the user story apart from some minor details | I will iron out the small details | No |
 | Brayan Steven Ortega | I finished the css and start merging with the new style | I will finish the merging and I will return to the US8 to finish the necessary funcionalities | No | 
 
+## 11/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Juan Sebastián Libreros García | I finished the tests about the notifications that are displayed | I will countinue testing and improving the code style of the project | No |
+
 
