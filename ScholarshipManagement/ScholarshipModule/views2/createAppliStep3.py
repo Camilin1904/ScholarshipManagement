@@ -26,18 +26,27 @@ def createAppliStep3(request):
                 if announcementPost == "":
                     error=""
                 else: 
+
                     student = Applicant.objects.get(studentCode = postStudentCode)
-                    announcement=Announcements.objects.get(id=announcementPost)
 
-                    formNew = AnnouncementAndApplicantForm()
-                    relation = formNew.save(commit=False)
-                    relation.announcement = announcement
-                    relation.applicant = student
-                    relation.save()
+                    try: 
+                         announAppli = AnnouncementAndApplicant.objects.get(applicant = student)
+    
+                         return redirect('/home/')
+                    except:
+                        announAppli = None
 
-                    Applicant.objects.filter(studentCode=postStudentCode).update(status=0)
-                    
-                    
+                    if announAppli == None:
+                        announcement=Announcements.objects.get(id=announcementPost)
+
+                        formNew = AnnouncementAndApplicantForm()
+                        relation = formNew.save(commit=False)
+                        relation.announcement = announcement
+                        relation.applicant = student
+                        relation.save()
+
+                        Applicant.objects.filter(studentCode=postStudentCode).update(status=0)
+
                 return redirect('/home/')
 
 

@@ -49,7 +49,7 @@ urlpatterns = [
     path('typeOfReport/', reportsViews.typeOfReport, name = 'reportGenerator'),
     path('filterOfReport/', reportsViews.filterOfReport, name = 'reportGenerator'),
     path('reportResume/', reportsViews.reportResume, name = 'reportPreview'),
-    path('example/', views.reportGenerator, name = 'reportGenerator'),
+    #path('example/', views.reportGenerator, name = 'reportGenerator'),
     path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

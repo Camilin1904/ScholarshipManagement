@@ -41,7 +41,7 @@ def createApplicants(request):
 
                     error = "El código de estudiante ya existe"
                     return render(request, 'createApplicant.html', {
-                        'form': CreateAppliStep1Form,'form2': CreateAppliStep2Form,'error': error})
+                        'form': formError1,'form2': formError2,'error': error})
                 
                 except:
                     form.save()

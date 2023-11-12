@@ -28,43 +28,59 @@
         </header>
 
         <div id="content">
-            
-        
-            <form method = "POST" id="create1" enctype="multipart/form-data">
-            <div class="container">
 
-                <h2 id="registerApplicant">Datos del aplicante</h2>
-                {% csrf_token %}
-                {% for field in form %}
-
-                    {% if forloop.counter != 11 %}
-                        <div id="id_{{forloop.counter}}" class="items">
-                        
-                            {{ field.label_tag }}<br>
-                            {{ field }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-
-                <label for="id_image" id="image_label">Foto del estudiante:</label>
-                    
-                    <div class="inputForm" id="container_image">
-
-                        <input type="file" id="image"  accept="image/*" name="image">
-                        <div>
-                        
-                            <label for="image" id="customFileButton">Seleccionar archivo</label>
-                        </div>
-                    </div>
-                
-                    <button id="save" class="button">Guardar</button>
-
-                    <button class="button" id="delete" value="{{Applicant.studentCode}}" name="delete">
-                        Eliminar de la Convocatoria
+            <div class="card">
+                <div style="width: 33.3%;">
+                    <button type="submit" id="goBack" class="littleButton" onclick="goBack()">
+                        <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
                     </button>
-                <br>
+                </div>
+    
+                <div style="width: 33.3%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h1 id= "deletable">
+                        Datos 
+                    </h1>
+                </div>
+    
+                <div style="width: 33.3%;"></div>
+    
+    
+            </div>
             
-            </form>
+            <div class="container">
+                <form method = "POST" id="postMethod" enctype="multipart/form-data">
+                
+
+                    {% csrf_token %}
+                    {% for field in form %}
+
+                        {% if forloop.counter != 11 %}
+                            <div id="id_{{forloop.counter}}" class="items">
+                            
+                                {{ field.label_tag }}<br>
+                                {{ field }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+   
+                    <label for="id_image" id="image_label">Foto del estudiante:</label>
+                        <div class="inputForm" id="container_image">
+                            
+
+                            <input type="file" id="image"  accept="image/*" name="image">
+                            <div>
+                            
+                                <label for="image" id="customFileButton">Seleccionar archivo</label>
+                            </div>
+                        </div>
+                    
+                        <button id="save" class="button">Guardar</button>
+
+                        <button class="button" id="delete" value="{{Applicant.studentCode}}" name="delete">
+                            Eliminar de la Convocatoria
+                        </button>
+                
+                </form>
             </div>
 
             
@@ -111,6 +127,10 @@
                 customFileButton.addEventListener("click", function () {
                     imageInput.click();
                 });
+
+                function goBack() {
+                    window.history.back();
+                }
             </script>           
               
                

@@ -28,56 +28,84 @@
 
         <div class="container">
 
+            <div class="meter" id="meter">
+                <span style="width: 99.9%;"></span>
+            </div>
+
+                
+            <div class="card">
+
+                <div style="width: 33.3%;"></div>
+
+                <div style="width: 33.3%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h1 id= "deletable">
+                        Asignación 
+                    </h1>
+                </div>
+
+                <form action='/applicants/create/step3/' method = "POST" id="formSkip" style="width: 33.3%;">
+                    {% csrf_token %}
+                    <button  name="skip" class="skipButton" id="skipButton">
+                        <h3>Omitir</h3>
+                        <h1>
+                            <i class="bi bi-caret-right-fill"></i>
+                        </h1>
+                    </button>
+                </form>
+
+            </div>
+
+
+            <div id="containerSecondPart">
 
                 <div class="filter">
-                    <h2>Filtros</h2>
+                    <h2>Filtro</h2>
                     <input type="text" id="myInput" class="inputForm" onkeyup="myFunction3()" placeholder="Buscar por ID de convocatoría">
                     <br>
-                    <form action='/applicants/create/step3/' method = "POST" id="formSkip">
-                        {% csrf_token %}
-                        <button  name="skip" class="button" id="skipButton">Omitir</button>
-                    </form>
                     
                 </div>
-            
-
-            <div class="content">
-            
-                <h1 id="foundStudents">
-                    Convocatorías encontradas
-                </h1>
                 
-                <div class="announcements">
-                    <nav class="scroll_bar">
-                        
-                        
-                        <form action='/applicants/create/step3/' method = "POST">
-                        
-                            {% csrf_token %}
-                            
-        
-                            <ul id="myButtons" >
-        
-                                {% for announcement in scholarshipAnnoun %}
-                                <li> 
-                                    <button value="{{announcement.announcementId.id}}" class="button" name="announcement">
-                                        
-                                        <p>Beca: {{announcement.scholarshipId.name}} </p>
-                                        <p>ID convocatoría: {{announcement.announcementId.id}} </p>
-                                        <p>Tipo convocatoría: {{announcement.announcementId.type}} </p>
-
-                                    </button> 
-                                </li>
-                                {% endfor %}
-                            </ul>  
-                            <br>
-                        
-        
-                        </form>
+    
+                <div class="content">
+                
+                    <h1 id="foundStudents">
+                        Convocatorías encontradas
+                    </h1>
                     
-                    </nav>
+                    <div class="announcements">
+                        <nav class="scroll_bar">
+                            
+                            
+                            <form action='/applicants/create/step3/' method = "POST">
+                            
+                                {% csrf_token %}
+                                
+            
+                                <ul id="myButtons" >
+            
+                                    {% for announcement in scholarshipAnnoun %}
+                                    <li> 
+                                        <button value="{{announcement.announcementId.id}}" class="button" name="announcement">
+                                            
+                                            <p>Beca: {{announcement.scholarshipId.name}} </p>
+                                            <p>ID convocatoría: {{announcement.announcementId.id}} </p>
+                                            <p>Tipo convocatoría: {{announcement.announcementId.type}} </p>
+    
+                                        </button> 
+                                    </li>
+                                    {% endfor %}
+                                </ul>  
+                                <br>
+                            
+            
+                            </form>
+                        
+                        </nav>
+                    </div>
                 </div>
+
             </div>
+            
 
             {% if error == "" %}
                         
@@ -121,6 +149,22 @@
           }
         }
     </script>
+
+    <style>
+        #meter > span {
+        animation-name: rotate;
+        animation-duration: 0.7s;
+        }
+        
+        @keyframes rotate {
+        0% {
+            width: 66.6%;
+        }
+        100% {
+            width: 99.9%;
+        }
+        }
+    </style>
 
 </html>
 

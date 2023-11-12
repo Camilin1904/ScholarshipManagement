@@ -24,12 +24,28 @@
     </header>
 
     <div class="container">
+
+        <div class="card">
+            <div style="width: 33.3%; ">
+                <button type="submit" id="goBack" class="littleButton" onclick="goBack()">
+                    <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                </button>
+            </div>
+
+            <div style="width: 33.3%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <h1 id= "deletable">
+                    Perfil aplicante
+                </h1>
+            </div>
+
+            <div style="width: 33.3%;"></div>
+        </div>
+
+
         <div class="content">
 
             <div class="info_applicant">
-                <h2 id="title">
-                    <b>Información del aplicante</b>
-                </h2>
+
                 {%for Applicant in applicant%}
                     <ul id="applicant_info_list">
                         <li id="applicant_info">
@@ -104,31 +120,19 @@
                     
 
 
-                <form method="POST">
-                    
-                    <div class="buttons">
-                        
-                        <button class="button" id="back" value="{{Applicant.studentCode}}" name="back">
-                            {% csrf_token %}
-                            Atrás
-                        </button>
+                <form method="POST" id="post_method">
+
                         <button class="button" id="edit" value="{{Applicant.studentCode}}" name="edit">
                             {% csrf_token %}
                             Editar
                         </button>
-                        
-                    </div>
+
+                        <button class="button" id="delete" value="{{Applicant.studentCode}}" name="delete">
+                            {% csrf_token %}
+                            Eliminar
+                        </button>
                 </form>
 
-                
-                <form method="POST" id="post_method2">
-                    
-                    <button class="button" id="delete" value="{{Applicant.studentCode}}" name="delete">
-                        {% csrf_token %}
-                        Eliminar
-                    </button>
-
-                </form>
 
                 {%endfor%}
 
@@ -148,6 +152,12 @@
         </div>
         
     </div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>   
 
 
 </body>
