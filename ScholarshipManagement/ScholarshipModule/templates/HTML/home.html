@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="{% static 'CSS/home.css' %}">
         {% block links %}
         {% endblock %}
+        {% block script %}
+        {% endblock %}
 
     </head>
 
@@ -34,6 +36,8 @@
                 {% block content %}
                 {% endblock %}
             </div>
+            {% block afterContent %}
+            {% endblock %}
         </div>
 
     </body>

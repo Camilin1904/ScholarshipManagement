@@ -8,8 +8,10 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
+from django.http import HttpResponse
+import io
+import csv
 
-def isValid(query): return query is not None and query != ''
 
 # Create your views here.
 
@@ -21,7 +23,8 @@ def signUp(request):
         error = ''
         for field in form:
             # Errors as text
-            error = field.errors.as_text
+            error = error + (field.errors)
+            
         if form.is_valid():
             # Save user in data base
             user = form.save()
@@ -29,6 +32,8 @@ def signUp(request):
             login(request, user)
             return redirect('/home')
         else:
+            print("Me cago en todo lo cagable")
+            print(error)
             return render(
                 request, './HTML/signup.html', {'form': form, 'error': error})
     else:
@@ -88,91 +93,6 @@ def home(request):
     else:
         return render(request, './HTML/notAcces.html')
 
-
-def scholarships(request):
-    if request.method == 'GET':
-        return render(request, './HTML/scholarships.html', {
-            'scholarships' : Scholarships.objects.all(),
-            'form': FilterScholarshipForm
-            })
-    else:
-        form = FilterScholarshipForm(request.POST)
-        reqID = request.POST.get('id')
-        reqName = request.POST.get('name')
-        reqDonor = request.POST.get('donor')
-        minCov = request.POST.get('minCoverage')
-        maxCov = request.POST.get('maxCoverage')
-        type = request.POST.getlist('type')
-        scholarships = Scholarships.objects.all()
-            
-        if isValid(reqID):
-            try:
-                scholarships = scholarships.filter(ID=reqID)
-            except:
-                scholarships = None
-        if isValid(reqName):
-            try:
-                scholarships = scholarships.filter(name=reqName)    
-            except:
-                scholarships = None
-        if isValid(reqDonor):
-            try:
-                scholarships = scholarships.filter(donor=Donors.objects.get(ID=reqDonor))
-            except:
-                scholarships = None
-        if isValid(minCov):
-            try:
-                scholarships = scholarships.filter(coverage__gte=minCov)
-            except:
-                scholarships = None
-        if isValid(maxCov):
-            try:
-                scholarships = scholarships.filter(coverage__lte=maxCov)
-            except:
-                scholarships = None
-        if len(type)>0:
-            print(type)
-            schl = list()
-            hold = None
-            for t in type:
-                schl.append(scholarships.filter(type=t))
-            print(schl)
-            for s in schl:
-                if hold is None:
-                    hold = s
-                else:
-                    print(s)
-                    hold = hold.union(s)
-                    print(hold)
-            
-            scholarships = hold
-                
-        
-        print(scholarships)
-        return render(request, './HTML/scholarships.html', {
-            'scholarships' : scholarships,  
-            'form': form,
-            'id': reqID if reqID != None else ''
-        })
-
-
-def createScholarships(request):
-
-    if request.method == 'GET':
-        return render(request, './HTML/createScholarship.html', {
-            'form': CreateScholarshipForm
-        })
-    else:
-        try:
-            form = CreateScholarshipForm(request.POST)
-            form.save()
-            return redirect('scholarships')
-        except:
-            return render(request, './HTML/createScholarship.html', {
-                'form': CreateScholarshipForm,
-                'error': 'Please provide valid data'
-            })
-    
 
 def editApplicant(request):
 
@@ -900,3 +820,37 @@ def searchAnnouncement(request):
 def searchStudent(request):
     return render(
             request, './HTML/searchStudent.html')
+
+
+def reportGenerator(request):
+
+    return render(
+            request, './HTML/exampleReport.html', {'users': User.objects.all}
+    )
+    
+    # Use the worksheet object to write
+    # data via the write() method.
+
+    users = User.objects.all()
+
+    # field names  
+    fields = ['Email', 'Nombre', 'Rol']  
+    
+    # name of csv file  
+    filename = "university_records.csv"
+
+    rows = []  
+
+    rows.append(fields)  
+    
+    for user in users:
+        rows.append([str(user.username), str(user.name), str(user.role)])
+
+    buffer = io.StringIO()  # python 2 needs io.BytesIO() instead
+    wr = csv.writer(buffer, quoting=csv.QUOTE_ALL)
+    wr.writerows(rows)
+    buffer.seek(0)
+    response = HttpResponse(buffer, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=university_records.csv'
+
+    return response
