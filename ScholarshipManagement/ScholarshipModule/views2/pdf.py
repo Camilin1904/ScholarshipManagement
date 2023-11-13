@@ -29,6 +29,7 @@ def link_callback(uri, rel):
    base_dir = settings.BASE_DIR           # Project's base directory
 
    if uri.startswith(media_url):
+      print('a')
       path = os.path.join(media_root, uri.replace(media_url, ""))
    elif uri.startswith(static_url):
       path = os.path.join(static_root, uri.replace(static_url, ""))
