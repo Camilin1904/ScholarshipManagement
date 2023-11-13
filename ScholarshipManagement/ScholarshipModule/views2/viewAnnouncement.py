@@ -27,7 +27,7 @@ def viewAnnouncement (request):
         if 'editBttn' in request.POST:
             return redirect('/announcement/edit/')
         
-        
+
         if 'deleteBttn' in request.POST:
 
             Announcements.objects.filter(id = announcementId).update(archived = archiveNumberFlag)
@@ -36,6 +36,9 @@ def viewAnnouncement (request):
 
             return render(
             request, './HTML/viewAnnouncement.html', context)
+        if 'reportBttn' in request.POST:
+            request.session["announcementId"] = request.POST.get("reportBttn")
+            return redirect('pdf')
 
 
 def getAnnouncementInfo(announcementId):

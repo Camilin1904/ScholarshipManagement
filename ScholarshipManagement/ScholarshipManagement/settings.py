@@ -120,10 +120,9 @@ USE_TZ = True
 
 STATIC_URL = 'ScholarshipModule/ScholarshipModule/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "ScholarshipModule/static"),
-)
+#Si mueven esto les toca reparar los reportes de convocatorias >:(
 STATIC_ROOT = str(BASE_DIR).replace('\\', '/') + "/ScholarshipModule/static/"
+
 MEDIA_URL = 'ScholarshipModule/Media/'
 MEDIA_ROOT = str(BASE_DIR).replace('\\', '/') + "/ScholarshipModule/Media/"
 

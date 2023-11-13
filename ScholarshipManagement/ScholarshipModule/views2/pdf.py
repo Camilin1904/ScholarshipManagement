@@ -46,11 +46,13 @@ def render_pdf_view(request):
    #Get the required announcement
    try:
       announcementNum = request.session.get('announcementId')
+      print(announcementNum)
       announcement = AnnouncementEvent.objects.filter(announcementId_id = announcementNum)
       rel = ScholarshipAnnouncements.objects.get(announcementId = announcementNum)
-      scholarship = Scholarships.objects.get(ID = rel.scholarshipId)
+      scholarship = Scholarships.objects.get(ID = rel.scholarshipId_id)
       context = {'date':date.today(), 'announcement': announcement, 'scholarship':scholarship}
-   except:
+   except Exception as e:
+      print(e)
       context = {'date':date.today(), 'error':'La convocatoria pedida no existe.'}
       
       
