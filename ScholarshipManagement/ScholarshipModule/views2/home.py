@@ -37,19 +37,24 @@ def getEventsList():
 
     for count in range(3):
 
-        event = eventsList2[counter]
-        event2 = eventsList3[counter2]
+        try:
+            event = eventsList2[counter]
+            event2 = eventsList3[counter2]
 
-        if event.startingDate >= event2.endDate:
+            if event.startingDate >= event2.endDate:
 
-            calendarEvents.append(formatedEvent(
-                event2, "Finalización de "))
-            counter2+=1
+                calendarEvents.append(formatedEvent(
+                    event2, "Finalización de "))
+                counter2+=1
 
-        else:
-            calendarEvents.append(formatedEvent(
-                event, "Inicio de "))
+            else:
+                calendarEvents.append(formatedEvent(
+                    event, "Inicio de "))
             counter+=1
+
+        except:
+            return calendarEvents
+        
     return calendarEvents
 
 
