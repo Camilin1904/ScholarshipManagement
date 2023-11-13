@@ -290,7 +290,8 @@ def searchUserForRole(request):
             'form': searchUser,
             'success': success
         })
-            
+
+@login_required(login_url="/login") 
 def createAnnouncement(request):
 
     additionalEvents = 0
@@ -481,7 +482,7 @@ def createAnnouncement(request):
             return render(
                 request, 'createAnnouncement.html', context) 
         
-
+@login_required(login_url="/login")
 def searchAnnouncement(request):
 
     today = str(date.today())
@@ -813,7 +814,7 @@ def getAnnouncementViewContext(announcementId):
     
     return context
 
-
+@login_required(login_url="/login")
 def viewAnnouncement (request):
 
     announcementId = request.session.get('announcementId')
@@ -886,7 +887,7 @@ def getAnnouncementInfo(announcementId):
     return announcementDict
 
 
-
+@login_required(login_url="/login")
 def editAnnouncement (request):
 
     error = ""
@@ -1027,7 +1028,7 @@ def editAnnouncement (request):
             return render(
                 request,  './HTML/editAnnouncement.html', context) 
         
-
+@login_required(login_url="/login")
 def editEvent(request):
 
     request.session['editFlag'] = True
@@ -1063,7 +1064,7 @@ def editEvent(request):
         print("2")
         return redirect('/announcement/edit/')
 
-
+@login_required(login_url="/login")
 def createEvent(request):
 
     announcementId = request.session.get('announcementId')
