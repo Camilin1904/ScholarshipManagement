@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
-from ScholarshipModule.views2 import scholarshipEditView
+from ScholarshipModule.views2 import scholarshipView
+from ScholarshipModule.views2 import scholarshipEdit
 from ScholarshipModule.views2 import CreateScholarship
 from ScholarshipModule.views2 import Scholarships
+from ScholarshipModule.views2 import deleteScholarship
 
 
 urlpatterns = [
@@ -39,10 +41,11 @@ urlpatterns = [
     path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
     path('example/', views.reportGenerator, name = 'reportGenerator'),
-    path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
+    path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('scholarships/edit/',scholarshipEditView.scholarshipEdit,name ='editScholarship'),
-    path('scholarships/view/',scholarshipEditView.scholarshipView,name='viewScholarship')
+    path('scholarships/edit/',scholarshipEdit.scholarshipEdit,name ='editScholarship'),
+    path('scholarships/view/',scholarshipView.scholarshipView,name='viewScholarship'),
+    path('scholarships/delete/', deleteScholarship.deleteScholarship, name='delScholarship')
 ]   
 
 

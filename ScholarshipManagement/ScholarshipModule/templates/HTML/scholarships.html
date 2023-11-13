@@ -4,13 +4,14 @@
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/scholarships.css' %}">
     <script src="{%static 'JS/scholarshipFilter.js' %}"></script>
+    <title>Programas de Becas</title>
 {% endblock %}
 
 
 
 {% block filters %}
     <div id="title" style="flex-direction: row;">
-        <h1 >Programas de Becas</h1>
+        <h1>Programas de Becas</h1>
     </div>
     <div id="info">
         <div id="filter">
@@ -21,7 +22,7 @@
             <br><br>
             <input type="text" id="donor" onkeyup="donorSearch()" placeholder="Buscar por Donate" class="inFilt">
             <br><br>
-            <a href="/scholarships/create/" id="CreateButton" class="inFilt"><button> Crear programa de becas</button></a>
+            <a href="/scholarships/create/" id="CreateButton" class="inFilt"><button class="standardButton"><h3>Crear programa de becas</h3></button></a>
         </div>
 {% endblock %}
 
@@ -44,7 +45,10 @@
                         <td scope="col">{{Scholarship.ID}}</td>
                         <td scope="col">{{Scholarship.donor_id}}</td>
                         <td scope="col" class="btnHolder">
-                            <button value="{{Scholarship.ID}}" href="" class="btn">Ver mas</button>
+                            <form href="." method="POST">
+                                {% csrf_token %}
+                                <button name="sch" value="{{Scholarship.ID}}" class="standardButton"><h3>Ver mas</h3></button>
+                            </form>
                         </td>
                     </tr>
                 {% endfor %}

@@ -1,0 +1,15 @@
+@import url('home.css');
+
+.content{
+    width: 80%;
+    height: 90%;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: #3A4459;
+    overflow: hidden;
+    object-fit: fill;
+}

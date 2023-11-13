@@ -68,7 +68,7 @@ def searchDonor(request):
     if request.method == 'GET':
         return render(request, './HTML/searchDonor.html', {
             'donors' : Donors.objects.all(),
-            'form': FilterScholarshipForm
+            'meter': True
             })
     else:
         #The donor is saved into a session for later use
@@ -79,23 +79,27 @@ def searchDonor(request):
     
     
 def createTypes(request):
-    #Formset in place in case later on the default amount of types 
-    # becomes more than one
-    typesFormSet = formset_factory(SchTypeCreationForm, can_delete=True)
+    typesForm = SchTypeCreationForm()
+    listForms = list()
+    listForms.append(typesForm)
     if request.method == 'GET':
         #get
         return render(request, './HTML/createTypes.html', {
-            'forms': typesFormSet
+            'forms': listForms,
+            'meter':True
             })
     else:
         #Saves the information of all types
         #It is saved this way as the information per type
         #Is ordered, so, saving it as a list per variable
         #Makes creation smoother
-        unitList = request.POST.getlist('form-0-unit')
-        valueList = request.POST.getlist('form-0-value')
-        typeList = request.POST.getlist('form-0-type')
-        #Creates a matrix so that this lists may be saved in one session
+        unitList = request.POST.getlist('unit')
+        valueList = request.POST.getlist('value')
+        typeList = request.POST.getlist('type')
+        #Creates a matrix so that this lists may be saved in one session}
+        for n in range(len(unitList)):
+            if float(unitList[n]) == 0 and float(valueList[n]) > 100:
+                valueList[n] = 100
         formDataList = list()
         formDataList.append(unitList)
         formDataList.append(valueList)

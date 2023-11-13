@@ -1,4 +1,4 @@
-@import url('home.css');
+@import url('contentColor.css');
 
 body{
     overflow: hidden;
@@ -150,16 +150,37 @@ table{
     width:100%;
 }
 #title{
-    width: 60%;
+    width: 90%;
     height: 20%;
-
     background-color: #FFFFFF;
     border-radius: 15px;
     display: flex;
-    flex-flow: column;
+    flex-flow: row;
     align-items: center;
     justify-content: center;
     color: #3A4459;
     overflow: hidden;
+}
+
+.littleButton{
+    border: none;
+    color: #2D6A9F;
+    transition-duration: 0.4s;
     object-fit: fill;
+    background-color: white;
+    display: flex;
+    width:fit-content ;
+    border-radius: 15px;
+    
+}
+
+.littleButton:hover{
+    background-color: #2D6A9F;
+    color: white;
+    width: fit-content;
+}
+
+#linkback{
+    margin-left:-25%;
+    margin-right:17%;
 }

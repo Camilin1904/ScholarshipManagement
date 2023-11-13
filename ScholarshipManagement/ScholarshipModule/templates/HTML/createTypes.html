@@ -1,5 +1,6 @@
 {% extends 'HTML/searchDonor.html' %}
 {% load static %}
+{% load sub1 %}
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/createType.css' %}">
@@ -10,9 +11,11 @@
 
 
 {% block filters %}
-    <div class="meter">
-        <span style="width: 75%;"></span>
-    </div>
+    {% if meter %}
+        <div class="meter">
+            <span style="width: 75%;"></span>
+        </div>
+    {% endif %}
     <div id="title" style="flex-direction: row;">
         <button class="littleButton" style="align-items: center;" onclick="history.back()" type="button">
             <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
@@ -36,24 +39,27 @@
                         <th scope="col"></th>
                     </tr>
                 <tbody>
-                    {% for form in forms.forms %}
+                    {% for form in forms %}
                         <div>
-                            <tr class='table'id = "t_{{ forloop.counter }}">
-                                    <td scope="col" id = "td_{{forloop.counter}}">{{forloop.counter}}</td>
+                            <tr class='table'id = "t_{{ forloop.counter|sub1 }}">
+                                    <td scope="col" id = "td_{{forloop.counter|sub1}}" class="num">{{forloop.counter}}</td>
                                 {% for field in form %}
                                     {% if forloop.counter != 4 %}                        
                                             <td scope = "col">{{ field }}</td>                          
                                     {% endif %}
                                 {% endfor %}
                             <td>
-                                <input type="button" id = "id_n_0" name = "n_0" value="Eliminar" class = "deleter" data-div="t_{{forloop.counter}}" style="visibility: hidden"></input>
+                                {% if forloop.counter == 1 %}
+                                    <input type="button" id = "id_n_0" name = "n_0" value="Eliminar" class = "deleter standardButton" data-div="t_{{forloop.counter|sub1}}" style="visibility: hidden"></input>
+                                {% else %}
+                                    <input type="button" id = "id_n_0" name = "n_0" value="Eliminar" class = "deleter standardButton" data-div="t_{{forloop.counter|sub1}}" style="visibility: visible"></input>
+                                {% endif %}
                             </td>
                             <script>
                                 $('.deleter').click(function(){
-                                    console.log("pito");
                                     var div = $(this).attr('data-div');
-                                    if(!(div === 't_1')){
-                                        $('#'+div).remove();
+                                    if(!(div === 't_0')){
+                                        $('#'+div+":last").remove();
                                         $(this).remove();
                                     }
                                 });
@@ -64,16 +70,14 @@
                 </tbody>
             </table>
         </div>
-        <input class="btn" type="button" value="Add More" id="add_more">
+        <input class="standardButton" type="button" value="Add More" id="add_more">
         <script>
             $('#add_more').click(function() {
-                console.log(cloneMore); 
-                cloneMore('tr.table:first', 'service');
-                console.log("pito");
+                cloneMore('tr.table:last', 'service');
             });
         </script>
         <div id="corner">
-            <button class="btn">Siguiente</button>
+            <button class="standardButton">Guardar</button>
         </div>
         <input name="screen" value="types" style="visibility:hidden"></input>
     </form>
