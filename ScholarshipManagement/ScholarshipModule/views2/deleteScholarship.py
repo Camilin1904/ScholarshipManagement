@@ -4,6 +4,7 @@ from django.shortcuts import redirect
 from ScholarshipModule.forms import *
 from ScholarshipModule.models import *
 
+#marks a scholarship as deleted
 def deleteScholarship(request):
     sch = request.session["sch"]
     

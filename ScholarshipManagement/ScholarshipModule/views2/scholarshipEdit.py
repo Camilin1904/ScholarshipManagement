@@ -4,27 +4,29 @@ from django.shortcuts import redirect
 from ScholarshipModule.forms import *
 from ScholarshipModule.models import *
 
+#base screen and path chooser
 def scholarshipEdit(request):
 
+    #scholarship to be edited
     idScholarship = request.session['sch']
     scholarship = Scholarships.objects.get(ID=idScholarship)
-    print(scholarship)
 
     if request.method == 'GET':
-        
+        #tries to display the modified donor, if it wasn't, puts the actual donor
         try:
             donorID = request.session.get("donorID")
             donor = Donors.objects.get(ID = donorID)
         except:
             donor = scholarship.donor
             
+        #tries to display the modified types, if it wasn't, puts the actual types
         try:
-            print(request.session['typeData'])
             types = request.session['typeData']
         except:
-            types = ScholarsipTypes.objects.filter(scholarship_id = idScholarship).values()
-            print(types.values())
+            types = ScholarsipTypes.objects.filter(
+                                            scholarship_id = idScholarship).values()
         
+        #loads the current info into the form
         try:
                 form = EditScholarshipForm(initial = {
                     "ID": scholarship.ID,
@@ -33,42 +35,43 @@ def scholarshipEdit(request):
                     "requirements":scholarship.requirements
                 })
         except Exception as e:
+            #failsafe for unexpected error
             print(e)
             form = EditScholarshipForm
-
+        #render
         return render(request, './HTML/scholarshipEdit.html', {
             'form':form,
             'donor':donor,
             'types':types
         })
     else:
-        
+        #dir is an invisible input used to know where to be sent
         dir = request.POST.get("dir")
-        
+        #if the user decides to change the donor
         if(dir == "donor"):
             request.method = "GET"
             return editDonor(request)
-        
+        #if the user decides to change the type
         if(dir == "type"):
             request.method = "GET"
             return editTypes(request)
-        
+        #in case they are returning from one of the auxiliary screens
         dID = request.POST.get("select")
         types = request.POST.get("screen")
-        
+        #new donor
         if(dID != None):
             request.session["donorID"] = dID
             request.method = "GET"
             return scholarshipEdit(request)
-
+        #modified types
         if(types != None):
             
             return editTypes(request)
         
-
+        #if no other return happened, then the user must have decided to save
         return saveIntoDatabase(request)
     
-
+#send user the the screen with all donors
 def editDonor(request):
     #get
     if request.method == 'GET':
@@ -77,22 +80,21 @@ def editDonor(request):
             'meter': False
             })
         
-    
+# sends the user to the screen where they may modify the current types
 def editTypes(request):
-    #Formset in place in case later on the default amount of types 
-    # becomes more than one
+    #gets the scholarship
     idScholarship = request.session['sch']
     types = request.session.get(
             "typeData",
             ScholarsipTypes.objects.filter(scholarship_id = idScholarship).values())
     typesForm = list()
+    #creates a dictionary for each type in the data base
     for t in types:
         typesForm.append(SchTypeCreationForm(initial = {
             'unit':t['unit'],
             'value':t['value'],
             'type':t['type']
         }))
-        
     if request.method == 'GET':
         #get
         return render(request, './HTML/createTypes.html', {
@@ -107,6 +109,7 @@ def editTypes(request):
         #Creates a matrix so that this lists may be saved in one session
         formDataList = list()
         for n in range(len(unitList)):
+            #temporary fix to make it impossible to put percentages over 100
             if float(unitList[n]) == 0 and float(valueList[n]) > 100:
                 valueList[n] = 100
             sub = {'unit':unitList[n],'value':valueList[n],'type':typeList[n]}

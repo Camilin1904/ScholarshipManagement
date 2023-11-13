@@ -14,7 +14,7 @@ from ScholarshipModule.views2.scholarshipView import scholarshipView
 @login_required(login_url="/login")
 def scholarships(request):
     if(request.method == "GET"):
-        #makes sure all sessions from the creation of a scholarship are clean
+        #makes sure all sessions from the creation and edition of a scholarship are clean
         try:
             del request.session['form1']
         except:
