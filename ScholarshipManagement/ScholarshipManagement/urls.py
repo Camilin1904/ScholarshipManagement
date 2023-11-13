@@ -27,6 +27,8 @@ from ScholarshipModule.views2 import Images
 from ScholarshipModule.views2 import createApplicant
 from ScholarshipModule.views2 import filterApplicant
 from ScholarshipModule.views2 import createAppliStep3
+from ScholarshipModule.views2 import editApplicant
+from ScholarshipModule.views2 import viewApplicant
 from django.conf import settings
 from django.conf.urls.static import static
 from ScholarshipModule import reportsViews
@@ -50,11 +52,11 @@ urlpatterns = [
     path('roles/', views.searchUserForRole, name = 'searchUser'),
     path('roles/', views.searchUserForRole, name = 'roleAssign'),
     path('announcement/', searchAnnouncement.searchAnnouncement, name = 'announcement'),
-    path('applicants/edit', views.editApplicant, name = 'editApplicant'),
+    path('applicants/edit', editApplicant.editApplicant, name = 'editApplicant'),
     path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
     path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
-    path('view/Student/', views.viewApplicant, name = 'viewStudent'),
+    path('view/Student/', viewApplicant.viewApplicant, name = 'viewStudent'),
     path('pdf/', pdf.render_pdf_view, name = 'pdf'),
     path('objectOfReport/', reportsViews.objectOfReport, name = 'reportGenerator'),
     path('typeOfReport/', reportsViews.typeOfReport, name = 'reportGenerator'),

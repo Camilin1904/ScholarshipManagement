@@ -44,6 +44,16 @@ def createAppliStep3(request):
                         relation.announcement = announcement
                         relation.applicant = student
                         relation.save()
+                        
+                        formStatusCheck = StatusCheckAppliForm()
+                        appliStatusCheck = formStatusCheck.save(commit=False)
+                        appliStatusCheck.announcementCheck = announcement
+                        appliStatusCheck.applicantCheck = student
+                        appliStatusCheck.semester = student.semester
+                        appliStatusCheck.status = 0
+                        appliStatusCheck.save()
+
+
 
                         Applicant.objects.filter(studentCode=postStudentCode).update(status=0)
 

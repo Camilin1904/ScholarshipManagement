@@ -281,7 +281,19 @@ class CreateApplicantForm(ModelForm):
             'email','phone','status', 
             'announcement','image'
         ] 
- 
+
+
+class StatusCheckAppliForm(forms.ModelForm):
+
+
+    class Meta:
+
+
+        model = ApplicantStateCheck
+        fields = [
+            'announcementCheck', 'applicantCheck', 'semester',
+            'status'
+        ]
 
         
 class CreateAppliStep1Form(forms.Form):
