@@ -461,4 +461,5 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Juan Sebastián Libreros | I finished the tests about log in and notifications also accepted Camilo's PR | I will do the tests for create scholarships and the incoming functionalities of the app | No |
+| Camilo Carmona Valencia | I have finished US3 | I will finish US7 taking into consideration any changes that may have been applied to announcements since I last worked on it | If all goes well, no |
 
