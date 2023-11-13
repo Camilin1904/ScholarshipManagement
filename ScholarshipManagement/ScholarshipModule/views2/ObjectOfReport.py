@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from ..forms import *
 from ..models import *
-from .IsAllowed import isAllowed
+from .isAllowed import isAllowed
 
 @login_required(login_url="/login")
 def objectOfReport(request):

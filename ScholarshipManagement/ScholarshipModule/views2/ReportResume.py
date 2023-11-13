@@ -6,7 +6,7 @@ from ..models import *
 from django.http import HttpResponse
 import io
 import csv
-from .IsAllowed import isAllowed
+from .isAllowed import isAllowed
 
 @login_required(login_url="/login")
 def reportResume(request):
