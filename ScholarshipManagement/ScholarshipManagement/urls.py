@@ -17,6 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
+from ScholarshipModule.views2 import scholarshipView
+from ScholarshipModule.views2 import scholarshipEdit
+from ScholarshipModule.views2 import CreateScholarship
+from ScholarshipModule.views2 import Scholarships
+from ScholarshipModule.views2 import deleteScholarship
 from ScholarshipModule.views2 import createApplicant
 from ScholarshipModule.views2 import filterApplicant
 from ScholarshipModule.views2 import createAppliStep3
@@ -57,7 +62,10 @@ urlpatterns = [
     path('announcement/edit/', editAnnouncement.editAnnouncement, name = 'editAnnouncement'),
     path('announcement/view/', viewAnnouncement.viewAnnouncement, name = 'viewAnnouncement'),
     path('createEvent/', editAnnouncement.createEvent, name = 'createEvent'),
-    path('announcement/edit/events/', editAnnouncement.editEvent, name = 'editEvent')
+    path('announcement/edit/events/', editAnnouncement.editEvent, name = 'editEvent'),
+    path('scholarships/edit/',scholarshipEdit.scholarshipEdit,name ='editScholarship'),
+    path('scholarships/view/',scholarshipView.scholarshipView,name='viewScholarship'),
+    path('scholarships/delete/', deleteScholarship.deleteScholarship, name='delScholarship')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

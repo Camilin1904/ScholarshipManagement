@@ -14,7 +14,7 @@ from django.db.models.functions import Concat
 
 class CreateScholarshipForm(forms.Form):
     ID = forms.IntegerField(label = 'ID', required=True, 
-                            widget=forms.TextInput(attrs={"class":"id_ID"}))
+                            widget=forms.TextInput(attrs={"class":"id_ID",'type':'number'}))
     name = forms.CharField(
         label = "Nombre", max_length = 100, required = True,
         widget=forms.TextInput(attrs={"class":"id_name"}))
@@ -24,7 +24,22 @@ class CreateScholarshipForm(forms.Form):
     requirements = forms.CharField(
         label = "Requerimientos",
         widget=forms.Textarea(attrs={"class":"id_requirements",'rows':'3'}))
-    
+
+class EditScholarshipForm(forms.Form):
+    ID = forms.IntegerField(label = 'ID', required=True, 
+                            widget=forms.TextInput(attrs={"class":"id_ID"}), disabled=True)
+    name = forms.CharField(
+        label = "Nombre", max_length = 100, required = True,
+        widget=forms.TextInput(attrs={"class":"id_name"}))
+    description = forms.CharField(
+        label = "Descripción", 
+        widget=forms.Textarea(attrs={"class":"id_description",'rows':'3'}))
+    requirements = forms.CharField(
+        label = "Requerimientos",
+        widget=forms.Textarea(attrs={"class":"id_requirements",'rows':'3'}))
+
+
+        
 class CreateAnnouncementForm(ModelForm):
 
 
@@ -404,21 +419,6 @@ class FilterApplicantForm(forms.Form):
         label = "ID de la convocatoria", required=False, widget=forms.TextInput(
             attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'}),
         queryset=Announcements.objects)
-
-
-class FilterScholarshipForm(forms.Form):
-    donor = forms.ModelChoiceField(
-        label = "ID del donante", required=False,
-        widget=forms.TextInput(attrs={"class":"id_donor"}),queryset=Donors.objects)
-    name = forms.CharField(
-        label = "Nombre", max_length = 100, required = False,
-        widget=forms.TextInput(attrs={"class":"id_name"}))
-    minCoverage = forms.CharField(
-        label = "Covertura economica minima", required=False, 
-        widget=forms.TextInput(attrs={"class":"id_coverage"}))
-    maxCoverage = forms.CharField(
-        label = "Covertura economica maxima", required=False, 
-        widget=forms.TextInput(attrs={"class":"id_coverage"}))
     
 
 class AnnouncementAndApplicantForm(forms.ModelForm):
@@ -575,5 +575,5 @@ class SchTypeCreationForm(forms.Form):
     )
 
     unit = forms.ChoiceField(choices=UNIT_CHOICES, required=True, label = "Unidad")
-    value = forms.FloatField(required=True, widget = forms.TextInput(), label  = "Valor")
+    value = forms.FloatField(required=True, widget = forms.TextInput(attrs={'type':'number'}), label  = "Valor")
     type = forms.CharField(required=True, widget=forms.TextInput(), label = "Tipo")
