@@ -17,40 +17,65 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
-from ScholarshipModule.views2 import FilterOfReport
-from ScholarshipModule.views2 import HomePage
-from ScholarshipModule.views2 import Login
-from ScholarshipModule.views2 import Logout
-from ScholarshipModule.views2 import ObjectOfReport
-from ScholarshipModule.views2 import ReportResume
-from ScholarshipModule.views2 import SearchUserForRole
-from ScholarshipModule.views2 import SignUp
-from ScholarshipModule.views2 import CreateScholarship
-from ScholarshipModule.views2 import TypeOfReport
+from ScholarshipModule.views2 import filterOfReport
+from ScholarshipModule.views2 import homePage
+from ScholarshipModule.views2 import login
+from ScholarshipModule.views2 import logout
+from ScholarshipModule.views2 import objectOfReport
+from ScholarshipModule.views2 import reportResume
+from ScholarshipModule.views2 import searchUserForRole
+from ScholarshipModule.views2 import signUp
+from ScholarshipModule.views2 import createScholarship
+from ScholarshipModule.views2 import typeOfReport
+from ScholarshipModule.views2 import scholarshipView
+from ScholarshipModule.views2 import scholarshipEdit
+from ScholarshipModule.views2 import createScholarship
+from ScholarshipModule.views2 import scholarships
+from ScholarshipModule.views2 import deleteScholarship
+from ScholarshipModule.views2 import pdf
+from ScholarshipModule.views2 import images
+from ScholarshipModule.views2 import createApplicant
+from ScholarshipModule.views2 import filterApplicant
+from ScholarshipModule.views2 import createAppliStep3
+from django.conf import settings
+from django.conf.urls.static import static
+from ScholarshipModule.views2 import createScholarship
+from ScholarshipModule.views2 import createAnnouncement
+from ScholarshipModule.views2 import searchAnnouncement
+from ScholarshipModule.views2 import viewAnnouncement
+from ScholarshipModule.views2 import editAnnouncement
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', SignUp.signUp, name = 'signup'),
-    path('home/', HomePage.home, name = 'home'),
-    path('scholarships/', views.scholarships, name='scholarships'),
-    path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
-    path('applicants/create/', views.createApplicants, name='Applicants'),
-    path('applicants/filter/', views.filterApplicants, name='FilterApplicants'),
+    path('', signUp.signUp, name = 'signup'),
+    path('home/', homePage.home, name = 'home'),
+    path('scholarships/', scholarships.scholarships, name='scholarships'),
+    path('announcement/create/', createAnnouncement.createAnnouncement, name='createAnnouncement'),
+    path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
+    path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
+    path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
     #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
-    path('logout/', Logout.signOut, name = 'signOut'),
-    path('login/', Login.signIn, name = 'signIn'),
-    path('roles/', SearchUserForRole.searchUserForRole, name = 'searchUser'),
-    path('roles/', SearchUserForRole.searchUserForRole, name = 'roleAssign'),
-    path('announcement/', views.searchAnnouncement, name = 'announcement'),
-    path('applicants/edit', views.editApplicant, name = 'editApplicant'),
-    path('searchStudent/', views.filterApplicants, name = 'searchStudent'),
+    path('logout/', logout.signOut, name = 'signOut'),
+    path('login/', login.signIn, name = 'signIn'),
+    path('roles/', searchUserForRole.searchUserForRole, name = 'searchUser'),
+    path('roles/', searchUserForRole.searchUserForRole, name = 'roleAssign'),
+    path('announcement/', searchAnnouncement.searchAnnouncement, name = 'announcement'),   
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
-    path('objectOfReport/', ObjectOfReport.objectOfReport, name = 'reportGenerator'),
-    path('typeOfReport/', TypeOfReport.typeOfReport, name = 'reportGenerator'),
-    path('filterOfReport/', FilterOfReport.filterOfReport, name = 'reportGenerator'),
-    path('reportResume/', ReportResume.reportResume, name = 'reportPreview'),
-    path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
-]   
+    path('objectOfReport/', objectOfReport.objectOfReport, name = 'reportGenerator'),
+    path('typeOfReport/', typeOfReport.typeOfReport, name = 'reportGenerator'),
+    path('filterOfReport/', filterOfReport.filterOfReport, name = 'reportGenerator'),
+    path('reportResume/', reportResume.reportResume, name = 'reportPreview'),
+    path('scholarships/create/', createScholarship.createScholarshipsSC1, name = 'createScholarships'),
+    path('pdf/', pdf.render_pdf_view, name = 'pdf'),
+    path('announcement/edit/', editAnnouncement.editAnnouncement, name = 'editAnnouncement'),
+    path('announcement/view/', viewAnnouncement.viewAnnouncement, name = 'viewAnnouncement'),
+    path('createEvent/', editAnnouncement.createEvent, name = 'createEvent'),
+    path('announcement/edit/events/', editAnnouncement.editEvent, name = 'editEvent'),
+    path('scholarships/edit/',scholarshipEdit.scholarshipEdit,name ='editScholarship'),
+    path('scholarships/view/',scholarshipView.scholarshipView,name='viewScholarship'),
+    path('scholarships/delete/', deleteScholarship.deleteScholarship, name='delScholarship')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 

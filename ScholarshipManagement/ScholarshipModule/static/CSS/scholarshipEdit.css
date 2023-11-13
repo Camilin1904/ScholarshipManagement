@@ -1,0 +1,57 @@
+@import url('summaryScreen.css');
+button{
+    margin-right: 0%;
+    margin-left: 0% ;
+}
+#summary{
+    width: 100%;
+}
+form{
+    width:90%;
+    height: 99%;
+}
+
+.delete{
+    border: none;
+    color: rgb(225, 42, 25);
+    transition-duration: 0.4s;
+    object-fit: fill;
+    background-color: white;
+    display: flex;
+    flex-flow: block;
+    border-radius: 15px;
+    margin-right:0%;
+    align-content: left;
+    width: fit-content;
+}
+
+.delete:hover{
+    background-color: rgb(225, 42, 25);
+    color: white;
+    
+}
+
+.littleButton{
+    border: none;
+    color: #2D6A9F;
+    transition-duration: 0.4s;
+    object-fit: fill;
+    background-color: white;
+    display: flex;
+    width:fit-content ;
+    border-radius: 15px;
+    margin-left:0%;
+    margin-right:30%;
+    
+}
+
+.littleButton:hover{
+    background-color: #2D6A9F;
+    color: white;
+    width: fit-content;
+}
+
+#edtbtn{
+    margin-right: 20%;
+}
+

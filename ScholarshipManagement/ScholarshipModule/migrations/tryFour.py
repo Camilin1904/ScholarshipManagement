@@ -9,7 +9,7 @@ from ..models import ScholarsipTypes
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ScholarshipModule', '0007_alter_scholarsiptypes_scholarship'),
+        ('ScholarshipModule', '0001_initial'),
     ]
 
     def insert_default_values(apps, schema_editor):

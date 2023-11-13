@@ -1,4 +1,4 @@
-@import url('home.css');
+@import url('contentColor.css');
 
 body{
     overflow: hidden;
@@ -110,17 +110,17 @@ input{
 .meter > span {
     animation-name: rotate;
     animation-duration: 0.7s;
-  }
+}
   
-  @keyframes rotate {
+@keyframes rotate {
     0% {
-      width: 0%;
+        width: 0%;
     }
     100% {
-      width: 25%;
+        width: 25%;
     }
-  }
-  .meter > span {
+}
+.meter > span {
     height: 100%;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -133,9 +133,9 @@ input{
     align-items: center;
     justify-content: center;
     color: white;
-  }
+}
 
-  .meter {
+.meter {
     box-sizing: content-box;
     height: 20px; /* Can be anything */
     position: relative;
@@ -145,7 +145,42 @@ input{
     padding: 10px;
     width: 78.5%;
     box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
-  }
-  table{
+}
+table{
     width:100%;
-  }
+}
+#title{
+    width: 90%;
+    height: 20%;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    color: #3A4459;
+    overflow: hidden;
+}
+
+.littleButton{
+    border: none;
+    color: #2D6A9F;
+    transition-duration: 0.4s;
+    object-fit: fill;
+    background-color: white;
+    display: flex;
+    width:fit-content ;
+    border-radius: 15px;
+    
+}
+
+.littleButton:hover{
+    background-color: #2D6A9F;
+    color: white;
+    width: fit-content;
+}
+
+#linkback{
+    margin-left:-25%;
+    margin-right:17%;
+}

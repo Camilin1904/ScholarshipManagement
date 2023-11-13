@@ -1,0 +1,101 @@
+{% extends 'HTML/home.html' %}
+{% load static %}
+{% load add1 %}
+{% load index %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'CSS/summaryScreen.css' %}">
+    <title>Resumen de beca</title>
+{% endblock %}
+
+
+{% block filters %}
+    <div id="title" style="flex-flow: row;">
+        <a href="/scholarships/" style="margin-left:-30%;margin-right:25%">
+            <button  style="align-items: center;" class="littleButton" type="button" >
+            <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+        </button></a>
+        <h1>Resumen de beca</h1>
+    </div>
+    <div id="info">
+{% endblock %}
+
+
+{% block content %}
+    <div id="summary">
+        <div id = "baseData">
+            <h2 style="text-align: center;">Informacion Basica</h2>
+            <table>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col"><p>{{sch.ID}}</p></th>
+                </tr>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col"><p>{{sch.name}}</p></th>
+                </tr>
+                <tr>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col"><p id="desc">{{sch.description}}</p></th>
+                </tr>
+                <tr>
+                    <th scope="col">Requerimientos</th>
+                    <th scope="col"><p id="req">{{sch.requirements}}</p></th>
+                </tr>
+            </table>
+        </div>
+        <div id = "donorData">
+            <h2 style="text-align: center;">Informacion del donante</h2>
+            <table>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col"><p>{{donor.ID}}</p></th>
+                </tr>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col"><p>{{donor.name}}</p></th>
+                </tr>
+            </table>
+        </div>
+    </div>  
+    <form method = "POST">
+        {% csrf_token %}
+        <button class="standardButton">Editar</button>
+        <input name="screen" value="summary" style="visibility:hidden"></input> 
+    </form>
+{% endblock %}
+
+{% block afterContent %}
+    <div id = "types">
+        <div id="inner">
+            <table>
+                {% for n in types %}
+                    <tr>
+                        <th scope = "row"><h2>Tipo {{forloop.counter}}</h2></th>
+                    </tr>
+                    {% if n.unit == '0' or n.unit == 0%}
+                        <tr>
+                            <th scope="col">Unidad</th>
+                            <th scope="col"><p>Porcentaje</p></th>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th scope="col">Unidad</th>
+                            <th scope="col"><p>Dinero</p></th>
+                        </tr>      
+                    {% endif %}          
+                    <tr>
+                        <th scope="col">Valor</th>
+                        <th scope="col"><p>{{n.value}}</p></th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col"><p>{{n.type}}</p></th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    </div>
+{% endblock %}
