@@ -1,4 +1,4 @@
-@import url('home.css');
+@import url('contentColor.css');
 
 .container{
     flex-flow: column;
@@ -119,7 +119,7 @@ h1{
     display:flex;
 }
 #behaviour{
-    max-height: 90%;
+    height:95%;
 }
 
 #tableContent{

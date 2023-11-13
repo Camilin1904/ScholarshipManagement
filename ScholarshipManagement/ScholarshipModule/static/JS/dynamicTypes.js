@@ -3,19 +3,19 @@ class countC{
     constructor(){
       this.instanceId = ++countC.count;
     }
+
 }
 
 function cloneMore(selector, type) {
-    console.log("aaaaaaaa");
     var newElement = $(selector).clone(true);
     var a = new countC();
-    var total = a.instanceId;
-    console.log(total);
+    var total = newElement.find(".num").attr('id').replace("td_", "");
+    total = parseInt(total)
     var newId = 't_'+(total+1);
+
     newElement.find(':input').each(function() {
         var name = $(this).attr('name');
         var id = ('id_' + name).replace('0', total);
-        console.log('me cago en todo');
         if($(this).attr('type') === 'button'){
             $(this).attr({'name': name, 'id': id, 'data-div':newId, style:'visibility:visible'});
         }
@@ -28,8 +28,8 @@ function cloneMore(selector, type) {
 
     newElement.attr({'id': newId});
     try{
-        newElement.find("#td_" + '1').attr({'id':"td_" + (total+1)});
-        newElement.find("#td_"+(total+1)).text(total+1);
+        newElement.find("#td_" + (total)).attr({'id':"td_" + (total+1)});
+        newElement.find("#td_"+(total+1)).text(total+2);
         console.log(newElement.find("#td_"+(total+1)));
     }
     catch (e){
@@ -42,4 +42,5 @@ function cloneMore(selector, type) {
 function deleteMyself(id){
     $(id).remove();
 }
+
 
