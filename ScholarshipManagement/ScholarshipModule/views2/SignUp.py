@@ -26,8 +26,6 @@ def signUp(request):
             login(request, user)
             return redirect('/home')
         else:
-            print("Me cago en todo lo cagable")
-            print(error)
             return render(
                 request, './HTML/signup.html', {'form': form, 'error': error})
     else:
