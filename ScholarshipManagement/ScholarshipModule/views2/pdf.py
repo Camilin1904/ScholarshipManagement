@@ -7,6 +7,8 @@ from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from datetime import date
 from ScholarshipModule.models import AnnouncementEvent
+from ScholarshipModule.models import Scholarships
+from ScholarshipModule.models import ScholarshipAnnouncements
 
 
 #must install:
@@ -41,13 +43,13 @@ def link_callback(uri, rel):
    return path
 
 def render_pdf_view(request):
-   #Get the require announcement
+   #Get the required announcement
    try:
-      print("pito")
       announcementNum = request.session.get('announcementId')
-      print(announcementNum)
       announcement = AnnouncementEvent.objects.filter(announcementId_id = announcementNum)
-      context = {'date':date.today(), 'announcement': announcement}
+      rel = ScholarshipAnnouncements.objects.get(announcementId = announcementNum)
+      scholarship = Scholarships.objects.get(ID = rel.scholarshipId)
+      context = {'date':date.today(), 'announcement': announcement, 'scholarship':scholarship}
    except:
       context = {'date':date.today(), 'error':'La convocatoria pedida no existe.'}
       
