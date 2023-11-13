@@ -11,13 +11,11 @@
 
 
 {% block filters %}
-    <div class="meter">
-        <span style="width: 100%;"></span>
-    </div>
     <div id="title" style="flex-flow: row;">
-        <button class="littleButton" style="align-items: center;" onclick="history.back()" type="button">
+        <a href="/scholarships/" style="margin-left:-30%;margin-right:25%">
+            <button  style="align-items: center;" class="littleButton" type="button" >
             <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
-        </button>
+        </button></a>
         <h1>Resumen de beca</h1>
     </div>
     <div id="info">
@@ -31,19 +29,19 @@
             <table>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col"><p>{{ID}}</p></th>
+                    <th scope="col"><p>{{sch.ID}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col"><p>{{name}}</p></th>
+                    <th scope="col"><p>{{sch.name}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Descripcion</th>
-                    <th scope="col"><p id="desc">{{description}}</p></th>
+                    <th scope="col"><p id="desc">{{sch.description}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Requerimientos</th>
-                    <th scope="col"><p id="req">{{requirements}}</p></th>
+                    <th scope="col"><p id="req">{{sch.requirements}}</p></th>
                 </tr>
             </table>
         </div>
@@ -63,7 +61,7 @@
     </div>  
     <form method = "POST">
         {% csrf_token %}
-        <button class="standardButton"><h3>Guardar</h3></button>
+        <button class="standardButton">Editar</button>
         <input name="screen" value="summary" style="visibility:hidden"></input> 
     </form>
 {% endblock %}
@@ -71,13 +69,12 @@
 {% block afterContent %}
     <div id = "types">
         <div id="inner">
-            <p id="warning">Advertencia: Tenga en cuenta que si requiere hacer cambios, solo el primer tipo es guardado</p>
             <table>
-                {% for n in amount %}
+                {% for n in types %}
                     <tr>
-                        <th scope = "row"><h2>Tipo {{n|add1}}</h2></th>
+                        <th scope = "row"><h2>Tipo {{forloop.counter}}</h2></th>
                     </tr>
-                    {% if types|index:0|index:n == '0'%}
+                    {% if n.unit == '0' or n.unit == 0%}
                         <tr>
                             <th scope="col">Unidad</th>
                             <th scope="col"><p>Porcentaje</p></th>
@@ -90,16 +87,12 @@
                     {% endif %}          
                     <tr>
                         <th scope="col">Valor</th>
-                        <th scope="col"><p>{{types|index:1|index:n}}</p></th>
+                        <th scope="col"><p>{{n.value}}</p></th>
                     </tr>
                     <tr>
                         <th scope="col">Descripcion</th>
-                        <th scope="col"><p>{{types|index:2|index:n}}</p></th>
+                        <th scope="col"><p>{{n.type}}</p></th>
                     </tr>
-                    <tr></tr>
-                    <tr></tr>
-                    <tr></tr>
-                    <tr></tr>
                 {% endfor %}
             </table>
         </div>

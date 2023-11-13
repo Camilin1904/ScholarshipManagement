@@ -17,6 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
+from ScholarshipModule.views2 import scholarshipView
+from ScholarshipModule.views2 import scholarshipEdit
+from ScholarshipModule.views2 import CreateScholarship
+from ScholarshipModule.views2 import Scholarships
+from ScholarshipModule.views2 import deleteScholarship
+from ScholarshipModule.views2 import pdf
+from ScholarshipModule.views2 import Images
 from ScholarshipModule.views2 import createApplicant
 from ScholarshipModule.views2 import filterApplicant
 from ScholarshipModule.views2 import createAppliStep3
@@ -49,6 +56,7 @@ urlpatterns = [
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
     path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
+    path('pdf/', pdf.render_pdf_view, name = 'pdf'),
     path('objectOfReport/', reportsViews.objectOfReport, name = 'reportGenerator'),
     path('typeOfReport/', reportsViews.typeOfReport, name = 'reportGenerator'),
     path('filterOfReport/', reportsViews.filterOfReport, name = 'reportGenerator'),
@@ -59,7 +67,10 @@ urlpatterns = [
     path('announcement/view/', viewAnnouncement.viewAnnouncement, name = 'viewAnnouncement'),
     path('createEvent/', editAnnouncement.createEvent, name = 'createEvent'),
     path('announcement/edit/events/', editAnnouncement.editEvent, name = 'editEvent'),
-    path('announcement/calendar/', viewCalendar.viewCalendar, name = 'calendar')
+    path('announcement/calendar/', viewCalendar.viewCalendar, name = 'calendar'),
+    path('scholarships/edit/',scholarshipEdit.scholarshipEdit,name ='editScholarship'),
+    path('scholarships/view/',scholarshipView.scholarshipView,name='viewScholarship'),
+    path('scholarships/delete/', deleteScholarship.deleteScholarship, name='delScholarship')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

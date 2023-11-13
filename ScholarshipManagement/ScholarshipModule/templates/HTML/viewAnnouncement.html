@@ -104,7 +104,7 @@
                 </button>
             </form>
             <form method="POST">
-                <button class="button" id="reportBttn" value="" name="reportBttn">
+                <button class="button" id="reportBttn" value={{ announcementId }} name="reportBttn">
                     {% csrf_token %}
                     Generar reporte
                 </button>

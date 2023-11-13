@@ -1,11 +1,13 @@
-@import url('home.css');
+@import url('contentColor.css');
 
 .container{
     flex-flow: column;
 }
 #info{
     display: flex;
-    flex-flow: row;
+    flex-direction: row;
+    width: 80%;
+    height: 70%;
 }
 
 #summary{
@@ -67,8 +69,8 @@
 
 
 #types{
-    width: 35%;
-    height: 115%;
+    width: 25%;
+    height: 100%;
     margin-left: 5%;
     background-color:#FFFFFF;
     border-radius: 15px;
@@ -79,8 +81,6 @@
     color: #455761;
     overflow-y: auto;
     object-fit: fill;
-    max-height: 11cm;
-    max-width: 8cm;
 }
 
 #inner{
@@ -89,16 +89,15 @@
 }
 
 .content{
-    height: 115%;
+    height: 100%;
     font-weight: 100;   
-    max-height: 11cm;
-    width: 24cm;
+    width: 70%;
     display: flex;
 }
 
 #box{
     width: 50%;
-    height: 10%;
+    height: 15%;
     margin-bottom: 2%;
     background-color: #FFFFFF;
     border-radius: 15px;
@@ -118,7 +117,7 @@ p{
 
 button{
     background-color: #455761;
-    width: 60%;
+    width: fit-content;
     color: #FFFFFF;
     float: right;
     margin-right: -80%;
@@ -131,14 +130,12 @@ button:hover{
 }
 
 #desc{
-    max-height: 3.5cm;
+    max-height: 5cm;
     overflow-y: auto;
-    max-width: 7cm;
 }
 #req{
-    max-height: 1.5cm;
+    max-height: 3cm;
     overflow-y: auto;
-    max-width: 7cm;
 }
 
 .littleButton{
@@ -163,7 +160,7 @@ button:hover{
 
 #title{
     width: 80%;
-    height: 15%;
+    height: 20%;
     margin-bottom: 2%;
     background-color: #FFFFFF;
     border-radius: 15px;
@@ -174,6 +171,16 @@ button:hover{
     color: #3A4459;
     overflow: hidden;
     object-fit: fill;
+}
+
+#baseData{
+    display: flex;
+    flex-flow: column;
+}
+
+#donorData{
+    display: flex;
+    flex-flow: column;
 }
 
 

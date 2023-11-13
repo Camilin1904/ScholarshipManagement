@@ -1,0 +1,24 @@
+#icesi{
+    width: 20%;
+    size: 0%;
+    height: 10%;
+}
+#header{
+    display: flex;
+    float: center;
+    
+}
+
+#title{
+    display: flex;
+    float: center;
+    align-items: center;  
+}
+
+#gray{
+    background-color: #e9e9e9;
+}
+
+td{
+    text-align: center;
+}

@@ -40,6 +40,7 @@ class Scholarships(models.Model):
     description = models.TextField(blank=True)
     donor = models.ForeignKey(Donors, on_delete= models.CASCADE)
     requirements = models.TextField(blank=True)
+    isDeleted = models.BooleanField(default=False)
 
 
 class ScholarshipAnnouncements(models.Model):
