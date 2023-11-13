@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import login_required
 from .forms import *
 from .models import *
 
-
 def editApplicant(request):
 
     studentCodeSt = request.session.get('studentCode')
@@ -168,4 +167,3 @@ def viewApplicant(request):
 def searchStudent(request):
     return render(
             request, './HTML/searchStudent.html')
-
