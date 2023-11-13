@@ -22,6 +22,8 @@ from ScholarshipModule.views2 import scholarshipEdit
 from ScholarshipModule.views2 import CreateScholarship
 from ScholarshipModule.views2 import Scholarships
 from ScholarshipModule.views2 import deleteScholarship
+from ScholarshipModule.views2 import pdf
+from ScholarshipModule.views2 import Images
 from ScholarshipModule.views2 import createApplicant
 from ScholarshipModule.views2 import filterApplicant
 from ScholarshipModule.views2 import createAppliStep3
@@ -53,6 +55,7 @@ urlpatterns = [
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
     path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
     path('view/Student/', views.viewApplicant, name = 'viewStudent'),
+    path('pdf/', pdf.render_pdf_view, name = 'pdf'),
     path('objectOfReport/', reportsViews.objectOfReport, name = 'reportGenerator'),
     path('typeOfReport/', reportsViews.typeOfReport, name = 'reportGenerator'),
     path('filterOfReport/', reportsViews.filterOfReport, name = 'reportGenerator'),
