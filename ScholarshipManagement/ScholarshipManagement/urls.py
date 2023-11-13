@@ -29,12 +29,12 @@ from ScholarshipModule.views2 import createAnnouncement
 from ScholarshipModule.views2 import searchAnnouncement
 from ScholarshipModule.views2 import viewAnnouncement
 from ScholarshipModule.views2 import editAnnouncement
-
+from ScholarshipModule.views2 import home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.signUp, name = 'signup'),
-    path('home/', views.home, name = 'home'),
+    path('home/', home.home, name = 'home'),
     path('scholarships/', Scholarships.scholarships, name='scholarships'),
     path('announcement/create/', createAnnouncement.createAnnouncement, name='createAnnouncement'),
     #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),

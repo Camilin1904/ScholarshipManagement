@@ -75,6 +75,18 @@ color: #2D6A9F;
 background-color: white;
 }
 
+.titleCard{
+    margin: auto;
+    width: 80%;
+    background-color: #2D6A9F;
+    margin-top: 5%;
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+
 .container{
     margin-top: 5%;
     height: 102%;
@@ -90,5 +102,20 @@ background-color: white;
 .calendar{
     margin-top: 5%;
     height: 80%;
+}
+
+.backBttn{
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+
+.backBttn:hover{
+    color: #9db9c8;
+}
+
+h1{
+    margin: auto;
 }
 
