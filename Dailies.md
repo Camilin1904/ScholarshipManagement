@@ -462,4 +462,5 @@ Spooky
 |----------|----------|----------|----------|
 | Juan Sebastián Libreros | I finished the tests about log in and notifications also accepted Camilo's PR | I will do the tests for create scholarships and the incoming functionalities of the app | No |
 | Camilo Carmona Valencia | I have finished US3 | I will finish US7 taking into consideration any changes that may have been applied to announcements since I last worked on it | If all goes well, no |
+| Juan Camilo Salazar | I completed US6 | I will refactor the announcement related files so that not everything is in a single view file and I will finish US18  | No |
 
