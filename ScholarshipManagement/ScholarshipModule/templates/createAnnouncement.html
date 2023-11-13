@@ -3,6 +3,8 @@
 {% load static %}
 {{error}}
 
+<html lang="es">
+
 <head>
 
     <meta charset = "UTF-8">
@@ -19,6 +21,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <link rel="icon" href="{% static './Icons/logo.png' %}">
+
     <script>
         $(document).ready(function() {
             $('.select2').select2({
@@ -29,12 +33,10 @@
         });
     </script>
 
-    {% block links %}
-    {% endblock %}
 
     <title>
 
-        Creación Aplicante
+        Creación convocatoria
 
     </title>
 
@@ -51,7 +53,6 @@
             <ul>
 
                     <li><a href = "/home"><i class="bi bi-house"></i>  Home</a></li>
-                    <li><a href = ""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
                     <li><a href = "/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
 
             </ul>       
@@ -283,4 +284,6 @@
     </div>
         
 </body>
+
+</html>
 
