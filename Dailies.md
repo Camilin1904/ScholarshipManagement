@@ -465,3 +465,8 @@ Spooky
 | Juan Camilo Salazar | I completed US6 | I will refactor the announcement related files so that not everything is in a single view file and I will finish US18  | No |
 | Brayan Steven Ortega | I finished the corrections and completed US11a | I will make the PR of the US11a and continue working on the US8 | No |
 
+## 13/11/2023
+
+| Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
+|----------|----------|----------|----------|
+| Camilo Carmona Valencia | I have completed US7 | I have other assignments to complete, and I also don't have any more user stories to work on | No |
