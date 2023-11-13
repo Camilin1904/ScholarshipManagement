@@ -22,11 +22,13 @@ from ScholarshipModule.views2 import filterApplicant
 from ScholarshipModule.views2 import createAppliStep3
 from django.conf import settings
 from django.conf.urls.static import static
-
-
 from ScholarshipModule import reportsViews
 from ScholarshipModule.views2 import CreateScholarship
 from ScholarshipModule.views2 import Scholarships
+from ScholarshipModule.views2 import createAnnouncement
+from ScholarshipModule.views2 import searchAnnouncement
+from ScholarshipModule.views2 import viewAnnouncement
+from ScholarshipModule.views2 import editAnnouncement
 
 
 urlpatterns = [
@@ -34,13 +36,13 @@ urlpatterns = [
     path('', views.signUp, name = 'signup'),
     path('home/', views.home, name = 'home'),
     path('scholarships/', Scholarships.scholarships, name='scholarships'),
-    path('announcement/create/', views.createAnnouncement, name='createAnnouncement'),
+    path('announcement/create/', createAnnouncement.createAnnouncement, name='createAnnouncement'),
     #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
     path('logout/', views.signOut, name = 'signOut'),
     path('login/', views.signIn, name = 'signIn'),
     path('roles/', views.searchUserForRole, name = 'searchUser'),
     path('roles/', views.searchUserForRole, name = 'roleAssign'),
-    path('announcement/', views.searchAnnouncement, name = 'announcement'),
+    path('announcement/', searchAnnouncement.searchAnnouncement, name = 'announcement'),
     path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
@@ -52,10 +54,10 @@ urlpatterns = [
     path('reportResume/', reportsViews.reportResume, name = 'reportPreview'),
     #path('example/', views.reportGenerator, name = 'reportGenerator'),
     path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships'),
-    path('announcement/edit/', views.editAnnouncement, name = 'editAnnouncement'),
-    path('announcement/view/', views.viewAnnouncement, name = 'viewAnnouncement'),
-    path('createEvent/', views.createEvent, name = 'createEvent'),
-    path('announcement/edit/events/', views.editEvent, name = 'editEvent')
+    path('announcement/edit/', editAnnouncement.editAnnouncement, name = 'editAnnouncement'),
+    path('announcement/view/', viewAnnouncement.viewAnnouncement, name = 'viewAnnouncement'),
+    path('createEvent/', editAnnouncement.createEvent, name = 'createEvent'),
+    path('announcement/edit/events/', editAnnouncement.editEvent, name = 'editEvent')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
