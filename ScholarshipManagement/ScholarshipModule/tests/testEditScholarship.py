@@ -60,6 +60,31 @@ class testEditScholarship(LiveServerTestCase):
 
         self.driver.implicitly_wait(20)
         
+        assert 'Edición de beca' in self.driver.title
+
+    def testChangeData(self):
+
+        self.logIn()
+        self.enterScholarshipManagement()
+        self.enterViewMore()
+        self.enterEditView()
+
+        desc = self.driver.find_element(by=By.ID,value='id_description')
+        desc.clear()
+        desc.send_keys('Un texto de prueba para descripción')
+
+        submit = self.driver.find_element(by=By.ID,value='svbtn')
+        submit.send_keys(Keys.RETURN)
+
         assert 'Resumen de beca' in self.driver.title
+
+    def tearDown(self):
+        self.driver.close()
+
+
+
+        
+
+
 
 

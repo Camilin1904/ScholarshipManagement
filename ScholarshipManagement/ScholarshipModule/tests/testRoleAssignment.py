@@ -49,7 +49,7 @@ class testRoleAssignment(LiveServerTestCase):
         select = self.driver.find_element(by=By.XPATH,value="//select[@name= 'username']")
         select.click()
 
-        option = self.driver.find_element(by=By.XPATH,value="//option[@value= '2']")
+        option = self.driver.find_element(by=By.XPATH,value="//option[@value= '3']")
         option.click()
 
         submit = self.driver.find_element(by=By.ID,value='signin')
