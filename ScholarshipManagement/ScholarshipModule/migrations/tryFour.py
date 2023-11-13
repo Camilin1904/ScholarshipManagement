@@ -60,7 +60,10 @@ class Migration(migrations.Migration):
 
 
         for scholarship in scholarshipsValues:
-            Scholarships(ID = scholarship[0], name = scholarship[1], description = scholarship[2], requirements = scholarship[4], donor_id = scholarship[3], isDeleted = scholarship[5]).save()
+            Scholarships(
+                ID = scholarship[0], name = scholarship[1], description = scholarship[2],
+                requirements = scholarship[4], donor_id = scholarship[3], isDeleted = scholarship[5]
+            ).save()
 
         typesValues = [
             [1, ScholarsipTypes.SchUnit.PERCENTAGE, 50.0, "Descuento"],
@@ -77,9 +80,109 @@ class Migration(migrations.Migration):
         ]
 
         for type in typesValues:
-            ScholarsipTypes(scholarship_id = type[0], unit = type[1], value = type[2], type = type[3]).save()
+            ScholarsipTypes(
+                scholarship_id = type[0], unit = type[1], value = type[2], type = type[3]
+            ).save()
+
+        announcementsValues = [
+            0, 2, 1, 1, 2
+        ]
+
+        for announcement in announcementsValues:
+            Announcements(
+                type = announcement
+            ).save()
+
+
+        eventsValues = [
+            [1, '2023-10-31', '2023-11-30', 'Inscription'],
+            [1, '2023-11-01', '2023-12-01', 'Interview'],
+            [1, '2023-11-02', '2023-12-02', 'Selection'],
+            [1, '2023-11-03', '2023-12-03', 'Publication'],
+            [2, '2023-11-04', '2023-12-04', 'Inscription'],
+            [2, '2023-11-05', '2023-12-05', 'Interview'],
+            [2, '2023-11-06', '2023-12-06', 'Selection'],
+            [2, '2023-11-07', '2023-12-07', 'Publication'],
+            [3, '2023-11-08', '2023-12-08', 'Inscription'],
+            [3, '2023-11-09', '2023-12-09', 'Interview'],
+            [3, '2023-11-10', '2023-12-10', 'Selection'],
+            [3, '2023-11-11', '2023-12-11', 'Publication'],
+            [4, '2023-11-12', '2023-12-12', 'Inscription'],
+            [4, '2023-11-13', '2023-12-13', 'Interview'],
+            [4, '2023-11-14', '2023-12-14', 'Selection'],
+            [4, '2023-11-15', '2023-12-15', 'Publication'],
+            [5, '2023-11-16', '2023-12-16', 'Inscription'],
+            [5, '2023-11-17', '2023-12-17', 'Interview'],
+            [5, '2023-11-18', '2023-12-18', 'Selection'],
+            [5, '2023-11-19', '2023-12-19', 'Publication']
+        ]
+
+        for event in eventsValues:
+            AnnouncementEvent(
+                startingDate = event[1], endDate = event[2], type = event[3], announcementId_id = event[0]
+            ).save()
+
+        scholarshipAnnouncementsValues = [
+            [1,  1],
+            [2,  2],
+            [3,  3],
+            [4,  4],
+            [5,  5]
+        ]
+
+        for scholarshipAnnouncement in scholarshipAnnouncementsValues:
+            ScholarshipAnnouncements(
+                announcementId_id = scholarshipAnnouncement[0],
+                scholarshipId_id = scholarshipAnnouncement[1]
+            ).save()
+
+        applicantValues = [
+            ["fernando", "ruiz", "A020100", "Ciencias Administrativas y Económicas", "Administración de Empresas", 1, "fernando@gmail.com", "3201883020", 3, "", False],
+            ["Ana", "Gomez", "A020101", "Ciencias de la Salud", "Medicina", 2, "ana@gmail.com", "3212345678", 2, "", False],
+            ["Carlos", "Hernandez", "A020102", "Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería de Sistemas", 3, "carlos@gmail.com", "3223456789", 1, "", False],
+            ["Laura", "Martinez", "A020103", "Ciencias Humanas", "Licenciatura en Artes", 4, "laura@gmail.com", "3334567890", 3, "", False],
+            ["David", "Perez", "A020104", "Ciencias Humanas", "Psicología", 5, "david@gmail.com", "3345678901", 2, "", False],
+            ["Marta", "Lopez", "A020105", "Ciencias de la Salud", "Biología", 6, "marta@gmail.com", "3456789012", 1, "", False],
+            ["Javier", "Garcia", "A020106", "Ciencias Humanas", "Filosofía", 7, "javier@gmail.com", "3567890123", 3, "", False],
+            ["Sofia", "Sanchez", "A020107", "Ciencias Humanas", "Comunicación", 8, "sofia@gmail.com", "3678901234", 2, "", False],
+            ["Roberto", "Gutierrez", "A020108", "Ciencias Humanas", "Derecho", 9, "roberto@gmail.com", "3789012345", 1, "", False],
+            ["Marina", "Romero", "A020109", "Ciencias Humanas", "Derecho", 10, "marina@gmail.com", "3890123456", 3, "", False],
+            ["Ricardo", "Fernandez", "A020110", "Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería de Sistemas", 1, "ricardo@gmail.com", "3901234567", 2, "", False]
+        ]
+
+
+
+        for applicant in applicantValues :
+            Applicant(
+                name=applicant[0], lastName=applicant[1], studentCode=applicant[2], faculty=applicant[3],
+                major=applicant[4], semester=applicant[5], email=applicant[6], phone=applicant[7],
+                status=applicant[8], image=applicant[9], deleted=applicant[10]
+            ).save()
+
+        announcementAndApplicantValues = [
+            [Announcements.objects.get(id=1), Applicant.objects.get(studentCode="A020100"), False],
+            [Announcements.objects.get(id=2), Applicant.objects.get(studentCode="A020101"), False],
+            [Announcements.objects.get(id=3), Applicant.objects.get(studentCode="A020102"), False],
+            [Announcements.objects.get(id=4), Applicant.objects.get(studentCode="A020103"), False],
+            [Announcements.objects.get(id=5), Applicant.objects.get(studentCode="A020104"), False],
+            [Announcements.objects.get(id=1), Applicant.objects.get(studentCode="A020105"), False],
+            [Announcements.objects.get(id=2), Applicant.objects.get(studentCode="A020106"), False],
+            [Announcements.objects.get(id=3), Applicant.objects.get(studentCode="A020107"), False],
+            [Announcements.objects.get(id=4), Applicant.objects.get(studentCode="A020108"), False],
+            [Announcements.objects.get(id=5), Applicant.objects.get(studentCode="A020109"), False]
+        ]
+
+
+        for announcementAndApplicant in announcementAndApplicantValues:
+            AnnouncementAndApplicant(
+                announcement=announcementAndApplicant[0],
+                applicant=announcementAndApplicant[1],
+                deleted=announcementAndApplicant[2]
+            ).save()
 
         
     operations = [
         migrations.RunPython(insert_default_values),
     ]
+
+
