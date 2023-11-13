@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/resume.css' %}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+        <link rel="icon" href="{% static './Icons/logo.png' %}">
+        <title>Resume</title>
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+
+        
+        <form method="POST">
+          {% csrf_token %}
+          <div class="container">
+            <div class="content">
+              <br>
+              <div class="card" style="flex-direction: row;">
+                <div style="width: 33.3%;">
+                    <button class="littleButton" style="align-items: center;" onclick="history.back()" type="button">
+                        <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                    </button>
+                </div>
+                <div style="width: 33.3%;"><h1 id = "demo">RESUMEN GENERAL</h1></div>
+                <div style="width: 33.3%; text-align: right;">
+                    <button class="littleButton" style="align-items: center;  margin-left: auto;" onclick="download()">
+                        <h3>Descargar CSV &nbsp;</h3><h1><i class="bi bi-file-earmark-arrow-down-fill"></i></h1>
+                    </button>
+                </div>
+            </div>
+              <div class="data">
+                {% if objectOfReport == "1" %}
+                  <div class="dataCard">
+                    <canvas id="chart2"></canvas>
+                  </div>
+    
+                  <div class="dataCard">
+                    <canvas id="chart"></canvas>
+                  </div>
+                  
+                  <div class="dataCard">
+                    <canvas id="chart3"></canvas>
+                  </div>
+                {% elif objectOfReport == "2" %}
+                  
+                {% else %}
+                  <div class="dataCard">
+                    <canvas id="chart"></canvas>
+                  </div>
+                {% endif %}
+              </div>
+            </div>       
+          </div>
+        </form>
+
+    </body>
+
+</html>
+
+
+
+<script>
+
+function download(){
+  alert("Si deseas abrir los datos en excel debes hacer lo siguiente: Abrir Excel >" + 
+  " Libro en Blanco > Seleccionar Datos en la cinta de opciones > Obtener Datos " + 
+  "(Primera opción a la izquierda) > De un archivo > De texto/CSV > Seleccionas el archivo >"+
+  " Presionas en Delimitador > Elijes la opción de coma > Cargar y listo ;D")
+}
+
+function htmlDecode(str) {
+  const doc = new DOMParser().parseFromString(str, "text/html");
+  return doc.documentElement.textContent;
+}
+
+function arrayFixer(lista) {
+    var resultado = [];
+    for(var i = 0; i < lista.length; i++) {
+        var elemento = lista[i];
+        if(elemento !== "[[" && elemento !== "]]" && elemento !== "], [" && elemento !== '"' &&
+        elemento !== "[" && elemento !== "]" && elemento !== "," && elemento !== ' ' &&
+        elemento !== ", " && elemento !== " ,") {
+            resultado.push(elemento);
+        }
+    }
+    return resultado;
+}
+
+// Definir los colores base en hexadecimal
+var baseColors = ["#E2E9F3", "#2D6A9F", "#FFFFFF", "#3A4459"];
+
+// Definir una función auxiliar para convertir un color hexadecimal a un número entero
+function hexToInt(hex) {
+  // Eliminar el símbolo # del color hexadecimal
+  hex = hex.substring(1);
+
+  // Convertir el color hexadecimal a un número entero
+  var num = parseInt(hex, 16);
+
+  // Devolver el número entero
+  return num;
+}
+
+// Definir una función auxiliar para convertir un número entero a un color hexadecimal
+function intToHex(num) {
+  // Extraer los componentes rojo, verde y azul del número
+  var r = (num >> 16) & 0xFF;
+  var g = (num >> 8) & 0xFF;
+  var b = num & 0xFF;
+
+  // Convertir el número entero a un color hexadecimal
+  var hex = "#" + r.toString(16).padStart(2, "0") + g.toString(16).padStart(2, "0") + b.toString(16).padStart(2, "0");
+
+  // Devolver el color hexadecimal
+  return hex;
+}
+
+// Definir una función para mezclar dos colores y obtener un color intermedio
+function mixColors(color1, color2, ratio) {
+  // Convertir los colores a números enteros usando la función auxiliar
+  var c1 = hexToInt(color1);
+  var c2 = hexToInt(color2);
+
+  // Calcular el número entero del color resultante
+  var c = Math.round(c1 * ratio + c2 * (1 - ratio));
+
+  // Convertir el número entero a un color hexadecimal usando la función auxiliar
+  var color = intToHex(c);
+
+  // Devolver el color resultante
+  return color;
+}
+
+// Definir una función para generar una paleta de colores a partir de los colores base
+function generatePalette(baseColors, size) {
+  // Crear un arreglo vacío para almacenar los colores de la paleta
+  var palette = [];
+
+  // Calcular el número de combinaciones posibles entre los colores base
+  var combinations = baseColors.length * (baseColors.length - 1) / 2;
+
+  // Calcular el número de tonos intermedios que se deben generar por cada combinación
+  var shades = Math.floor(size / combinations);
+
+  // Iterar por cada par de colores base
+  for (var i = 0; i < baseColors.length - 1; i++) {
+    for (var j = i + 1; j < baseColors.length; j++) {
+      // Añadir los colores base a la paleta
+      palette.push(baseColors[i]);
+      palette.push(baseColors[j]);
+
+      // Iterar por cada tono intermedio
+      for (var k = 1; k < shades; k++) {
+        // Calcular el ratio de mezcla entre los colores base
+        var ratio = k / shades;
+
+        // Mezclar los colores base y obtener el color intermedio
+        var color = mixColors(baseColors[i], baseColors[j], ratio);
+
+        // Añadir el color intermedio a la paleta
+        palette.push(color);
+      }
+    }
+  }
+
+  // Devolver la paleta de colores
+  return palette;
+}
+
+// Definir una función para convertir un color hexadecimal a un color RGB
+function hexToRgb(hex) {
+  // Convertir el color hexadecimal a un número entero usando la función auxiliar
+  var num = hexToInt(hex);
+
+  // Extraer los componentes rojo, verde y azul del número
+  var r = (num >> 16) & 0xFF;
+  var g = (num >> 8) & 0xFF;
+  var b = num & 0xFF;
+
+  // Devolver el color RGB como un arreglo
+  return [r, g, b];
+}
+
+// Definir una función para convertir un color RGB a un color RGBA con un nivel de transparencia dado
+function rgbToRgba(rgb, alpha) {
+  // Añadir el componente alfa al arreglo RGB
+  rgb.push(alpha);
+
+  // Devolver el color RGBA como una cadena
+  return "rgba(" + rgb.join(", ") + ")";
+}
+
+// Definir una función para convertir una paleta de colores hexadecimales a una paleta de colores RGBA con un nivel de transparencia dado
+function convertPalette(hexPalette, alpha) {
+  // Crear un arreglo vacío para almacenar los colores RGBA
+  var rgbaPalette = [];
+
+  // Iterar por cada color hexadecimal de la paleta
+  for (var i = 0; i < hexPalette.length; i++) {
+    // Convertir el color hexadecimal a un color RGB usando la función hexToRgb
+    var rgb = hexToRgb(hexPalette[i]);
+
+    // Convertir el color RGB a un color RGBA con el nivel de transparencia dado usando la función rgbToRgba
+    var rgba = rgbToRgba(rgb, alpha);
+
+    // Añadir el color RGBA al arreglo
+    rgbaPalette.push(rgba);
+  }
+
+  // Devolver el arreglo de colores RGBA
+  return rgbaPalette;
+}
+
+
+// Invocar la función para generar una paleta de 27 colores
+var palette = generatePalette(baseColors, 27);
+
+// Definir un nivel de transparencia de ejemplo
+var alpha = 0.5;
+
+// Invocar la función para convertir la paleta de colores hexadecimales a una paleta de colores RGBA
+var rgbaPalette = convertPalette(palette, alpha);
+
+var objectOfReport = "{{objectOfReport}}"
+
+if (objectOfReport == "1"){
+  let ctx = document.getElementById("chart").getContext("2d");
+  let chart = new Chart(ctx, {
+    type: "bar",
+    data: {
+    labels: arrayFixer(htmlDecode("{{semesterNames}}").split('\'')),
+    datasets: [
+      {
+        label: "Número de Estudiantes por Semestre",
+        borderColor: palette ,
+        backgroundColor: (rgbaPalette),
+        data: arrayFixer("{{semester}}")
+      }
+    ]
+    },
+    options: {
+    title: {
+      text: "Porcentaje de Estudiantes por Semestre",
+      display: true
+    },
+    plugins: {
+      datalabels: {
+        formatter: function(value, context) {
+          return value + " estudiantes";
+        }
+      }
+    }
+    }
+  });
+
+  let ctx2 = document.getElementById("chart2").getContext("2d");
+  let chart2 = new Chart(ctx2, {
+    type: "bar",
+    data: {
+    labels: arrayFixer(htmlDecode("{{careerNames}}").split('\'')),
+    datasets: [
+      {
+        label: "Cantidad de Estudiantes por Carrera",
+        borderColor: palette ,
+        backgroundColor: (rgbaPalette),
+        borderWidth: 2,
+        data: arrayFixer("{{career}}")
+      }
+    ]
+    },
+    options: {
+    indexAxis: 'y',
+    title: {
+      text: "Cantidad de Estudiantes por Carrera",
+      display: true
+    }
+    }
+  });
+
+  let ctx3 = document.getElementById("chart3").getContext("2d");
+  let chart3 = new Chart(ctx3, {
+    type: "pie",
+    data: {
+    labels: arrayFixer(htmlDecode("{{facultyNames}}").split('\'')),
+    datasets: [
+      {
+        borderColor: palette,
+        backgroundColor: (rgbaPalette),
+        borderWidth: 2,
+        data: arrayFixer("{{faculty}}")
+      }
+    ]
+    },
+    options: {
+      plugins: {
+          title: {
+              display: true,
+              text: 'Cantidad de Estudiantes por Facultad'
+          }
+      }
+  },
+  plugins: [ChartDataLabels]
+  });
+}else if(objectOfReport == "2"){
+  
+}else{
+  let ctx = document.getElementById("chart").getContext("2d");
+  let chart = new Chart(ctx, {
+    type: "pie",
+    data: {
+    labels: arrayFixer(htmlDecode("{{typeNames}}").split('\'')),
+    datasets: [
+      {
+        borderColor: palette,
+        backgroundColor: (rgbaPalette),
+        borderWidth: 2,
+        data: arrayFixer("{{type}}")
+      }
+    ]
+    },
+    options: {
+      plugins: {
+          title: {
+              display: true,
+              text: "Número de Convocatorias por Tipo"
+          }
+      }
+  },
+  plugins: [ChartDataLabels]
+  });
+
+}
+
+</script>

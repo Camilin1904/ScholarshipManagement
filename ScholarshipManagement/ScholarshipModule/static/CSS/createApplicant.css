@@ -1,47 +1,47 @@
 *{
-    margin: 0px;
-    top: 0px;
+    margin: 0px ;
+    top: 0px ;
     box-sizing: border-box;
     font-family: Noto music;
 }
 
 html, body {
-    display: flex;
     flex-flow: column;
     width: 100%;
     height: 100%;
     margin: 0px;
     padding: 0px;
-    background-color:#88A0A8;
+    background-color:#E2E9F3;
     align-items: center;
     justify-content: center;
 }
 
 header{
+    margin-top: auto;
     width: 100%;
-    height: 20%;
+    height: 15%;
     display: flex;
-    background-color: #455761;
+    background-color: #2D6A9F;
     align-items: center;
-    float: left;
-    position: absolute;
+    object-fit: fill;
 }
 
 .icesi{
     display: flex;
     width: 30%;
     padding: 6%;
+    object-fit: fill;
 }
 
 .menu{
     display: flex;
     width:  100%;
-    height: 3cm;
-    background-color: #455761;
+    height: 10%;
     color: white;
     align-items: center;
     font-size: large;
     justify-content: end;
+    object-fit: fill;
 }
 
 ul {
@@ -49,11 +49,13 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    object-fit: fill;
 }
   
 li {
     float: left;
-    border-right:1px solid #bbb;
+    border-right:1px solid white;
+    object-fit: fill;
 }
   
 li:last-child {
@@ -66,23 +68,69 @@ li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    transition-duration: 0.4s;
+}
+
+li a:hover {
+    color: #2D6A9F;
+    background-color: white;
 }
 
 #content{
-    margin-top: 32%;
-    height: 115%;
-    width: 80%;
-    background-color: #dbd3c9;
+    margin-top: 2%;
+    height: 95%;
+    width: 100%;
+    background-color: #E2E9F3;
     border-radius: 15px;
-    display: grid;
-    grid-row: 3% 97%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     
 }
 
+/* 
+form width
+*/
+
+#create1{
+ width: 100%;
+ height: 70%;
+ background-color: #FFFFFF;
+}
+
+/*
+Forms container
+*/
 .container{
+    color: #3A4459;
+    margin-top: 1.5%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 63%;
+    height: 100%;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
 
+/*
+Forms steps
+*/
+#step1{
+    grid-auto-rows: 35%;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: center;
+    justify-content: space-around;
+    border-radius: 5%;
+    margin-inline: 10%;
+    
+}
 
+#step2{
+    grid-column: 1/3;
     grid-auto-rows: 100px;
     display: grid;
     grid-template-columns: auto auto;
@@ -91,20 +139,14 @@ li a {
     border-radius: 5%;
     margin-inline: 10%;
     grid-row: 2;
-    
-
 }
 
-
-
-#registerApplicant{
-    grid-column: 1/3;
-    margin-top: 1%;
-}
-
+/*
+Form information
+*/
 
 .inputForm{
-    background-color: #e9e1d8;
+    background-color: #FFFFFF;
     border: none;
     height: 45%;
     border-radius: 10px;
@@ -115,19 +157,49 @@ li a {
 }
 
 .inputForm option {
-    color: rgb(134, 125, 125); 
+    color: black;
 }
 
 
-::placeholder {
+.inputForm::placeholder {
     color: rgb(134, 125, 125);
 
 }
 
+/*
+buttons
+*/
+#buttonsC{
+    width: 36.5%;
+}
+
+.littleButton{
+    border: none;
+    color: #2D6A9F;
+    transition-duration: 0.4s;
+    object-fit: fill;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    margin-right: auto;
+}
+
+.littleButton:hover{
+background-color: #2D6A9F;
+color: white;
+}
+
+#save2{
+    grid-row: 4;
+    grid-column: 1;
+    width: 35%;
+    height: 40%;
+}
 
 .button:hover{
-    background-color: #455761;
-    color: #DBD3C9;
+    background-color: #2D6A9F;
+    color: white;
 }
 
 .button{
@@ -135,23 +207,124 @@ li a {
     height: 40%;
     align-items: center;
     grid-column: 1; 
-    border: none;
-    background-color: #e9e1d8;
-    box-shadow: 5px 10px 10px rgba(0, 0, 0.2, 0.2);
-    border:0.5px solid #7d878b;
-    color: #455761;
+    border-radius: 5px;
+    border:  2px solid #88a0a8;
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+    color: #3A4459;
     transition-duration: 0.4s;
 }
 
+/*
+alert container
+*/
+
 .alert {
-    padding: 5px;
     background-color: #f44336;
     color: white;
     border-radius: 10px;
-    grid-row: 1;
     width: 50%;
-    height: 50%;
+    height: 10%;
+    align-content: center;
 }
+
+/*
+Student photo style
+*/
+
+#image_label{
+    grid-row: 1;
+    grid-column: 2;
+}
+
+#container_image {
+    margin-top: 15%;
+    text-align: center;
+    display: flex;
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    grid-row: 1/3;
+    grid-column: 2;
+    
+  }
+
+  #customFileButton {
+    display: inline-block;
+    background-color: transparent;
+    color: transparent;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  #image {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+/*
+Card page tittle
+*/
+
+
+
+.card{
+    width: 63%;
+    height: 12%;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-around;
+    color: #3A4459;
+    overflow: hidden;
+    object-fit: fill;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+
+/*
+meter
+*/
+
+.meter {
+    box-sizing: content-box;
+    height: 20px; /* Can be anything */
+    position: relative;
+    margin: 1.5%;
+    background: white;
+    border-radius: 25px;
+    padding: 10px;
+    width: 62%;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+.meter > span {
+height: 100%;
+border-top-right-radius: 8px;
+border-bottom-right-radius: 8px;
+border-top-left-radius: 20px;
+border-bottom-left-radius: 20px;
+background-color: #2D6A9F;
+overflow: hidden;
+display: flex;
+flex-flow: column;
+align-items: center;
+justify-content: center;
+color: white;
+}
+
 
 
 

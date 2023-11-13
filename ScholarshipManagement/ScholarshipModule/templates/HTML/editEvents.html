@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+{{error}}
+
+<head>
+
+    <meta charset = "UTF-8">
+
+    <link href = 'https://fonts.googleapis.com/css?family=Noto Music' rel = 'stylesheet'>
+
+    <link rel = "stylesheet" href = "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+    
+    <link rel = "stylesheet" href = "{% static 'CSS/editEvents.css' %}">
+
+    <link rel="icon" href="{% static './Icons/logo.png' %}">
+
+    {% block links %}
+    {% endblock %}
+
+    <title>
+        Edición Eventos
+    </title>
+
+</head>
+
+<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
+
+    <header>
+
+        <img src = "{% static './Icons/icesi.png' %}" class = "icesi">
+
+        <div class = "menu">
+
+            <ul>
+                <li><a href = "/home"><i class="bi bi-house"></i>  Home</a></li>
+                <li><a href = "/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+            </ul>       
+
+        </div>  
+    
+    </header>
+
+    <div class = "container">
+
+        <div class = "titleCard">
+            <button class="backBttn" style="align-items: center;" onclick="location.href = '/announcement/edit';">
+                <h3><i class="bi bi-caret-left-fill"></i> Editar convocatoria: {{scholarshipName}}</h3>
+            </button>
+            <h1>
+                Edición de eventos adicionales
+            </h1>
+        </div>
+
+        <form hx-post = "{% url 'createEvent' %}" 
+            hx-trigger = "click from:#saveBttn"
+            hx-target = ".content1"
+            hx-swap = "beforeend">
+       
+            <div id = newEventsCard class = "content1">
+
+                <div class = "additionalEvents">{% for newEventForm in newEvents %}
+                        {% include 'HTML/eventForm.html' %}
+                    {% endfor %}</div>
+
+                <div class = "contentnull">
+                    <h3>
+                        No hay eventos adicionales registrados
+                    </h3>
+                </div>
+
+            </div> 
+
+            
+            <div id = "saveCard" class="bttnCard">
+
+                <button id = "saveBttn" name = "saveBttn" class = "button">
+
+                    <h3>
+                        Guardar Eventos
+                    </h3>
+
+                </button>
+
+                <button id = "addBttn" name = "newEventBttn" class = "button" type = "submit"
+                hx-get = "{% url 'createEvent' %}"
+                hx-target = ".additionalEvents"
+                hx-swap = "beforeend">
+
+                <h3>
+                    Añadir eventos
+                </h3>
+
+            </button>
+
+
+            </div>
+                        
+        </form>
+
+    </div>
+        
+</body>
