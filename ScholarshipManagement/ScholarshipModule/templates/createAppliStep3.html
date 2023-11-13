@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/createAppliStep3.css' %}">
+        <link rel="icon" href="{% static './Icons/logo.png' %}">
+        <title>
+            Search Student
+        </title>
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li class="iconsSup"><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li class="iconsSup"><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li class="iconsSup"><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+
+        <div class="container">
+
+            <div class="meter" id="meter">
+                <span style="width: 99.9%;"></span>
+            </div>
+
+                
+            <div class="card">
+
+                <div style="width: 33.3%;"></div>
+
+                <div style="width: 33.3%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h1 id= "deletable">
+                        Asignación 
+                    </h1>
+                </div>
+
+                <form action='/applicants/create/step3/' method = "POST" id="formSkip" style="width: 33.3%;">
+                    {% csrf_token %}
+                    <button  name="skip" class="skipButton" id="skipButton">
+                        <h3>Omitir</h3>
+                        <h1>
+                            <i class="bi bi-caret-right-fill"></i>
+                        </h1>
+                    </button>
+                </form>
+
+            </div>
+
+
+            <div id="containerSecondPart">
+
+                <div class="filter">
+                    <h2>Filtro</h2>
+                    <input type="text" id="myInput" class="inputForm" onkeyup="myFunction3()" placeholder="Buscar por ID de convocatoría">
+                    <br>
+                    
+                </div>
+                
+    
+                <div class="content">
+                
+                    <h1 id="foundStudents">
+                        Convocatorías encontradas
+                    </h1>
+                    
+                    <div class="announcements">
+                        <nav class="scroll_bar">
+                            
+                            
+                            <form action='/applicants/create/step3/' method = "POST">
+                            
+                                {% csrf_token %}
+                                
+            
+                                <ul id="myButtons" >
+            
+                                    {% for announcement in scholarshipAnnoun %}
+                                    <li> 
+                                        <button value="{{announcement.announcementId.id}}" class="button" name="announcement">
+                                            
+                                            <p>Beca: {{announcement.scholarshipId.name}} </p>
+                                            <p>ID convocatoría: {{announcement.announcementId.id}} </p>
+                                            <p>Tipo convocatoría: {{announcement.announcementId.type}} </p>
+    
+                                        </button> 
+                                    </li>
+                                    {% endfor %}
+                                </ul>  
+                                <br>
+                            
+            
+                            </form>
+                        
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+            
+
+            {% if error == "" %}
+                        
+            {% else %}
+                <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>Advertencia</strong> {{error}}
+                </div>
+            {% endif %} 
+        </div>
+
+    </body>    
+    <script>
+    
+        //Lista de Botones
+        function myFunction3() {
+          // Declare variables
+          var input, filter, ul, li, button, i, txtValue;
+          // search field
+          input = document.getElementById('myInput');
+          // get the text on the search field
+          filter = input.value.toUpperCase();
+          // get list
+          ul = document.getElementById("myButtons");
+          // get all elements inside the list
+          li = ul.getElementsByTagName('li');
+          // Loop through all list items, and hide those who don't match the search query
+          for (i = 0; i < li.length; i++) {
+            // for the ith object li get the button element
+            button = li[i].getElementsByTagName("button")[0];
+            // extract the value of the button
+            txtValue = button.value;
+            // does the list element contains the filter?
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                // if the index bigger that -1 the list element contains the filter
+                li[i].style.display = "";
+            } else {
+                // if the index is -1 the list element does not contains the filter
+                li[i].style.display = "none";
+            }
+          }
+        }
+    </script>
+
+    <style>
+        #meter > span {
+        animation-name: rotate;
+        animation-duration: 0.7s;
+        }
+        
+        @keyframes rotate {
+        0% {
+            width: 66.6%;
+        }
+        100% {
+            width: 99.9%;
+        }
+        }
+    </style>
+
+</html>
+
+
+
+

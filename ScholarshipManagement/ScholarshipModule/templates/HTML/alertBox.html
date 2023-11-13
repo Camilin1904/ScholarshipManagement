@@ -1,0 +1,11 @@
+{% if error != ""%} 
+        
+    <div class = "alert" style = "font-size: 85%; margin-top: 5%;height: 10%;">
+
+        <span class = "closebtn" onclick = "this.parentElement.style.display = 'none';">&times;</span> 
+
+        <strong>Advertencia</strong> {{error}}
+
+    </div>
+
+{% endif%}
