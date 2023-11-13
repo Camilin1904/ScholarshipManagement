@@ -31,11 +31,11 @@
             <table>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col"><p>{{ID}}</p></th>
+                    <th scope="col"><p id="ID">{{ID}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col"><p>{{name}}</p></th>
+                    <th scope="col"><p id="name">{{name}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Descripcion</th>
@@ -52,18 +52,18 @@
             <table>
                 <tr>
                     <th scope="col">ID</th>
-                    <th scope="col"><p>{{donor.ID}}</p></th>
+                    <th scope="col"><p id="id_donor">{{donor.ID}}</p></th>
                 </tr>
                 <tr>
                     <th scope="col">Nombre</th>
-                    <th scope="col"><p>{{donor.name}}</p></th>
+                    <th scope="col"><p id="donor_name">{{donor.name}}</p></th>
                 </tr>
             </table>
         </div>
     </div>  
     <form method = "POST">
         {% csrf_token %}
-        <button class="standardButton"><h3>Guardar</h3></button>
+        <button class="standardButton" id="save"><h3>Guardar</h3></button>
         <input name="screen" value="summary" style="visibility:hidden"></input> 
     </form>
 {% endblock %}
@@ -80,21 +80,21 @@
                     {% if types|index:0|index:n == '0'%}
                         <tr>
                             <th scope="col">Unidad</th>
-                            <th scope="col"><p>Porcentaje</p></th>
+                            <th scope="col"><p id="percentage">Porcentaje</p></th>
                         </tr>
                     {% else %}
                         <tr>
                             <th scope="col">Unidad</th>
-                            <th scope="col"><p>Dinero</p></th>
+                            <th scope="col"><p id="money">Dinero</p></th>
                         </tr>      
                     {% endif %}          
                     <tr>
                         <th scope="col">Valor</th>
-                        <th scope="col"><p>{{types|index:1|index:n}}</p></th>
+                        <th scope="col"><p id="value">{{types|index:1|index:n}}</p></th>
                     </tr>
                     <tr>
                         <th scope="col">Descripcion</th>
-                        <th scope="col"><p>{{types|index:2|index:n}}</p></th>
+                        <th scope="col"><p id="type">{{types|index:2|index:n}}</p></th>
                     </tr>
                     <tr></tr>
                     <tr></tr>

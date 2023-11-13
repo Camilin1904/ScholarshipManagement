@@ -9,8 +9,6 @@ class testRoleAssignment(LiveServerTestCase):
 
         self.driver = webdriver.Edge()
 
-        self.driver = webdriver.Edge()
-
         self.driver.get('http://127.0.0.1:3000/')
 
     def logIn(self):
@@ -49,7 +47,7 @@ class testRoleAssignment(LiveServerTestCase):
         select = self.driver.find_element(by=By.XPATH,value="//select[@name= 'username']")
         select.click()
 
-        option = self.driver.find_element(by=By.XPATH,value="//option[@value= '2']")
+        option = self.driver.find_element(by=By.XPATH,value="//option[@value= '3']")
         option.click()
 
         submit = self.driver.find_element(by=By.ID,value='signin')
@@ -64,7 +62,7 @@ class testRoleAssignment(LiveServerTestCase):
         select = self.driver.find_element(by=By.XPATH,value="//select[@id= 'id_role']")
         select.click()
 
-        option = self.driver.find_element(by=By.XPATH,value="//option[@value= '1']")
+        option = self.driver.find_element(by=By.XPATH,value="//option[@value= '2']")
         option.click()
 
         submit = self.driver.find_element(by=By.ID,value='signin')
