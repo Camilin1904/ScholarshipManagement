@@ -30,6 +30,7 @@ from ScholarshipModule.views2 import searchAnnouncement
 from ScholarshipModule.views2 import viewAnnouncement
 from ScholarshipModule.views2 import editAnnouncement
 from ScholarshipModule.views2 import home
+from ScholarshipModule.views2 import viewCalendar
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -58,7 +59,7 @@ urlpatterns = [
     path('announcement/view/', viewAnnouncement.viewAnnouncement, name = 'viewAnnouncement'),
     path('createEvent/', editAnnouncement.createEvent, name = 'createEvent'),
     path('announcement/edit/events/', editAnnouncement.editEvent, name = 'editEvent'),
-    path('announcement/calendar/', views.viewCalendar, name = 'calendar')
+    path('announcement/calendar/', viewCalendar.viewCalendar, name = 'calendar')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
