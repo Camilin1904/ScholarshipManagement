@@ -2,13 +2,18 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from ScholarshipModule.models import *
 
 class testCreateScholarship(LiveServerTestCase):
+
+    databases = {'default': 'test'}
 
     def setUp(self):
         self.driver = webdriver.Edge()
 
         self.driver.get('http://127.0.0.1:3000/') 
+
+        self.driver.fullscreen_window()
 
     def logIn(self):
         login = self.driver.find_element(by=By.ID,value='login')
@@ -29,9 +34,13 @@ class testCreateScholarship(LiveServerTestCase):
         submit = self.driver.find_element(by=By.ID,value='signin')
         submit.send_keys(Keys.RETURN)
 
+        self.driver.implicitly_wait(20)
+
         assert 'Home' in self.driver.title
 
     def enterScholarshipManagement(self):
+
+        self.driver.implicitly_wait(20)
 
         btnScholarship = self.driver.find_element(by=By.ID,value='scholarship_btn')
         btnScholarship.click()
@@ -49,6 +58,8 @@ class testCreateScholarship(LiveServerTestCase):
     
     def fillFirstForm(self):
 
+        self.driver.implicitly_wait(20)
+
         id = self.driver.find_element(by=By.ID,value='id_ID')
         id.clear()
         id.send_keys('1')
@@ -65,7 +76,7 @@ class testCreateScholarship(LiveServerTestCase):
         requirements.clear()
         requirements.send_keys('Un texto de prueba de requerimientos')
 
-        btnSubmit = self.driver.find_element(by=By.ID,value='save')
+        btnSubmit = self.driver.find_element(by=By.CLASS_NAME,value='standardButton')
         btnSubmit.click()
 
         assert 'Seleccion de donante' in self.driver.title
@@ -77,6 +88,49 @@ class testCreateScholarship(LiveServerTestCase):
 
         assert 'Configuracion de coverturas' in self.driver.title
 
+    def fillTypes(self):
+
+        value = self.driver.find_element(by=By.ID,value='id_value')
+        value.clear()
+        value.send_keys('100')
+
+        type = self.driver.find_element(by=By.ID,value='id_type')
+        type.clear()
+        type.send_keys('Alimenticia')
+
+        save = self.driver.find_element(by=By.ID,value='save')
+        save.click()
+
+        self.driver.implicitly_wait(20)
+
+        assert 'Resumen de beca' in self.driver.title
+
+    def testCheck(self):
+
+        self.logIn()
+        self.enterScholarshipManagement()
+        self.createScholarshipManagement()
+        self.fillFirstForm()
+        self.selectDonor()
+        self.fillTypes()
+
+        self.driver.implicitly_wait(20)
+        
+        btnSubmit = self.driver.find_element(by=By.ID,value='save')
+        btnSubmit.click()
+
+        self.driver.implicitly_wait(20)
+
+        assert 'Programa de becas' in self.driver.title
+
+    def tearDown(self):
+        self.driver.close()
+
+        
+
+        
+
+    
     
 
 

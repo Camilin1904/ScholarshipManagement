@@ -33,6 +33,8 @@ class testLogInAndSignIn(LiveServerTestCase):
 
         submit = driver.find_element(by=By.ID,value='signin')
         submit.send_keys(Keys.RETURN)
+        
+        driver.implicitly_wait(20)
 
         assert 'Home' in driver.title
 
@@ -59,6 +61,8 @@ class testLogInAndSignIn(LiveServerTestCase):
 
         submit = driver.find_element(by=By.ID,value='signin')
         submit.send_keys(Keys.RETURN)
+
+        driver.implicitly_wait(20)
 
         assert 'Home' in driver.title
 
