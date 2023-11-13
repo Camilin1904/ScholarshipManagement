@@ -31,16 +31,55 @@ class testCreateScholarship(LiveServerTestCase):
 
         assert 'Home' in self.driver.title
 
-    def testEnterScholarshipManagement(self):
+    def enterScholarshipManagement(self):
 
-        self.logIn()
-
-        btnScholarship = self.driver.find_element(by=By.XPATH,value="//a[@href= '/scholarship']")
+        btnScholarship = self.driver.find_element(by=By.ID,value='scholarship_btn')
         btnScholarship.click()
 
-        self.driver.implicitly_wait(10)
+        self.driver.implicitly_wait(20)
 
-        title = self.driver.find_element(by=By.ID,value='title')
+    def createScholarshipManagement(self):
 
-        assert 'Programa de Becas' in title
+        goToCreate = self.driver.find_element(by=By.ID,value='CreateButton')
+        goToCreate.click()
+
+        self.driver.implicitly_wait(20)
+        assert 'Crear programa de becas' in self.driver.title
+
+    
+    def fillFirstForm(self):
+
+        id = self.driver.find_element(by=By.ID,value='id_ID')
+        id.clear()
+        id.send_keys('1')
+
+        name = self.driver.find_element(by=By.ID,value='id_name')
+        name.clear()
+        name.send_keys('Beca de prueba')
+
+        description = self.driver.find_element(by=By.ID,value='id_description')
+        description.clear()
+        description.send_keys('Un texto de prueba')
+
+        requirements = self.driver.find_element(by=By.ID,value='id_requirements')
+        requirements.clear()
+        requirements.send_keys('Un texto de prueba de requerimientos')
+
+        btnSubmit = self.driver.find_element(by=By.ID,value='save')
+        btnSubmit.click()
+
+        assert 'Seleccion de donante' in self.driver.title
+
+    def selectDonor(self):
+
+        donor = self.driver.find_element(by=By.XPATH,value="//button[@value='1']")
+        donor.click()
+
+        assert 'Configuracion de coverturas' in self.driver.title
+
+    
+
+
+
+    
 

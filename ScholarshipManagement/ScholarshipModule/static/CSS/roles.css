@@ -81,13 +81,13 @@ li a:hover {
     height: 80%;
     display: flex;
     align-items: center;
-    justify-content: center;
     object-fit: fill;
+    flex-flow: column;
 }
 
 .content{
     width: 40%;
-    height: 90%;
+    height: 70%;
     background-color: #ffffff;
     border-radius: 15px;
     display: flex;
@@ -95,6 +95,7 @@ li a:hover {
     justify-content: center;
     color: #011627;
     overflow: hidden;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
 }
 
 .buttons{
@@ -115,8 +116,10 @@ li a:hover {
 
 .input{
     width: 100%;
-    border: 3px solid #88A0A8;
-    border-radius: 10px;
+    border: none;
+    border-bottom: 1px solid #2D6A9F;
+    border-radius: 3px;
+    object-fit: cover;
 }
 
 .buttonBlue{
@@ -167,3 +170,59 @@ li a:hover {
 .closebtn:hover {
     color: #2D6A9F;
 }
+
+.card{
+    width: 80%;
+    height: 10%;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: #3A4459;
+    overflow: hidden;
+    object-fit: fill;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+
+.littleButton{
+    border: none;
+    color: #2D6A9F;
+    transition-duration: 0.4s;
+    object-fit: fill;
+    background-color: white;
+    display: flex;
+    border-radius: 15px;
+  }
+  
+  .littleButton:hover{
+    background-color: #2D6A9F;
+    color: white;
+  }
+
+  .meter {
+    box-sizing: content-box;
+    height: 20px; /* Can be anything */
+    position: relative;
+    margin: 2%;
+    background: white;
+    border-radius: 25px;
+    padding: 10px;
+    width: 78.5%;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+  }
+  .meter > span {
+    height: 100%;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #2D6A9F;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
