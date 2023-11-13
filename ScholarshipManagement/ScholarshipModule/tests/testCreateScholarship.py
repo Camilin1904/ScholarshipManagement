@@ -11,9 +11,11 @@ class testCreateScholarship(LiveServerTestCase):
     def setUp(self):
         self.driver = webdriver.Edge()
 
+        self.driver.fullscreen_window()
+
         self.driver.get('http://127.0.0.1:3000/') 
 
-        self.driver.fullscreen_window()
+       
 
     def logIn(self):
         login = self.driver.find_element(by=By.ID,value='login')
