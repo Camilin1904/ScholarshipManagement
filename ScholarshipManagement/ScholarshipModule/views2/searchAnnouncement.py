@@ -218,6 +218,27 @@ def searchAnnouncement(request):
                             announcementList = joinedQuery
 
                         flag=True
+
+                    if (archivedOption == "0"):
+
+                        archivedList = Announcements.objects.filter(
+                            archived = 0).values_list('id', flat = True)
+
+                        announcementsPreList=[]
+
+                        for i in archivedList:
+
+                            if (Announcements.objects.filter(id = i).exists()):
+                                announcementsPreList.append(Announcements.objects.filter(id = i))
+
+                        joinedQuery = joinQuery(announcementsPreList)
+        
+                        if flag:
+                            announcementList = announcementList.intersection(joinedQuery)
+                        else:
+                            announcementList = joinedQuery
+
+                        flag=True
                     
                     announcementList = getAnnouncemnetContext(announcementList)
                     context = {
@@ -242,7 +263,7 @@ def searchAnnouncement(request):
             return render(
                 request, './HTML/searchAnnouncement.html', context)
 
-        except Exception as e:        
+        except Exception as e:    
 
             return render(
             request, './HTML/searchAnnouncement.html', context)
