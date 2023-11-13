@@ -51,7 +51,11 @@ urlpatterns = [
     path('filterOfReport/', reportsViews.filterOfReport, name = 'reportGenerator'),
     path('reportResume/', reportsViews.reportResume, name = 'reportPreview'),
     #path('example/', views.reportGenerator, name = 'reportGenerator'),
-    path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships')
+    path('scholarships/create/', CreateScholarship.createScholarshipsSC1, name = 'createScholarships'),
+    path('announcement/edit/', views.editAnnouncement, name = 'editAnnouncement'),
+    path('announcement/view/', views.viewAnnouncement, name = 'viewAnnouncement'),
+    path('createEvent/', views.createEvent, name = 'createEvent'),
+    path('announcement/edit/events/', views.editEvent, name = 'editEvent')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

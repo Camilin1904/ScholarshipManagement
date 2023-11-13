@@ -290,7 +290,8 @@ def searchUserForRole(request):
             'form': searchUser,
             'success': success
         })
-            
+
+@login_required(login_url="/login") 
 def createAnnouncement(request):
 
     additionalEvents = 0
@@ -322,7 +323,8 @@ def createAnnouncement(request):
                     'Inscription','Interview','Selection','Publication']
                 today = str(date.today())
                 additionalEvents = int(request.POST['title']) + 1
-                scholarshipIdInt = int(request.POST['scholarshipAnnouncementForm-scholarshipId'])
+                scholarshipIdInt = request.POST['scholarshipAnnouncementForm-scholarshipId']
+                scholarshipIdInt = getSubString(scholarshipIdInt)[-1]
 
                 if (not Scholarships.objects.filter(ID =scholarshipIdInt).exists()):
 
@@ -363,12 +365,14 @@ def createAnnouncement(request):
                         raise Exception("La fecha final debe ser posterior a la fecha incial")
                 
                 announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
-                scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
+                scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm()
+                scholarshipObjt = Scholarships.objects.filter(ID = scholarshipIdInt).get()
                 announcementForm.save()
 
                 announcementFormObj = Announcements.objects.latest('id')
 
                 scholarshipAnnouncementFormInstance = scholarshipAnnouncementForm.save(commit=False)
+                scholarshipAnnouncementFormInstance.scholarshipId = scholarshipObjt
                 scholarshipAnnouncementFormInstance.announcementId = announcementFormObj
                 scholarshipAnnouncementFormInstance.save()
 
@@ -478,7 +482,7 @@ def createAnnouncement(request):
             return render(
                 request, 'createAnnouncement.html', context) 
         
-
+@login_required(login_url="/login")
 def searchAnnouncement(request):
 
     today = str(date.today())
@@ -501,27 +505,19 @@ def searchAnnouncement(request):
         scholarshipNames = []
         announcementList = []
         count = 0
-        today = str(date.today())
-        types = ["Abierta", "Cerrada", "Mixta"]
 
         for i in announcements:
 
-            status = "Activa"
             typeNum = i.type
-            typeStr = types[typeNum]
+            typeStr = getAnnouncemenType(typeNum)
 
+            print(i.id)
             scholarshipList.append(
                 ScholarshipAnnouncements.objects.filter(announcementId = i.id).values('scholarshipId').get()['scholarshipId'])
             scholarshipNames.append(
                 Scholarships.objects.filter(ID = scholarshipList[count]).values('name').get()['name'])
 
-            startingInstcriptionDate = AnnouncementEvent.objects.filter(
-                type = "Inscription").filter(announcementId = i.id).values_list('startingDate', flat = True)
-            endPublicationDate = AnnouncementEvent.objects.filter(
-                type = "Publication").filter(announcementId = i.id).values_list('endDate', flat = True)
-
-            if today < str(startingInstcriptionDate[0]) or today > str(endPublicationDate[0]):
-                status="Inactiva"
+            status= getStatus(i.id)
 
             announcementList.append(announcementTable(scholarshipNames[count], i.id, typeStr,status))
             count+=1
@@ -537,7 +533,7 @@ def searchAnnouncement(request):
 
         return joinedQuerySets
 
-    announcements = Announcements.objects.all()
+    announcements = Announcements.objects.filter(archived = 0)
     announcementList = getAnnouncemnetContext(announcements)
     context = {
         'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
@@ -560,6 +556,7 @@ def searchAnnouncement(request):
                 annoucementStatus = request.POST["announcementSearchForm-announcementStatus"]
                 startingDateStr = request.POST["announcementSearchForm-startingInscriptionDate"]
                 endDateStr = request.POST["announcementSearchForm-endInscriptionDate"]
+                archivedOption = request.POST["announcementSearchForm-archivedSelection"]
                 scholarshipList = []
                 announcementsPreList = []
                 startDateList = []
@@ -569,7 +566,7 @@ def searchAnnouncement(request):
                 if(
                     scholarshipName != "" or announcementId != "" or 
                     annoucementType != "3" or annoucementStatus != "2" or 
-                    startingDateStr != "" or endDateStr !=  ""):
+                    startingDateStr != "" or endDateStr !=  "" or archivedOption != "0"):
 
                     announcementList = Announcements.objects.none()
                 
@@ -637,9 +634,9 @@ def searchAnnouncement(request):
 
                         else:
                             announcementsFirstPreList = AnnouncementEvent.objects.filter(
-                                type = "Inscription").filter(startingDate__gte = today).values_list('announcementId', flat = True)
+                                type = "Inscription").filter(startingDate__gt = today).values_list('announcementId', flat = True)
                             announcementsSecondPreList = AnnouncementEvent.objects.filter(
-                                type = "Publication").filter(endDate__lte = today).values_list('announcementId', flat = True)
+                                type = "Publication").filter(endDate__lt = today).values_list('announcementId', flat = True)
                             announcementsIdPreList = announcementsFirstPreList | announcementsSecondPreList
 
                             for i in announcementsIdPreList:
@@ -699,11 +696,48 @@ def searchAnnouncement(request):
 
                         flag=True
 
+                       
+
+                    if (archivedOption != "0"):
+
+                        print("entro")
+
+                        archivedList = Announcements.objects.filter(
+                            archived = 1).values_list('id', flat = True)
+
+                        announcementsPreList=[]
+
+                        for i in archivedList:
+
+                            if (Announcements.objects.filter(id = i).exists()):
+                                announcementsPreList.append(Announcements.objects.filter(id = i))
+
+                        joinedQuery = joinQuery(announcementsPreList)
+        
+                        if flag:
+                            announcementList = announcementList.intersection(joinedQuery)
+                        else:
+                            announcementList = joinedQuery
+
+                        flag=True
+                    
+
+
                     announcementList = getAnnouncemnetContext(announcementList)
                     context = {
                         'announcementSearchForm': CreateSearchAnnouncementForm (request.POST, prefix="announcementSearchForm"),
                         'announcements':announcementList,
                     }
+
+                    return render(
+                    request, 'searchAnnouncement.html', context)
+
+
+            if 'checkBttn' in request.POST:
+
+                request.session['announcementId'] = request.POST['checkBttn']
+                return redirect('/announcement/view/')
+            
 
             else:
                 context = {
@@ -714,7 +748,10 @@ def searchAnnouncement(request):
             return render(
                 request, 'searchAnnouncement.html', context)
 
-        except:
+        except Exception as e:
+
+            raise Exception(e)
+            
 
             return render(
             request, 'searchAnnouncement.html', context)
@@ -724,3 +761,391 @@ def searchAnnouncement(request):
 def searchStudent(request):
     return render(
             request, './HTML/searchStudent.html')
+
+
+def getAnnouncementViewContext(announcementId):
+
+    class translatedEvent:
+
+        def __init__(
+                self, type, startingDate, endDate):
+            self.type = type
+            self.startingDate = startingDate
+            self.endDate = endDate
+
+
+    announcementDict = getAnnouncementInfo(announcementId)
+
+    archivedStatus = "No"
+    archivedStatusBttn = "Archivar"
+
+    if announcementDict["archive"] == 1:
+        archivedStatus = "Si"
+        archivedStatusBttn = "Desarchivar"
+
+    events = announcementDict["events"]
+    translatedEvents = []
+
+    event_dict = {'Inscription' : 'Inscripción', 
+           'Interview' : 'Entrevista', 
+           'Selection' : 'Selección', 
+           'Publication' : 'Publicación'}
+    
+    for event in events:
+
+        try:
+            type = event_dict[event.type]
+        except KeyError:
+            type = event.type
+
+        translatedEvents.append(translatedEvent(type,
+                                                event.startingDate,
+                                                event.endDate))
+
+    context = {
+            'announcementId': announcementDict["id"],
+            'type': announcementDict["type"],
+            'scholarship': announcementDict["scholarship"],
+            'events': translatedEvents,
+            'status': announcementDict["status"],
+            'archive': archivedStatus,
+            'archiveBttn': archivedStatusBttn
+        }
+    
+    return context
+
+@login_required(login_url="/login")
+def viewAnnouncement (request):
+
+    announcementId = request.session.get('announcementId')
+    announcementDict = getAnnouncementInfo(announcementId)
+    context = getAnnouncementViewContext(announcementId)
+    archiveNumberFlag = 1
+
+    if announcementDict["archive"] == 1:
+        archiveNumberFlag = 0
+
+    if request.method == 'GET':
+
+        return render(
+            request, './HTML/viewAnnouncement.html', context)
+    else:
+
+        if 'editBttn' in request.POST:
+            return redirect('/announcement/edit/')
+        
+        
+        if 'deleteBttn' in request.POST:
+
+            Announcements.objects.filter(id = announcementId).update(archived = archiveNumberFlag)
+
+            context = getAnnouncementViewContext(announcementId)
+
+            return render(
+            request, './HTML/viewAnnouncement.html', context)
+
+
+def getStatus(id):
+    today = str(date.today())
+    status = "Activa"
+
+    startingInstcriptionDate = AnnouncementEvent.objects.filter(
+                type = "Inscription").filter(announcementId = id).values_list('startingDate', flat = True)
+    endPublicationDate = AnnouncementEvent.objects.filter(
+                type = "Publication").filter(announcementId = id).values_list('endDate', flat = True)
+
+    if today < str(startingInstcriptionDate[0]) or today > str(endPublicationDate[0]):
+                status="Inactiva"
+
+    return status
+
+
+def getAnnouncemenType(typeNum):
+    types = ["Abierta", "Cerrada", "Mixta"]
+    typeStr = types[typeNum]
+
+    return typeStr
+
+def getAnnouncementInfo(announcementId):
+
+    announcementObjt = Announcements.objects.filter(id = announcementId)
+    announcementScholarship = ScholarshipAnnouncements.objects.filter(announcementId = announcementObjt[0].id)
+    scholarship =  announcementScholarship[0].scholarshipId 
+    announcementEvents = AnnouncementEvent.objects.filter(announcementId = announcementObjt[0].id)
+
+    announcementDict = {
+        "id": announcementId,
+        "type":getAnnouncemenType(announcementObjt[0].type),
+        "scholarship": scholarship,
+        "events": announcementEvents,
+        "status": getStatus(announcementId),
+        "typeNum":announcementObjt[0].type,
+        "idObj":announcementObjt[0],
+        "archive": announcementObjt[0].archived 
+    }
+
+    return announcementDict
+
+
+@login_required(login_url="/login")
+def editAnnouncement (request):
+
+    error = ""
+
+    announcementId = request.session.get('announcementId')
+    announcementDict = getAnnouncementInfo(announcementId)
+    scholarshipName = announcementDict["scholarship"].name
+
+    announcementForm = CreateAnnouncementForm(initial={'type':announcementDict["typeNum"]}, prefix = "announcementForm")
+    scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(
+        initial={'scholarshipId':announcementDict["scholarship"].name + "  (" + str(announcementDict["scholarship"].ID) +
+                  ")"}, prefix = "announcementForm")
+    announcementEventFormInscription = CreateAnnouncementEventForm(
+        initial={'startingDate':announcementDict["events"][0].startingDate,
+                 'endDate':announcementDict["events"][0].endDate}, prefix = "announcementEventFormInscription")
+    announcementEventFormSelection = CreateAnnouncementEventForm(
+        initial={'startingDate':announcementDict["events"][1].startingDate,
+                 'endDate':announcementDict["events"][1].endDate}, prefix = "announcementEventFormSelection")
+    announcementEventFormInterview = CreateAnnouncementEventForm(
+        initial={'startingDate':announcementDict["events"][2].startingDate,
+                 'endDate':announcementDict["events"][2].endDate}, prefix = "announcementEventFormInterview")
+    announcementEventFormPublication = CreateAnnouncementEventForm(
+        initial={'startingDate':announcementDict["events"][3].startingDate,
+                 'endDate':announcementDict["events"][3].endDate}, prefix = "announcementEventFormPublication")
+
+    context = {
+            'announcementForm': announcementForm,
+            'scholarshipAnnouncementForm': scholarshipAnnouncementForm,
+            'announcementEventFormInscription': announcementEventFormInscription,
+            'announcementEventFormSelection': announcementEventFormSelection,
+            'announcementEventFormInterview': announcementEventFormInterview,
+            'announcementEventFormPublication':announcementEventFormPublication,
+            'newEventForm': CreateAnnouncementAdditionalEventForm(),
+            'scholarshipName':scholarshipName,
+            'error': error
+        }
+
+    if request.method == 'GET':
+
+        return render(
+            request, './HTML/editAnnouncement.html', context)
+    
+    else:
+
+        try:
+
+            if 'saveBttn' in request.POST:
+
+                eventType = [
+                    'Inscription','Interview','Selection','Publication']
+                today = str(date.today())
+                #additionalEvents = int(request.POST['title']) + 1
+
+                scholarshipIdInt = request.POST['announcementForm-scholarshipId']
+                scholarshipIdInt = getSubString(scholarshipIdInt)[-1]
+
+                if (not Scholarships.objects.filter(ID = scholarshipIdInt).exists()):
+
+                    raise Exception("La beca seleccionada no está registrada")
+
+
+                for x in range (3):
+
+                    if(x <= 3):
+
+                        initString = 'announcementEventForm' +  eventType[x] + '-startingDate'
+                        endString = 'announcementEventForm' + eventType[x] + '-endDate'
+
+                    else:
+
+                        initString = 'announcementAdditionalEventForm' +  str(x - 4) + '-startingDate'
+                        endString = 'announcementAdditionalEventForm' + str(x - 4) + '-endDate'
+                        additionalType = 'announcementAdditionalEventForm'+ str(x - 4) + '-type'
+                        additionalTypeStr = request.POST[additionalType]
+
+                        if(not bool(additionalTypeStr)):
+
+                            raise Exception("Se deben llenar los campos de tipo de convocatoria")
+
+                    initialDate = request.POST[initString]
+                    endDate = request.POST[endString]
+                    
+                    if ( not bool(initialDate) or not bool(endDate)):
+
+                        raise Exception("Se deben llenar todos los campos de fecha")
+
+
+                    if (initialDate >= endDate):
+                        raise Exception("La fecha final debe ser posterior a la fecha incial")
+                
+                announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
+                scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
+
+                Announcements.objects.filter(id = announcementId).update(type = request.POST['announcementForm-type'])
+
+                ScholarshipAnnouncements.objects.filter(id = announcementId).update(scholarshipId = scholarshipIdInt)
+
+
+                events = [
+                    "announcementEventFormInscription","announcementEventFormInterview",
+                    "announcementEventFormSelection","announcementEventFormPublication"]
+                
+                eventsType = [
+                    "Inscription","Interview",
+                    "Selection","Publication"]
+                eventNum = 0
+
+                for event in events:
+
+                    AnnouncementEvent.objects.filter(announcementId = announcementId).filter(
+                        type = eventsType[eventNum]).update(startingDate = request.POST[event+"-startingDate"],
+                                                            endDate = request.POST[event+"-endDate"] )
+                
+
+                    eventNum += 1
+
+                return redirect('/announcement/view/')
+            
+            else:
+                return redirect('/announcement/edit/events')
+
+           
+        except Exception as ex:
+
+            error = {str(ex)}
+
+            context = {
+                'announcementForm': CreateAnnouncementForm (request.POST, prefix="announcementForm"),
+                'scholarshipAnnouncementForm': CreateScholarshipAnnouncementForm (request.POST, prefix="announcementForm"),
+                'announcementEventFormInscription': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInscription"),
+                'announcementEventFormSelection': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormSelection"),
+                'announcementEventFormInterview': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormInterview"),
+                'announcementEventFormPublication': CreateAnnouncementEventForm (request.POST, prefix="announcementEventFormPublication"),
+                'scholarshipName':scholarshipName,
+                'error':error
+            }
+
+            return render(
+                request,  './HTML/editAnnouncement.html', context) 
+        
+@login_required(login_url="/login")
+def editEvent(request):
+
+    request.session['editFlag'] = True
+
+    announcementId = request.session.get('announcementId')
+    announcementDict = getAnnouncementInfo(announcementId)
+    scholarshipName = announcementDict["scholarship"].name
+
+    eventsType = [
+                "Inscription","Interview",
+                "Selection","Publication"]
+    
+    newEvents=[]
+
+    for event in announcementDict["events"]:
+        if event.type not in eventsType:
+            newEvent= CreateAnnouncementAdditionalEventForm(initial={'type': event.type,'startingDate':event.startingDate,
+                 'endDate':event.endDate})
+            
+            newEvents.append(newEvent)
+
+    if request.method == 'GET':
+
+        context = {'newEvents': newEvents,
+                   'scholarshipName':scholarshipName,
+                    'error': ""}
+
+        return render(
+            request, './HTML/editEvents.html', context)
+    
+    else:
+
+        print("2")
+        return redirect('/announcement/edit/')
+
+@login_required(login_url="/login")
+def createEvent(request):
+
+    announcementId = request.session.get('announcementId')
+    announcementDict = getAnnouncementInfo(announcementId)
+    eventsType = [
+            "Inscription","Interview",
+            "Selection","Publication"]
+
+    if request.method == 'POST':
+
+        print(request.POST)
+        postDict = request.POST
+        eventsCounter = 0
+        objInstances = []
+
+        types =  postDict.getlist('type')
+        startDates = postDict.getlist('startingDate')
+        endDates = postDict.getlist('endDate')
+        
+        print (types)
+
+        print(postDict.keys())
+
+        if 'type' in postDict.keys():
+            print("Entro")
+
+            for type in types:
+
+                startingDate = startDates[eventsCounter]
+                print(startingDate)
+                endDate = endDates[eventsCounter]
+                print(endDate)
+                print(type)
+
+                if (type == '' or startingDate == ''  or endDate == '' ):
+
+                    print("error")
+
+                    return render (request, 'HTML/alertBox.html', {'error': "No se pueden guardar campos vacíos"})
+                
+                form = CreateAnnouncementAdditionalEventForm()
+
+                print(form)
+            
+                formObjInstance= form.save(commit = False)
+                formObjInstance.announcementId = announcementDict["idObj"]
+                formObjInstance.type = type
+                formObjInstance.startingDate = startingDate
+                formObjInstance.endDate = endDate
+                objInstances.append(formObjInstance)
+
+                eventsCounter+=1
+
+        AnnouncementEvent.objects.filter(announcementId = announcementId).exclude(type__in = eventsType).delete()
+        for obj in objInstances:
+            obj.save()
+
+        response = HttpResponse()
+        response["HX-Redirect"] = '/announcement/edit/'
+        return response
+
+    else:
+       
+        return render (request, 'HTML/eventForm.html', {'newEventForm': CreateAnnouncementAdditionalEventForm()})
+    
+
+def getSubString(str):
+    substrings = []
+    in_brackets = False
+    current_substring = ""
+    
+    for strItem in str:
+        if strItem == "(":
+            in_brackets = True
+        elif strItem == ")" and in_brackets:
+            substrings.append(current_substring)
+            current_substring = ""
+            in_brackets = False
+        elif in_brackets:
+            current_substring += strItem
+    
+    if current_substring:
+        substrings.append(current_substring)
+    return substrings

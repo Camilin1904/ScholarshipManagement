@@ -1,0 +1,41 @@
+
+<div id = eventForm > 
+
+    <div class = "event">
+
+        {% csrf_token %}
+
+        <div class = "type">
+            <label for = "{{newEventForm.type.id_for_label}}" {{newEventForm.type.label}}></label>
+            <h2>{{newEventForm.type.label}}</h2>
+            <br>
+            {{newEventForm.type}}
+        </div>
+
+        <div class = "startingDate">
+            <label for = "{{newEventForm.startingDate.id_for_label}}" {{newEventForm.startingDate.label}}></label>
+            <h2>{{newEventForm.startingDate.label}}</h2>
+            <br>
+            {{newEventForm.startingDate}}
+        </div>
+
+
+        <div class = "endDate">
+            <label for = "{{newEventForm.endDate.id_for_label}}" {{newEventForm.endate.label}}></label>
+            <h2>{{newEventForm.endDate.label}}</h2>
+            <br>
+            {{newEventForm.endDate}}
+        </div>
+
+        <div class="saveDiv">
+
+            <button id = "deleteBttn" name = "deleteBttn" class = "deletebutton"
+                hx-on = "click: this.closest('#eventForm').remove()">
+                <h1><i class="bi bi-trash"></i></h1>
+            </button>
+
+        </div>
+    </div>
+
+
+</div>
