@@ -1,0 +1,179 @@
+@import url('home.css');
+
+.container{
+    flex-flow: column;
+}
+#info{
+    display: flex;
+    flex-flow: row;
+}
+
+#summary{
+    height: 70%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    overflow-y: auto;
+    max-height: 90%;
+    width: 85%;
+}
+
+#warning{
+    color: red;
+    overflow-wrap: break-word;
+    font-size: smaller;
+    align-self: center;
+    width: 80%;
+}
+
+.meter > span {
+    animation-name: rotate;
+    animation-duration: 1.3s;
+  }
+  
+  @keyframes rotate {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+.meter > span {
+    height: 100%;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #2D6A9F;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.meter {
+    box-sizing: content-box;
+    height: 20px; /* Can be anything */
+    position: relative;
+    margin: 2%;
+    background: white;
+    border-radius: 25px;
+    padding: 10px;
+    width: 78.5%;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+}
+
+
+#types{
+    width: 35%;
+    height: 115%;
+    margin-left: 5%;
+    background-color:#FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    flex-flow:column;
+    align-items: center;
+    justify-content: center;
+    color: #455761;
+    overflow-y: auto;
+    object-fit: fill;
+    max-height: 11cm;
+    max-width: 8cm;
+}
+
+#inner{
+    height: 90%;
+    width: 90%;
+}
+
+.content{
+    height: 115%;
+    font-weight: 100;   
+    max-height: 11cm;
+    width: 24cm;
+    display: flex;
+}
+
+#box{
+    width: 50%;
+    height: 10%;
+    margin-bottom: 2%;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: #3A4459;
+    overflow: hidden;
+    object-fit: fill;
+}
+
+p{
+    font-weight: 100;
+    overflow-wrap: break-word;
+}
+
+button{
+    background-color: #455761;
+    width: 60%;
+    color: #FFFFFF;
+    float: right;
+    margin-right: -80%;
+    border-right:0.5px solid black;
+    transition-duration: 0.4s;
+}
+button:hover{
+    background-color: #0f3f69;
+    color: white;
+}
+
+#desc{
+    max-height: 3.5cm;
+    overflow-y: auto;
+    max-width: 7cm;
+}
+#req{
+    max-height: 1.5cm;
+    overflow-y: auto;
+    max-width: 7cm;
+}
+
+.littleButton{
+    border: none;
+    color: #2D6A9F;
+    transition-duration: 0.4s;
+    object-fit: fill;
+    background-color: white;
+    display: flex;
+    width:fit-content ;
+    border-radius: 15px;
+    margin-left:-35%;
+    margin-right:30%;
+    
+}
+
+.littleButton:hover{
+    background-color: #2D6A9F;
+    color: white;
+    width: fit-content;
+}
+
+#title{
+    width: 80%;
+    height: 15%;
+    margin-bottom: 2%;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    color: #3A4459;
+    overflow: hidden;
+    object-fit: fill;
+}
+
+

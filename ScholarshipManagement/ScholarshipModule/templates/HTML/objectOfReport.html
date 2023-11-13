@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/reportGenerator.css' %}">
+        <link rel="icon" href="{% static './Icons/logo.png' %}">
+        <title>Report Generator</title>
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+
+        
+        <div class="container">
+
+            <div class="meter">
+                <span style="width: 25%;"></span>
+            </div>
+
+            <div class="card" style="flex-direction: row;">
+                <div style="width: 33.3%;">
+                    <button class="littleButton" style="align-items: center;" onclick="history.back()">
+                        <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                    </button>
+                </div>
+                <div style="
+                width: 33.3%; display: flex; align-items: center; justify-content: center;
+                "><h1 id = "demo">REPORTES</h1></div>
+                <div style="width: 33.3%;"></div>
+            </div>
+
+            <br>
+
+            <div class="content">
+                
+                <form method="POST" class="buttons">
+                    {% csrf_token %}
+                    <button name="object" class="bigButton" value="1">
+                        <div style="font-size: x-large ;">
+                            REPORTE DE APLICANTES
+                        </div>
+                        <div style="font-size: xxx-large;">
+                            <i class="bi bi-file-earmark-person-fill"></i>
+                        </div>
+                    </button>
+                    
+                    <button name="object" class="bigButton" value="2">
+                        <div style="font-size: x-large ;">
+                            REPORTE DE BECAS
+                        </div>
+                        <div style="font-size: xxx-large;">
+                            <i class="bi bi-award"></i>
+                        </div>
+                    </button>
+
+                    <button name="object" class="bigButton" value="3">
+                        <div style="font-size: x-large ;">
+                            REPORTE DE CONVOCATORIAS
+                        </div>
+                        <div style="font-size: xxx-large;">
+                            <i class="bi bi-megaphone"></i>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </body>
+
+</html>
+
+<style>
+    .meter > span {
+    animation-name: rotate;
+    animation-duration: 0.7s;
+  }
+  
+  @keyframes rotate {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 25%;
+    }
+  }
+</style>

@@ -7,56 +7,230 @@
     <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'CSS/createApplicant.css' %}">
+    <link rel="icon" href="{% static './Icons/logo.png' %}">
     {% block links %}
     {% endblock %}
+
+    
     <title>
         Creación Aplicante
     </title>
 </head>
 
-    <body>
-        <header>
-            <img src="{% static './Icons/icesi.png' %}" class="icesi">
-            <div class="menu">
-                <ul>
-                        <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
-                        <li><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
-                        <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
-                </ul>              
-            </div>  
-          
-        </header>
-
-        <div id="content">
-            
+<body>
+    <header>
+        <img src="{% static './Icons/icesi.png' %}" class="icesi">
+        <div class="menu">
+            <ul>
+                    <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href=""><i class="bi bi-cloud-arrow-up"></i>  Subir</a></li>
+                    <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+            </ul>              
+        </div>  
         
-            <form action='/applicants/create/' method = "POST">
-            <div class="container">
+    </header>
 
-                <h2 id="registerApplicant">Registro del aplicante</h2>
+    <div id="content">
+
+        <div class="meter" id="meter">
+            <span style="width: 33.3%;"></span>
+        </div>
+
+        <div class="meter" id="meter2" style="display: none;">
+            <span style="width: 66.6%;"></span>
+        </div>
+
+        <div class="card">
+            <div style="width: 33.3%;">
+                <button type="submit" id="goBack" class="littleButton" style="display: none;">
+                    <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                </button>
+            </div>
+
+            <div style="width: 33.3%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <h1 id= "deletable">
+                    <h1 id="registerApplicant">Registro aplicante</h1>
+                </h1>
+            </div>
+
+            <div style="width: 33.3%;"></div>
+
+
+        </div>
+
+        <div class="container">
+
+            
+            <h2 id="personalInformation">Información personal</h2>
+            <h2 id="academicInformation" style="display: none;">Información académica</h2>
+            
+            <br>
+
+            {% if error == ""%}
+                
+            {% else %}
+                <div class="alert" style="font-size: 85%; ">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>Advertencia</strong> {{error}}
+                </div>
+            {% endif%} 
+
+            <form action='/applicants/create/' method = "POST" id="create1" enctype="multipart/form-data">
+            
                 {% csrf_token %}
-                {% for field in form %}
+            
+                <div id="step1">
+                    
+                    {% for field in form %}
+                    {% if forloop.counter < 5 %}
                     <div id="id_{{forloop.counter}}" class="items">
                     
                         {{ field.label_tag }}<br>
                         {{ field }}
                     </div>
+                    {% endif %}
                     {% endfor %}
-                    <button id="save" class="button">Guardar</button>
-                <br>
-            
-            </form>
-            </div>
-            
-            {% if error == ""%}
+                    <label for="id_image" id="image_label">Foto del estudiante:</label>
                     
-            {% else %}
-                <div class="alert" style="font-size: 85%; margin-top: 5%;">
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-                    <strong>Advertencia</strong> {{error}}
+                    <div class="inputForm" id="container_image">
+
+                        <input type="file" id="image"  accept="image/*" name="image">
+                        <div>
+                        
+                            <label for="image" id="customFileButton">Seleccionar archivo</label>
+                        </div>
+                    </div>
+
+                    <button type="button" id="nextButton" class="button">Siguiente</button>
+                    <br>
                 </div>
-            {% endif%}    
-               
-        </div>  
-    </body>
+            
+
+                
+                <div id="step2" style="display: none;">
+                    {% for field in form2 %}
+        
+                    <div id="id_{{forloop.counter}}" class="items">
+                    
+                        {{ field.label_tag }}<br>
+                        {{ field }}
+                    </div>
+            
+                    {% endfor %}
+
+                    <button type="submit" id="save" class="button" style="display: none;">Guardar</button>
+                    <br>
+                
+                </div>
+        
+            </form>
+        </div>
+
+
+
+
+
+        <script>
+            const imageContainer = document.getElementById("container_image");
+            const imageInput = document.getElementById("image");
+            const customFileButton = document.getElementById("customFileButton");
+            const step1 = document.getElementById("step1");
+            const step2 = document.getElementById("step2");
+            const tittle1 = document.getElementById("personalInformation")
+            const tittle2 = document.getElementById("academicInformation")
+            const meter = document.getElementById("meter")
+            const meter2 = document.getElementById("meter2")
+            
+            const imagePath = "{% static './Icons/cam.png' %}";
+            imageContainer.style.backgroundImage = 'url(' + imagePath + ')';
+
+            imageInput.addEventListener("change", function () {
+                const file = this.files[0];
+                if (file) {
+                
+                    imageInput.style.display = "none";
+                    
+                    const reader = new FileReader();
+        
+                    reader.onload = function (e) {
+                        const imageUrl = e.target.result;
+                        imageContainer.style.backgroundImage = 'url(' + imageUrl + ')';
+                        
+                    };
+            
+                    reader.readAsDataURL(file);
+                } else {
+                    const imagePath = "{% static './Icons/cam.png' %}";
+                    imageContainer.style.backgroundImage = 'url(' + imagePath + ')';
+                    
+                }
+            });
+            
+            customFileButton.addEventListener("click", function () {
+                imageInput.click();
+            });
+
+            nextButton.addEventListener("click", function () {
+            step1.style.display = "none";
+            step2.style.display = "";
+            save.style.display = "";
+            goBack.style.display = "";
+            nextButton.style.display = "none";
+            tittle1.style.display = "none";
+            tittle2.style.display = ""
+            meter.style.display = "none";
+            meter2.style.display = "";
+            
+            });
+                        
+            goBack.addEventListener("click", function () {
+            step1.style.display  = "";
+            step2.style.display = "none";
+            save.style.display = "none";
+            goBack.style.display = "none";
+            nextButton.style.display = "";
+            tittle1.style.display = "";
+            tittle2.style.display = "none";
+            meter.style.display = "";
+            meter2.style.display = "none";
+
+            });
+
+        </script>
+            
+    </div>
+    
+    <style>
+        #meter > span {
+        animation-name: rotate;
+        animation-duration: 0.7s;
+        }
+        
+        @keyframes rotate {
+        0% {
+            width: 0%;
+        }
+        100% {
+            width: 33.3%;
+        }
+        }
+
+        #meter2 > span {
+        animation-name: progressed;
+        animation-duration: 0.7s;
+        }
+        
+        @keyframes progressed {
+        0% {
+            width: 33.3%;
+        }
+        100% {
+            width: 66.6%;
+        }
+        }
+    </style>
+</body>
+
+
+
 

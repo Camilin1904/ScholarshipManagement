@@ -6,6 +6,7 @@
     <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{% static 'CSS/viewApplicant.css' %}">
+    <link rel="icon" href="{% static './Icons/logo.png' %}">
     {% block links %}
     {% endblock %}
     <title>Información de aplicante</title>
@@ -24,13 +25,30 @@
     </header>
 
     <div class="container">
+
+        <div class="card">
+            <div style="width: 33.3%; ">
+                <button type="submit" id="goBack" class="littleButton" onclick="goBack()">
+                    <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                </button>
+            </div>
+
+            <div style="width: 33.3%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <h1 id= "deletable">
+                    Perfil aplicante
+                </h1>
+            </div>
+
+            <div style="width: 33.3%;"></div>
+        </div>
+
+
         <div class="content">
-            <h2>
-                <b>Información del aplicante</b>
-            </h2>
+
             <div class="info_applicant">
+
                 {%for Applicant in applicant%}
-                    <ul>
+                    <ul id="applicant_info_list">
                         <li id="applicant_info">
                             <p>
                                 <b>Nombre:</b>
@@ -81,32 +99,67 @@
                                 <b>Convocatoria:</b> 
                                 <br>
                                 {{announcement}}
+                                
                             </p>
                         </li>
                         
                     </ul>
-                
-                <i class="bi bi-person-square" id="person"></i>
-                <form method="POST">
+                    {% if Applicant.image != "" %}
+                        <p id="title_image">
+                            <b>Foto:</b> 
+                            <br>
+                            <img id="image" src="{{Applicant.image.url}}" />
+                        </p>
+
+                    {% else %}
+                        <p id="title_image">
+                            <b>Foto:</b> 
+                            <br>
+                            <img id="image" src="{% static './Icons/cam.png' %}" />
+                        </p>
+                    {% endif %}                  
                     
-                    <div class="buttons">
-                        
-                        <button class="button" id="back" value="{{Applicant.studentCode}}" name="back">
-                            {% csrf_token %}
-                            Atrás
-                        </button>
+
+
+                <form method="POST" id="post_method">
+
                         <button class="button" id="edit" value="{{Applicant.studentCode}}" name="edit">
                             {% csrf_token %}
                             Editar
                         </button>
-                    </div>
+
+                        <button class="button" id="delete" value="{{Applicant.studentCode}}" name="delete">
+                            {% csrf_token %}
+                            Eliminar
+                        </button>
                 </form>
+
+
                 {%endfor%}
+
+                
+            {% if error == ""%}
+                    
+            {% else %}
+                <div class="alert" style="font-size: 85%; ">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>Advertencia</strong> {{error}}
+                </div>
+            {% endif%} 
+
             </div>
             
             
         </div>
         
     </div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>   
+
+
 </body>
 </html>
