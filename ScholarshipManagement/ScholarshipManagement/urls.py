@@ -36,6 +36,9 @@ from ScholarshipModule.views2 import images
 from ScholarshipModule.views2 import createApplicant
 from ScholarshipModule.views2 import filterApplicant
 from ScholarshipModule.views2 import createAppliStep3
+from ScholarshipModule.views2 import editApplicant
+from ScholarshipModule.views2 import viewApplicant
+from ScholarshipModule.views2 import stateCheckFilter
 from django.conf import settings
 from django.conf.urls.static import static
 from ScholarshipModule.views2 import createScholarship
@@ -52,7 +55,10 @@ urlpatterns = [
     path('home/', home.home, name = 'home'),
     path('scholarships/', scholarships.scholarships, name='scholarships'),
     path('announcement/create/', createAnnouncement.createAnnouncement, name='createAnnouncement'),
-    path('applicants/edit', views.editApplicant, name = 'editApplicant'),
+    #path('scholarships/create/', views.createScholarships, name = 'createScholarships'),
+    path('applicants/edit', editApplicant.editApplicant, name = 'editApplicant'),
+    path('searchStateCheck/', stateCheckFilter.stateCheckFilter, name='searchStateCheck'),
+    path('view/Student/', viewApplicant.viewApplicant, name = 'viewStudent'),
     path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
     path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
@@ -62,7 +68,6 @@ urlpatterns = [
     path('roles/', searchUserForRole.searchUserForRole, name = 'searchUser'),
     path('roles/', searchUserForRole.searchUserForRole, name = 'roleAssign'),
     path('announcement/', searchAnnouncement.searchAnnouncement, name = 'announcement'),   
-    path('view/Student/', views.viewApplicant, name = 'viewStudent'),
     path('objectOfReport/', objectOfReport.objectOfReport, name = 'reportGenerator'),
     path('typeOfReport/', typeOfReport.typeOfReport, name = 'reportGenerator'),
     path('filterOfReport/', filterOfReport.filterOfReport, name = 'reportGenerator'),

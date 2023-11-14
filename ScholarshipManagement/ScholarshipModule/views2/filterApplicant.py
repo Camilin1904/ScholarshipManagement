@@ -26,6 +26,16 @@ def filterApplicants(request):
             request.session['studentCode'] = request.POST["search"]
 
             return redirect('/view/Student')
+        
+        elif 'stateCheck' in request.POST:
+            try:
+                del request.session['studentCode']
+            except:
+                print(0)
+
+            request.session['studentCode'] = request.POST["stateCheck"]
+            return redirect('/searchStateCheck')
+
         else:
             try:
                 
