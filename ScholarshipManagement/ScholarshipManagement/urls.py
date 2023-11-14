@@ -29,6 +29,7 @@ from ScholarshipModule.views2 import filterApplicant
 from ScholarshipModule.views2 import createAppliStep3
 from ScholarshipModule.views2 import editApplicant
 from ScholarshipModule.views2 import viewApplicant
+from ScholarshipModule.views2 import stateCheckFilter
 from django.conf import settings
 from django.conf.urls.static import static
 from ScholarshipModule import reportsViews
@@ -56,6 +57,7 @@ urlpatterns = [
     path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
     path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
+    path('searchStateCheck/', stateCheckFilter.stateCheckFilter, name='searchStateCheck'),
     path('view/Student/', viewApplicant.viewApplicant, name = 'viewStudent'),
     path('pdf/', pdf.render_pdf_view, name = 'pdf'),
     path('objectOfReport/', reportsViews.objectOfReport, name = 'reportGenerator'),

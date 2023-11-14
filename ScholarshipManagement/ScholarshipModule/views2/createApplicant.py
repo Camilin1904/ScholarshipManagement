@@ -10,7 +10,7 @@ def createApplicants(request):
 
 
     if request.method == 'GET':
-        return render(request, 'createApplicant.html', {
+        return render(request, './HTML/createApplicant.html', {
             'form': CreateAppliStep1Form,
             'form2': CreateAppliStep2Form,
             'error': ""
@@ -32,7 +32,7 @@ def createApplicants(request):
                 Applicant.objects.get(email = postEmail)
 
                 error = 'El email de estudiante ya existe'
-                return render(request, 'createApplicant.html', {
+                return render(request, './HTML/createApplicant.html', {
                     'form': formError1,'form2': formError2,'error': error})
             
             except: 
@@ -40,7 +40,7 @@ def createApplicants(request):
                     Applicant.objects.get(studentCode = postStudentCode)
 
                     error = "El código de estudiante ya existe"
-                    return render(request, 'createApplicant.html', {
+                    return render(request, './HTML/createApplicant.html', {
                         'form': formError1,'form2': formError2,'error': error})
                 
                 except:
@@ -53,7 +53,7 @@ def createApplicants(request):
                     scholarshipAnnouns=ScholarshipAnnouncements.objects.filter(announcementId__in = announcements)
 
                     return render(
-                        request, 'createAppliStep3.html', 
+                        request, './HTML/createAppliStep3.html', 
                         {'error': error, 'scholarshipAnnoun': scholarshipAnnouns})
                 
         except:
