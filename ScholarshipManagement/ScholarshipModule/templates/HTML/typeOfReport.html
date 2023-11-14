@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/reportGenerator.css' %}">
+        <link rel="icon" href="{% static './Icons/logo.png' %}">
+        <title>Report Generator</title>
+
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+
+        
+        <div class="container">
+
+            <div class = "meter">
+                <span style="width: 50%;"></span>
+            </div>
+
+            <div class="card" style="flex-direction: row;">
+                <div style="width: 33.3%;">
+                    <button class="littleButton" style="align-items: center;" onclick="history.back()">
+                        <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                    </button>
+                </div>
+                <div style="
+                width: 33.3%; display: flex; align-items: center; justify-content: center;
+                "><h1 id = "demo">TIPO DE REPORTE</h1></div>
+                <div style="width: 33.3%;"></div>
+            </div>
+
+            <br>
+            
+            <div class="content">
+                
+                <form method="POST" class="buttons">
+                    {% csrf_token %}
+                    <button name="type" class="bigButton" value="1">
+                        <div style="font-size: x-large ;">
+                            DATOS FILTRADOS
+                        </div>
+                        <div style="font-size: medium;">
+                            Se le va a redirigir a la sección de filtrado para que elija las condiciones que deben satisfacer los 
+                            objetos del reporte y generar csv y resumen para que usted pueda trasladar a excel
+                        </div>
+                        <div style="font-size: xxx-large;">
+                            <i class="bi bi-filter"></i>
+                        </div>
+                    </button>
+                    
+                    <button name="type" class="bigButton" value="2">
+                        <div style="font-size: x-large ;">
+                            TODOS LOS DATOS
+                        </div>
+                        <div style="font-size: medium;">
+                            Se le va a redirigir a un resumen sobre todos los datos del objeto y se generará un csv para que usted
+                            pueda trabajar sobre el en excel
+                        </div>
+                        <div style="font-size: xxx-large;">
+                            <i class="bi bi-three-dots"></i>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+    </body>
+
+</html>
+
+<style>
+    .meter > span {
+    animation-name: rotate;
+    animation-duration: 0.7s;
+  }
+  
+  @keyframes rotate {
+    0% {
+      width: 25%;
+    }
+    100% {
+      width: 50%;
+    }
+  }
+</style>

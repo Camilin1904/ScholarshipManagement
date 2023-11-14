@@ -6,6 +6,12 @@
 
 {% block content %}
 
+<div class="card" style="flex-direction: row;">
+    <h1 id= "deletable">
+        Bienvenido {{user.name}}
+    </h1>
+</div>
+
 <div class="buttons">
     <button class="button">
         <a href = "/scholarships" style="color:inherit;text-decoration:none">
@@ -47,5 +53,11 @@
         </div>
     </button>
 </div>
+
+{% endblock%}
+
+{% block afterContent %}
+
+{% include 'HTML/upcomingEvents.html' %}
 
 {% endblock%}

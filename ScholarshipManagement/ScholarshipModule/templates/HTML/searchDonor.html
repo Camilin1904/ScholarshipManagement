@@ -3,48 +3,54 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/searchDonor.css' %}">
+    <script src="{% static 'JS/donorFilter.js' %}"></script>
+    <title>Seleccion de donante</title>
 {% endblock %}
 
-
-
-{% block title %}
-<h1 id="title">Buscar donantes</h1>
-{% endblock %}
-{% block content %}
-<ul>
-    {% if user.is_authenticated %}
-    <a href="/scholarships/create/" id="CreateButton"><button> Crear programa de becas</button></a>
+{% block filters %}
+    {% if meter %}
+        <div class="meter">
+            <span style="width: 50%; height: 100%;"></span>
+        </div>
     {% endif %}
-    <br><br>
-    <form id="search" action="." method="POST">
-        {% csrf_token %}
-        <input id="id" name="id" value="{{id}}" type = "search"></input>
-        <button>Search</button> 
-    </form>
-    <div class="table">
-        <table>
-            <thead> 
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">ID</th>
-                    <th scope="col">Selecionar</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for Donor in donors %}
-                    <tr>
-                        <td scope="col">{{Donor.name}}</td>
-                        <td scope="col">{{Donor.ID}}</td>
-                        <td scope="col">
-                            <form class="select" action="." method="POST">
-                                {% csrf_token %}
-                                <button class="selectbtn" name="select" value="{{Donor.ID}}">Seleccionar</button>
-                            </form>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div id="title" style="flex-direction: row;">
+        <button class="littleButton" style="align-items: center;" onclick="history.back()" type="button">
+            <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+        </button>
+        <h1>Seleccion de donante</h1>
     </div>
-</ul>
+{% endblock %}
+
+{% block content %}
+    <div id="behaviour">
+        <input type="text" id="name" onkeyup="nameSearch()" placeholder="Buscar por nombre">
+        <input type="text" id="id" onkeyup="idSearch()" placeholder="Buscar por ID">
+        <div class="table">
+            <table id = "donorTable">
+                <thead> 
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Selecionar</th>
+                    </tr>
+                </thead>
+                <tbody id = "tableContent">
+                    {% for Donor in donors %}
+                        <tr>
+                            <td scope="col">{{Donor.name}}</td>
+                            <td scope="col">{{Donor.ID}}</td>
+                            <td scope="col">
+                                <form class="select" action="." method="POST">
+                                    {% csrf_token %}
+                                    <input name="screen" value="donor" style="visibility:hidden"></input>
+                                    <button class="standardButton" name="select" value="{{Donor.ID}}">Seleccionar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 {% endblock  %}
+

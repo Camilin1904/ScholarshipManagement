@@ -8,3 +8,4 @@ admin.site.register(Scholarships)
 admin.site.register(Donors)
 admin.site.register(Announcements)
 
+

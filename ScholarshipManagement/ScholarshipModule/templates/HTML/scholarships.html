@@ -3,50 +3,43 @@
 
 {% block links %}
     <link rel="stylesheet" href="{% static 'CSS/scholarships.css' %}">
+    <script src="{%static 'JS/scholarshipFilter.js' %}"></script>
+    <title>Programas de Becas</title>
 {% endblock %}
 
 
-{% block filters %}
-    <div id="filter">
-        <h2>Filtros:</h2>
-        <form action="." method="POST">
-            {% csrf_token %}
-            {% for field in form %}
-                <div id="id_{{forloop.counter}}" class="items">
-                    {{ field.label_tag }}<br>
-                    {{ field }}
-                </div>
-            {% endfor %}
-            <button id="apply">Apply filters</button>
-            <br>
-        </form>
-    </div>
 
+{% block filters %}
+    <div id="title" style="flex-direction: row;">
+        <h1>Programas de Becas</h1>
+    </div>
+    <div id="info">
+        <div id="filter">
+
+            <div id="filterSecondContainer">
+
+                <h2>Filtros:</h2>
+                <input type="text" id="name" onkeyup="nameSearch()" placeholder="Buscar por nombre" class="inFilt">
+                <br><br>
+                <input type="text" id="id" onkeyup="idSearch()" placeholder="Buscar por ID" class="inFilt">
+                <br><br>
+                <input type="text" id="donor" onkeyup="donorSearch()" placeholder="Buscar por Donate" class="inFilt">
+                <br><br>
+                <a href="/scholarships/create/" id="CreateButton" class="inFilt"><button class="standardButton"><h3>Crear becas</h3></button></a>
+            </div>
+        </div>
 {% endblock %}
 
 
 {% block content %}
-<h1 id="title">Programas de Becas</h1>
-
-<ul>
-    {% if user.is_authenticated %}
-    <a href="/scholarships/create/" id="CreateButton"><button> Crear programa de becas</button></a>
-    {% endif %}
-    <br><br>
-    <form id="search" action="." method="POST">
-        {% csrf_token %}
-        <input id="id" name="id" value="{{id}}" type = "search"></input>
-        <button>Search</button> 
-    </form>
     <div class="table">
-        <table>
+        <table id= "schTable">
             <thead> 
                 <tr>
                     <th scope="col">Nombre</th>
                     <th scope="col">ID</th>
                     <th scope="col">Donante</th>
-                    <th scope="col">Covertura</th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -55,12 +48,19 @@
                         <td scope="col">{{Scholarship.name}}</td>
                         <td scope="col">{{Scholarship.ID}}</td>
                         <td scope="col">{{Scholarship.donor_id}}</td>
-                        <td scope="col">{{Scholarship.coverage}}</td>
-                        <td scope="col">{{Scholarship.type}}</td>
+                        <td scope="col" class="btnHolder">
+                            <form href="." method="POST">
+                                {% csrf_token %}
+                                <button name="sch" value="{{Scholarship.ID}}" class="standardButton"><h3>Ver mas</h3></button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
-</ul>
 {% endblock  %}
+
+{% block afterContent %}
+</div>
+{% endblock %}

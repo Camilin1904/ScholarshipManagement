@@ -7,17 +7,31 @@
     </title>
 {% endblock links %}
 
-{% block content %}
+{% block filters %}
+    <div class="meter">
+        <span style="width: 25%; height: 100%;"></span>
+    </div>
+    
 
+    <div id="title">
+        <a href="/scholarships/" style="width:fit-content;" id="linkback">
+            <button  style="align-items: center;" class="littleButton" type="button" style="width:100%;">
+            <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+        </button></a>
+        <h1>Informacion basica de la Beca</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
     <head>
         <meta charset="UTF-8">
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
         <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
-        <title>Crear programa de beca</title>
+        <title>Informacion basica de la Beca</title>
     </head>
     <div class = "content">
         {{error}}
-        <h1>Crear programa de becas</h1>
+        
         <form id= "create" action="/scholarships/create/" method = "POST" style="">
             {% csrf_token %}
             {% for field in form %}
@@ -27,7 +41,7 @@
                 {{ field }}
             </div>
             {% endfor %}
-            <button id = "save">Save</button>
+            <button class="standardButton"><h3>Siguiente</h3></button>
         </form>
     </div>
 {% endblock content %} 

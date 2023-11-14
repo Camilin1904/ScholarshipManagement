@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS/searchStateCheck.css' %}">
+        <link rel="icon" href="{% static './Icons/logo.png' %}">
+        <title>
+            Historial estudiante
+        </title>
+    </head>
+
+    <body>
+
+        <header>
+            <img src="{% static './Icons/icesi.png' %}" class="icesi">
+            <div class="menu">
+                <ul>
+                    <li><a href="/home"><i class="bi bi-house"></i>  Home</a></li>
+                    <li><a href="/logout"><i class="bi bi-box-arrow-left"></i>  Salir</a></li>
+                </ul>              
+            </div>    
+        </header>
+
+        <div id="card_container">
+            <div class="card">
+                <div style="width: 33.3%; ">
+                    <button type="submit" id="goBack" class="littleButton">
+                        <a href="/searchStudent/" style="color: inherit;text-decoration: none" id="reference">
+                        
+                            <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                        </a>
+                        
+                    </button>
+                </div>
+    
+                <div style="width: 33.3%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h1 id= "deletable">
+                        Perfil aplicante
+                    </h1>
+                </div>
+    
+                <div style="width: 33.3%;"></div>
+            </div>
+        </div>
+
+
+        <div class="container">
+
+
+            <div class="filter">
+
+                <div id="image_inFilter">
+
+                    {% for state in stateCheck2 %}
+                        {% if forloop.counter <= 1 %}
+
+                            {% if state.applicantCheck.image != "" %}
+                            <div id="image_container">
+                                <img id="image" src="{{state.applicantCheck.image.url}}" />
+                                <p>Nombre: {{state.applicantCheck.name}}</p>
+                                <p>Código estuidante: {{state.applicantCheck.name}}</p>
+                            </div>
+                            
+                            {% else %}
+                                <div id="image_container">
+                                    <img id="image" src="{% static './Icons/cam.png' %}" />
+                                    <p>Nombre: {{state.applicantCheck.name}}</p>
+                                    <p>Código estuidante: {{state.applicantCheck.name}}</p>
+                                </div>
+                                
+                            {% endif %}
+                        {% endif %}
+
+                    {%endfor%}
+                </div>
+                <br>
+                <form class="formClass" method="post" id="method_post">
+                    <h2>Filtros</h2>
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div id="id_{{forloop.counter}}" class="items">
+                            {{ field.label_tag }}<br>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <br>
+                    <button id="Filtrar" class="buttons">Filtrar</button>
+                    <br>
+                    <button name="all" id="all" class="buttons">Mostrar todo</button>
+                </form>
+                
+            </div>
+            
+
+            <div class="content">
+            
+                <h1 id="foundStudents">
+                    Historial 
+                </h1>
+
+                {% if error == ""%}
+                    
+                {% else %}
+                    <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                        <strong>Advertencia</strong> {{error}}
+                    </div>
+                {% endif%} 
+                
+                <div class="applicant">
+                    <nav class="scroll_bar">
+                        
+                        {% for state in stateCheck %}
+                        
+                            <ul id="student">            
+                                <li>
+                                    
+                                        <p id="studentCode">Fecha: {{state.date}}</p> 
+                                        <p>Estado del estudiante: {{state.status}}</p>
+                                        <p>Convocatoria: {{state.announcementCheck.id}}</p> 
+                                        <br>
+                                     
+                                </li>
+                                
+                            </ul>
+                            <form method="POST" id="buttons_container">
+                                {% csrf_token %}
+                                <div id="button_div">
+                                    <button name="delete" class="buttons" value="{{state.ID}}">
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </form>
+                        {%endfor%}
+                    
+                    </nav>
+                </div>
+            </div>
+
+            {% if error == "" %}
+                        
+            {% else %}
+                <div class="alert" style="font-size: 85%; margin-top: 5%;">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+                    <strong>Advertencia</strong> {{error}}
+                </div>
+            {% endif %} 
+        </div>
+
+    </body>    
+
+</html>

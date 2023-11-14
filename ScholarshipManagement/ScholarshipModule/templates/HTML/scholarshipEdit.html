@@ -1,0 +1,117 @@
+{% extends 'HTML/home.html' %}
+{% load static %}
+{% load add1 %}
+{% load index %}
+{% load getFromDict %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'CSS/scholarshipEdit.css' %}">
+    <title>Edición de beca</title>
+{% endblock %}
+
+
+{% block filters %}
+    <div id="title" style="flex-flow: row;">
+        <a href="/scholarships/view/" class="littleButton">
+            <button  style="align-items: center;" class="littleButton"  type="button" id="dltbtn">
+            <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+        </button></a>
+        <h1>Edición de beca</h1>
+        <a href="/scholarships/delete/" style="margin-left:25%;" onclick="return alert('La beca se eliminará, ¿está seguro?');">
+            <button class="delete" id="dltbtn">
+                <h1><i class="bi bi-trash-fill"></i></h1><h3 style="margin-top=20%">Eliminar</h3>
+            </button>
+        </a>
+    </div>
+    <div id="info">
+{% endblock %}
+
+
+{% block content %}
+<form method = "POST">
+    {% csrf_token %}
+        <div id="summary">
+        
+            <div id = "baseData">
+                <h2 style="text-align: center;">Información Basica</h2>
+                <table>
+                    {% for n in form %}
+                        <tr>
+                            <th scope="col">{{n.label}}</th>
+                            <th scope="col"><p>{{n}}</p></th>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div id = "donorData">
+                <h2 style="text-align: center;">Informacion del donante</h2>
+                <table>
+
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col"><p>{{donor.ID}}</p></th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col"><p>{{donor.name}}</p></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th scope="col">
+                            <div style="display:flex;justify-content:center;">
+                                <button name = "dir" value="donor" id="edtDonor" class="standardButton">Cambiar</button>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+                
+            </div>
+        </div>  
+        <button id="svbtn" class="standardButton">Guardar</button>
+    </form>
+{% endblock %}
+
+{% block afterContent %}
+    <div id = "types">
+        <div id="inner">
+            <table>
+                {% for n in types %}
+                    <tr>
+                        <th scope = "row"><h2>Tipo {{forloop.counter}}</h2></th>
+                    </tr>
+                    {% if n|getFromDict:'unit' == 0 or n|getFromDict:'unit' == '0' %}
+                        <tr>
+                            <th scope="col">Unidad</th>
+                            <th scope="col"><p>Porcentaje</p></th>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th scope="col">Unidad</th>
+                            <th scope="col"><p>Dinero</p></th>
+                        </tr>      
+                    {% endif %}          
+                    <tr>
+                        <th scope="col">Valor</th>
+                        <th scope="col"><p>{{n|getFromDict:'value'}}</p></th>
+                    </tr>
+                    <tr>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col"><p>{{n|getFromDict:'type'}}</p></th>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <button name = "dir" value="type" id="edtTypes" class="standardButton">Editar</button>
+                        </form>
+                    </th>
+                    
+                </tr>
+            </table>
+        </div>
+    </div>
+    </div>
+{% endblock %}

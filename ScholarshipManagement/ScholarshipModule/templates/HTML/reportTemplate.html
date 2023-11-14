@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+
+    <head>
+       
+        <meta charset="UTF-8">
+        <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'CSS\templateReport.css' %}">
+        <style>
+            @page {
+                margin: 1cm;
+                margin-top:2.5cm;
+                margin-bottom: 2.5cm;
+          
+              /* Header frame starts within margin-top of @page */
+                @frame header {
+                -pdf-frame-content: header; /* headerContent is the #id of the element */
+                top: 0.5cm;
+                margin-left: 1cm;
+                margin-right:1cm;
+                height:5cm;
+                }
+          
+              /* Footer frame starts outside margin-bottom of @page */
+                @frame footer {
+                  -pdf-frame-content: footerContent;
+                  bottom: 2cm;
+                  margin-left: 1cm;
+                  margin-right: 1cm;
+                  height: 1cm;
+                }
+              }
+          </style>
+
+    </head>
+
+    <body>
+        <div id="header">
+          <table>
+            <tbody>
+              <tr>
+                <td scope = "col">
+                  <img src="/ScholarshipModule/Media/logo_icesi.png" id = "icesi">
+                </td>
+                <td scope = "col"></td>
+                <td scope = "col" colspan = "2" id = "title">
+                  <h1>Reporte de Fechas de convovatoria</h1>
+                </td>
+                <td scope = "col"></td>
+              <tr id = "gray">
+                <td scope = "col"></td>
+                <td scope = "col"></td>
+                <td scope = "col" colspan = "2">{{date}}  </td>
+                <td scope = "col"></td>
+
+            </tbody>
+          </table>   
+        </div>
+        <br>
+        <br>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"><h2>Nombre de beca</h2></th>
+              <th scope="col"><h2>Id</h2></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="col">{{scholarship.name}}</td>
+              <td scope="col">{{scholarship.ID}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+        <br>
+        <br>
+        <table>
+          <thead>
+            <th scope = "col">Tipo de Fecha</th>
+            <th scope = "col">Fecha de Inicio</th>
+            <th scope = "col">Fecha de Fin</th>
+          </thead>
+          <tbody>
+              {% for date in announcement %}
+                <td scope= "row"></td>
+                <tr>
+                  <td scope = "col">{{date.type}}</td>
+                  <td scope = "col">{{date.startingDate}}</td>
+                  <td scope = "col">{{date.endDate}}</td>
+                </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+        {{error}}
+        
+    </body>

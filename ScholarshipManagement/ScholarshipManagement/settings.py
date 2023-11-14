@@ -118,7 +118,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'ScholarshipManagement/static/'
+STATIC_URL = 'ScholarshipModule/ScholarshipModule/static/'
+#Si mueven esto les toca reparar los reportes de convocatorias >:(
+STATIC_ROOT = str(BASE_DIR).replace('\\', '/') + "/ScholarshipModule/static/"
+MEDIA_URL = '/ScholarshipModule/Media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'ScholarshipModule/Media/')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -127,3 +131,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #New user addres for django
 AUTH_USER_MODEL = 'ScholarshipModule.User'
+
+LOGOUT_REDIRECT_URL = "/"

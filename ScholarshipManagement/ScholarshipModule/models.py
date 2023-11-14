@@ -27,6 +27,8 @@ class Announcements(models.Model):
 
     type = models.IntegerField(default = Type.CLOSED, choices = Type.choices)
 
+    archived = models.BooleanField(default = False)
+
 
     
 class Scholarships(models.Model):
@@ -37,13 +39,8 @@ class Scholarships(models.Model):
         primary_key=True, auto_created=True, serialize=True, unique=True)
     description = models.TextField(blank=True)
     donor = models.ForeignKey(Donors, on_delete= models.CASCADE)
-    coverage = models.FloatField(blank=False)
-    class ScholarshipType(models.IntegerChoices):
-        EXCHANGE = 0, _('Intercambio')
-        RESCUE = 1, _('Rescate')
-        LIVELIHOOD = 2, _('Sustento')
-    type = models.IntegerField(choices=ScholarshipType.choices)
     requirements = models.TextField(blank=True)
+    isDeleted = models.BooleanField(default=False)
 
 
 class ScholarshipAnnouncements(models.Model):
@@ -99,25 +96,46 @@ class StatusApplicant(models.IntegerChoices):
         IN_REVIEW = 0, _('En revisión')
         BENEFICIARY = 1, _('Beneficiario')
         REFUSED = 2, _('No aceptado')
+        NA = 3, _('NA')
+
 
 class Applicant(models.Model):
 
 
-    name = models.CharField(max_length=20, blank=False)
-    lastName = models.CharField(max_length=20, blank=False)
+    name = models.CharField(max_length=50, blank=False)
+    lastName = models.CharField(max_length=50, blank=False)
     ID = models.IntegerField(
         primary_key=True, auto_created=True, serialize=True, 
         unique=True)
     studentCode = models.CharField(
         max_length=20, blank=False,unique=True)
-    faculty = models.CharField(max_length=20, blank=False)
-    major = models.CharField(max_length=20, blank=False)
+    faculty = models.CharField(max_length=50, blank=False)
+    major = models.CharField(max_length=50, blank=False)
     semester = models.IntegerField(blank=True, null= True)
-    email= models.EmailField(max_length=40, blank=True, unique=True)
-    phone = models.IntegerField(blank=True, null=True)
+    email= models.EmailField(max_length=50, blank=True, unique=True)
+    phone = models.CharField(max_length=20, blank=False, default='None')
+    status = models.IntegerField(
+        default=StatusApplicant.NA, choices=StatusApplicant.choices)
+    image = models.ImageField(upload_to='images/photos', null= True, blank=True, default="")
+    deleted = models.BooleanField(default = False)
+
+class ApplicantStateCheck(models.Model):
+
+
+    ID = models.IntegerField(
+        primary_key = True, auto_created = True, serialize = True, 
+        unique = True)
+    announcementCheck= models.ForeignKey(
+        Announcements, related_name="announcementCheck_id", blank=False, 
+        null=True, on_delete= models.CASCADE)
+    applicantCheck= models.ForeignKey(
+        Applicant, related_name="applicantCheck_id", blank=False, 
+        null=True, on_delete= models.CASCADE)
+    semester = models.IntegerField(blank=True, null= True)
     status = models.IntegerField(
         default=StatusApplicant.IN_REVIEW, choices=StatusApplicant.choices)
-    
+    date = models.DateTimeField(auto_now_add=True)
+    deleted = models.BooleanField(default = False)
 
 class AnnouncementAndApplicant(models.Model):
 
@@ -131,4 +149,29 @@ class AnnouncementAndApplicant(models.Model):
     applicant= models.ForeignKey(
         Applicant, related_name="id_applicant", blank=False, 
         null=True, on_delete= models.CASCADE)
+    deleted = models.BooleanField(default = False)
+
+
+
+class ScholarsipTypes(models.Model):
+    
+    ID = models.AutoField(primary_key=True)
+    
+    scholarship = models.ForeignKey(Scholarships, 
+                                    related_name="id_Scholarship", blank = False,
+                                    on_delete=models.CASCADE, unique=False)
+    
+    class SchUnit(models.IntegerChoices):
+
+        PERCENTAGE = 0, _('Porcentage')
+        MONEY = 1, _('Dinero')
+        UNSPECIFIED = 2, _('No especificado')
+        
+    unit = models.IntegerField(default=SchUnit.UNSPECIFIED, choices=SchUnit.choices)
+    value = models.FloatField(blank=False)
+    type = models.CharField(max_length=50,blank=False)
+    
+    
+    
+    
     
