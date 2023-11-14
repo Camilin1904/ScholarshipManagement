@@ -1,8 +1,10 @@
 {% extends 'HTML/home.html' %}
 
 {% block links %}
-
-{% endblock %}
+    <title>
+        Home
+    </title>
+{% endblock links %}
 
 {% block content %}
 
@@ -13,7 +15,7 @@
 </div>
 
 <div class="buttons">
-    <button class="button" >
+    <button class="button" id="register">
         <a href="/applicants/create/" style="color: inherit;text-decoration: none">
             <div style="font-size: x-large ;">
                 REGISTRO DE APLICANTES
@@ -27,7 +29,7 @@
         </a>
     </button>
     
-    <button class="button">
+    <button class="button" id="management">
         <a href="/searchStudent/" style="color: inherit;text-decoration: none">
             <div style="font-size: x-large ;">
                 GESTIÓN DE APLICANTES
