@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 from ScholarshipModule import views
 from ScholarshipModule.views2 import filterOfReport
-from ScholarshipModule.views2 import homePage
 from ScholarshipModule.views2 import login
 from ScholarshipModule.views2 import logout
 from ScholarshipModule.views2 import objectOfReport
@@ -50,7 +49,7 @@ from ScholarshipModule.views2 import viewCalendar
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', signUp.signUp, name = 'signup'),
-    path('home/', homePage.home, name = 'home'),
+    path('home/', home.home, name = 'home'),
     path('scholarships/', scholarships.scholarships, name='scholarships'),
     path('announcement/create/', createAnnouncement.createAnnouncement, name='createAnnouncement'),
     path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),

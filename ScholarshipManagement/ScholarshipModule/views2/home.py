@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from ..forms import *
 from ..models import *
+from datetime import date
 
 
 
@@ -28,29 +29,32 @@ def home(request):
 def getEventsList():
 
     announcementList = Announcements.objects.filter(archived = 0).values_list('id', flat = True)
-    eventsList2 = AnnouncementEvent.objects.filter(announcementId__in = announcementList).order_by('startingDate')
-    eventsList3 = AnnouncementEvent.objects.filter(announcementId__in = announcementList).order_by('endDate')
-    counter=0
-    counter2=0
+    eventsListStart = AnnouncementEvent.objects.filter(
+        announcementId__in = announcementList).filter(startingDate__gte = str(date.today())).order_by('startingDate')
+    eventsListEnd = AnnouncementEvent.objects.filter(
+        announcementId__in = announcementList).filter(endDate__gte = str(date.today())).order_by('endDate')
+    counterStart = 0
+    counterEnd = 0
 
     calendarEvents = []
 
     for count in range(3):
 
         try:
-            event = eventsList2[counter]
-            event2 = eventsList3[counter2]
+            
+            eventStart = eventsListStart[counterStart]
+            eventEnd = eventsListEnd[counterEnd]
 
-            if event.startingDate >= event2.endDate:
+            if eventStart.startingDate >= eventEnd.endDate:
 
                 calendarEvents.append(formatedEvent(
-                    event2, "Finalización de "))
-                counter2+=1
+                    eventEnd, "Finalización de "))
+                counterEnd+=1
 
             else:
                 calendarEvents.append(formatedEvent(
-                    event, "Inicio de "))
-            counter+=1
+                    eventStart, "Inicio de "))
+                counterStart+=1
 
         except:
             return calendarEvents
