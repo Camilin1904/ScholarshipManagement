@@ -21,12 +21,12 @@ class testCreateApplicant(LiveServerTestCase):
         username = self.driver.find_element(by=By.ID,value='id_username')
         username.click()
         username.clear()
-        username.send_keys('correo_apoyofinanciero@icesi.edu.co')
+        username.send_keys('financial@gmail.com')
 
         password = self.driver.find_element(by=By.ID,value='id_password')
         password.click()
         password.clear()
-        password.send_keys('financiero12')
+        password.send_keys('FINANCIAL')
 
         submit = self.driver.find_element(by=By.ID,value='signin')
         submit.send_keys(Keys.RETURN)
@@ -91,14 +91,14 @@ class testCreateApplicant(LiveServerTestCase):
 
         assert self.driver.find_element(by=By.ID,value='deletable').is_displayed()
 
-    def testCreate(self):
+    def testCreateWithAnnouncement(self):
 
         self.logIn()
         self.enterRegisterApplicant()
         self.fillFirstForm()
         self.fillSecondForm()
 
-        skip = self.driver.find_element(by=By.ID,value='skipButton')
-        skip.click()
+        announcement = self.driver.find_element(by=By.XPATH,value="//button[@value='1']")
+        announcement.click()
 
         assert 'Home' in self.driver.title

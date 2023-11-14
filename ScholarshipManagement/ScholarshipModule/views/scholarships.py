@@ -8,7 +8,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from ScholarshipModule.forms import *
 from ScholarshipModule.models import *
-from ScholarshipModule.views2.scholarshipView import scholarshipView
+from ScholarshipModule.views.scholarshipView import scholarshipView
 
 #Summary screen for all scholarships, filters are handled with js
 @login_required(login_url="/login")
