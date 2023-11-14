@@ -470,3 +470,4 @@ Spooky
 | Name | What did you do yesterday? | What will you do today? | Are there any impediments in your way? |
 |----------|----------|----------|----------|
 | Camilo Carmona Valencia | I have completed US7 | I have other assignments to complete, and I also don't have any more user stories to work on | No |
+| Juan Sebastián Libreros | I have completed the create scholarship test | I will finish the tests of the remain funcionalities. The test edit scholarship and create applicant are almost done| No|
