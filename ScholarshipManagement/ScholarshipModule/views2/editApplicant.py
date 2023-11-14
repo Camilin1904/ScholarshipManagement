@@ -80,7 +80,7 @@ def editApplicant(request):
 
 
             return redirect('/view/Student')
-
+        
         Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
                                                                    lastName=request.POST['lastName'],
                                                                    faculty=request.POST['faculty'],
@@ -96,9 +96,24 @@ def editApplicant(request):
         except:
             return redirect('/view/Student')
         
-        student = Applicant.objects.get(studentCode = studentCodeSt)
-        form = CreateApplicantForm(request.POST, request.FILES, instance=student) 
+        applicant.name = request.POST['name']
+        applicant.lastName = request.POST['lastName']
+        applicant.faculty = request.POST['faculty']
+        applicant.major = request.POST['major']
+        applicant.semester = request.POST['semester']
+        applicant.email = request.POST['email']
+        applicant.phone = request.POST['phone']
+        applicant.status=request.POST['status']
+
+       
+
+        applicant.save()
+
+        
+        form = CreateApplicantForm(request.POST, request.FILES, instance=applicant) 
         form.save()
+
+        print(request.POST)
         
         if request.POST['announcement'] == "":
 
