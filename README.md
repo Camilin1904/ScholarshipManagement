@@ -14,9 +14,11 @@ Welcome to our Scholarship Management System, there are a few things you should 
 
 * If you want to run all the tests more than once you should delete the database and migrate again
 
+Tests done by: Juan Sebastián Libreros García
+
 The users are:
 
-| Email | Password | Acces to |
+| Email | Password | Access to |
 | ----- | -------- | -------- |
 | admin@gmail.com | ADMIN | Scholarships - Announcements - Roles - Reports |
 | financial@gmail.com | FINANCIAL | Applicants |
