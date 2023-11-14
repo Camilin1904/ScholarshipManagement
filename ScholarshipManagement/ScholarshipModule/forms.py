@@ -281,7 +281,19 @@ class CreateApplicantForm(ModelForm):
             'email','phone','status', 
             'announcement','image'
         ] 
- 
+
+
+class StatusCheckAppliForm(forms.ModelForm):
+
+
+    class Meta:
+
+
+        model = ApplicantStateCheck
+        fields = [
+            'announcementCheck', 'applicantCheck', 'semester',
+            'status'
+        ]
 
         
 class CreateAppliStep1Form(forms.Form):
@@ -419,7 +431,26 @@ class FilterApplicantForm(forms.Form):
         label = "ID de la convocatoria", required=False, widget=forms.TextInput(
             attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'}),
         queryset=Announcements.objects)
-    
+
+
+class FilterStateCheck(forms.Form):
+
+    SEMESTER_CHOICES = (
+    ("1", "1"), ("2", "2"), ("3", "3"), ("4", "4"), ("5","5"), ("6","6"), 
+    ("7", "7"), ("8", "8"), ("9", "9"), ("10", "10"), ("11", "11"), ("12", "12")
+    )
+
+    status = forms.ChoiceField(
+        label="Estado del Estudiante", required=False, choices=StatusApplicant.choices, 
+        widget=forms.Select(attrs={'class': 'inputForm'}))
+    semester = forms.ChoiceField(
+        label = "Semestre", required=True, choices = SEMESTER_CHOICES,
+        widget=forms.Select(
+            attrs={'class': 'inputForm'}))
+    announcement = forms.ModelChoiceField(
+        label = "ID de la convocatoria", required=False, widget=forms.TextInput(
+            attrs={'cols':'10','placeholder': 'ID convocatoria' , 'class': 'inputForm'}),
+        queryset=Announcements.objects)
 
 class AnnouncementAndApplicantForm(forms.ModelForm):
 
