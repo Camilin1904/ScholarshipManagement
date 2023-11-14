@@ -15,14 +15,18 @@
     </div>
     <div id="info">
         <div id="filter">
-            <h2>Filtros:</h2>
-            <input type="text" id="name" onkeyup="nameSearch()" placeholder="Buscar por nombre" class="inFilt">
-            <br><br>
-            <input type="text" id="id" onkeyup="idSearch()" placeholder="Buscar por ID" class="inFilt">
-            <br><br>
-            <input type="text" id="donor" onkeyup="donorSearch()" placeholder="Buscar por Donate" class="inFilt">
-            <br><br>
-            <a href="/scholarships/create/" id="CreateButton" class="inFilt"><button class="standardButton"><h3>Crear programa de becas</h3></button></a>
+
+            <div id="filterSecondContainer">
+
+                <h2>Filtros:</h2>
+                <input type="text" id="name" onkeyup="nameSearch()" placeholder="Buscar por nombre" class="inFilt">
+                <br><br>
+                <input type="text" id="id" onkeyup="idSearch()" placeholder="Buscar por ID" class="inFilt">
+                <br><br>
+                <input type="text" id="donor" onkeyup="donorSearch()" placeholder="Buscar por Donate" class="inFilt">
+                <br><br>
+                <a href="/scholarships/create/" id="CreateButton" class="inFilt"><button class="standardButton"><h3>Crear becas</h3></button></a>
+            </div>
         </div>
 {% endblock %}
 

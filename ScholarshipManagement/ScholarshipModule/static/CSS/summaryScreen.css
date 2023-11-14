@@ -147,8 +147,8 @@ button:hover{
     display: flex;
     width:fit-content ;
     border-radius: 15px;
-    margin-left:-35%;
-    margin-right:30%;
+    margin-left:0%;
+    margin-right:-10%;
     
 }
 

@@ -78,8 +78,9 @@ li a:hover {
 
 .container{
     width: 100%;
-    height: 80%;
+    height: auto;
     display: flex;
+    flex-flow: column;
     align-items: center;
     justify-content: center;
     object-fit: fill;
@@ -102,13 +103,12 @@ li a:hover {
     margin-top: 4.5%;
     display: flex;
     width: 100%;
-    height: 80%;
+    height: 90%;
     object-fit: fill;
 }
 
 .button{
     width: 50%;
-    height: 100%;
     background-color: white;
     border-radius: 15px;
     border-color: transparent;
@@ -129,6 +129,7 @@ button:last-child {
 }
 
 .card{
+    margin-top: 4%;
     width: 80%;
     height: 10%;
     background-color: #FFFFFF;
@@ -142,3 +143,85 @@ button:last-child {
     object-fit: fill;
     box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
 }
+
+.eventsCard{
+    margin-top: 3%;
+    width: 60%;
+}
+
+.titleEventsCard{
+    align-items: center;
+    justify-content: flex-end;
+    border-radius: 15px;
+    background-color:#2D6A9F;
+    color: white;
+    display: flex;
+    flex-flow: row;
+}
+
+h1{
+    margin: auto;
+}
+
+h3{
+    font-size: medium;
+}
+
+.caledarBttn{
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 150%;
+    margin-right: 3%;
+}
+
+.caledarBttn:hover{
+    color: #9db9c8;
+}
+
+div.eventsContent + div.contentnull {
+    display: none;
+}
+
+.eventsContent:empty + .contentnull{
+    display: block;
+}
+
+.contentnull{
+    margin-top: 2%;
+    margin-bottom: 2%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.eventDiv{
+    margin: auto;
+    display: grid;
+    border-right:  groove;
+    margin-bottom: 2%;
+}
+
+.eventDiv:last-child {
+    border-right: none;
+}
+
+.eventsContent{
+    margin: auto;
+    margin-top: 3%;
+    background-color: white;
+    border-radius: 15px;
+    border-color: transparent;
+    color: #3A4459;
+    transition-duration: 0.4s;
+    object-fit: fill;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
+    width: 90%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3%;
+}
+
