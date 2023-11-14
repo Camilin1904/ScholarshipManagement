@@ -137,7 +137,7 @@ class Migration(migrations.Migration):
             ).save()
 
         applicantValues = [
-            ["fernando", "ruiz", "A020100", "Ciencias Administrativas y Económicas", "Administración de Empresas", 1, "fernando@gmail.com", "3201883020", 3, "", False],
+            ["Fernando", "Ruiz", "A020100", "Ciencias Administrativas y Económicas", "Administración de Empresas", 1, "fernando@gmail.com", "3201883020", 3, "", False],
             ["Ana", "Gomez", "A020101", "Ciencias de la Salud", "Medicina", 2, "ana@gmail.com", "3212345678", 2, "", False],
             ["Carlos", "Hernandez", "A020102", "Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería de Sistemas", 3, "carlos@gmail.com", "3223456789", 1, "", False],
             ["Laura", "Martinez", "A020103", "Ciencias Humanas", "Licenciatura en Artes", 4, "laura@gmail.com", "3334567890", 3, "", False],

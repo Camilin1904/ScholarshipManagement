@@ -3,6 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from ScholarshipModule.models import *
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 
 class testCreateScholarship(LiveServerTestCase):
 
@@ -26,12 +28,12 @@ class testCreateScholarship(LiveServerTestCase):
         username = self.driver.find_element(by=By.ID,value='id_username')
         username.click()
         username.clear()
-        username.send_keys('correo_admin@gmail.com')
+        username.send_keys('admin@gmail.com')
 
         password = self.driver.find_element(by=By.ID,value='id_password')
         password.click()
         password.clear()
-        password.send_keys('administrador12')
+        password.send_keys('ADMIN')
 
         submit = self.driver.find_element(by=By.ID,value='signin')
         submit.send_keys(Keys.RETURN)
@@ -64,7 +66,7 @@ class testCreateScholarship(LiveServerTestCase):
 
         id = self.driver.find_element(by=By.ID,value='id_ID')
         id.clear()
-        id.send_keys('1')
+        id.send_keys('12345')
 
         name = self.driver.find_element(by=By.ID,value='id_name')
         name.clear()
@@ -103,7 +105,7 @@ class testCreateScholarship(LiveServerTestCase):
         save = self.driver.find_element(by=By.ID,value='save')
         save.click()
 
-        self.driver.implicitly_wait(20)
+        self.driver.implicitly_wait(1000)
 
         assert 'Resumen de beca' in self.driver.title
 
@@ -116,14 +118,14 @@ class testCreateScholarship(LiveServerTestCase):
         self.selectDonor()
         self.fillTypes()
 
-        self.driver.implicitly_wait(20)
+        WebDriverWait(self.driver, 10).until(expected_conditions.presence_of_element_located((By.ID, "save")))
         
         btnSubmit = self.driver.find_element(by=By.ID,value='save')
         btnSubmit.click()
 
-        self.driver.implicitly_wait(20)
+        self.driver.implicitly_wait(10)
 
-        assert 'Programa de becas' in self.driver.title
+        assert 'Programas de Becas' in self.driver.title
 
     def tearDown(self):
         self.driver.close()

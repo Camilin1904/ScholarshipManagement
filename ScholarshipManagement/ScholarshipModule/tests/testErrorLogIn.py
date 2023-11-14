@@ -18,7 +18,7 @@ class testErrorLogIn(LiveServerTestCase):
         username = driver.find_element(by=By.ID,value='id_username')
         username.click()
         username.clear()
-        username.send_keys('correoprueba@gmail.com')
+        username.send_keys('admin@gmail.com')
 
         password = driver.find_element(by=By.ID,value='id_password')
         password.click()

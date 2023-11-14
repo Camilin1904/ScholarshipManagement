@@ -21,12 +21,12 @@ class testRoleAssignment(LiveServerTestCase):
         username = self.driver.find_element(by=By.ID,value='id_username')
         username.click()
         username.clear()
-        username.send_keys('correo_admin@gmail.com')
+        username.send_keys('admin@gmail.com')
 
         password = self.driver.find_element(by=By.ID,value='id_password')
         password.click()
         password.clear()
-        password.send_keys('administrador12')
+        password.send_keys('ADMIN')
 
         submit = self.driver.find_element(by=By.ID,value='signin')
         submit.click()
