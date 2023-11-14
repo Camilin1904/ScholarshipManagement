@@ -52,6 +52,7 @@ urlpatterns = [
     path('home/', home.home, name = 'home'),
     path('scholarships/', scholarships.scholarships, name='scholarships'),
     path('announcement/create/', createAnnouncement.createAnnouncement, name='createAnnouncement'),
+    path('applicants/edit', views.editApplicant, name = 'editApplicant'),
     path('searchStudent/', filterApplicant.filterApplicants, name = 'searchStudent'),
     path('applicants/create/', createApplicant.createApplicants, name='Applicants'),
     path('applicants/create/step3/', createAppliStep3.createAppliStep3, name='ApplicantStep2'),
