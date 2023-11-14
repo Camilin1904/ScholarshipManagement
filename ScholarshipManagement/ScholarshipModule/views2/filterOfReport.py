@@ -63,7 +63,7 @@ def filterOfReport(request):
         if(objectOfReport == "1"):
             form = StudentReportFilter
             titles = ("Nombre", "Apellido", "Carrera", "Facultad", "Semestre")
-            objects = AnnouncementAndApplicant.objects.all()
+            objects = AnnouncementAndApplicant.objects.all().filter(deleted = 0)
             inputs = ("Código de estudiante..", "Id de la convocatoria..")
         elif(objectOfReport == "2"):
             form = None
