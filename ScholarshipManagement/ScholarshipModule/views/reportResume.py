@@ -41,7 +41,7 @@ def reportResume(request):
             careers = filters[3]
             faculties = filters[4]
 
-        objects = AnnouncementAndApplicant.objects.select_related('applicant')
+        objects = AnnouncementAndApplicant.objects.select_related('applicant').filter(deleted = 0)
 
         if len(studentCode) != 0:
             objects = objects.filter(applicant_id__studentCode__contains = studentCode)
