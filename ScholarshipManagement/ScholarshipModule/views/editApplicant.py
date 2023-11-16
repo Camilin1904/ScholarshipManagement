@@ -119,13 +119,12 @@ def editApplicant(request):
         form.save()
 
 
-        print("DIMELO")
+    
         if request.POST['announcement'] == "":
-
             announcementChange = None
                 
         else:
-            print("ENTROMAL")
+         
             try:
                 announcementChange = AnnouncementAndApplicant.objects.get(applicant=idSt)
                 
