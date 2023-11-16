@@ -51,7 +51,7 @@
                 
                 <form method="POST" class="buttons">
                     {% csrf_token %}
-                    <button name="type" class="bigButton" value="1">
+                    <button name="type" class="bigButton" value="1" id="flt_btn">
                         <div style="font-size: x-large ;">
                             DATOS FILTRADOS
                         </div>
@@ -64,7 +64,7 @@
                         </div>
                     </button>
                     
-                    <button name="type" class="bigButton" value="2">
+                    <button name="type" class="bigButton" value="2" id="all_btn">
                         <div style="font-size: x-large ;">
                             TODOS LOS DATOS
                         </div>
