@@ -14,6 +14,8 @@ Welcome to our Scholarship Management System, there are a few things you should 
 
 * If you want to run all the tests more than once you should delete the database and migrate again
 
+* Automated coverage counting packages cannot count coverage affected by selenium tests, only unit tests.
+
 Tests done by: Juan Sebastián Libreros García
 
 The users are:
