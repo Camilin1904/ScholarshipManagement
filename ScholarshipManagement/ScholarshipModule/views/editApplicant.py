@@ -9,6 +9,7 @@ def editApplicant(request):
 
     studentCodeSt = request.session.get('studentCode')
     applicant = Applicant.objects.filter(studentCode = studentCodeSt)
+    
     idSt = applicant.first().ID
     
     
@@ -53,24 +54,26 @@ def editApplicant(request):
     
     else:
         applicant = Applicant.objects.get(studentCode = studentCodeSt)
+        applicant2 = Applicant.objects.get(studentCode = studentCodeSt)
 
         if 'delete' in request.POST:
             
             try:
                 announcement = AnnouncementAndApplicant.objects.get(applicant=idSt)
-                announcement.deleted = True
-                announcement.save()
+                if announcement.deleted == False:
+                    announcement.deleted = True
+                    announcement.save()
 
-                applicant.status = 2
-                applicant.save()
+                    applicant.status = 2
+                    applicant.save()
 
-                formStatusCheck = StatusCheckAppliForm()
-                appliStatusCheck = formStatusCheck.save(commit=False)
-                appliStatusCheck.announcementCheck = announcement.announcement
-                appliStatusCheck.applicantCheck = applicant
-                appliStatusCheck.semester = applicant.semester
-                appliStatusCheck.status = 2
-                appliStatusCheck.save()
+                    formStatusCheck = StatusCheckAppliForm()
+                    appliStatusCheck = formStatusCheck.save(commit=False)
+                    appliStatusCheck.announcementCheck = announcement.announcement
+                    appliStatusCheck.applicantCheck = applicant
+                    appliStatusCheck.semester = applicant.semester
+                    appliStatusCheck.status = 2
+                    appliStatusCheck.save()
             
 
             except:
@@ -92,12 +95,14 @@ def editApplicant(request):
         
         
         try:
-            announcementGet = Announcements.objects.get(id = request.POST['announcement'])
+            if request.POST['announcement'] != "":
+                announcementGet = Announcements.objects.get(id = request.POST['announcement'])
         except:
             return redirect('/view/Student')
         
         applicant.name = request.POST['name']
         applicant.lastName = request.POST['lastName']
+        applicant.studentCode = applicant2.studentCode
         applicant.faculty = request.POST['faculty']
         applicant.major = request.POST['major']
         applicant.semester = request.POST['semester']
@@ -113,38 +118,19 @@ def editApplicant(request):
         form = CreateApplicantForm(request.POST, request.FILES, instance=applicant) 
         form.save()
 
-        print(request.POST)
-        
+
+    
         if request.POST['announcement'] == "":
-
-            try:
-                announcementChange = AnnouncementAndApplicant.objects.get(applicant=idSt)
-                announcementChange.announcement = None
-                announcementChange.deleted = False
-                announcementChange.save()
-
-                applicant.status = 2
-                applicant.save()
-
-                formStatusCheck = StatusCheckAppliForm()
-                appliStatusCheck = formStatusCheck.save(commit=False)
-                appliStatusCheck.announcementCheck = announcement
-                appliStatusCheck.applicantCheck = applicant
-                appliStatusCheck.semester = applicant.semester
-                appliStatusCheck.status = applicant.status
-                appliStatusCheck.save()
-
-
-            except:
-                announcementChange = None
+            announcementChange = None
                 
         else:
+         
             try:
                 announcementChange = AnnouncementAndApplicant.objects.get(applicant=idSt)
                 
                 #Change the applicant previous announcement to a new one here its the register of the elimination 
                 if announcementChange.delete == False:
-
+                    
                     applicant.status = 2
                     applicant.save()
 
@@ -161,8 +147,15 @@ def editApplicant(request):
                 announcementChange.save()
                 
                 #Register of the new announcement
-                applicant.status = 0
-                applicant.save()
+
+                #Check if the user change the status
+                if applicant2.status == int(request.POST['status']):
+                    applicant.status = 0
+                    applicant.save()
+                else:
+                    applicant.status = request.POST['status']
+                    applicant.save()
+
 
                 formStatusCheck = StatusCheckAppliForm()
                 appliStatusCheck = formStatusCheck.save(commit=False)
@@ -179,8 +172,13 @@ def editApplicant(request):
                 relation.applicant=applicant
                 relation.save()
 
-                applicant.status = 0
-                applicant.save()
+                #Check if the user change the status
+                if applicant2.status == int(request.POST['status']):
+                    applicant.status = 0
+                    applicant.save()
+                else:
+                    applicant.status = request.POST['status']
+                    applicant.save()
 
                 formStatusCheck = StatusCheckAppliForm()
                 appliStatusCheck = formStatusCheck.save(commit=False)

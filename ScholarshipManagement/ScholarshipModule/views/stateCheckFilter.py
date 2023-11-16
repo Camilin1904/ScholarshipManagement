@@ -24,7 +24,8 @@ def stateCheckFilter(request):
                 'form': FilterStateCheck,
                 'error': "",
                 'stateCheck': stateCheck,
-                'stateCheck2': stateCheck2
+                'stateCheck2': stateCheck2,
+                'applicant': applicant
             })
     else:
 
@@ -36,7 +37,8 @@ def stateCheckFilter(request):
                     'form': FilterStateCheck,
                     'error': "",
                     'stateCheck': stateCheck,
-                    'stateCheck2': stateCheck2
+                    'stateCheck2': stateCheck2,
+                    'applicant': applicant
                 })
         
         elif 'delete' in request.POST:
@@ -46,7 +48,8 @@ def stateCheckFilter(request):
                     'form': FilterStateCheck,
                     'error': "",
                     'stateCheck': stateCheck,
-                    'stateCheck2': stateCheck2
+                    'stateCheck2': stateCheck2,
+                    'applicant': applicant
                 })
 
 
@@ -94,5 +97,6 @@ def stateCheckFilter(request):
                 'form': form,
                 'error': error,
                 'stateCheck': stateCheck,
-                'stateCheck2': stateCheck2
+                'stateCheck2': stateCheck2,
+                'applicant': applicant
             })

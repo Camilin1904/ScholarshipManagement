@@ -56,27 +56,23 @@
 
                 <div id="image_inFilter">
 
-                    {% for state in stateCheck2 %}
-                        {% if forloop.counter <= 1 %}
 
-                            {% if state.applicantCheck.image != "" %}
-                            <div id="image_container">
-                                <img id="image" src="{{state.applicantCheck.image.url}}" />
-                                <p>Nombre: {{state.applicantCheck.name}}</p>
-                                <p>Código estuidante: {{state.applicantCheck.name}}</p>
-                            </div>
-                            
-                            {% else %}
-                                <div id="image_container">
-                                    <img id="image" src="{% static './Icons/cam.png' %}" />
-                                    <p>Nombre: {{state.applicantCheck.name}}</p>
-                                    <p>Código estuidante: {{state.applicantCheck.name}}</p>
-                                </div>
-                                
-                            {% endif %}
-                        {% endif %}
+                    {% if applicant.image != "" %}
+                    <div id="image_container">
+                        <img id="image" src="{{applicant.image.url}}" />
+                        <p>Nombre: {{applicant.name}}</p>
+                        <p>Código estuidante: {{applicant.studentCode}}</p>
+                    </div>
+                    
+                    {% else %}
+                        <div id="image_container">
+                            <img id="image" src="{% static './Icons/cam.png' %}" />
+                            <p>Nombre: {{applicant.name}}</p>
+                            <p>Código estuidante: {{applicant.studentCode}}</p>
+                        </div>
+                        
+                    {% endif %}
 
-                    {%endfor%}
                 </div>
                 <br>
                 <form class="formClass" method="post" id="method_post">
