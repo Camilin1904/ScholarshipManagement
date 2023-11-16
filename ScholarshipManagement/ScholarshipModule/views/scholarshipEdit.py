@@ -124,14 +124,12 @@ def editTypes(request):
     
 #Organizer for session data, creates the entries in the data base
 def saveIntoDatabase(request):
-    print("huh")
     #fetches the session data
     idScholarship = request.session.get('sch')
     scholarship = Scholarships.objects.get(ID=idScholarship)
     donorID = request.session.get('donorID',scholarship.donor.ID)
     oldTypes = ScholarsipTypes.objects.filter(scholarship_id = idScholarship)
     types = request.session.get('typeData', oldTypes.values())
-    print(types)
     
     #creates the scholarship
     Scholarships.objects.filter(ID=idScholarship).update(name=request.POST['name'],

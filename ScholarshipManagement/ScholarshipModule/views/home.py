@@ -35,26 +35,45 @@ def getEventsList():
         announcementId__in = announcementList).filter(endDate__gte = str(date.today())).order_by('endDate')
     counterStart = 0
     counterEnd = 0
+    outOfBoundFlag = 0
 
     calendarEvents = []
 
     for count in range(3):
 
         try:
-            
-            eventStart = eventsListStart[counterStart]
-            eventEnd = eventsListEnd[counterEnd]
+            if outOfBoundFlag != 2:
+                try:
+                    eventStart = eventsListStart[counterStart]
+                except:
+                    eventEnd = eventsListEnd[counterEnd]
+                    calendarEvents.append(formatedEvent(
+                            eventEnd, "Finalización de "))
+                    counterEnd+=1
+                    outOfBoundFlag = 1
 
-            if eventStart.startingDate >= eventEnd.endDate:
+            if outOfBoundFlag != 1:
+                try:
+                    eventEnd = eventsListEnd[counterEnd]
+                except:
+                    eventStart = eventsListStart[counterStart]
+                    calendarEvents.append(formatedEvent(
+                            eventStart, "Inicio de "))
+                    counterStart+=1
+                    outOfBoundFlag = 2
 
-                calendarEvents.append(formatedEvent(
-                    eventEnd, "Finalización de "))
-                counterEnd+=1
+            if outOfBoundFlag == 0:
 
-            else:
-                calendarEvents.append(formatedEvent(
-                    eventStart, "Inicio de "))
-                counterStart+=1
+                if eventStart.startingDate >= eventEnd.endDate:
+
+                    calendarEvents.append(formatedEvent(
+                        eventEnd, "Finalización de "))
+                    counterEnd+=1
+
+                else:
+                    calendarEvents.append(formatedEvent(
+                        eventStart, "Inicio de "))
+                    counterStart+=1
 
         except:
             return calendarEvents

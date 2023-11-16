@@ -4,8 +4,9 @@ from ..forms import *
 from ..models import *
 from django.http import HttpResponse
 from datetime import date
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url="/login")
 def createApplicants(request):
 
 
