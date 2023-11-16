@@ -5,6 +5,6 @@ register = template.Library()
 def replaceType(numType):
     a = ''
     match(numType):
-        case(0): a = 'Porcentage'
+        case(0): a = 'Porcentaje'
         case(1): a = 'Dinero'
     return a
