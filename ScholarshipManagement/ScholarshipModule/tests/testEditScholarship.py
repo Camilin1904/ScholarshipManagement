@@ -2,6 +2,7 @@ from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+import time
 
 class testEditScholarship(LiveServerTestCase):
 
@@ -46,7 +47,7 @@ class testEditScholarship(LiveServerTestCase):
 
     def enterViewMore(self):
 
-        btnViewMore = self.driver.find_element(by=By.XPATH,value="//button[@value='1']")
+        btnViewMore = self.driver.find_element(by=By.XPATH,value="//button[@value='2']")
         btnViewMore.click()
 
         self.driver.implicitly_wait(20)
@@ -75,7 +76,7 @@ class testEditScholarship(LiveServerTestCase):
 
         submit = self.driver.find_element(by=By.ID,value='svbtn')
         submit.send_keys(Keys.RETURN)
-
+        self.driver.implicitly_wait(2000)
         assert 'Resumen de beca' in self.driver.title
 
     def tearDown(self):
