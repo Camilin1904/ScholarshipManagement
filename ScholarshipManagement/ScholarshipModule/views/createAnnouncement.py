@@ -4,10 +4,13 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from ..forms import *
 from ..models import *
-
+from .isAllowed import isAllowed
 
 @login_required(login_url="/login") 
 def createAnnouncement(request):
+
+    if not (isAllowed(request.user, 0) | isAllowed(request.user, 2)):
+        return redirect("/home")
 
     additionalEvents = 0
     datalist = []
@@ -78,6 +81,13 @@ def createAnnouncement(request):
 
                     if (initialDate >= endDate):
                         raise Exception("La fecha final debe ser posterior a la fecha incial")
+                    
+                    if (x>0 and x<=3):
+                        preEndString = 'announcementEventForm' + eventType[x-1] + '-endDate'
+                        preEndDate =   request.POST[preEndString]
+
+                        if (initialDate <= preEndDate):
+                            raise Exception("Los eventos predeterminados no pueden coincidir")
                 
                 announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
                 scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm()
