@@ -31,6 +31,7 @@ def viewAnnouncement (request):
         if 'deleteBttn' in request.POST:
 
             Announcements.objects.filter(id = announcementId).update(archived = archiveNumberFlag)
+            ScholarshipAnnouncements.objects.filter(announcementId=announcementId).update(archived=True)
 
             context = getAnnouncementViewContext(announcementId)
 
