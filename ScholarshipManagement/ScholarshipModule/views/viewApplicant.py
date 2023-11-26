@@ -3,8 +3,10 @@ from django.shortcuts import redirect
 from ..forms import *
 from ..models import *
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
-    
+
+@login_required(login_url="/login")   
 def viewApplicant(request):
     studentCodeSt = request.session.get('studentCode')
     applicant = Applicant.objects.filter(studentCode = studentCodeSt)

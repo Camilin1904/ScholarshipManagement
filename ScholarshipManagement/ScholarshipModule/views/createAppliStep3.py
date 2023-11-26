@@ -3,8 +3,10 @@ from django.shortcuts import redirect
 from ..forms import *
 from ..models import *
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url="/login")
 def createAppliStep3(request):
 
 
@@ -23,6 +25,7 @@ def createAppliStep3(request):
                 postStudentCode = formPage2.get('studentCode')
 
 
+
                 if announcementPost == "":
                     error=""
                 else: 
@@ -30,13 +33,32 @@ def createAppliStep3(request):
                     student = Applicant.objects.get(studentCode = postStudentCode)
 
                     try: 
-                         announAppli = AnnouncementAndApplicant.objects.get(applicant = student)
-    
-                         return redirect('/home/')
+                        announAppli = AnnouncementAndApplicant.objects.get(applicant = student)
+                        announcement=Announcements.objects.get(id=announcementPost)
+
+                        announAppli.deleted = False
+                        announAppli.announcement = announcement
+                        announAppli.applicant = student
+                        announAppli.save()
+
+                        formStatusCheck = StatusCheckAppliForm()
+                        appliStatusCheck = formStatusCheck.save(commit=False)
+                        appliStatusCheck.announcementCheck = announcement
+                        appliStatusCheck.applicantCheck = student
+                        appliStatusCheck.semester = student.semester
+                        appliStatusCheck.status = 0
+                        appliStatusCheck.save()
+
+
+
+                        Applicant.objects.filter(studentCode=postStudentCode).update(status=0)
+
+                        return redirect('/home/')   
                     except:
                         announAppli = None
 
                     if announAppli == None:
+                        
                         announcement=Announcements.objects.get(id=announcementPost)
 
                         formNew = AnnouncementAndApplicantForm()

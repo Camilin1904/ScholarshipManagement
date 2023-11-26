@@ -3,8 +3,11 @@ from django.shortcuts import redirect
 from ..forms import *
 from ..models import *
 from django.http import HttpResponse
+from datetime import date
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(login_url="/login")
 def editApplicant(request):
 
     studentCodeSt = request.session.get('studentCode')
@@ -75,14 +78,27 @@ def editApplicant(request):
                     appliStatusCheck.status = 2
                     appliStatusCheck.save()
             
-
+                    return redirect('/view/Student')
             except:
                 announcement = None  
+
+                
+
+        
+        if 'changeAnnoun' in request.POST:
+
+            request.session['data_step_1'] = request.POST
             
+            error = ""
+            announcements = AnnouncementEvent.objects.filter(type = "Inscription").filter(startingDate__lte = date.today()).filter(endDate__gte = date.today())
+            announcements = announcements.values_list('announcementId', flat=True)
+            scholarshipAnnouns=ScholarshipAnnouncements.objects.filter(announcementId__in = announcements)
 
+            return render(
+                request, './HTML/createAppliStep3.html', 
+                {'error': error, 'scholarshipAnnoun': scholarshipAnnouns})
 
-
-            return redirect('/view/Student')
+            
         
         Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
                                                                    lastName=request.POST['lastName'],
