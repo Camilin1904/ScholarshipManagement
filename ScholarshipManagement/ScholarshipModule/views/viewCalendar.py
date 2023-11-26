@@ -2,9 +2,14 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from ..forms import *
 from ..models import *
+from .isAllowed import isAllowed
+from django.shortcuts import redirect
 
 @login_required(login_url="/login")
 def viewCalendar(request):
+
+    if not (isAllowed(request.user, 0) | isAllowed(request.user, 1) | isAllowed(request.user, 2)):
+        return redirect("/home")
 
     calendarEvents = []
 

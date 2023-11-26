@@ -89,7 +89,7 @@ class testCreateApplicant(LiveServerTestCase):
 
         self.driver.implicitly_wait(20)
 
-        assert self.driver.find_element(by=By.ID,value='deletable').is_displayed()
+        assert self.driver.find_element(by=By.ID,value='myInput').is_displayed()
 
     def testCreateWithAnnouncement(self):
 
@@ -98,7 +98,7 @@ class testCreateApplicant(LiveServerTestCase):
         self.fillFirstForm()
         self.fillSecondForm()
 
-        announcement = self.driver.find_element(by=By.XPATH,value="//button[@value='1']")
+        announcement = self.driver.find_element(by=By.XPATH,value="/html/body/div[1]/div[3]/div[2]/div/nav/form/ul/li[1]/button")
         announcement.click()
 
         assert 'Home' in self.driver.title

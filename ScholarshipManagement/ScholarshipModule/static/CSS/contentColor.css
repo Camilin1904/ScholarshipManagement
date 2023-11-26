@@ -23,20 +23,19 @@
     object-fit: fill;
 }
 .standardButton{
-    border: none;
-    color: #2D6A9F;
+    /*width: 80%;*/
+    /*height: 50%;*/
+    align-items: center;
+    box-shadow: 2px 5px 5px rgba(0, 0, 0.2, 0.2);
+    border:none;
+    color: white;
     transition-duration: 0.4s;
-    object-fit: fill;
-    background-color: white;
-    display: flex;
-    border-radius: 10px;
-    font-weight:1000;
-    font-size: large;
-    justify-content: center;
+    background-color: #2D6A9F;
+    border-radius: 8px;
 }
 
 .standardButton:hover{
-    background-color: #2D6A9F;
+    background-color: #163a5a;
     color: white;
 }
 

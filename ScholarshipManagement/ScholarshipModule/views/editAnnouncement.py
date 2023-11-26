@@ -7,14 +7,19 @@ from ..models import *
 from django.http import HttpResponse
 from .createAnnouncement import *
 from .viewAnnouncement import *
+from .isAllowed import isAllowed
 
 @login_required(login_url="/login")
 def editAnnouncement (request):
+
+    if not (isAllowed(request.user, 0) | isAllowed(request.user, 2)):
+        return redirect("/home")
 
     error = ""
 
     announcementId = request.session.get('announcementId')
     announcementDict = getAnnouncementInfo(announcementId)
+    eventsList = organizeEvents(announcementId)
     scholarshipName = announcementDict["scholarship"].name
 
     announcementForm = CreateAnnouncementForm(initial={'type':announcementDict["typeNum"]}, prefix = "announcementForm")
@@ -22,17 +27,17 @@ def editAnnouncement (request):
         initial={'scholarshipId':announcementDict["scholarship"].name + "  (" + str(announcementDict["scholarship"].ID) +
                   ")"}, prefix = "announcementForm")
     announcementEventFormInscription = CreateAnnouncementEventForm(
-        initial={'startingDate':announcementDict["events"][0].startingDate,
-                 'endDate':announcementDict["events"][0].endDate}, prefix = "announcementEventFormInscription")
+        initial={'startingDate':eventsList[0].startingDate,
+                 'endDate':eventsList[0].endDate}, prefix = "announcementEventFormInscription")
     announcementEventFormSelection = CreateAnnouncementEventForm(
-        initial={'startingDate':announcementDict["events"][1].startingDate,
-                 'endDate':announcementDict["events"][1].endDate}, prefix = "announcementEventFormSelection")
+        initial={'startingDate':eventsList[2].startingDate,
+                 'endDate':eventsList[2].endDate}, prefix = "announcementEventFormSelection")
     announcementEventFormInterview = CreateAnnouncementEventForm(
-        initial={'startingDate':announcementDict["events"][2].startingDate,
-                 'endDate':announcementDict["events"][2].endDate}, prefix = "announcementEventFormInterview")
+        initial={'startingDate':eventsList[1].startingDate,
+                 'endDate':eventsList[1].endDate}, prefix = "announcementEventFormInterview")
     announcementEventFormPublication = CreateAnnouncementEventForm(
-        initial={'startingDate':announcementDict["events"][3].startingDate,
-                 'endDate':announcementDict["events"][3].endDate}, prefix = "announcementEventFormPublication")
+        initial={'startingDate':eventsList[3].startingDate,
+                 'endDate':eventsList[3].endDate}, prefix = "announcementEventFormPublication")
 
     context = {
             'announcementForm': announcementForm,
@@ -66,9 +71,9 @@ def editAnnouncement (request):
 
                     raise Exception("La beca seleccionada no está registrada")
 
-                for x in range (3):
+                for x in range (4):
 
-                    if(x <= 3):
+                    if(x <= 4):
 
                         initString = 'announcementEventForm' +  eventType[x] + '-startingDate'
                         endString = 'announcementEventForm' + eventType[x] + '-endDate'
@@ -94,6 +99,13 @@ def editAnnouncement (request):
 
                     if (initialDate >= endDate):
                         raise Exception("La fecha final debe ser posterior a la fecha incial")
+                    
+                    if (x>0 and x<=4):
+                        preEndString = 'announcementEventForm' + eventType[x-1] + '-endDate'
+                        preEndDate =   request.POST[preEndString]
+
+                        if (initialDate <= preEndDate):
+                            raise Exception("Los eventos predeterminados no pueden coincidir")
                 
                 announcementForm = CreateAnnouncementForm(request.POST,prefix="announcementForm")
                 scholarshipAnnouncementForm = CreateScholarshipAnnouncementForm(request.POST,prefix="scholarshipAnnouncementForm")
@@ -143,6 +155,9 @@ def editAnnouncement (request):
 
 @login_required(login_url="/login")
 def editEvent(request):
+
+    if not (isAllowed(request.user, 0) | isAllowed(request.user, 2)):
+        return redirect("/home")
 
     request.session['editFlag'] = True
 
@@ -231,3 +246,28 @@ def createEvent(request):
         return render (request, 'HTML/eventForm.html', {'newEventForm': CreateAnnouncementAdditionalEventForm()})
     
 
+
+def organizeEvents(announcementId):
+
+    announcementDict = getAnnouncementInfo(announcementId)
+    events = announcementDict["events"]
+
+    eventsList=[None]*5
+
+    for event in events:
+
+        eventType = event.type
+
+        match eventType:
+            case "Inscription":
+                eventsList[0]= event
+            case "Interview":
+                eventsList[1]= event
+            case "Selection":
+                eventsList[2]= event
+            case "Publication":
+                eventsList[3]= event
+            case _: 
+                eventsList[4]= event
+
+    return eventsList

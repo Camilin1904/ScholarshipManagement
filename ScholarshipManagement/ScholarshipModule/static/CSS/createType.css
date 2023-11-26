@@ -122,3 +122,7 @@ form{
     overflow: hidden;
     object-fit: fill;
 }
+
+.standardButton{
+    width:fit-content;
+}

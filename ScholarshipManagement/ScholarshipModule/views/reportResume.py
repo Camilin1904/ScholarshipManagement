@@ -4,9 +4,10 @@ from django.contrib.auth.decorators import login_required
 from ..forms import *
 from ..models import *
 from django.http import HttpResponse
-import io
-import csv
+import xlwt
+from xlwt import XFStyle
 from .isAllowed import isAllowed
+from django.db.models import Q
 
 @login_required(login_url="/login")
 def reportResume(request):
@@ -136,7 +137,7 @@ def reportResume(request):
             scholarship = filters[1]
             announcementId = filters[2]
 
-        objects = ScholarshipAnnouncements.objects.select_related('scholarshipId')
+        objects = ScholarshipAnnouncements.objects.select_related('scholarshipId').filter(Q(scholarshipId__isDeleted = 0) & Q(announcementId__archived = 0))
 
         if len(scholarshipId) > 0:
             objects = objects.filter(scholarshipId__ID__contains = scholarshipId)
@@ -166,7 +167,7 @@ def reportResume(request):
         
         typeCounts = []
 
-        objects = ScholarshipAnnouncements.objects.select_related('scholarshipId')
+        objects = ScholarshipAnnouncements.objects.select_related('scholarshipId').filter(Q(scholarshipId__isDeleted = 0) & Q(announcementId__archived = 0))
 
         if len(scholarship) > 0:
             objects = objects.filter(scholarshipId__name__contains = scholarship)
@@ -189,6 +190,20 @@ def reportResume(request):
     
     if request.method == 'POST':
 
+        workbook = xlwt.Workbook(encoding='utf-8')
+
+        worksheet = workbook.add_sheet('Información')
+
+        date_format = XFStyle()
+        date_format.num_format_str = 'dd/mm/yyyy'
+
+        response = HttpResponse(content_type="application/ms-excel")
+        response['Content-Disposition'] = 'attachment; filename = university_records.xls'
+
+        row = 0
+
+        col = 0
+
         if objectOfReport == "1":
 
             # field names  
@@ -196,9 +211,10 @@ def reportResume(request):
                 'Nombre', 'Apellido', 'Código de Estudiante', 'Facultad', 'Carrera',
                 'Semestre', 'Correo', 'Teléfono', 'Convocatoria', 'Status']  
 
-            rows = []  
+            for i in range(len(fields)):
+                worksheet.write(row, i, fields[i])
 
-            rows.append(fields) 
+            row += 1
             
             for object in objects:
                 
@@ -211,19 +227,20 @@ def reportResume(request):
                 else:
                     status = 'No aceptado'
 
+                worksheet.write(row, col, object.applicant.name)
+                worksheet.write(row, col+1, object.applicant.lastName)
+                worksheet.write(row, col+2, object.applicant.studentCode)
+                worksheet.write(row, col+3, object.applicant.faculty)
+                worksheet.write(row, col+4, object.applicant.major)
+                worksheet.write(row, col+5, object.applicant.semester)
+                worksheet.write(row, col+6, object.applicant.email)
+                worksheet.write(row, col+7, object.applicant.phone)
+                worksheet.write(row, col+8, object.announcement.id)
+                worksheet.write(row, col+9, status)
 
-                rows.append([
-                    object.applicant.name, object.applicant.lastName, object.applicant.studentCode,
-                    object.applicant.faculty, object.applicant.major, object.applicant.semester,
-                    object.applicant.email, object.applicant.phone, object.announcement.id, status
-                    ])
+                row += 1
 
-            buffer = io.StringIO()  # python 2 needs io.BytesIO() instead
-            wr = csv.writer(buffer, quoting=csv.QUOTE_ALL)
-            wr.writerows(rows)
-            buffer.seek(0)
-            response = HttpResponse(buffer, content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename=university_records.csv'
+            workbook.save(response)
 
             return response
         
@@ -231,43 +248,44 @@ def reportResume(request):
 
             # field names  
             fields = [
-                'Id', 'Nombre', 'Descripción', 'Requerimientos', 'Id del donante', 'Nombre del Donante'
+                'Id', 'Nombre', 'Descripción', 'Requerimientos', 'Id del donante', 'Nombre del Donante', 'Id Convocatoria'
             ]  
 
-            rows = []  
+            for i in range(len(fields)):
+                worksheet.write(row, i, fields[i])
 
-            rows.append(fields) 
+            row += 1
             
             for object in objects:
 
-                rows.append([
-                    object.scholarshipId.ID, object.scholarshipId.name, object.scholarshipId.description,
-                    object.scholarshipId.donor.ID, object.scholarshipId.donor.name
-                    ])
+                worksheet.write(row, col, object.scholarshipId.ID)
+                worksheet.write(row, col+1, object.scholarshipId.name)
+                worksheet.write(row, col+2, object.scholarshipId.description)
+                worksheet.write(row, col+3, object.scholarshipId.donor.ID)
+                worksheet.write(row, col+4, object.scholarshipId.donor.name)
+                worksheet.write(row, col+5, object.announcementId.id)
+                
+                row += 1
 
-            buffer = io.StringIO()  # python 2 needs io.BytesIO() instead
-            wr = csv.writer(buffer, quoting=csv.QUOTE_ALL)
-            wr.writerows(rows)
-            buffer.seek(0)
-            response = HttpResponse(buffer, content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename=university_records.csv'
+            workbook.save(response)
 
             return response
         
         else:
-            # field names  
+
+            events = AnnouncementEvent.objects.all()
+
             fields = [
                 'Identificador', 'Tipo', 'Beca', 'Inicio de Inscripción', 'Cierre de Inscripción',
                 'Inicio de Entrevistas', 'Cierre de Entrevistas', 'Inicio de Selección',
                 'Cierre de Selección', 'Inicio de Publicación de Beneficiarios',
-                'Cierre de Publicación de Beneficiarios']  
-
-            rows = []  
-
-            rows.append(fields) 
-
-            events = AnnouncementEvent.objects.all()
+                'Cierre de Publicación de Beneficiarios']
             
+            for i in range(len(fields)):
+                worksheet.write(row, i, fields[i])
+
+            row += 1
+
             for object in objects:
 
                 announcementType = -1
@@ -280,25 +298,23 @@ def reportResume(request):
                     announcementType = "Mixta"
                 
                 thisEvents = events.filter(announcementId = object.announcementId.id)
+                
+                worksheet.write(row, col, object.announcementId.id)
+                worksheet.write(row, col+1, announcementType)
+                worksheet.write(row, col+2, object.scholarshipId.name)
+                worksheet.write(row, col+3, thisEvents.get(type = "Inscription").startingDate, date_format)
+                worksheet.write(row, col+4, thisEvents.get(type = "Inscription").endDate, date_format)
+                worksheet.write(row, col+5, thisEvents.get(type = "Interview").startingDate, date_format)
+                worksheet.write(row, col+6, thisEvents.get(type = "Interview").endDate, date_format)
+                worksheet.write(row, col+7, thisEvents.get(type = "Selection").startingDate, date_format)
+                worksheet.write(row, col+8, thisEvents.get(type = "Selection").endDate, date_format)
+                worksheet.write(row, col+9, thisEvents.get(type = "Publication").startingDate, date_format)
+                worksheet.write(row, col+10, thisEvents.get(type = "Publication").endDate, date_format)
 
-                rows.append([
-                    object.announcementId.id, announcementType, object.scholarshipId.name,
-                    thisEvents.get(type = "Inscription").startingDate,
-                    thisEvents.get(type = "Inscription").endDate,
-                    thisEvents.get(type = "Interview").startingDate,
-                    thisEvents.get(type = "Interview").endDate,
-                    thisEvents.get(type = "Selection").startingDate,
-                    thisEvents.get(type = "Selection").endDate,
-                    thisEvents.get(type = "Publication").startingDate,
-                    thisEvents.get(type = "Publication").endDate])
+                row += 1
 
-            buffer = io.StringIO()  # python 2 needs io.BytesIO() instead
-            wr = csv.writer(buffer, quoting=csv.QUOTE_ALL)
-            wr.writerows(rows)
-            buffer.seek(0)
-            response = HttpResponse(buffer, content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename=university_records.csv'
-
+            workbook.save(response)
+            
             return response
     else:
         if objectOfReport == "1":
