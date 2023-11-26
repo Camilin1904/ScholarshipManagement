@@ -10,6 +10,7 @@ from django.db.models import Value
 from django.db.models import CharField
 from django.db.models import F
 from django.db.models.functions import Concat
+from .models import AnnouncementEvent
 
 
 class CreateScholarshipForm(forms.Form):
@@ -596,7 +597,6 @@ class AnnouncementReportFilter(Form):
     type = forms.MultipleChoiceField(
         choices = TYPE_CHOICES, label = "Tipo", widget=forms.CheckboxSelectMultiple(
             attrs={'onclick' : "filter();"}), required = False)
-    
     
 class SchTypeCreationForm(forms.Form):
     
