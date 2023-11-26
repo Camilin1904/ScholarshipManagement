@@ -29,16 +29,16 @@ class Migration(migrations.Migration):
                 User(username = user[1], name = user[2], password = make_password(user[3]), role = 3).save()
 
         donorsValues = [
-            "John Doe",
-            "Alice Johnson",
-            "Robert Smith",
-            "Emily Davis",
-            "Michael Brown",
-            "Samantha White",
-            "Christopher Lee",
-            "Olivia Taylor",
-            "Daniel Miller",
-            "Sophia Anderson"
+            "Grupo Argos",
+            "Bancolombia",
+            "Ecopetrol",
+            "Grupo Nutresa",
+            "Grupo Sura",
+            "ISA (Interconexión Eléctrica)",
+            "Bavaria",
+            "Éxito",
+            "Grupo Aval",
+            "Cementos Argos"
         ]
 
 
@@ -136,18 +136,39 @@ class Migration(migrations.Migration):
             ).save()
 
         applicantValues = [
-            ["Fernando", "Ruiz", "A020100", "Ciencias Administrativas y Económicas", "Administración de Empresas", 1, "fernando@gmail.com", "3201883020", 3, "", False],
+            ["Fernando", "Ruiz", "A020100", "Ciencias Administrativas y Económicas", "Administración de Empresas", 7, "fernando@gmail.com", "3201883020", 3, "", False],
             ["Ana", "Gomez", "A020101", "Ciencias de la Salud", "Medicina", 2, "ana@gmail.com", "3212345678", 2, "", False],
-            ["Carlos", "Hernandez", "A020102", "Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería de Sistemas", 3, "carlos@gmail.com", "3223456789", 1, "", False],
-            ["Laura", "Martinez", "A020103", "Ciencias Humanas", "Licenciatura en Artes", 4, "laura@gmail.com", "3334567890", 3, "", False],
-            ["David", "Perez", "A020104", "Ciencias Humanas", "Psicología", 5, "david@gmail.com", "3345678901", 2, "", False],
-            ["Marta", "Lopez", "A020105", "Ciencias de la Salud", "Biología", 6, "marta@gmail.com", "3456789012", 1, "", False],
-            ["Javier", "Garcia", "A020106", "Ciencias Humanas", "Filosofía", 7, "javier@gmail.com", "3567890123", 3, "", False],
-            ["Sofia", "Sanchez", "A020107", "Ciencias Humanas", "Comunicación", 8, "sofia@gmail.com", "3678901234", 2, "", False],
-            ["Roberto", "Gutierrez", "A020108", "Ciencias Humanas", "Derecho", 9, "roberto@gmail.com", "3789012345", 1, "", False],
-            ["Marina", "Romero", "A020109", "Ciencias Humanas", "Derecho", 10, "marina@gmail.com", "3890123456", 3, "", False],
-            ["Ricardo", "Fernandez", "A020110", "Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería de Sistemas", 1, "ricardo@gmail.com", "3901234567", 2, "", False]
+            ["Carlos", "Hernandez", "A020102", "Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería de Sistemas", 4, "carlos@gmail.com", "3223456789", 1, "", False],
+            ["Laura", "Martinez", "A020103", "Ciencias Humanas", "Licenciatura en Artes", 9, "laura@gmail.com", "3334567890", 3, "", False],
+            ["David", "Perez", "A020104", "Ciencias Humanas", "Psicología", 6, "david@gmail.com", "3345678901", 2, "", False],
+            ["Marta", "Lopez", "A020105", "Ciencias de la Salud", "Biología", 1, "marta@gmail.com", "3456789012", 1, "", False],
+            ["Javier", "Garcia", "A020106", "Ciencias Humanas", "Filosofía", 8, "javier@gmail.com", "3567890123", 3, "", False],
+            ["Sofia", "Sanchez", "A020107", "Ciencias Humanas", "Comunicación", 3, "sofia@gmail.com", "3678901234", 2, "", False],
+            ["Roberto", "Gutierrez", "A020108", "Ciencias Humanas", "Derecho", 5, "roberto@gmail.com", "3789012345", 1, "", False],
+            ["Marina", "Romero", "A020109", "Ciencias Humanas", "Licenciatura en Artes", 2, "marina@gmail.com", "3890123456", 3, "", False],
+            ["Ricardo", "Fernandez", "A020110", "Ciencias Administrativas y Económicas", "Administración de Empresas", 10, "ricardo@gmail.com", "3901234567", 2, "", False],
+            ["Elena", "Torres", "A020111", "Ciencias Administrativas y Económicas", "Administración de Empresas", 3, "elena@gmail.com", "4012345678", 1, "", False],
+            ["Luis", "Herrera", "A020112", "Ciencias de la Salud", "Medicina", 7, "luis@gmail.com", "4123456789", 3, "", False],
+            ["Paula", "Vargas", "A020113", "Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería de Sistemas", 4, "paula@gmail.com", "4234567890", 2, "", False],
+            ["Diego", "Ortiz", "A020114", "Ciencias Humanas", "Licenciatura en Artes", 6, "diego@gmail.com", "4345678901", 1, "", False],
+            ["Carmen", "Castillo", "A020115", "Ciencias Humanas", "Psicología", 1, "carmen@gmail.com", "4456789012", 3, "", False],
+            ["Mario", "Gomez", "A020116", "Ciencias Administrativas y Económicas", "Administración de Empresas", 8, "mario@gmail.com", "4567890123", 2, "", False],
+            ["Isabel", "Lopez", "A020117", "Ciencias de la Salud", "Medicina", 5, "isabel@gmail.com", "4678901234", 1, "", False],
+            ["Pablo", "Martinez", "A020118", "Ingeniería, Diseño y Ciencias Aplicadas", "Ingeniería de Sistemas", 10, "pablo@gmail.com", "4789012345", 3, "", False],
+            ["Natalia", "Rojas", "A020119", "Ciencias Humanas", "Licenciatura en Artes", 3, "natalia@gmail.com", "4890123456", 2, "", False],
+            ["Antonio", "Fernandez", "A020120", "Ciencias Humanas", "Psicología", 4, "antonio@gmail.com", "4901234567", 1, "", False],
+            ["Catalina", "Gutierrez", "A020121", "Ciencias de la Salud", "Biología", 5, "catalina@gmail.com", "5012345678", 3, "", False],
+            ["Jorge", "Sanchez", "A020122", "Ciencias Humanas", "Filosofía", 6, "jorge@gmail.com", "5123456789", 2, "", False],
+            ["Silvia", "Hernandez", "A020123", "Ciencias Humanas", "Comunicación", 7, "silvia@gmail.com", "5234567890", 1, "", False],
+            ["Andres", "Rios", "A020124", "Ciencias Humanas", "Derecho", 8, "andres@gmail.com", "5345678901", 3, "", False],
+            ["Camila", "Lopez", "A020125", "Ciencias Humanas", "Licenciatura en Artes", 9, "camila@gmail.com", "5456789012", 2, "", False],
+            ["Felipe", "Martinez", "A020126", "Ciencias Administrativas y Económicas", "Administración de Empresas", 10, "felipe@gmail.com", "5567890123", 1, "", False],
         ]
+
+
+
+
+
 
 
 
@@ -168,8 +189,26 @@ class Migration(migrations.Migration):
             [Announcements.objects.get(id=2), Applicant.objects.get(studentCode="A020106"), False],
             [Announcements.objects.get(id=3), Applicant.objects.get(studentCode="A020107"), False],
             [Announcements.objects.get(id=4), Applicant.objects.get(studentCode="A020108"), False],
-            [Announcements.objects.get(id=5), Applicant.objects.get(studentCode="A020109"), False]
+            [Announcements.objects.get(id=5), Applicant.objects.get(studentCode="A020109"), False],
+            [Announcements.objects.get(id=1), Applicant.objects.get(studentCode="A020110"), False],
+            [Announcements.objects.get(id=2), Applicant.objects.get(studentCode="A020111"), False],
+            [Announcements.objects.get(id=3), Applicant.objects.get(studentCode="A020112"), False],
+            [Announcements.objects.get(id=4), Applicant.objects.get(studentCode="A020113"), False],
+            [Announcements.objects.get(id=5), Applicant.objects.get(studentCode="A020114"), False],
+            [Announcements.objects.get(id=1), Applicant.objects.get(studentCode="A020115"), False],
+            [Announcements.objects.get(id=2), Applicant.objects.get(studentCode="A020116"), False],
+            [Announcements.objects.get(id=3), Applicant.objects.get(studentCode="A020117"), False],
+            [Announcements.objects.get(id=4), Applicant.objects.get(studentCode="A020118"), False],
+            [Announcements.objects.get(id=5), Applicant.objects.get(studentCode="A020119"), False],
+            [Announcements.objects.get(id=1), Applicant.objects.get(studentCode="A020120"), False],
+            [Announcements.objects.get(id=2), Applicant.objects.get(studentCode="A020121"), False],
+            [Announcements.objects.get(id=3), Applicant.objects.get(studentCode="A020122"), False],
+            [Announcements.objects.get(id=4), Applicant.objects.get(studentCode="A020123"), False],
+            [Announcements.objects.get(id=5), Applicant.objects.get(studentCode="A020124"), False],
+            [Announcements.objects.get(id=1), Applicant.objects.get(studentCode="A020125"), False],
+            [Announcements.objects.get(id=2), Applicant.objects.get(studentCode="A020126"), False],
         ]
+
 
 
         for announcementAndApplicant in announcementAndApplicantValues:
