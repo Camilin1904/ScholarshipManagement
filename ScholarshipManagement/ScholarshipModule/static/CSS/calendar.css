@@ -88,6 +88,7 @@ background-color: white;
 }
 
 .container{
+    padding-top: 2%;
     margin-top: 5%;
     height: 102%;
     width: 80%;
@@ -99,8 +100,11 @@ background-color: white;
     
 }
 
+.tags{
+    margin-left: 3%;
+}
+
 .calendar{
-    margin-top: 5%;
     height: 80%;
 }
 
@@ -118,4 +122,13 @@ background-color: white;
 h1{
     margin: auto;
 }
+
+#blueTag{
+    color: blue;
+}
+
+#purpleTag{
+    color: purple;
+}
+
 

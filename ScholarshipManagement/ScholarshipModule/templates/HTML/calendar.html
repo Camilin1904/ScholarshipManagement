@@ -27,6 +27,7 @@
                 headerToolbar:{
                     left:'',
                     center:'title',
+                    end: 'prev,next'
                 },
                 
 
@@ -51,14 +52,14 @@
                             title: "Inicio de {{event.type}}",
                             start: "{{event.startingDate | date:'Y-m-d' }}",
                             color: 'Blue',
-                            description: "Convocatoria: {{event.scholarship}}",
+                            description: "{{event.scholarship}}",
                         },
 
                         {
                             title: "Final de {{event.type}}",
                             start: "{{event.endDate | date:'Y-m-d' }}",
                             color: 'Purple',
-                            description: "Convocatoria: {{event.scholarship}}",
+                            description: "{{event.scholarship}}",
                         },
                     {% endfor %}
                 ],
@@ -87,7 +88,7 @@
 
     <div class = "titleCard">
         <button class="backBttn" style="align-items: center;" onclick="location.href = '/home';">
-            <h2><i class="bi bi-caret-left-fill"></i></h2>
+            <h1><i class="bi bi-caret-left-fill"></i></h1>
         </button>
         <h1>
             Calendario de eventos
@@ -95,6 +96,10 @@
     </div>
 
     <div class = "container">
+
+        <div class = "tags">
+        <h3><i class="bi bi-circle-fill" id = "blueTag"></i> Inicio de evento &nbsp &nbsp<i class="bi bi-circle-fill" id = "purpleTag"></i> Fin de evento</h3>
+        </div>
 
         <div id='calendar' class="card" style="padding:5%;background-color:white;border-radius: 15px;" ></div>
 

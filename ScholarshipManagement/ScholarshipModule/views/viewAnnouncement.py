@@ -5,10 +5,14 @@ from django.contrib.auth.decorators import login_required
 from ..forms import *
 from ..models import *
 from .searchAnnouncement import *
+from .isAllowed import isAllowed
 
 
 @login_required(login_url="/login")
 def viewAnnouncement (request):
+
+    if not (isAllowed(request.user, 0) | isAllowed(request.user, 2)):
+        return redirect("/home")
 
     announcementId = request.session.get('announcementId')
     announcementDict = getAnnouncementInfo(announcementId)
