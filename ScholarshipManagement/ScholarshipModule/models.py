@@ -52,6 +52,9 @@ class ScholarshipAnnouncements(models.Model):
         Scholarships, related_name = "ScholarshipId1", blank = True, null = True, on_delete = models.CASCADE)
     announcementId = models.ForeignKey(
         Announcements, related_name = "AnnouncementId1", blank = True, null = True, on_delete = models.CASCADE)
+    archived = models.BooleanField(default=False)
+
+    
 
 
 

@@ -46,7 +46,7 @@ class testCreateAnnouncement(LiveServerTestCase):
     
     def enterMoreInfoAnnouncement(self):
 
-        moreInfo = self.driver.find_element(by=By.XPATH,value="//button[@value= '1']")
+        moreInfo = self.driver.find_element(by=By.XPATH,value="//button[@value= '2']")
         moreInfo.click()
 
         assert 'Información convocatoria' in self.driver.title
