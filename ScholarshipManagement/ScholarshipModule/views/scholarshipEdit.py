@@ -3,73 +3,77 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from ScholarshipModule.forms import *
 from ScholarshipModule.models import *
+import ScholarshipModule.views.isAllowed as allow
+from django.contrib.auth.decorators import login_required
 
 #base screen and path chooser
+@login_required(login_url="/login")
 def scholarshipEdit(request):
+    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,2)):
+        #scholarship to be edited
+        idScholarship = request.session['sch']
+        scholarship = Scholarships.objects.get(ID=idScholarship)
 
-    #scholarship to be edited
-    idScholarship = request.session['sch']
-    scholarship = Scholarships.objects.get(ID=idScholarship)
-
-    if request.method == 'GET':
-        #tries to display the modified donor, if it wasn't, puts the actual donor
-        try:
-            donorID = request.session.get("donorID")
-            donor = Donors.objects.get(ID = donorID)
-        except:
-            donor = scholarship.donor
+        if request.method == 'GET':
+            #tries to display the modified donor, if it wasn't, puts the actual donor
+            try:
+                donorID = request.session.get("donorID")
+                donor = Donors.objects.get(ID = donorID)
+            except:
+                donor = scholarship.donor
+                
+            #tries to display the modified types, if it wasn't, puts the actual types
+            try:
+                types = request.session['typeData']
+            except:
+                types = ScholarsipTypes.objects.filter(
+                                                scholarship_id = idScholarship).values()
             
-        #tries to display the modified types, if it wasn't, puts the actual types
-        try:
-            types = request.session['typeData']
-        except:
-            types = ScholarsipTypes.objects.filter(
-                                            scholarship_id = idScholarship).values()
-        
-        #loads the current info into the form
-        try:
-                form = EditScholarshipForm(initial = {
-                    "ID": scholarship.ID,
-                    "name":scholarship.name,
-                    "description":scholarship.description,
-                    "requirements":scholarship.requirements
-                })
-        except Exception as e:
-            #failsafe for unexpected error
-            print(e)
-            form = EditScholarshipForm
-        #render
-        return render(request, './HTML/scholarshipEdit.html', {
-            'form':form,
-            'donor':donor,
-            'types':types
-        })
-    else:
-        #dir is an invisible input used to know where to be sent
-        dir = request.POST.get("dir")
-        #if the user decides to change the donor
-        if(dir == "donor"):
-            request.method = "GET"
-            return editDonor(request)
-        #if the user decides to change the type
-        if(dir == "type"):
-            request.method = "GET"
-            return editTypes(request)
-        #in case they are returning from one of the auxiliary screens
-        dID = request.POST.get("select")
-        types = request.POST.get("screen")
-        #new donor
-        if(dID != None):
-            request.session["donorID"] = dID
-            request.method = "GET"
-            return scholarshipEdit(request)
-        #modified types
-        if(types != None):
+            #loads the current info into the form
+            try:
+                    form = EditScholarshipForm(initial = {
+                        "ID": scholarship.ID,
+                        "name":scholarship.name,
+                        "description":scholarship.description,
+                        "requirements":scholarship.requirements
+                    })
+            except Exception as e:
+                #failsafe for unexpected error
+                print(e)
+                form = EditScholarshipForm
+            #render
+            return render(request, './HTML/scholarshipEdit.html', {
+                'form':form,
+                'donor':donor,
+                'types':types
+            })
+        else:
+            #dir is an invisible input used to know where to be sent
+            dir = request.POST.get("dir")
+            #if the user decides to change the donor
+            if(dir == "donor"):
+                request.method = "GET"
+                return editDonor(request)
+            #if the user decides to change the type
+            if(dir == "type"):
+                request.method = "GET"
+                return editTypes(request)
+            #in case they are returning from one of the auxiliary screens
+            dID = request.POST.get("select")
+            types = request.POST.get("screen")
+            #new donor
+            if(dID != None):
+                request.session["donorID"] = dID
+                request.method = "GET"
+                return scholarshipEdit(request)
+            #modified types
+            if(types != None):
+                
+                return editTypes(request)
             
-            return editTypes(request)
-        
-        #if no other return happened, then the user must have decided to save
-        return saveIntoDatabase(request)
+            #if no other return happened, then the user must have decided to save
+            return saveIntoDatabase(request)
+    else: return redirect('home')
     
 #send user the the screen with all donors
 def editDonor(request):

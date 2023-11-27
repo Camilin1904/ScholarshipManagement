@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from ..forms import *
 from ..models import *
 from .isAllowed import isAllowed
+from django.db.models import Q
 
 @login_required(login_url="/login")
 def filterOfReport(request):
@@ -68,12 +69,12 @@ def filterOfReport(request):
         elif(objectOfReport == "2"):
             form = None
             titles = ("Id", "Nombre", "Descripción", "Requerimientos", "Id de la Convocatoria")
-            objects = ScholarshipAnnouncements.objects.all()
+            objects = ScholarshipAnnouncements.objects.select_related('scholarshipId').filter(Q(scholarshipId__isDeleted = 0) & Q(announcementId__archived = 0))
             inputs = ("Id de la beca..", "Nombre de la beca..", "Id de la convocatoria..")
         else:
             form = AnnouncementReportFilter
             titles = ("Id", "Tipo", "Beca Asociada", "Descripción")
-            objects = ScholarshipAnnouncements.objects.all()
+            objects = ScholarshipAnnouncements.objects.select_related('scholarshipId').filter(Q(scholarshipId__isDeleted = 0) & Q(announcementId__archived = 0))
             inputs = ("Id de la convocatoria..", "Nombre de la beca..")
 
         return render(

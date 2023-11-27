@@ -2,65 +2,63 @@ from django.contrib.auth.models import User
 from datetime import date
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.contrib.auth import login
-from django.contrib.auth import logout
-from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from ScholarshipModule.forms import *
 from ScholarshipModule.models import *
-from django.forms import formset_factory
+import ScholarshipModule.views.isAllowed as allow
 
 #Screen one of creation process, base data of a scholarship
 #also decides what screen to display if not the first one
 @login_required(login_url="/login")
 def createScholarshipsSC1(request):
-
-    if request.method == 'GET':
-        data  = request.session.get('form1',None)
-        form = CreateScholarshipForm
-        #If there is any saved data, it is loaded back into the form
-        if data is not None and  len(data)<3:
-            try:
-                form = CreateScholarshipForm(initial = {
-                    "ID": data['ID'],
-                    "name":data['name'],
-                    "description":data['description'],
-                    "requirements":data['requirements']
-                })
-            except:
-                form = CreateScholarshipForm
-        return render(request, './HTML/createScholarship.html', {
-            'form': form
-        })
-    else:
-        #Identifier used to know what screen to display
-        screen = request.POST.get('screen')
-        #Displays las screen
-        if screen=='summary':
-            #if anything goes wrong, returns to page one
-            try:
-                return saveIntoDatabase(request)
-            except:
-                return render(request, './HTML/createScholarship.html', {
-                    'form': CreateScholarshipForm,
-                    'error': 'Please provide valid data'
-                })
-        #Displays The type creation screen
-        elif screen=='types':
-            return createTypes(request)
-        #Displays the donor selection screen
-        elif screen=='donor':
+    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,2)):
+        if request.method == 'GET':
+            data  = request.session.get('form1',None)
+            form = CreateScholarshipForm
+            #If there is any saved data, it is loaded back into the form
+            if data is not None and  len(data)<3:
+                try:
+                    form = CreateScholarshipForm(initial = {
+                        "ID": data['ID'],
+                        "name":data['name'],
+                        "description":data['description'],
+                        "requirements":data['requirements']
+                    })
+                except:
+                    form = CreateScholarshipForm
+            return render(request, './HTML/createScholarship.html', {
+                'form': form
+            })
+        else:
+            #Identifier used to know what screen to display
+            screen = request.POST.get('screen')
+            #Displays las screen
+            if screen=='summary':
+                #if anything goes wrong, returns to page one
+                try:
+                    return saveIntoDatabase(request)
+                except:
+                    return render(request, './HTML/createScholarship.html', {
+                        'form': CreateScholarshipForm,
+                        'error': 'Please provide valid data'
+                    })
+            #Displays The type creation screen
+            elif screen=='types':
+                return createTypes(request)
+            #Displays the donor selection screen
+            elif screen=='donor':
+                return searchDonor(request)
+            #If the screen was the first one, then the info from post 
+            #is saved in a session
+            form = CreateScholarshipForm(request.POST)
+            request.session['form1'] = form.data
+            #The screen that follows in the process is donor,
+            #therefore the method is accessed as if it were a get,
+            #this has the ultimate purpose of using only one url
+            #for the creation of scholarships
+            request.method = 'GET'
             return searchDonor(request)
-        #If the screen was the first one, then the info from post 
-        #is saved in a session
-        form = CreateScholarshipForm(request.POST)
-        request.session['form1'] = form.data
-        #The screen that follows in the process is donor,
-        #therefore the method is accessed as if it were a get,
-        #this has the ultimate purpose of using only one url
-        #for the creation of scholarships
-        request.method = 'GET'
-        return searchDonor(request)
+    else: return redirect('home')
             
 #Second screen
 def searchDonor(request):

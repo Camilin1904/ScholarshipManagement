@@ -22,27 +22,27 @@ class testTemplateTags(TestCase):
     def testIndex(self):
         a = list({1, 2, 3, 4, 5})
         
-        self.assertEquals(index.index(a,0), 1)
-        self.assertEquals(index.index(a,1), 2)
-        self.assertEquals(index.index(a,2), 3)
-        self.assertEquals(index.index(a,3), 4)
-        self.assertEquals(index.index(a,4), 5)
+        self.assertEqual(index.index(a,0), 1)
+        self.assertEqual(index.index(a,1), 2)
+        self.assertEqual(index.index(a,2), 3)
+        self.assertEqual(index.index(a,3), 4)
+        self.assertEqual(index.index(a,4), 5)
     
     def testReplaceType(self):
         a = 0
         b = 1
         
-        self.assertEquals(replaceType.replaceType(a), 'Porcentaje')
-        self.assertEquals(replaceType.replaceType(b), 'Dinero')
+        self.assertEqual(replaceType.replaceType(a), 'Porcentaje')
+        self.assertEqual(replaceType.replaceType(b), 'Dinero')
     
     def testGetFromDict(self):
         a = {'1':1,'2':2,'3':3,'4':4,'5':5}
         
-        self.assertEquals(getFromDict.get(a,'1'),1)
-        self.assertEquals(getFromDict.get(a,'2'),2)
-        self.assertEquals(getFromDict.get(a,'3'),3)
-        self.assertEquals(getFromDict.get(a,'4'),4)
-        self.assertEquals(getFromDict.get(a,'5'),5)
+        self.assertEqual(getFromDict.get(a,'1'),1)
+        self.assertEqual(getFromDict.get(a,'2'),2)
+        self.assertEqual(getFromDict.get(a,'3'),3)
+        self.assertEqual(getFromDict.get(a,'4'),4)
+        self.assertEqual(getFromDict.get(a,'5'),5)
         
         
         

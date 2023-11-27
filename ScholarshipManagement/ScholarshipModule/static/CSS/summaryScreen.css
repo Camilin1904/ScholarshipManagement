@@ -81,6 +81,7 @@
     color: #455761;
     overflow-y: auto;
     object-fit: fill;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
 }
 
 #inner{
@@ -171,6 +172,7 @@ button:hover{
     color: #3A4459;
     overflow: hidden;
     object-fit: fill;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
 }
 
 #baseData{
@@ -184,3 +186,10 @@ button:hover{
 }
 
 
+#save{
+    margin-bottom: 5%;
+}
+
+#dltbtn{
+    margin-right: 20%;
+}

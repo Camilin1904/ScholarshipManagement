@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import UserManager
+from datetime import datetime
 
 # Create your models here.
 
@@ -52,6 +53,9 @@ class ScholarshipAnnouncements(models.Model):
         Scholarships, related_name = "ScholarshipId1", blank = True, null = True, on_delete = models.CASCADE)
     announcementId = models.ForeignKey(
         Announcements, related_name = "AnnouncementId1", blank = True, null = True, on_delete = models.CASCADE)
+    archived = models.BooleanField(default=False)
+
+    
 
 
 
@@ -134,7 +138,7 @@ class ApplicantStateCheck(models.Model):
     semester = models.IntegerField(blank=True, null= True)
     status = models.IntegerField(
         default=StatusApplicant.IN_REVIEW, choices=StatusApplicant.choices)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(default=datetime.now())
     deleted = models.BooleanField(default = False)
 
 class AnnouncementAndApplicant(models.Model):
@@ -163,7 +167,7 @@ class ScholarsipTypes(models.Model):
     
     class SchUnit(models.IntegerChoices):
 
-        PERCENTAGE = 0, _('Porcentage')
+        PERCENTAGE = 0, _('Porcentaje')
         MONEY = 1, _('Dinero')
         UNSPECIFIED = 2, _('No especificado')
         

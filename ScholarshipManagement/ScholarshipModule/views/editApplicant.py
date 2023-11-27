@@ -3,9 +3,16 @@ from django.shortcuts import redirect
 from ..forms import *
 from ..models import *
 from django.http import HttpResponse
+from datetime import date
+from django.contrib.auth.decorators import login_required
+from .isAllowed import isAllowed
 
 
+@login_required(login_url="/login")
 def editApplicant(request):
+
+    if not (isAllowed(request.user, 1)):
+        return redirect("/home")
 
     studentCodeSt = request.session.get('studentCode')
     applicant = Applicant.objects.filter(studentCode = studentCodeSt)
@@ -75,14 +82,27 @@ def editApplicant(request):
                     appliStatusCheck.status = 2
                     appliStatusCheck.save()
             
-
+                    return redirect('/view/Student')
             except:
                 announcement = None  
+
+                
+
+        
+        if 'changeAnnoun' in request.POST:
+
+            request.session['data_step_1'] = request.POST
             
+            error = ""
+            announcements = AnnouncementEvent.objects.filter(type = "Inscription").filter(startingDate__lte = date.today()).filter(endDate__gte = date.today())
+            announcements = announcements.values_list('announcementId', flat=True)
+            scholarshipAnnouns=ScholarshipAnnouncements.objects.filter(announcementId__in = announcements)
 
+            return render(
+                request, './HTML/createAppliStep3.html', 
+                {'error': error, 'scholarshipAnnoun': scholarshipAnnouns})
 
-
-            return redirect('/view/Student')
+            
         
         Applicant.objects.filter(studentCode=studentCodeSt).update(name=request.POST['name'],
                                                                    lastName=request.POST['lastName'],
@@ -93,12 +113,6 @@ def editApplicant(request):
                                                                    phone=request.POST['phone'],
                                                                    status=request.POST['status'])
         
-        
-        try:
-            if request.POST['announcement'] != "":
-                announcementGet = Announcements.objects.get(id = request.POST['announcement'])
-        except:
-            return redirect('/view/Student')
         
         applicant.name = request.POST['name']
         applicant.lastName = request.POST['lastName']
@@ -120,73 +134,30 @@ def editApplicant(request):
 
 
     
-        if request.POST['announcement'] == "":
-            announcementChange = None
+        if applicant2.status == int(request.POST['status']):
+  
+            statusChange = None
                 
         else:
-         
+
             try:
                 announcementChange = AnnouncementAndApplicant.objects.get(applicant=idSt)
+
                 
-                #Change the applicant previous announcement to a new one here its the register of the elimination 
-                if announcementChange.delete == False:
-                    
-                    applicant.status = 2
-                    applicant.save()
+                #Check if the announcement exists and its not deleted
+                if announcementChange.deleted == False:
 
                     formStatusCheck = StatusCheckAppliForm()
                     appliStatusCheck = formStatusCheck.save(commit=False)
                     appliStatusCheck.announcementCheck = announcementChange.announcement
                     appliStatusCheck.applicantCheck = applicant
                     appliStatusCheck.semester = applicant.semester
-                    appliStatusCheck.status = applicant.status
+                    appliStatusCheck.status = request.POST['status']
                     appliStatusCheck.save()
-
-                announcementChange.announcement = announcementGet
-                announcementChange.deleted = False
-                announcementChange.save()
                 
-                #Register of the new announcement
-
-                #Check if the user change the status
-                if applicant2.status == int(request.POST['status']):
-                    applicant.status = 0
-                    applicant.save()
-                else:
-                    applicant.status = request.POST['status']
-                    applicant.save()
-
-
-                formStatusCheck = StatusCheckAppliForm()
-                appliStatusCheck = formStatusCheck.save(commit=False)
-                appliStatusCheck.announcementCheck = announcementGet
-                appliStatusCheck.applicantCheck = applicant
-                appliStatusCheck.semester = applicant.semester
-                appliStatusCheck.status = applicant.status
-                appliStatusCheck.save()
 
             except:
-                formNew= AnnouncementAndApplicantForm()
-                relation=formNew.save(commit=False)
-                relation.announcement=announcementGet
-                relation.applicant=applicant
-                relation.save()
-
-                #Check if the user change the status
-                if applicant2.status == int(request.POST['status']):
-                    applicant.status = 0
-                    applicant.save()
-                else:
-                    applicant.status = request.POST['status']
-                    applicant.save()
-
-                formStatusCheck = StatusCheckAppliForm()
-                appliStatusCheck = formStatusCheck.save(commit=False)
-                appliStatusCheck.announcementCheck = announcementGet
-                appliStatusCheck.applicantCheck = applicant
-                appliStatusCheck.semester = applicant.semester
-                appliStatusCheck.status = applicant.status
-                appliStatusCheck.save()
+                statusChange = None
 
 
         try:

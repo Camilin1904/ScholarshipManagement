@@ -12,7 +12,7 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.0/dist/chart.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
         <link rel="icon" href="{% static './Icons/logo.png' %}">
-        <title>Resume</title>
+        <title>Resumen</title>
     </head>
 
     <body>
@@ -51,7 +51,7 @@
                   <div style="width: 33.3%;"><h1 id = "demo"> RESUMEN GENERAL </h1></div>
                   <div style="width: 33.3%; text-align: right;">
                     <button class="littleButton" style="align-items: center;  margin-left: auto;" onclick="download()" id="down_btn">
-                        <h3>Descargar CSV &nbsp;</h3><h1><i class="bi bi-file-earmark-arrow-down-fill"></i></h1>
+                        <h3>Descargar XLS &nbsp;</h3><h1><i class="bi bi-file-earmark-arrow-down-fill"></i></h1>
                     </button>
                   </div>
                   {% endif %}
@@ -72,7 +72,7 @@
                   </div>
                 {% elif objectOfReport == "2" %}
                 <button class="button" style="align-items: center;  margin-left: auto;" onclick="download()" id="down_btn">
-                  <h1>Descargar CSV &nbsp;</h1><div style="font-size:xxx-large;"><i class="bi bi-file-earmark-arrow-down-fill"></i></div>
+                  <h1>Descargar XLS &nbsp;</h1><div style="font-size:xxx-large;"><i class="bi bi-file-earmark-arrow-down-fill"></i></div>
                 </button>
                 <div class="dataCard" style="align-items: center;  margin-left: auto; justify-content: center;">
                   <img src="{% static './Icons/icesiBig.png' %}" class="icesiBig"> 
@@ -96,11 +96,9 @@
 <script>
 
 function download(){
-  alert("Si deseas abrir los datos en excel debes hacer lo siguiente: Abrir Excel >" + 
-  " Libro en Blanco > Seleccionar Datos en la cinta de opciones > Obtener Datos " + 
-  "(Primera opción a la izquierda) > De un archivo > De texto/CSV > Seleccionas el archivo >"+
-  " Presionas en Delimitador > Elijes la opción de coma > Cargar y listo ;D")
+  alert("Se procederá con la descarga")
 }
+
 
 function htmlDecode(str) {
   const doc = new DOMParser().parseFromString(str, "text/html");

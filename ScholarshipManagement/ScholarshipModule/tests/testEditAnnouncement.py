@@ -46,7 +46,7 @@ class testCreateAnnouncement(LiveServerTestCase):
     
     def enterMoreInfoAnnouncement(self):
 
-        moreInfo = self.driver.find_element(by=By.XPATH,value="//button[@value= '1']")
+        moreInfo = self.driver.find_element(by=By.XPATH,value="//button[@value= '2']")
         moreInfo.click()
 
         assert 'Información convocatoria' in self.driver.title
@@ -62,7 +62,7 @@ class testCreateAnnouncement(LiveServerTestCase):
 
         fieldToChange = self.driver.find_element(by=By.ID,value='id_announcementEventFormPublication-endDate')
         fieldToChange.clear()
-        fieldToChange.send_keys('04122023')
+        fieldToChange.send_keys('07122023')
 
         submit = self.driver.find_element(by=By.ID,value='saveBttn')
         submit.click()

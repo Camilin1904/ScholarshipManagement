@@ -117,7 +117,17 @@
                                 <li>
                                     
                                         <p id="studentCode">Fecha: {{state.date}}</p> 
-                                        <p>Estado del estudiante: {{state.status}}</p>
+                                        <p>
+                                            {% if state.status == 0 %}
+                                                Estado del estudiante: En revisión
+                                            {% elif state.status == 1 %}
+                                                Estado del estudiante: Beneficiario
+                                            {% elif state.status == 2 %}
+                                                Estado del estudiante: No aceptado
+                                            {% elif state.status == 3 %}
+                                                Estado del estudiante: NA
+                                            {% endif %}
+                                       </p>
                                         <p>Convocatoria: {{state.announcementCheck.id}}</p> 
                                         <br>
                                      
