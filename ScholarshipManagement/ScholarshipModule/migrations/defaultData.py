@@ -36,9 +36,9 @@ class Migration(migrations.Migration):
             "Grupo Sura",
             "ISA (Interconexión Eléctrica)",
             "Bavaria",
-            "Éxito",
+            "Fundación Valle del Lili",
             "Grupo Aval",
-            "Cementos Argos"
+            "Tecnoquímicas"
         ]
 
 

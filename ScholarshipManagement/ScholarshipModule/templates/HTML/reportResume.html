@@ -50,7 +50,7 @@
                   {% else %}
                   <div style="width: 33.3%;"><h1 id = "demo"> RESUMEN GENERAL </h1></div>
                   <div style="width: 33.3%; text-align: right;">
-                    <button class="littleButton" style="align-items: center;  margin-left: auto;" id="down_btn">
+                    <button class="littleButton" style="align-items: center;  margin-left: auto;" onclick="download()" id="down_btn">
                         <h3>Descargar XLS &nbsp;</h3><h1><i class="bi bi-file-earmark-arrow-down-fill"></i></h1>
                     </button>
                   </div>
@@ -71,7 +71,7 @@
                     <canvas id="chart3"></canvas>
                   </div>
                 {% elif objectOfReport == "2" %}
-                <button class="button" style="align-items: center;  margin-left: auto;" id="down_btn">
+                <button class="button" style="align-items: center;  margin-left: auto;" onclick="download()" id="down_btn">
                   <h1>Descargar XLS &nbsp;</h1><div style="font-size:xxx-large;"><i class="bi bi-file-earmark-arrow-down-fill"></i></div>
                 </button>
                 <div class="dataCard" style="align-items: center;  margin-left: auto; justify-content: center;">
@@ -94,6 +94,10 @@
 
 
 <script>
+
+function download(){
+  alert("Se procederá con la descarga")
+}
 
 
 function htmlDecode(str) {
