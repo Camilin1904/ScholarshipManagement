@@ -62,7 +62,7 @@ class testCreateAnnouncement(LiveServerTestCase):
 
         fieldToChange = self.driver.find_element(by=By.ID,value='id_announcementEventFormPublication-endDate')
         fieldToChange.clear()
-        fieldToChange.send_keys('04122023')
+        fieldToChange.send_keys('07122023')
 
         submit = self.driver.find_element(by=By.ID,value='saveBttn')
         submit.click()
