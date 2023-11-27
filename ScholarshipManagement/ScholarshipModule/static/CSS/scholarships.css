@@ -15,6 +15,7 @@
     color: #455761;
     overflow: hidden;
     object-fit: fill;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
 }
 
 .content{
@@ -106,6 +107,7 @@ tbody{
     color: #3A4459;
     overflow: hidden;
     object-fit: fill;
+    box-shadow: 0px 4px 24px -4px rgba(0,0,0,0.3);
 }
 
 .container{

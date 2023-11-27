@@ -18,7 +18,7 @@
             <button  style="align-items: center;" class="littleButton" type="button" style="width:100%;">
             <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
         </button></a>
-        <h1>Informacion basica de la Beca</h1>
+        <h1>Información basica de la Beca</h1>
     </div>
 {% endblock %}
 
@@ -27,9 +27,8 @@
         <meta charset="UTF-8">
         <link href='https://fonts.googleapis.com/css?family=Noto Music' rel='stylesheet'>
         <link rel="stylesheet" href="{% static 'css/createScholarship.css' %}">
-        <title>Informacion basica de la Beca</title>
+        <title>Información basica de la Beca</title>
     </head>
-    <div class = "content">
         {{error}}
         
         <form id= "create" action="/scholarships/create/" method = "POST" style="">
@@ -43,5 +42,4 @@
             {% endfor %}
             <button class="standardButton"><h3>Siguiente</h3></button>
         </form>
-    </div>
 {% endblock content %} 
