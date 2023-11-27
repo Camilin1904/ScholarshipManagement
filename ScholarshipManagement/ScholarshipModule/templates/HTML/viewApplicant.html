@@ -27,8 +27,11 @@
 
         <div class="card">
             <div style="width: 33.3%; ">
-                <button type="submit" id="goBack" class="littleButton" onclick="goBack()">
+                <button type="submit" id="goBack" class="littleButton" >
+
+                    <a href="/searchStudent" style="color: inherit;text-decoration: none; width: 100%; display: flex; ; align-items: center;">
                     <h1><i class="bi bi-caret-left-fill"></i></h1><h3>Regresar</h3>
+                    </a>
                 </button>
             </div>
 
@@ -49,52 +52,61 @@
                 {%for Applicant in applicant%}
                     <ul id="applicant_info_list">
                         <li id="applicant_info">
-                            <p>
+                            <p class="textP">
                                 <b>Nombre:</b>
                                 <br> 
                                 {{Applicant.name}}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Apellido:</b> 
                                 <br>
                                 {{Applicant.lastName}}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Código de estudiante:</b> 
                                 <br>
                                 {{Applicant.studentCode}}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Facultad:</b>
                                 <br>
                                 {{Applicant.faculty}}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Carrera:</b>
                                 <br>
                                 {{Applicant.major}}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Semestre: </b>
                                 <br>
                                 {{Applicant.semester}}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Electronico:</b> 
                                 <br>
                                 {{Applicant.email}}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Telefono:</b>
                                 <br>
                                 {{Applicant.phone}}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Estado</b>:
                                 <br> 
-                                {{Applicant.status}}
+
+                                {% if Applicant.status == 0 %}
+                                    En revisión
+                                {% elif Applicant.status == 1 %}
+                                    Beneficiario
+                                {% elif Applicant.status == 2 %}
+                                    No aceptado
+                                {% elif Applicant.status == 3 %}
+                                    NA
+                                {% endif %}
                             </p>
-                            <p>
+                            <p class="textP">
                                 <b>Convocatoria:</b> 
                                 <br>
                                 {{announcement}}

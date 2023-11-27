@@ -224,8 +224,10 @@ def reportResume(request):
                     status = 'En revisión'
                 elif object.applicant.status==1:
                     status = 'Beneficiario'
-                else:
+                elif object.applicant.status==2:
                     status = 'No aceptado'
+                else:
+                    status = 'NA'
 
                 worksheet.write(row, col, object.applicant.name)
                 worksheet.write(row, col+1, object.applicant.lastName)
@@ -261,9 +263,10 @@ def reportResume(request):
                 worksheet.write(row, col, object.scholarshipId.ID)
                 worksheet.write(row, col+1, object.scholarshipId.name)
                 worksheet.write(row, col+2, object.scholarshipId.description)
-                worksheet.write(row, col+3, object.scholarshipId.donor.ID)
-                worksheet.write(row, col+4, object.scholarshipId.donor.name)
-                worksheet.write(row, col+5, object.announcementId.id)
+                worksheet.write(row, col+3, object.scholarshipId.requirements)
+                worksheet.write(row, col+4, object.scholarshipId.donor.ID)
+                worksheet.write(row, col+5, object.scholarshipId.donor.name)
+                worksheet.write(row, col+6, object.announcementId.id)
                 
                 row += 1
 

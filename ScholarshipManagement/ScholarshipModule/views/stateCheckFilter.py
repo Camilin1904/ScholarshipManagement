@@ -3,10 +3,16 @@ from django.shortcuts import redirect
 from ..forms import *
 from ..models import *
 from django.http import HttpResponse   
+from django.contrib.auth.decorators import login_required
+from .isAllowed import isAllowed
 
 
+@login_required(login_url="/login")
 def stateCheckFilter(request):
 
+    if not (isAllowed(request.user, 1)):
+        return redirect("/home")
+    
     studentCodeSt = request.session.get('studentCode')
     applicant = Applicant.objects.get(studentCode = studentCodeSt)
 
@@ -24,7 +30,6 @@ def stateCheckFilter(request):
                 'form': FilterStateCheck,
                 'error': "",
                 'stateCheck': stateCheck,
-                'stateCheck2': stateCheck2,
                 'applicant': applicant
             })
     else:
@@ -37,18 +42,24 @@ def stateCheckFilter(request):
                     'form': FilterStateCheck,
                     'error': "",
                     'stateCheck': stateCheck,
-                    'stateCheck2': stateCheck2,
                     'applicant': applicant
                 })
         
         elif 'delete' in request.POST:
-            
+            idStateCheck = request.POST['delete']
+      
+            try:
+                stateCheckDelete = ApplicantStateCheck.objects.filter(deleted = False).get(ID = idStateCheck )
+                stateCheckDelete.deleted = True
+                stateCheckDelete.save()
+            except:
+                stateCheckDelete = None
+
             return render(
                 request, './HTML/searchStateCheck.html', {
                     'form': FilterStateCheck,
                     'error': "",
                     'stateCheck': stateCheck,
-                    'stateCheck2': stateCheck2,
                     'applicant': applicant
                 })
 
