@@ -4,11 +4,15 @@ from ..forms import *
 from ..models import *
 from django.http import HttpResponse   
 from django.contrib.auth.decorators import login_required
+from .isAllowed import isAllowed
 
 
 @login_required(login_url="/login")
 def stateCheckFilter(request):
 
+    if not (isAllowed(request.user, 1)):
+        return redirect("/home")
+    
     studentCodeSt = request.session.get('studentCode')
     applicant = Applicant.objects.get(studentCode = studentCodeSt)
 

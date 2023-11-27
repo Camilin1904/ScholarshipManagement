@@ -2,9 +2,16 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from ..forms import *
 from ..models import *
-from django.http import HttpResponse        
+from django.http import HttpResponse     
+from django.contrib.auth.decorators import login_required
+from .isAllowed import isAllowed
 
+
+@login_required(login_url="/login")   
 def filterApplicants(request):
+
+    if not (isAllowed(request.user, 1)):
+        return redirect("/home")
 
     applicants= None
     applicants = Applicant.objects.filter(deleted = False)

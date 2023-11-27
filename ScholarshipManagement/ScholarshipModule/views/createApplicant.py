@@ -5,11 +5,14 @@ from ..models import *
 from django.http import HttpResponse
 from datetime import date
 from django.contrib.auth.decorators import login_required
+from .isAllowed import isAllowed
 
 
 @login_required(login_url="/login")
 def createApplicants(request):
-
+    
+    if not (isAllowed(request.user, 1)):
+        return redirect("/home")
 
     if request.method == 'GET':
         return render(request, './HTML/createApplicant.html', {
