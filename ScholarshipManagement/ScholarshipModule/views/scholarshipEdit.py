@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 #base screen and path chooser
 @login_required(login_url="/login")
 def scholarshipEdit(request):
-    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,1)):
+    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,2)):
         #scholarship to be edited
         idScholarship = request.session['sch']
         scholarship = Scholarships.objects.get(ID=idScholarship)

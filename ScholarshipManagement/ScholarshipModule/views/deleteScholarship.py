@@ -9,7 +9,7 @@ import ScholarshipModule.views.isAllowed as allow
 #marks a scholarship as deleted
 @login_required(login_url="/login")
 def deleteScholarship(request):
-    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,1)):
+    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,2)):
         sch = request.session["sch"]
         
         Scholarships.objects.filter(ID=sch).update(isDeleted = True)

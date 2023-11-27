@@ -11,7 +11,7 @@ import ScholarshipModule.views.isAllowed as allow
 #also decides what screen to display if not the first one
 @login_required(login_url="/login")
 def createScholarshipsSC1(request):
-    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,1)):
+    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,2)):
         if request.method == 'GET':
             data  = request.session.get('form1',None)
             form = CreateScholarshipForm

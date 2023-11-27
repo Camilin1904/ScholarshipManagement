@@ -8,7 +8,7 @@ import ScholarshipModule.views.isAllowed as allow
 #Shows the user all the information of a scholarship
 @login_required(login_url="/login")
 def scholarshipView(request):
-    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,1)):
+    if(allow.isAllowed(request.user,0) or allow.isAllowed(request.user,2)):
         #fetches the scholarship
         idScholarship = request.session.get("sch")
         scholarship = Scholarships.objects.filter(ID=idScholarship).first()
